@@ -3,6 +3,23 @@ entries:
   ledger:
   - apiVersion: v2
     appVersion: v1.5.0
+    created: "2022-07-07T14:11:43.939551474Z"
+    description: Formance Ledger Helm Chart
+    digest: ab56bad62f8702491438bd5765957477dc147c722e5cd40b13715c5f4ca4d82d
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: ledger
+    sources:
+    - https://github.com/numary/ledger
+    type: application
+    urls:
+    - https://numary.github.io/helm/ledger-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v1.5.0
     created: "2022-07-07T11:30:51.497869745Z"
     description: Formance Ledger Helm Chart
     digest: 450068d57303959008e6e7bda68d629f7f34c9ac48c0e066f81e171215829728
@@ -18,4 +35,4 @@ entries:
     urls:
     - https://numary.github.io/helm/ledger-0.1.1.tgz
     version: 0.1.1
-generated: "2022-07-07T11:30:51.496234154Z"
+generated: "2022-07-07T14:11:43.938969346Z"
