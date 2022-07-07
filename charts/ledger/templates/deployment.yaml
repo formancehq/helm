@@ -61,8 +61,16 @@ spec:
               value: {{ .Values.ledger.storage.driver }}
             - name: NUMARY_STORAGE_POSTGRES_CONN_STRING
               value: {{ .Values.ledger.storage.connString }}
+            - name: NUMARY_LOCK_STRATEGY
+              value: {{ .Values.ledger.lock.strategy }}
+            - name: NUMARY_LOCK_STRATEGY_REDIS_TLS_ENABLED
+              value: {{ .Values.ledger.lock.tls }}
+            - name: NUMARY_LOCK_STRATEGY_REDIS_URL
+              value: {{ .Values.ledger.lock.connString }}
             - name: NUMARY_SERVER_HTTP_BIND_ADDRESS
               value: {{ .Values.ledger.httpBindAddr }}
+            - name: NUMARY_AUTH_BASIC_CREDENTIALS
+              value: {{ .Values.ledger.login }}
           ports:
             - name: ledger
               containerPort: 3068

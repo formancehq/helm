@@ -13,9 +13,14 @@ image:
 ledger:
   httpBindAddr: "0.0.0.0:3068"
 #  UIHttpBindAddr: "0.0.0.0:3078"
+  login: "ledger:ledger"
   storage:
     driver: "postgres"
     connString: "postgresql://ledger:ledger@postgres/ledger"
+  lock:
+    strategy: "redis" # memory or redis
+    tls: false
+    connString: "redis://redis:6379/0"
 
 imagePullSecrets: []
 nameOverride: ""
