@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: ledger-ui
+      targetPort: ledger
       protocol: TCP
-      name: ledger-ui
+      name: ledger
   selector:
     {{- include "ledger.selectorLabels" . | nindent 4 }}

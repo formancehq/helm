@@ -28,29 +28,29 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: "{{ .Chart.Name }}-ui"
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["numary", "ui"]
-          ports:
-            - name: ledger-ui
-              containerPort: 3078
-              protocol: TCP
-          env:
-            - name: NUMARY_UI_HTTP_BIND_ADDRESS
-              value: {{ .Values.ledger.UIHttpBindAddr }}
-          livenessProbe:
-            httpGet:
-              path: /
-              port: ledger-ui
-          readinessProbe:
-            httpGet:
-              path: /
-              port: ledger-ui
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+{{/*        - name: "{{ .Chart.Name }}-ui"*/}}
+{{/*          securityContext:*/}}
+{{/*            {{- toYaml .Values.securityContext | nindent 12 }}*/}}
+{{/*          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"*/}}
+{{/*          imagePullPolicy: {{ .Values.image.pullPolicy }}*/}}
+{{/*          command: ["numary", "ui"]*/}}
+{{/*          ports:*/}}
+{{/*            - name: ledger-ui*/}}
+{{/*              containerPort: 3078*/}}
+{{/*              protocol: TCP*/}}
+{{/*          env:*/}}
+{{/*            - name: NUMARY_UI_HTTP_BIND_ADDRESS*/}}
+{{/*              value: {{ .Values.ledger.UIHttpBindAddr }}*/}}
+{{/*          livenessProbe:*/}}
+{{/*            httpGet:*/}}
+{{/*              path: /*/}}
+{{/*              port: ledger-ui*/}}
+{{/*          readinessProbe:*/}}
+{{/*            httpGet:*/}}
+{{/*              path: /*/}}
+{{/*              port: ledger-ui*/}}
+{{/*          resources:*/}}
+{{/*            {{- toYaml .Values.resources | nindent 12 }}*/}}
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -69,11 +69,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /_info
               port: ledger
           readinessProbe:
             httpGet:
-              path: /
+              path: /_info
               port: ledger
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

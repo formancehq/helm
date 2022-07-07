@@ -12,7 +12,7 @@ image:
 
 ledger:
   httpBindAddr: "0.0.0.0:3068"
-  UIHttpBindAddr: "0.0.0.0:3078"
+#  UIHttpBindAddr: "0.0.0.0:3078"
   storage:
     driver: "postgres"
     connString: "postgresql://ledger:ledger@postgres/ledger"

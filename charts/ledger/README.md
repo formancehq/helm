@@ -37,7 +37,6 @@ Formance Ledger Helm Chart
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
-| ledger.UIHttpBindAddr | string | `"0.0.0.0:3078"` |  |
 | ledger.httpBindAddr | string | `"0.0.0.0:3068"` |  |
 | ledger.storage.connString | string | `"postgresql://ledger:ledger@postgres/ledger"` |  |
 | ledger.storage.driver | string | `"postgres"` |  |
