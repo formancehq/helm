@@ -2,14 +2,14 @@
 
 ## How to use Helm charts
 
-Adding the Numary repository:
+Adding the Formance repository:
 ```
-helm repo add numary https://numary.github.io/helm/
+helm repo add formance https://numary.github.io/helm/
 ```
 
 Installing the ledger:
 ```
-helm install ledger numary/ledger
+helm install ledger formance/ledger
 ```
 
 **The Formance Helm chart did not provides any dependencies. For developement purpose only, you can install PostgreSQL database using this command:**
