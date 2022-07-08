@@ -1,4 +1,23 @@
-# Formance Helm charts
+# Formance Helm charts 
+
+## How to use Helm charts
+
+Adding the Numary repository:
+```
+helm repo add numary https://numary.github.io/helm/
+```
+
+Installing the ledger:
+```
+helm install ledger numary/ledger
+```
+
+**The Formance Helm chart did not provides any dependencies. For developement purpose only, you can install PostgreSQL database using this command:**
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami 
+helm install postgres bitnami/postgresql --set global.postgresql.auth.username=ledger --set global.postgresql.auth.password=ledger --set global.postgresql.auth.database=ledger
+```
+
 
 ## Installation
 helm-docs can be installed using homebrew:
