@@ -28,29 +28,6 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-{{/*        - name: "{{ .Chart.Name }}-ui"*/}}
-{{/*          securityContext:*/}}
-{{/*            {{- toYaml .Values.securityContext | nindent 12 }}*/}}
-{{/*          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"*/}}
-{{/*          imagePullPolicy: {{ .Values.image.pullPolicy }}*/}}
-{{/*          command: ["numary", "ui"]*/}}
-{{/*          ports:*/}}
-{{/*            - name: ledger-ui*/}}
-{{/*              containerPort: 3078*/}}
-{{/*              protocol: TCP*/}}
-{{/*          env:*/}}
-{{/*            - name: NUMARY_UI_HTTP_BIND_ADDRESS*/}}
-{{/*              value: {{ .Values.ledger.UIHttpBindAddr }}*/}}
-{{/*          livenessProbe:*/}}
-{{/*            httpGet:*/}}
-{{/*              path: /*/}}
-{{/*              port: ledger-ui*/}}
-{{/*          readinessProbe:*/}}
-{{/*            httpGet:*/}}
-{{/*              path: /*/}}
-{{/*              port: ledger-ui*/}}
-{{/*          resources:*/}}
-{{/*            {{- toYaml .Values.resources | nindent 12 }}*/}}
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -58,19 +35,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: NUMARY_STORAGE_DRIVER
-              value: {{ .Values.ledger.storage.driver }}
+              value: "{{ .Values.ledger.storage.driver }}"
             - name: NUMARY_STORAGE_POSTGRES_CONN_STRING
-              value: {{ .Values.ledger.storage.connString }}
+              value: "{{ .Values.ledger.storage.connString }}"
             - name: NUMARY_LOCK_STRATEGY
-              value: {{ .Values.ledger.lock.strategy }}
+              value: "{{ .Values.ledger.lock.strategy }}"
             - name: NUMARY_LOCK_STRATEGY_REDIS_TLS_ENABLED
-              value: {{ .Values.ledger.lock.tls }}
+              value: "{{ .Values.ledger.lock.tls }}"
             - name: NUMARY_LOCK_STRATEGY_REDIS_URL
-              value: {{ .Values.ledger.lock.connString }}
+              value: "{{ .Values.ledger.lock.connString }}"
             - name: NUMARY_SERVER_HTTP_BIND_ADDRESS
-              value: {{ .Values.ledger.httpBindAddr }}
+              value: "{{ .Values.ledger.httpBindAddr }}"
             - name: NUMARY_AUTH_BASIC_CREDENTIALS
-              value: {{ .Values.ledger.login }}
+              value: "{{ .Values.ledger.login }}"
           ports:
             - name: ledger
               containerPort: 3068
