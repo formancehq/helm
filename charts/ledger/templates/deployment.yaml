@@ -35,19 +35,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: NUMARY_STORAGE_DRIVER
-              value: "{{ .Values.ledger.storage.driver }}"
+              value: {{ .Values.ledger.storage.driver | quote }}
             - name: NUMARY_STORAGE_POSTGRES_CONN_STRING
-              value: "{{ .Values.ledger.storage.connString }}"
+              value: {{ .Values.ledger.storage.connString | quote }}
             - name: NUMARY_LOCK_STRATEGY
-              value: "{{ .Values.ledger.lock.strategy }}"
+              value: {{ .Values.ledger.lock.strategy | quote }}
             - name: NUMARY_LOCK_STRATEGY_REDIS_TLS_ENABLED
-              value: "{{ .Values.ledger.lock.tls }}"
+              value: {{ .Values.ledger.lock.tls | quote }}
             - name: NUMARY_LOCK_STRATEGY_REDIS_URL
-              value: "{{ .Values.ledger.lock.connString }}"
+              value: {{ .Values.ledger.lock.connString | quote }}
             - name: NUMARY_SERVER_HTTP_BIND_ADDRESS
-              value: "{{ .Values.ledger.httpBindAddr }}"
+              value: {{ .Values.ledger.httpBindAddr | quote }}
             - name: NUMARY_AUTH_BASIC_CREDENTIALS
-              value: "{{ .Values.ledger.login }}"
+              value: {{ .Values.ledger.login | quote }}
           ports:
             - name: ledger
               containerPort: 3068
