@@ -48,14 +48,6 @@ spec:
             - name: payments
               containerPort: 8080
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /_info
-              port: payments
-          readinessProbe:
-            httpGet:
-              path: /_info
-              port: payments
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
