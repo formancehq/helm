@@ -1,11 +1,27 @@
 apiVersion: v1
 entries:
+  gateway:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-08-16T09:55:03.739614986Z"
+    dependencies:
+    - condition: traefik.enabled
+      name: traefik
+      repository: https://helm.traefik.io/traefik
+      version: 10.24.0
+    description: A Helm chart for Kubernetes
+    digest: a1ab50d5035b100a6cee87ded9292753f4e441eb16c7658522f35f6470d68baa
+    name: gateway
+    type: application
+    urls:
+    - https://numary.github.io/helm/gateway-0.1.0.tgz
+    version: 0.1.0
   ledger:
   - apiVersion: v2
     appVersion: v1.5.0
-    created: "2022-07-28T21:05:56.780280935Z"
+    created: "2022-08-16T09:55:03.740177382Z"
     description: Formance Ledger Helm Chart
-    digest: 78e763071495db513f8b87ef62aebb3206778074153dacedeb7b617c97cc8e8f
+    digest: 12109e8b320acffdfd4045caa9ed5c253489532c03d3e6ffd7a3434bf9229a2f
     home: https://formance.com
     icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
     maintainers:
@@ -69,4 +85,4 @@ entries:
     urls:
     - https://numary.github.io/helm/ledger-0.1.1.tgz
     version: 0.1.1
-generated: "2022-07-28T21:05:56.779119827Z"
+generated: "2022-08-16T09:55:03.736740007Z"
