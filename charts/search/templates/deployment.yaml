@@ -33,6 +33,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: OPEN_SEARCH_SCHEME
+            value: "{{ .Values.search.opensearch.scheme }}"
+          - name: OPEN_SEARCH_SERVICE
+            value: "{{ .Values.search.opensearch.service }}"
+          - name: ES_INDICES
+            value: "{{ .Values.search.esIndices }}"
           ports:
             - name: search
               containerPort: 8080

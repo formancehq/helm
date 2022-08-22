@@ -10,8 +10,25 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v0.1.0"
 
+ingester:
+  image:
+    repository: ghcr.io/numary/search-ingester
+    pullPolicy: IfNotPresent
+    tag: "v0.1.0"
+  kafka:
+    address: "kafka:9092"
+    topic: "ledger,payments"
+    version: "3.2.0"
+    consumerGroup: "search-ingester"
+  opensearch:
+    url: "http://opensearch:9200"
+    index: "formance"
+    tlsEnabled: "true"
+    tlsSkipCertVerify: "true"
+    basicAuthEnabled: "true"
+
 search:
-  openSearch:
+  opensearch:
     scheme: http
     service: opensearch:9200
   esIndices: formance

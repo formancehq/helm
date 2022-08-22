@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "search.fullname" . }}-ingester"
+  labels:
+    {{- include "search.labels" . | nindent 4 }}
+spec:
+  containers:
+  - name: "{{ include "search.fullname" . }}-ingester"
+    image: "{{ .Values.ingester.image.repository }}:{{ .Values.ingester.image.tag | default .Chart.AppVersion }}"
+    imagePullPolicy: {{ .Values.ingester.image.pullPolicy }}
+    env:
+    - name: KAFKA_TOPIC
+      value: "{{ .Values.ingester.kafka.topic }}"
+    - name: KAFKA_ADDRESS
+      value: "{{ .Values.ingester.kafka.address }}"
+    - name: KAFKA_VERSION
+      value: "{{ .Values.ingester.kafka.version }}"
+    - name: KAFKA_CONSUMER_GROUP
+      value: "{{ .Values.ingester.kafka.consumerGroup }}"
+    - name: OPENSEARCH_URL
+      value: "{{ .Values.ingester.opensearch.url }}"
+    - name: OPENSEARCH_INDEX
+      value: "{{ .Values.ingester.opensearch.index }}"
+    - name: OPENSEARCH_TLS_ENABLED
+      value: "{{ .Values.ingester.opensearch.tlsEnabled }}"
+    - name: OPENSEARCH_TLS_SKIP_CERT_VERIFY
+      value: "{{ .Values.ingester.opensearch.tlsSkipCertVerify }}"
+    - name: OPENSEARCH_BASIC_AUTH_ENABLED
+      value: "{{ .Values.ingester.opensearch.basicAuthEnabled }}"
+  initContainers:
+  - name: wait-for-search
+    image: bitnami/kubectl
+    args:
+      - wait
+      - "deployment/{{ include "search.fullname" . }}"
+      - --for=condition=ready
+      - --timeout=120s
