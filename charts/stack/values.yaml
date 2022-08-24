@@ -1,3 +1,4 @@
+# Formance Stack
 gateway:
   enabled: true
 control:
@@ -9,8 +10,22 @@ payments:
 search:
   enabled: true
 
-postgresql:
-  enabled: false
-
+# Enable by tags
 tags: 
   databases: false
+  tools: false
+
+# Databases
+postgresql:
+  enabled: false
+mongodb:
+  enabled: false
+
+# Others tools
+redpanda:
+  enabled: false
+opensearch:
+  enabled: false
+swagger-ui:
+  enabled: false
+

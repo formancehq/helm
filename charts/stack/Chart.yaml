@@ -34,3 +34,29 @@ dependencies:
     condition: postgresql.enabled, global.postgresql.enabled
     tags: 
       - databases
+  - name: mongodb
+    repository: https://charts.bitnami.com/
+    version: "13.1.0"
+    condition: mongodb.enabled, global.mongodb.enabled
+    tags:
+      - "databases"
+
+  # Others tools
+  - name: redpanda
+    version: "v22.2.2"
+    repository: "https://charts.vectorized.io/"
+    condition: redpanda.enabled, global.redpanda.enabled
+    tags:
+      - "tools"
+  - name: opensearch
+    repository: "https://opensearch-project.github.io/helm-charts/"
+    version: "1.0.7"
+    condition: opensearch.enabled, global.opensearch.enabled
+    tags:
+      - "tools"
+  - name: swagger-ui
+    repository: "https://cetic.github.io/helm-charts"
+    version: "v0.3.4"
+    condition: swagger-ui.enabled, global.swagger-ui.enabled
+    tags:
+      - "tools"
