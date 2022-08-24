@@ -1,0 +1,16 @@
+gateway:
+  enabled: true
+control:
+  enabled: true
+ledger:
+  enabled: true
+payments:
+  enabled: true
+search:
+  enabled: true
+
+postgresql:
+  enabled: false
+
+tags: 
+  databases: false
