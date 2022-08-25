@@ -1,20 +1,8 @@
-# payments
+# control
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.1.0](https://img.shields.io/badge/AppVersion-v0.1.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
 
-Formance Payments Helm Chart
-
-**Homepage:** <https://formance.com>
-
-## Maintainers
-
-| Name | Email | Url |
-| ---- | ------ | --- |
-| Formance Team | <support@formance.com> |  |
-
-## Source Code
-
-* <https://github.com/numary/payments>
+A Helm chart for Kubernetes
 
 ## Values
 
@@ -25,10 +13,12 @@ Formance Payments Helm Chart
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| control.apiUrlBack | string | `"http://proxy/api"` |  |
+| control.apiUrlFront | string | `"http://localhost/api"` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/numary/payments"` |  |
-| image.tag | string | `"v0.1.0"` |  |
+| image.repository | string | `"ghcr.io/numary/control"` |  |
+| image.tag | string | `"563c0a7b543ae628247cd9ca2ca285f96d001285"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |
@@ -39,10 +29,6 @@ Formance Payments Helm Chart
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| payments.kafka.broker | string | `"kafka:9092"` |  |
-| payments.kafka.enabled | bool | `false` |  |
-| payments.kafka.topicMapping | string | `"*:payments"` |  |
-| payments.mongodbURI | string | `"mongodb://user:password@mongodb:27017"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` |  |

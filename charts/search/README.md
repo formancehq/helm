@@ -1,20 +1,8 @@
-# payments
+# search
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.1.0](https://img.shields.io/badge/AppVersion-v0.1.0-informational?style=flat-square)
 
-Formance Payments Helm Chart
-
-**Homepage:** <https://formance.com>
-
-## Maintainers
-
-| Name | Email | Url |
-| ---- | ------ | --- |
-| Formance Team | <support@formance.com> |  |
-
-## Source Code
-
-* <https://github.com/numary/payments>
+A Helm chart for Kubernetes
 
 ## Values
 
@@ -27,9 +15,21 @@ Formance Payments Helm Chart
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/numary/payments"` |  |
+| image.repository | string | `"ghcr.io/numary/search"` |  |
 | image.tag | string | `"v0.1.0"` |  |
 | imagePullSecrets | list | `[]` |  |
+| ingester.image.pullPolicy | string | `"IfNotPresent"` |  |
+| ingester.image.repository | string | `"ghcr.io/numary/search-ingester"` |  |
+| ingester.image.tag | string | `"v0.1.0"` |  |
+| ingester.kafka.address | string | `"kafka:9092"` |  |
+| ingester.kafka.consumerGroup | string | `"search-ingester"` |  |
+| ingester.kafka.topic | string | `"ledger,payments"` |  |
+| ingester.kafka.version | string | `"3.2.0"` |  |
+| ingester.opensearch.basicAuthEnabled | string | `"true"` |  |
+| ingester.opensearch.index | string | `"formance"` |  |
+| ingester.opensearch.tlsEnabled | string | `"true"` |  |
+| ingester.opensearch.tlsSkipCertVerify | string | `"true"` |  |
+| ingester.opensearch.url | string | `"http://opensearch:9200"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
@@ -39,14 +39,13 @@ Formance Payments Helm Chart
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| payments.kafka.broker | string | `"kafka:9092"` |  |
-| payments.kafka.enabled | bool | `false` |  |
-| payments.kafka.topicMapping | string | `"*:payments"` |  |
-| payments.mongodbURI | string | `"mongodb://user:password@mongodb:27017"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
+| search.esIndices | string | `"formance"` |  |
+| search.opensearch.scheme | string | `"http"` |  |
+| search.opensearch.service | string | `"opensearch:9200"` |  |
 | securityContext | object | `{}` |  |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |

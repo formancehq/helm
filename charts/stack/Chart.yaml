@@ -39,24 +39,23 @@ dependencies:
     version: "13.1.0"
     condition: mongodb.enabled, global.mongodb.enabled
     tags:
-      - "databases"
-
-  # Others tools
+      - databases
   - name: redpanda
     version: "v22.2.2"
     repository: "https://charts.vectorized.io/"
     condition: redpanda.enabled, global.redpanda.enabled
     tags:
-      - "tools"
+      - databases
   - name: opensearch
     repository: "https://opensearch-project.github.io/helm-charts/"
     version: "1.0.7"
     condition: opensearch.enabled, global.opensearch.enabled
     tags:
-      - "tools"
+      - databases
+  # Others tools
   - name: swagger-ui
     repository: "https://cetic.github.io/helm-charts"
     version: "v0.3.4"
     condition: swagger-ui.enabled, global.swagger-ui.enabled
     tags:
-      - "tools"
+      - tools
