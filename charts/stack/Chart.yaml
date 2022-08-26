@@ -39,7 +39,17 @@ dependencies:
     version: "13.1.0"
     condition: mongodb.enabled, global.mongodb.enabled
     tags:
+<<<<<<< HEAD
       - databases
+=======
+      - "databases"
+  - name: redis
+    repository: https://charts.bitnami.com/bitnami
+    version: "17.1.0"
+    condition: redis.enabled, global.redis.enabled
+
+  # Others tools
+>>>>>>> 9ed1293 (feat(stack): add formance oss values)
   - name: redpanda
     version: "v22.2.2"
     repository: "https://charts.vectorized.io/"

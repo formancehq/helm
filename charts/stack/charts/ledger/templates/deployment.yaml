@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ledger.fullname" . }}
+  labels:
+    {{- include "ledger.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "ledger.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ledger.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ledger.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: NUMARY_STORAGE_DRIVER
+              value: {{ .Values.ledger.storage.driver | quote }}
+            - name: NUMARY_STORAGE_POSTGRES_CONN_STRING
+              value: {{ .Values.ledger.storage.connString | quote }}
+            - name: NUMARY_LOCK_STRATEGY
+              value: {{ .Values.ledger.lock.strategy | quote }}
+            - name: NUMARY_LOCK_STRATEGY_REDIS_TLS_ENABLED
+              value: {{ .Values.ledger.lock.tls | quote }}
+            - name: NUMARY_LOCK_STRATEGY_REDIS_URL
+              value: {{ .Values.ledger.lock.connString | quote }}
+            - name: NUMARY_SERVER_HTTP_BIND_ADDRESS
+              value: {{ .Values.ledger.httpBindAddr | quote }}
+            - name: NUMARY_AUTH_BASIC_CREDENTIALS
+              value: {{ .Values.ledger.login | quote }}
+          ports:
+            - name: ledger
+              containerPort: 3068
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /_info
+              port: ledger
+          readinessProbe:
+            httpGet:
+              path: /_info
+              port: ledger
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

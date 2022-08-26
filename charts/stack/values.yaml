@@ -1,14 +1,56 @@
 # Formance Stack
 gateway:
   enabled: true
+
 control:
   enabled: true
+  control:
+    apiUrlBack: "http://proxy/api"
+    apiUrlFront: "http://localhost/api"
+
 ledger:
   enabled: true
+  ledger:
+    httpBindAddr: "0.0.0.0:3068"
+  #  UIHttpBindAddr: "0.0.0.0:3078"
+    login: "ledger:ledger"
+    storage:
+      driver: "postgres"
+      connString: "postgresql://ledger:ledger@postgres/ledger"
+    lock:
+      strategy: "memory" # memory or redis
+      tls: false
+      #connString: "redis://redis:6379/0"
+
 payments:
   enabled: true
+  payments:
+    mongodbURI: "mongodb://user:password@mongodb:27017"
+    kafka:
+      enabled: false
+      broker: redpanda:29092
+      topicMapping: "*:payments"
+
 search:
   enabled: true
+  ingester:
+    kafka:
+      address: "redpanda:29092"
+      topic: "ledger,payments"
+      version: "3.2.0"
+      consumerGroup: "search-ingester"
+    opensearch:
+      url: "http://opensearch:9200"
+      index: "formance"
+      tlsEnabled: "true"
+      tlsSkipCertVerify: "true"
+      basicAuthEnabled: "true"
+    search:
+      opensearch:
+        scheme: http
+        service: opensearch:9200
+      esIndices: formance
+
 
 # Enable by tags
 tags: 
@@ -19,6 +61,8 @@ tags:
 postgresql:
   enabled: false
 mongodb:
+  enabled: false
+redis:
   enabled: false
 
 # Others tools

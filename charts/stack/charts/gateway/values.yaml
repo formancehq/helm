@@ -1,0 +1,42 @@
+# Default values for gateway.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+traefik:
+  enabled: true
+  deployment:
+    providers:
+      kubernetesCRD:
+        enabled: true
+        ingressClass: "formance-gateway"
+      kubernetesIngress:
+        enabled: true
+        ingressClass: "formance-gateway"
+  service:
+    type: LoadBalancer
+  metrics:
+    prometheus:
+      entryPoint: metrics
+      addRoutersLabels: true
+  additionalArguments:
+    - "--entryPoints.websecure.forwardedHeaders.insecure=true"
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 100
+    metrics:
+      - type: Resource
+        resource:
+          name: memory
+          targetAverageUtilization: 60
+      - type: Resource
+        resource:
+          name: cpu
+          targetAverageUtilization: 60
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "250Mi"
+    limits:
+      cpu: "600m"
+      memory: "300Mi"
