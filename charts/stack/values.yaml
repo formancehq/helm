@@ -50,30 +50,3 @@ search:
         scheme: http
         service: opensearch:9200
       esIndices: formance
-
-redis:
-  enabled: true
-  architecture: standalone
-  auth:
-    enabled: false
-
-opensearch:
-  enabled: true
-  replicas: 1
-
-cert-manager:
-  enabled: true
-  installCRDs: true
-
-postgresql:
-  global:
-    postgresql:
-      auth:
-        username: formance
-        password: formance
-        database: ledger
-        postgresPassword: formance
-
-mongodb:
-  auth:
-    rootPassword: formance
