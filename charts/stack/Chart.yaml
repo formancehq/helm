@@ -5,67 +5,27 @@ type: application
 version: 0.1.0
 
 dependencies:
-  # Formance Stack
   - name: gateway
     version: "v0.1.0"
     repository: "https://numary.github.io/helm/"
+    #repository: file://../gateway/
     condition: gateway.enabled, global.gateway.enabled
   - name: control
     version: "v0.1.0"
-    repository: "https://numary.github.io/helm/"
+    #repository: "https://numary.github.io/helm/"
+    repository: file://../control/
     condition: control.enabled, global.control.enabled
   - name: ledger
-    version: "v0.1.0"
+    version: "v0.1.1"
     repository: "https://numary.github.io/helm/"
     condition: ledger.enabled, global.ledger.enabled
   - name: payments
     version: "v0.1.0"
-    repository: "https://numary.github.io/helm/"
+    #repository: "https://numary.github.io/helm/"
+    repository: file://../payments/
     condition: payments.enabled, global.payments.enabled
   - name: search
     version: "v0.1.0"
-    repository: "https://numary.github.io/helm/"
+    #repository: "https://numary.github.io/helm/"
+    repository: file://../search/
     condition: search.enabled, global.search.enabled
-  
-  # Databases
-  - name: postgresql
-    version: "11.8.0"
-    repository: https://charts.bitnami.com/bitnami
-    condition: postgresql.enabled, global.postgresql.enabled
-    tags: 
-      - databases
-  - name: mongodb
-    repository: https://charts.bitnami.com/
-    version: "13.1.0"
-    condition: mongodb.enabled, global.mongodb.enabled
-    tags:
-<<<<<<< HEAD
-      - databases
-=======
-      - "databases"
-  - name: redis
-    repository: https://charts.bitnami.com/bitnami
-    version: "17.1.0"
-    condition: redis.enabled, global.redis.enabled
-
-  # Others tools
->>>>>>> 9ed1293 (feat(stack): add formance oss values)
-  - name: redpanda
-    version: "v22.2.2"
-    repository: "https://charts.vectorized.io/"
-    condition: redpanda.enabled, global.redpanda.enabled
-    tags:
-      - databases
-  - name: opensearch
-    repository: "https://opensearch-project.github.io/helm-charts/"
-    version: "1.0.7"
-    condition: opensearch.enabled, global.opensearch.enabled
-    tags:
-      - databases
-  # Others tools
-  - name: swagger-ui
-    repository: "https://cetic.github.io/helm-charts"
-    version: "v0.3.4"
-    condition: swagger-ui.enabled, global.swagger-ui.enabled
-    tags:
-      - tools
