@@ -25,7 +25,7 @@ ledger:
 payments:
   enabled: true
   payments:
-    mongodbURI: "mongodb://user:password@mongodb:27017"
+    mongodbURI: "mongodb://root:changeme@mongodb:27017"
     kafka:
       enabled: false
       broker: redpanda:29092
