@@ -29,8 +29,6 @@ dependencies:
     #repository: "https://numary.github.io/helm/"
     repository: file://../search/
     condition: search.enabled, global.search.enabled
-<<<<<<< HEAD
-=======
   
   # Databases
   - name: postgresql
@@ -71,4 +69,3 @@ dependencies:
     condition: swagger-ui.enabled, global.swagger-ui.enabled
     tags:
       - "tools"
->>>>>>> f8a0ebc (feat(stack): add others tools values)
