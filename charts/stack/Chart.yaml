@@ -8,12 +8,10 @@ dependencies:
   - name: gateway
     version: "v0.1.0"
     repository: "https://numary.github.io/helm/"
-    #repository: file://../gateway/
     condition: gateway.enabled, global.gateway.enabled
   - name: control
     version: "v0.1.0"
-    #repository: "https://numary.github.io/helm/"
-    repository: file://../control/
+    repository: "https://numary.github.io/helm/"
     condition: control.enabled, global.control.enabled
   - name: ledger
     version: "v0.1.1"
@@ -21,11 +19,9 @@ dependencies:
     condition: ledger.enabled, global.ledger.enabled
   - name: payments
     version: "v0.1.0"
-    #repository: "https://numary.github.io/helm/"
-    repository: file://../payments/
+    repository: "https://numary.github.io/helm/"
     condition: payments.enabled, global.payments.enabled
   - name: search
     version: "v0.1.0"
-    #repository: "https://numary.github.io/helm/"
-    repository: file://../search/
+    repository: "https://numary.github.io/helm/"
     condition: search.enabled, global.search.enabled
