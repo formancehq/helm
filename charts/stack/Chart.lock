@@ -14,5 +14,23 @@ dependencies:
 - name: search
   repository: file://../search/
   version: 0.1.0
-digest: sha256:ac3df1ae9497e0c3be5f3d1f71d2010a754489232ab452bdfacf4d2b648d3484
-generated: "2022-08-29T13:54:40.407219+02:00"
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 11.8.0
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 13.1.0
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 17.1.0
+- name: redpanda-operator
+  repository: https://charts.vectorized.io/
+  version: v22.2.2
+- name: opensearch
+  repository: https://opensearch-project.github.io/helm-charts/
+  version: 1.0.7
+- name: cert-manager
+  repository: https://charts.jetstack.io
+  version: v1.9.1
+digest: sha256:efd50acfa78973a5465c5da2a25f51902c5f2b8ba922caf261fb46f9391f2e82
+generated: "2022-08-29T14:24:53.59777+02:00"

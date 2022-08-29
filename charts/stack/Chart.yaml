@@ -29,14 +29,14 @@ dependencies:
     #repository: "https://numary.github.io/helm/"
     repository: file://../search/
     condition: search.enabled, global.search.enabled
-  
+
   # Databases
   - name: postgresql
     version: "11.8.0"
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled, global.postgresql.enabled
-    tags: 
-      - databases
+    tags:
+      - "databases"
   - name: mongodb
     repository: https://charts.bitnami.com/bitnami
     version: "13.1.0"
@@ -51,7 +51,7 @@ dependencies:
       - "databases"
 
   # Others tools
-  - name: redpanda
+  - name: redpanda-operator
     version: "v22.2.2"
     repository: "https://charts.vectorized.io/"
     condition: redpanda.enabled, global.redpanda.enabled
@@ -63,9 +63,9 @@ dependencies:
     condition: opensearch.enabled, global.opensearch.enabled
     tags:
       - "tools"
-  - name: swagger-ui
-    repository: "https://cetic.github.io/helm-charts"
-    version: "v0.3.4"
-    condition: swagger-ui.enabled, global.swagger-ui.enabled
+  - name: cert-manager
+    version: 1.9.1
+    repository: https://charts.jetstack.io
+    condition: cert-manager.enabled
     tags:
       - "tools"
