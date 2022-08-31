@@ -1,0 +1,27 @@
+apiVersion: v2
+name: stack
+description: Formance Stack Helm chart
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: gateway
+    version: "v0.1.0"
+    repository: "https://numary.github.io/helm/"
+    condition: gateway.enabled, global.gateway.enabled
+  - name: control
+    version: "v0.1.0"
+    repository: "https://numary.github.io/helm/"
+    condition: control.enabled, global.control.enabled
+  - name: ledger
+    version: "v0.1.1"
+    repository: "https://numary.github.io/helm/"
+    condition: ledger.enabled, global.ledger.enabled
+  - name: payments
+    version: "v0.1.0"
+    repository: "https://numary.github.io/helm/"
+    condition: payments.enabled, global.payments.enabled
+  - name: search
+    version: "v0.1.0"
+    repository: "https://numary.github.io/helm/"
+    condition: search.enabled, global.search.enabled
