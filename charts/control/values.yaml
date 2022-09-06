@@ -8,7 +8,7 @@ image:
   repository: ghcr.io/numary/control
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "563c0a7b543ae628247cd9ca2ca285f96d001285"
+  tag: ""
 
 control:
   apiUrlBack: "http://proxy/api"
