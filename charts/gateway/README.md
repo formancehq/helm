@@ -1,19 +1,42 @@
 # gateway
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.24.0](https://img.shields.io/badge/AppVersion-10.24.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
+
+**Homepage:** <https://formance.com>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Formance Team | <support@formance.com> |  |
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.jetstack.io | cert-manager | v1.7.1 |
 | https://helm.traefik.io/traefik | traefik | 10.24.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| cert-manager.clusterResourceNamespace | string | `"gateway"` |  |
+| cert-manager.enabled | bool | `true` |  |
+| cert-manager.ingressShim.defaultIssuerKind | string | `"ClusterIssuer"` |  |
+| cert-manager.ingressShim.defaultIssuerName | string | `"r53-letsencrypt-prod"` |  |
+| cert-manager.installCRDs | bool | `true` |  |
+| cert-manager.resources.requests.cpu | string | `"100m"` |  |
+| cert-manager.resources.requests.memory | string | `"320Mi"` |  |
+| cert-manager.strategy.rollingUpdate.maxSurge | int | `0` |  |
+| cert-manager.strategy.rollingUpdate.maxUnavailable | int | `1` |  |
+| cert-manager.strategy.type | string | `"RollingUpdate"` |  |
+| dnsZones[0] | string | `"numary.cloud"` |  |
+| dnsZones[1] | string | `"formance.cloud"` |  |
+| dnsZones[2] | string | `"formance.dev"` |  |
+| email | string | `"support@formance.com"` |  |
 | traefik.additionalArguments[0] | string | `"--entryPoints.websecure.forwardedHeaders.insecure=true"` |  |
 | traefik.autoscaling.enabled | bool | `true` |  |
 | traefik.autoscaling.maxReplicas | int | `100` |  |

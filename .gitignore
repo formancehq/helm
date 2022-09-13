@@ -1,3 +1,2 @@
 ./dist/
-./charts/ledger/charts
-./charts/gateway/charts
+*.tgz

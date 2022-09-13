@@ -2,6 +2,29 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+email: support@formance.com
+dnsZones:
+  - "numary.cloud"
+  - "formance.cloud"
+  - "formance.dev"
+
+cert-manager:
+  enabled: true
+  installCRDs: true
+  clusterResourceNamespace: gateway
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 320Mi
+  ingressShim:
+    defaultIssuerName: "r53-letsencrypt-prod"
+    defaultIssuerKind: "ClusterIssuer"
+
 traefik:
   enabled: true
   deployment:

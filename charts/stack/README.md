@@ -8,17 +8,11 @@ Formance Stack Helm chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../control/ | control | v0.1.0 |
-| file://../payments/ | payments | v0.1.0 |
-| file://../search/ | search | v0.1.0 |
-| https://cetic.github.io/helm-charts | swagger-ui | v0.3.4 |
-| https://charts.bitnami.com/bitnami | mongodb | 13.1.0 |
-| https://charts.bitnami.com/bitnami | postgresql | 11.8.0 |
-| https://charts.bitnami.com/bitnami | redis | 17.1.0 |
-| https://charts.vectorized.io/ | redpanda | v22.2.2 |
+| https://numary.github.io/helm/ | control | v0.1.0 |
 | https://numary.github.io/helm/ | gateway | v0.1.0 |
 | https://numary.github.io/helm/ | ledger | v0.1.1 |
-| https://opensearch-project.github.io/helm-charts/ | opensearch | 1.0.7 |
+| https://numary.github.io/helm/ | payments | v0.1.0 |
+| https://numary.github.io/helm/ | search | v0.1.0 |
 
 ## Values
 
@@ -33,7 +27,7 @@ Formance Stack Helm chart
 | ledger.ledger.lock.strategy | string | `"memory"` |  |
 | ledger.ledger.lock.tls | bool | `false` |  |
 | ledger.ledger.login | string | `"ledger:ledger"` |  |
-| ledger.ledger.storage.connString | string | `"postgresql://ledger:ledger@postgres/ledger"` |  |
+| ledger.ledger.storage.connString | string | `"postgresql://formance:formance@stack-postgresql/ledger"` |  |
 | ledger.ledger.storage.driver | string | `"postgres"` |  |
 | payments.enabled | bool | `true` |  |
 | payments.payments.kafka.broker | string | `"redpanda:29092"` |  |
