@@ -4,4 +4,4 @@ metadata:
   name: default
 spec:
   defaultCertificate:
-    secretName: "{{ .Values.certificateRequest }}"
+    secretName: "default-certificates"
