@@ -5,7 +5,7 @@
 
 Adding the Formance repository:
 ```
-helm repo add formance https://numary.github.io/helm/
+helm repo add formance https://helm.formance.com/
 ```
 
 Installing the ledger:
