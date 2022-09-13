@@ -45,6 +45,7 @@ spec:
   secretName: "default-certificates"
   dnsNames:
     - "{{ .Values.certificateRequest }}"
+    - "sandbox.formance.cloud"
   issuerRef:
     name: r53-letsencrypt-prod
     kind: ClusterIssuer
