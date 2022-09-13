@@ -3,18 +3,19 @@ name: stack
 description: Formance Stack Helm chart
 type: application
 version: 0.1.1
+appVersion: 0.1.1
 
 dependencies:
   - name: gateway
-    version: "v0.1.0"
+    version: "v0.2.0"
     repository: "https://helm.formance.com/"
     condition: gateway.enabled, global.gateway.enabled
   - name: control
-    version: "v0.1.0"
+    version: "v0.1.1"
     repository: "https://helm.formance.com/"
     condition: control.enabled, global.control.enabled
   - name: ledger
-    version: "v0.1.1"
+    version: "v0.1.4"
     repository: "https://helm.formance.com/"
     condition: ledger.enabled, global.ledger.enabled
   - name: payments
