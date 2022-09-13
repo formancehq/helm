@@ -7,21 +7,21 @@ version: 0.1.1
 dependencies:
   - name: gateway
     version: "v0.1.0"
-    repository: "https://numary.github.io/helm/"
+    repository: "https://helm.formance.com/"
     condition: gateway.enabled, global.gateway.enabled
   - name: control
     version: "v0.1.0"
-    repository: "https://numary.github.io/helm/"
+    repository: "https://helm.formance.com/"
     condition: control.enabled, global.control.enabled
   - name: ledger
     version: "v0.1.1"
-    repository: "https://numary.github.io/helm/"
+    repository: "https://helm.formance.com/"
     condition: ledger.enabled, global.ledger.enabled
   - name: payments
     version: "v0.1.0"
-    repository: "https://numary.github.io/helm/"
+    repository: "https://helm.formance.com/"
     condition: payments.enabled, global.payments.enabled
   - name: search
     version: "v0.1.0"
-    repository: "https://numary.github.io/helm/"
+    repository: "https://helm.formance.com/"
     condition: search.enabled, global.search.enabled

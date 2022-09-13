@@ -8,11 +8,11 @@ Formance Stack Helm chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://numary.github.io/helm/ | control | v0.1.0 |
-| https://numary.github.io/helm/ | gateway | v0.1.0 |
-| https://numary.github.io/helm/ | ledger | v0.1.1 |
-| https://numary.github.io/helm/ | payments | v0.1.0 |
-| https://numary.github.io/helm/ | search | v0.1.0 |
+| https://helm.formance.com/ | control | v0.1.0 |
+| https://helm.formance.com/ | gateway | v0.1.0 |
+| https://helm.formance.com/ | ledger | v0.1.1 |
+| https://helm.formance.com/ | payments | v0.1.0 |
+| https://helm.formance.com/ | search | v0.1.0 |
 
 ## Values
 
