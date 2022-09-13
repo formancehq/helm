@@ -1,6 +1,6 @@
 # gateway
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.24.0](https://img.shields.io/badge/AppVersion-10.24.0-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.24.0](https://img.shields.io/badge/AppVersion-10.24.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -33,6 +33,7 @@ A Helm chart for Kubernetes
 | cert-manager.strategy.rollingUpdate.maxSurge | int | `0` |  |
 | cert-manager.strategy.rollingUpdate.maxUnavailable | int | `1` |  |
 | cert-manager.strategy.type | string | `"RollingUpdate"` |  |
+| certificateRequest | string | `"*.sandbox.formance.cloud"` |  |
 | dnsZones[0] | string | `"numary.cloud"` |  |
 | dnsZones[1] | string | `"formance.cloud"` |  |
 | dnsZones[2] | string | `"formance.dev"` |  |
