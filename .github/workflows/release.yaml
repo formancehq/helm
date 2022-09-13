@@ -15,3 +15,5 @@ jobs:
         uses: stefanprodan/helm-gh-pages@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          charts_url: https://helm.formance.com
+          charts_dir: charts
