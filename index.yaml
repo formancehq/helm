@@ -3,6 +3,23 @@ entries:
   control:
   - apiVersion: v2
     appVersion: 1.2.0
+    created: "2022-09-13T08:53:45.82007697Z"
+    description: A Helm chart for Kubernetes
+    digest: 5825241cb796f0c972ef14a94f1de0279e5772914500b5c9c0fb77f91b5e18a4
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: control
+    sources:
+    - https://github.com/numary/control
+    type: application
+    urls:
+    - https://github.com/numary/helm/releases/download/control-1.0.0/control-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 1.2.0
     created: "2022-09-13T10:22:57.672543+02:00"
     description: A Helm chart for Kubernetes
     digest: 3f0e600717f8890730aceb18b6e187a83efab236f30ea65b41053ca785af8f6d
@@ -19,6 +36,30 @@ entries:
     - https://numary.github.io/helm/control-0.1.1.tgz
     version: 0.1.1
   gateway:
+  - apiVersion: v2
+    appVersion: 10.24.0
+    created: "2022-09-13T08:53:46.11178122Z"
+    dependencies:
+    - condition: traefik.enabled
+      name: traefik
+      repository: https://helm.traefik.io/traefik
+      version: 10.24.0
+    - condition: cert-manager.enabled
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v1.7.1
+    description: A Helm chart for Kubernetes
+    digest: 2d014615b0f95d3a5e3f19489e535c7946f412c816f52f036d2113e5a32a085c
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/numary/helm/releases/download/gateway-1.0.0/gateway-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: 10.24.0
     created: "2022-09-13T10:22:57.678346+02:00"
@@ -59,6 +100,23 @@ entries:
     - https://numary.github.io/helm/gateway-0.1.0.tgz
     version: 0.1.0
   ledger:
+  - apiVersion: v2
+    appVersion: v1.5.0
+    created: "2022-09-13T08:53:46.444556714Z"
+    description: Formance Ledger Helm Chart
+    digest: 1d15fc2ae91c035ca8e0f9a9bef06663915f5f5977306d7d9ceb9f46c8ed6b50
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: ledger
+    sources:
+    - https://github.com/numary/ledger
+    type: application
+    urls:
+    - https://github.com/numary/helm/releases/download/ledger-1.0.0/ledger-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     appVersion: v1.5.0
     created: "2022-09-13T10:22:57.680002+02:00"
@@ -130,6 +188,23 @@ entries:
   payments:
   - apiVersion: v2
     appVersion: v0.1.0
+    created: "2022-09-13T08:53:46.71649175Z"
+    description: Formance Payments Helm Chart
+    digest: 9543829cccc276c975372d9c961e63da7d7695721d7e3918f8aaf45d833ec609
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: payments
+    sources:
+    - https://github.com/numary/payments
+    type: application
+    urls:
+    - https://github.com/numary/helm/releases/download/payments-1.0.0/payments-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: v0.1.0
     created: "2022-09-13T10:22:57.680401+02:00"
     description: Formance Payments Helm Chart
     digest: 219a0c6ffa6875f6444f141ef3b2baebda6a9a4dab74b76a1ff4de257c7f238f
@@ -148,6 +223,16 @@ entries:
   search:
   - apiVersion: v2
     appVersion: v0.1.0
+    created: "2022-09-13T08:53:47.009669816Z"
+    description: A Helm chart for Kubernetes
+    digest: a3f1a739eaccb3c6449819ed209c94229467d5bb30445ed7103877029eaf054f
+    name: search
+    type: application
+    urls:
+    - https://github.com/numary/helm/releases/download/search-1.0.0/search-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: v0.1.0
     created: "2022-09-13T10:22:57.680837+02:00"
     description: A Helm chart for Kubernetes
     digest: 572709e2c16b03375f9248631c6cef6a9ecdf6177a9af8f54de481332afd8fca
@@ -157,6 +242,37 @@ entries:
     - https://numary.github.io/helm/search-0.1.0.tgz
     version: 0.1.0
   stack:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2022-09-13T08:53:47.313366096Z"
+    dependencies:
+    - condition: gateway.enabled, global.gateway.enabled
+      name: gateway
+      repository: https://helm.formance.com/
+      version: v0.2.0
+    - condition: control.enabled, global.control.enabled
+      name: control
+      repository: https://helm.formance.com/
+      version: v0.1.1
+    - condition: ledger.enabled, global.ledger.enabled
+      name: ledger
+      repository: https://helm.formance.com/
+      version: v0.1.4
+    - condition: payments.enabled, global.payments.enabled
+      name: payments
+      repository: https://helm.formance.com/
+      version: v0.1.0
+    - condition: search.enabled, global.search.enabled
+      name: search
+      repository: https://helm.formance.com/
+      version: v0.1.0
+    description: Formance Stack Helm chart
+    digest: f2a5484a4c2ddb7fe5fb86f26a27a60a8c3ffc03976a86fc14a3ebdaeafa226d
+    name: stack
+    type: application
+    urls:
+    - https://github.com/numary/helm/releases/download/stack-0.1.1/stack-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     created: "2022-09-13T10:22:57.707698+02:00"
     dependencies:
@@ -187,4 +303,4 @@ entries:
     urls:
     - https://numary.github.io/helm/stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-13T10:22:57.671919+02:00"
+generated: "2022-09-13T08:53:47.313418896Z"
