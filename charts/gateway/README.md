@@ -34,7 +34,7 @@ A Helm chart for Kubernetes
 | cert-manager.strategy.rollingUpdate.maxUnavailable | int | `1` |  |
 | cert-manager.strategy.type | string | `"RollingUpdate"` |  |
 | certificateRequest | string | `"*.sandbox.formance.cloud"` |  |
-| dnsZones[0] | string | `"formancehq.cloud"` |  |
+| dnsZones[0] | string | `"numary.cloud"` |  |
 | dnsZones[1] | string | `"formance.cloud"` |  |
 | dnsZones[2] | string | `"formance.dev"` |  |
 | email | string | `"support@formance.com"` |  |
