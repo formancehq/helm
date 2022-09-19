@@ -3,7 +3,7 @@ name: payments
 description: Formance Payments Helm Chart
 home: "https://formance.com"
 sources:
-  - "https://github.com/numary/payments"
+  - "https://github.com/formancehq/payments"
 maintainers:
   - name: "Formance Team"
     email: "support@formance.com"

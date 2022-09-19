@@ -14,7 +14,7 @@ Formance Ledger Helm Chart
 
 ## Source Code
 
-* <https://github.com/numary/ledger>
+* <https://github.com/formancehq/ledger>
 
 ## Values
 
@@ -27,7 +27,7 @@ Formance Ledger Helm Chart
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/numary/ledger"` |  |
+| image.repository | string | `"ghcr.io/formancehq/ledger"` |  |
 | image.tag | string | `"v1.5.0"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |

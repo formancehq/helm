@@ -4,7 +4,7 @@
 
 email: support@formance.com
 dnsZones:
-  - "numary.cloud"
+  - "formancehq.cloud"
   - "formance.cloud"
   - "formance.dev"
 certificateRequest: "*.sandbox.formance.cloud"

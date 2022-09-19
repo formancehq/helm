@@ -5,14 +5,14 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/numary/search
+  repository: ghcr.io/formancehq/search
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v0.1.0"
 
 ingester:
   image:
-    repository: ghcr.io/numary/search-ingester
+    repository: ghcr.io/formancehq/search-ingester
     pullPolicy: IfNotPresent
     tag: "v0.1.0"
   kafka:

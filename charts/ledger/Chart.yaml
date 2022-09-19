@@ -3,7 +3,7 @@ name: ledger
 description: Formance Ledger Helm Chart
 home: "https://formance.com"
 sources:
-  - "https://github.com/numary/ledger"
+  - "https://github.com/formancehq/ledger"
 maintainers:
   - name: "Formance Team"
     email: "support@formance.com"

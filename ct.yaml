@@ -4,6 +4,6 @@ target-branch: main
 chart-dirs:
   - charts
 chart-repos:
-  - formance=https://numary.github.io/helm
+  - formance=https://helm.formance.com
 helm-extra-args: --timeout 600s
 validate-maintainers: false
