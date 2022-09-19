@@ -15,11 +15,11 @@ A Helm chart for Kubernetes
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/numary/search"` |  |
+| image.repository | string | `"ghcr.io/formancehq/search"` |  |
 | image.tag | string | `"v0.1.0"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingester.image.pullPolicy | string | `"IfNotPresent"` |  |
-| ingester.image.repository | string | `"ghcr.io/numary/search-ingester"` |  |
+| ingester.image.repository | string | `"ghcr.io/formancehq/search-ingester"` |  |
 | ingester.image.tag | string | `"v0.1.0"` |  |
 | ingester.kafka.address | string | `"kafka:9092"` |  |
 | ingester.kafka.consumerGroup | string | `"search-ingester"` |  |

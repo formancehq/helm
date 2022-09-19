@@ -14,7 +14,7 @@ Formance Payments Helm Chart
 
 ## Source Code
 
-* <https://github.com/numary/payments>
+* <https://github.com/formancehq/payments>
 
 ## Values
 
@@ -27,7 +27,7 @@ Formance Payments Helm Chart
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/numary/payments"` |  |
+| image.repository | string | `"ghcr.io/formancehq/payments"` |  |
 | image.tag | string | `"v0.1.0"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |

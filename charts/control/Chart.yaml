@@ -3,7 +3,7 @@ name: control
 description: A Helm chart for Kubernetes
 home: "https://formance.com"
 sources:
-  - "https://github.com/numary/control"
+  - "https://github.com/formancehq/control"
 maintainers:
   - name: "Formance Team"
     email: "support@formance.com"

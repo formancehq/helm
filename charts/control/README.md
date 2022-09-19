@@ -14,7 +14,7 @@ A Helm chart for Kubernetes
 
 ## Source Code
 
-* <https://github.com/numary/control>
+* <https://github.com/formancehq/control>
 
 ## Values
 
@@ -29,7 +29,7 @@ A Helm chart for Kubernetes
 | control.apiUrlFront | string | `"http://localhost/api"` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/numary/control"` |  |
+| image.repository | string | `"ghcr.io/formancehq/control"` |  |
 | image.tag | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
