@@ -1,6 +1,6 @@
 apiVersion: v2
 name: search
-description: A Helm chart for Kubernetes
+description: Formance Search Helm Chart
 home: "https://formance.com"
 sources:
   - "https://github.com/formancehq/control"

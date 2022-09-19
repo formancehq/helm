@@ -1,6 +1,6 @@
 apiVersion: v2
 name: gateway
-description: A Helm chart for Kubernetes
+description: Formance Gateway Helm Chart
 type: application
 home: "https://formance.com"
 maintainers:
