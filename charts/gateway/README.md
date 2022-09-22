@@ -1,6 +1,6 @@
 # gateway
 
-![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.24.0](https://img.shields.io/badge/AppVersion-10.24.0-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.24.0](https://img.shields.io/badge/AppVersion-10.24.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -48,13 +48,18 @@ A Helm chart for Kubernetes
 | traefik.autoscaling.metrics[1].resource.targetAverageUtilization | int | `60` |  |
 | traefik.autoscaling.metrics[1].type | string | `"Resource"` |  |
 | traefik.autoscaling.minReplicas | int | `2` |  |
-| traefik.deployment.providers.kubernetesCRD.enabled | bool | `true` |  |
-| traefik.deployment.providers.kubernetesCRD.ingressClass | string | `"formance-gateway"` |  |
-| traefik.deployment.providers.kubernetesIngress.enabled | bool | `true` |  |
-| traefik.deployment.providers.kubernetesIngress.ingressClass | string | `"formance-gateway"` |  |
 | traefik.enabled | bool | `true` |  |
 | traefik.metrics.prometheus.addRoutersLabels | bool | `true` |  |
 | traefik.metrics.prometheus.entryPoint | string | `"metrics"` |  |
+| traefik.podDisruptionBudget.enabled | bool | `true` |  |
+| traefik.providers.kubernetesCRD.allowCrossNamespace | bool | `true` |  |
+| traefik.providers.kubernetesCRD.allowExternalNameServices | bool | `false` |  |
+| traefik.providers.kubernetesCRD.enabled | bool | `true` |  |
+| traefik.providers.kubernetesCRD.namespaces | list | `[]` |  |
+| traefik.providers.kubernetesIngress.allowExternalNameServices | bool | `false` |  |
+| traefik.providers.kubernetesIngress.enabled | bool | `true` |  |
+| traefik.providers.kubernetesIngress.namespaces | list | `[]` |  |
+| traefik.providers.kubernetesIngress.publishedService.enabled | bool | `true` |  |
 | traefik.resources.limits.cpu | string | `"600m"` |  |
 | traefik.resources.limits.memory | string | `"300Mi"` |  |
 | traefik.resources.requests.cpu | string | `"200m"` |  |

@@ -28,14 +28,20 @@ cert-manager:
 
 traefik:
   enabled: true
-  deployment:
-    providers:
-      kubernetesCRD:
+  podDisruptionBudget:
+    enabled: true
+  providers:
+    kubernetesCRD:
+      enabled: true
+      allowCrossNamespace: true
+      allowExternalNameServices: false
+      namespaces: [ ]
+    kubernetesIngress:
+      enabled: true
+      allowExternalNameServices: false
+      namespaces: [ ]
+      publishedService:
         enabled: true
-        ingressClass: "formance-gateway"
-      kubernetesIngress:
-        enabled: true
-        ingressClass: "formance-gateway"
   service:
     type: LoadBalancer
   metrics:
