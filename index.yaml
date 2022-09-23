@@ -38,6 +38,30 @@ entries:
   gateway:
   - apiVersion: v2
     appVersion: 10.24.0
+    created: "2022-09-23T19:10:41.396985563Z"
+    dependencies:
+    - condition: traefik.enabled
+      name: traefik
+      repository: https://helm.traefik.io/traefik
+      version: 10.24.0
+    - condition: cert-manager.enabled
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v1.7.1
+    description: Formance Gateway Helm Chart
+    digest: 5277761ab77800795d9cd070fe8c9b880291afe9cc3a0e3249b4f7a35cf662fd
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/gateway-1.1.6/gateway-1.1.6.tgz
+    version: 1.1.6
+  - apiVersion: v2
+    appVersion: 10.24.0
     created: "2022-09-23T19:04:22.387104153Z"
     dependencies:
     - condition: traefik.enabled
@@ -423,4 +447,4 @@ entries:
     urls:
     - https://numary.github.io/helm/stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-23T19:04:22.387231251Z"
+generated: "2022-09-23T19:10:41.397310961Z"
