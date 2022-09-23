@@ -1,6 +1,6 @@
 # stack
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 Formance Stack Helm chart
 
@@ -20,11 +20,11 @@ Formance Stack Helm chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.formance.com/ | control | v1.0.1 |
-| https://helm.formance.com/ | gateway | v1.1.2 |
-| https://helm.formance.com/ | ledger | v1.0.0 |
-| https://helm.formance.com/ | payments | v1.0.0 |
-| https://helm.formance.com/ | search | v1.0.0 |
+| https://helm.formance.com/ | control | 1.0.0 |
+| https://helm.formance.com/ | gateway | 1.1.2 |
+| https://helm.formance.com/ | ledger | 1.0.0 |
+| https://helm.formance.com/ | payments | 1.0.0 |
+| https://helm.formance.com/ | search | 1.0.0 |
 
 ## Values
 
