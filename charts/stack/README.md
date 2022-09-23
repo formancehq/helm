@@ -1,18 +1,30 @@
 # stack
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.1](https://img.shields.io/badge/AppVersion-0.1.1-informational?style=flat-square)
 
 Formance Stack Helm chart
+
+**Homepage:** <https://formance.com>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Formance Team | <support@formance.com> |  |
+
+## Source Code
+
+* <https://github.com/formancehq/control>
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.formance.com/ | control | v0.1.1 |
-| https://helm.formance.com/ | gateway | v0.2.0 |
-| https://helm.formance.com/ | ledger | v0.1.4 |
-| https://helm.formance.com/ | payments | v0.1.0 |
-| https://helm.formance.com/ | search | v0.1.0 |
+| https://helm.formance.com/ | control | v1.0.1 |
+| https://helm.formance.com/ | gateway | v1.1.2 |
+| https://helm.formance.com/ | ledger | v1.0.0 |
+| https://helm.formance.com/ | payments | v1.0.0 |
+| https://helm.formance.com/ | search | v1.0.0 |
 
 ## Values
 
