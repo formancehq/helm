@@ -9,7 +9,7 @@ maintainers:
     email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 type: application
-version: 0.1.1
+version: 1.0.0
 appVersion: 0.1.1
 
 dependencies:
@@ -18,18 +18,18 @@ dependencies:
     repository: "https://helm.formance.com/"
     condition: gateway.enabled, global.gateway.enabled
   - name: control
-    version: "v0.1.1"
+    version: "v1.0.1"
     repository: "https://helm.formance.com/"
     condition: control.enabled, global.control.enabled
   - name: ledger
-    version: "v0.1.4"
+    version: "v1.0.0"
     repository: "https://helm.formance.com/"
     condition: ledger.enabled, global.ledger.enabled
   - name: payments
-    version: "v0.1.0"
+    version: "v1.0.0"
     repository: "https://helm.formance.com/"
     condition: payments.enabled, global.payments.enabled
   - name: search
-    version: "v0.1.0"
+    version: "v1.0.0"
     repository: "https://helm.formance.com/"
     condition: search.enabled, global.search.enabled
