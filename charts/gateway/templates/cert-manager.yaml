@@ -45,7 +45,7 @@ spec:
   secretName: "default-certificates"
   dnsNames:
     {{- range .Values.defaultCertificateRequest }}
-    - {{.}}
+    - "{{.}}"
     {{- end }}
   issuerRef:
     name: r53-letsencrypt-prod
