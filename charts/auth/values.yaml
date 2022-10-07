@@ -24,16 +24,17 @@ auth:
     clientSecret: ""
     issuer: ""
   congigurationFilePath: /config.yaml
-  config:
-    - public: false
-      redirectUris: 
-        - ""
-      description: ""
-      name: ""
-      postLogoutRedirectUris: 
-        - ""
-      metadata: 
-        "": ""
+  config: []
+## Configuration references:
+#    - public: false
+#      redirectUris: 
+#        - ""
+#      description: ""
+#      name: ""
+#      postLogoutRedirectUris: 
+#        - ""
+#      metadata: 
+#        "": ""
 
 serviceAccount:
   # Specifies whether a service account should be created
