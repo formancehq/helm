@@ -1,8 +1,8 @@
-# payments
+# auth
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.3.1](https://img.shields.io/badge/AppVersion-v0.3.1-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.2.3](https://img.shields.io/badge/AppVersion-v0.2.3-informational?style=flat-square)
 
-Formance Payments Helm Chart
+Formance Auth Helm Chart
 
 **Homepage:** <https://formance.com>
 
@@ -14,21 +14,30 @@ Formance Payments Helm Chart
 
 ## Source Code
 
-* <https://github.com/formancehq/payments>
+* <https://github.com/formancehq/auth>
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| auth.baseUrl | string | `"http://localhost/api/auth"` |  |
+| auth.caosOIDCdev | int | `1` |  |
+| auth.config | list | `[]` |  |
+| auth.congigurationFilePath | string | `"/config.yaml"` |  |
+| auth.debug | int | `1` |  |
+| auth.delegated.clientID | string | `""` |  |
+| auth.delegated.clientSecret | string | `""` |  |
+| auth.delegated.issuer | string | `""` |  |
+| auth.postgresURI | string | `"host=postgres user=formance password=formance dbname=auth port=5432 sslmode=disable"` |  |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/formancehq/payments"` |  |
-| image.tag | string | `"v0.1.0"` |  |
+| image.repository | string | `"ghcr.io/formancehq/auth"` |  |
+| image.tag | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |
@@ -39,16 +48,12 @@ Formance Payments Helm Chart
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| payments.kafka.broker | string | `"kafka:9092"` |  |
-| payments.kafka.enabled | bool | `false` |  |
-| payments.kafka.topicMapping | string | `"*:payments"` |  |
-| payments.mongodbURI | string | `"mongodb://user:password@mongodb:27017"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
 | securityContext | object | `{}` |  |
-| service.port | int | `80` |  |
+| service.port | int | `8080` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |

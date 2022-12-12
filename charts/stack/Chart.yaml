@@ -16,20 +16,25 @@ dependencies:
   - name: gateway
     version: "1.2.0"
     repository: "https://helm.formance.com/"
+    #repository: "file://../gateway" # Enable to test with local helm charts
     condition: gateway.enabled, global.gateway.enabled
   - name: control
     version: "1.1.0"
     repository: "https://helm.formance.com/"
+    #repository: "file://../control"
     condition: control.enabled, global.control.enabled
   - name: ledger
     version: "1.1.0"
     repository: "https://helm.formance.com/"
+    #repository: "file://../ledger"
     condition: ledger.enabled, global.ledger.enabled
   - name: payments
     version: "1.1.0"
     repository: "https://helm.formance.com/"
+    #repository: "file://../payments"
     condition: payments.enabled, global.payments.enabled
   - name: search
     version: "1.1.0"
     repository: "https://helm.formance.com/"
+    #repository: "file://../search"
     condition: search.enabled, global.search.enabled
