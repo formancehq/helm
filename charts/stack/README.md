@@ -20,11 +20,11 @@ Formance Stack Helm chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.formance.com/ | control | 1.1.0 |
+| https://helm.formance.com/ | control | 1.0.0 |
 | https://helm.formance.com/ | gateway | 1.2.0 |
-| https://helm.formance.com/ | ledger | 1.1.0 |
-| https://helm.formance.com/ | payments | 1.1.0 |
-| https://helm.formance.com/ | search | 1.1.0 |
+| https://helm.formance.com/ | ledger | 1.0.0 |
+| https://helm.formance.com/ | payments | 1.0.0 |
+| https://helm.formance.com/ | search | 1.0.0 |
 
 ## Values
 
