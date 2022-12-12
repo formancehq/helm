@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   auth:
   - apiVersion: v2
+    appVersion: v0.2.3
+    created: "2022-12-12T16:07:05.972665906Z"
+    description: Formance Auth Helm Chart
+    digest: f4dad3c3cae8c5b43bf4e06634b0445c8838d7dcbbe3cf5c984b722fab6dea0d
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: auth
+    sources:
+    - https://github.com/formancehq/auth
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/auth-0.1.0/auth-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
     appVersion: v0.2.1
     created: "2022-10-07T12:42:14.729625248Z"
     description: Formance Auth Helm Chart
@@ -19,6 +36,23 @@ entries:
     - https://github.com/formancehq/helm/releases/download/auth-0.0.1/auth-0.0.1.tgz
     version: 0.0.1
   control:
+  - apiVersion: v2
+    appVersion: v1.3.0-rc.4
+    created: "2022-12-12T16:07:06.188002221Z"
+    description: A Helm chart for Kubernetes
+    digest: 9b27d238773f9ed8a299d23d1fbf1a77d1c9a284b01859606242bac6e3bbb2e4
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: control
+    sources:
+    - https://github.com/formancehq/control
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/control-1.1.0/control-1.1.0.tgz
+    version: 1.1.0
   - apiVersion: v2
     appVersion: 1.2.0
     created: "2022-09-13T08:53:45.82007697Z"
@@ -287,6 +321,23 @@ entries:
     version: 0.1.0
   ledger:
   - apiVersion: v2
+    appVersion: v1.8.1
+    created: "2022-12-12T16:07:06.461099186Z"
+    description: Formance Ledger Helm Chart
+    digest: edd2a22ca801649b36451f9cac86f1b50ad776192ab5caf0ed05fa2f32a3edac
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: ledger
+    sources:
+    - https://github.com/formancehq/ledger
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/ledger-1.1.0/ledger-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     appVersion: v1.5.0
     created: "2022-09-13T08:53:46.444556714Z"
     description: Formance Ledger Helm Chart
@@ -373,6 +424,23 @@ entries:
     version: 0.1.1
   payments:
   - apiVersion: v2
+    appVersion: v0.3.1
+    created: "2022-12-12T16:07:06.636049267Z"
+    description: Formance Payments Helm Chart
+    digest: f809b6dd88cfcb4ee0654abd93ef46069526e33cfbd1ab806420da7e5fda6824
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: payments
+    sources:
+    - https://github.com/formancehq/payments
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/payments-1.1.0/payments-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     appVersion: v0.1.0
     created: "2022-09-13T08:53:46.71649175Z"
     description: Formance Payments Helm Chart
@@ -408,6 +476,23 @@ entries:
     version: 0.1.0
   search:
   - apiVersion: v2
+    appVersion: v0.4.0
+    created: "2022-12-12T16:07:06.821896945Z"
+    description: Formance Search Helm Chart
+    digest: eecbddc140fccd3006514fd3832cf5c31245af5997e0bc42bdd17224cf8d0406
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: search
+    sources:
+    - https://github.com/formancehq/control
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/search-1.1.0/search-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     appVersion: v0.1.0
     created: "2022-09-13T08:53:47.009669816Z"
     description: A Helm chart for Kubernetes
@@ -428,6 +513,44 @@ entries:
     - https://numary.github.io/helm/search-0.1.0.tgz
     version: 0.1.0
   stack:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-12-12T16:07:07.012589312Z"
+    dependencies:
+    - condition: gateway.enabled, global.gateway.enabled
+      name: gateway
+      repository: https://helm.formance.com/
+      version: 1.2.0
+    - condition: control.enabled, global.control.enabled
+      name: control
+      repository: https://helm.formance.com/
+      version: 1.0.0
+    - condition: ledger.enabled, global.ledger.enabled
+      name: ledger
+      repository: https://helm.formance.com/
+      version: 1.0.0
+    - condition: payments.enabled, global.payments.enabled
+      name: payments
+      repository: https://helm.formance.com/
+      version: 1.0.0
+    - condition: search.enabled, global.search.enabled
+      name: search
+      repository: https://helm.formance.com/
+      version: 1.0.0
+    description: Formance Stack Helm chart
+    digest: 700517812b207bf699eab7528020af946a309bfb533e30540fd5b43a0a18bb77
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: stack
+    sources:
+    - https://github.com/formancehq/control
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/stack-1.1.0/stack-1.1.0.tgz
+    version: 1.1.0
   - apiVersion: v2
     appVersion: 0.1.1
     created: "2022-09-13T08:53:47.313366096Z"
@@ -489,4 +612,22 @@ entries:
     urls:
     - https://numary.github.io/helm/stack-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-07T13:25:52.984363749Z"
+  webhooks:
+  - apiVersion: v2
+    appVersion: v0.5.0
+    created: "2022-12-12T16:07:07.175653977Z"
+    description: Formance Webhooks Helm chart
+    digest: 0d3fed5cc5c1a25996047030a10ad22e42913597e1eae458efc6459d37dc2595
+    home: https://formance.com
+    icon: https://avatars.githubusercontent.com/u/84325077?s=200&v=4
+    maintainers:
+    - email: support@formance.com
+      name: Formance Team
+    name: webhooks
+    sources:
+    - https://github.com/formancehq/webhooks
+    type: application
+    urls:
+    - https://github.com/formancehq/helm/releases/download/webhooks-1.1.0/webhooks-1.1.0.tgz
+    version: 1.1.0
+generated: "2022-12-12T16:07:07.175786479Z"
