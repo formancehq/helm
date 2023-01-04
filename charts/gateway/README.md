@@ -17,7 +17,7 @@ Formance Gateway Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.jetstack.io | cert-manager | v1.7.1 |
-| https://helm.traefik.io/traefik | traefik | 12.0.1 |
+| https://traefik.github.io/charts | traefik | 20.8.0 |
 
 ## Values
 
