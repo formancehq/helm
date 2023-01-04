@@ -1,6 +1,6 @@
 # gateway
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 10.24.0](https://img.shields.io/badge/AppVersion-10.24.0-informational?style=flat-square)
+![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v20.8.0](https://img.shields.io/badge/AppVersion-v20.8.0-informational?style=flat-square)
 
 Formance Gateway Helm Chart
 
@@ -17,7 +17,7 @@ Formance Gateway Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.jetstack.io | cert-manager | v1.7.1 |
-| https://traefik.github.io/charts | traefik | 20.8.0 |
+| https://traefik.github.io/charts | traefik | v20.8.0 |
 
 ## Values
 
