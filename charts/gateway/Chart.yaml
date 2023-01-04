@@ -7,11 +7,11 @@ maintainers:
   - name: "Formance Team"
     email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
-version: 1.2.0
-appVersion: "10.24.0"
+version: 2.0.0
+appVersion: "v20.8.0"
 dependencies:
   - name: traefik
-    version: 20.8.0
+    version: v20.8.0
     repository: https://traefik.github.io/charts
     condition: traefik.enabled
   - name: cert-manager
