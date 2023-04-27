@@ -34,6 +34,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: NUMARY_DEBUG
+              value: {{ .Values.ledger.debug | quote }}
             - name: NUMARY_STORAGE_DRIVER
               value: {{ .Values.ledger.storage.driver | quote }}
             - name: NUMARY_STORAGE_POSTGRES_CONN_STRING

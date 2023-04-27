@@ -11,6 +11,7 @@ image:
   tag: ""
 
 ledger:
+  debug: false
   httpBindAddr: "0.0.0.0:3068"
 #  UIHttpBindAddr: "0.0.0.0:3078"
   login: "ledger:ledger"

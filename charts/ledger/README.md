@@ -1,6 +1,6 @@
 # ledger
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.8.1](https://img.shields.io/badge/AppVersion-v1.8.1-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.9.2](https://img.shields.io/badge/AppVersion-v1.9.2-informational?style=flat-square)
 
 Formance Ledger Helm Chart
 
@@ -37,6 +37,7 @@ Formance Ledger Helm Chart
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
+| ledger.debug | bool | `false` |  |
 | ledger.httpBindAddr | string | `"0.0.0.0:3068"` |  |
 | ledger.lock.connString | string | `"redis://redis:6379/0"` |  |
 | ledger.lock.strategy | string | `"redis"` |  |
