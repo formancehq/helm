@@ -67,15 +67,11 @@ traefik:
       - type: Resource
         resource:
           name: memory
-          target:
-          type: Utilization
-          averageUtilization: 60
+          targetAverageUtilization: 60
       - type: Resource
         resource:
           name: cpu
-          target:
-          type: Utilization
-          averageUtilization: 60
+          targetAverageUtilization: 60
   resources:
     requests:
       cpu: "200m"
