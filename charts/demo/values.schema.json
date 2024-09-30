@@ -1,0 +1,195 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "nats": {
+            "properties": {
+                "config": {
+                    "properties": {
+                        "cluster": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "replicas": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "jetstream": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "fileStore": {
+                                    "properties": {
+                                        "dir": {
+                                            "type": "string"
+                                        },
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "pvc": {
+                                            "properties": {
+                                                "enabled": {
+                                                    "type": "boolean"
+                                                },
+                                                "size": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "fullnameOverride": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "opensearch": {
+            "properties": {
+                "coordinating": {
+                    "properties": {
+                        "replicaCount": {
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "dashboards": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "data": {
+                    "properties": {
+                        "persistence": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "replicaCount": {
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "fullnameOverride": {
+                    "type": "string"
+                },
+                "ingest": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "replicaCount": {
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "master": {
+                    "properties": {
+                        "persistence": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "replicaCount": {
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "security": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "postgresql": {
+            "properties": {
+                "architecture": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "fullnameOverride": {
+                    "type": "string"
+                },
+                "global": {
+                    "properties": {
+                        "postgresql": {
+                            "properties": {
+                                "auth": {
+                                    "properties": {
+                                        "database": {
+                                            "type": "string"
+                                        },
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "postgresPassword": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "primary": {
+                    "properties": {
+                        "persistence": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}

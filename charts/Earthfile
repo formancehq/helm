@@ -3,20 +3,11 @@ VERSION 0.8
 IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
 
 helm-sources:
-    FROM core+helm-base
     ARG --required PROJECT
+    FROM core+helm-base
     WORKDIR /src/helm
     COPY --dir ./$PROJECT/* /src/helm
     SAVE ARTIFACT /src/helm
-
-helm-schema:
-    ARG --required PROJECT
-    FROM +helm-sources --PROJECT=$PROJECT
-    WORKDIR /src/helm
-    RUN apk add --no-cache git
-    RUN helm plugin install https://github.com/losisin/helm-values-schema-json.git
-    RUN helm schema -input values.yaml -output values.schema.json
-    SAVE ARTIFACT values.schema.json AS LOCAL ./$PROJECT/values.schema.json
 
 helm-readme-generator:
     ARG --required PROJECT
@@ -32,9 +23,12 @@ helm-readme-generator:
 helm-validate:
     ARG --required PROJECT
     FROM +helm-sources --PROJECT=$PROJECT
+    RUN apk add --no-cache git
+    RUN helm plugin install https://github.com/losisin/helm-values-schema-json.git
     WORKDIR /src/helm
     RUN helm dependencies update
     RUN helm lint ./ --strict
+    RUN helm schema -input values.yaml -output values.schema.json
     SAVE ARTIFACT /src/helm AS LOCAL ./$PROJECT
 
 helm-package:
