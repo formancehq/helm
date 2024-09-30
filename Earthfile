@@ -4,16 +4,15 @@ IMPORT ./charts AS charts
 
 validate:
     LOCALLY
-    BUILD charts+helm-validate --PROJECT=auth
-    BUILD charts+helm-validate --PROJECT=ledger
+    #BUILD charts+helm-validate --PROJECT=agent
 
 package:
     LOCALLY
-    BUILD charts+helm-package --PROJECT=auth
+    #BUILD charts+helm-package --PROJECT=agent
     
 publish:
     LOCALLY
-    BUILD charts+helm-publish --PROJECT=auth
+    #BUILD charts+helm-publish --PROJECT=agent
 
 pre-commit:
     LOCALLY
