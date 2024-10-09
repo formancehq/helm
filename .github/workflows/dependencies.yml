@@ -1,0 +1,38 @@
+name: "Dependencies"
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependencies:
+    name: Update Dependencies
+    runs-on: formance-runner
+    strategy:
+      matrix:
+        chart: ["membership"]
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Update Dependencies
+        run: earthly ./charts/${{ matrix.chart }}+dependencies
+      
+      - name: Increment version
+        run: earthly ./charts/+increment-version --CHART $${{ matrix.chart }}
+      
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: chore/dependencies-${{matrix.chart}}-${{ github.sha }}
+          commit_message: "chore(dependencies): update dependencies for ${{ matrix.chart }}"
+      
+      # - name: this need to create a pull request with all the changed files
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v7

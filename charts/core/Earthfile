@@ -1,7 +1,6 @@
 VERSION 0.8
 
-IMPORT ../ AS root
-IMPORT ../core AS core
+IMPORT .. AS root
 
 schema:
   FROM root+schema-base
@@ -10,30 +9,33 @@ schema:
 
 readme:
   FROM root+readme-base
-  WORKDIR /src/demo
-  COPY --dir (+dependencies/*) .
   DO --pass-args root+README_GENERATOR
 
 sources:
   DO --pass-args root+BASE
-  WORKDIR /src/demo
+  WORKDIR /src/core
   COPY (+schema/*) .
   DO --pass-args root+SOURCES
 
+validate:
+  BUILD +dependencies
+
 dependencies:
   FROM +sources
-  WORKDIR /src/demo
+  WORKDIR /src/core
   DO --pass-args root+DEPENDENCIES
 
-validate:
+lint:
   FROM +dependencies
-  WORKDIR /src/demo
-  COPY (+readme/*) .
-  DO --pass-args root+VALIDATE
+  WORKDIR /src/core
+  DO --pass-args root+LINT
 
 package:
-  FROM +validate
-  WORKDIR /src/demo
+  FROM +lint
+  WORKDIR /src/core
   DO --pass-args root+PACKAGE
 
-
+publish:
+  FROM +package
+  WORKDIR /src/core
+  DO --pass-args root+PUBLISH

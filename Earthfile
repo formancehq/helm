@@ -1,20 +1,36 @@
 VERSION 0.8
 
 IMPORT ./charts AS charts
+IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
+
+formance-runner:
+  FROM earthly/earthly:latest
+  RUN apk add --no-cache bash
+  ARG REPOSITORY=ghcr.io
+  ARG tag=latest
+  ENTRYPOINT /bin/bash
+  DO core+SAVE_IMAGE --COMPONENT=formance-runner --REPOSITORY=${REPOSITORY} --TAG=$tag
+
+readme:
+  FROM core+base-image
+  RUN echo "not implemented"
 
 validate:
-    LOCALLY
-    BUILD charts+helm-validate --PROJECT=demo
-    
+  LOCALLY
+  FOR chart IN $(ls -d ./charts/*/)
+    BUILD $chart+validate
+  END
+
+tests:
+  BUILD ./tests/helm+tests
+
 package:
-    LOCALLY
-    BUILD charts+helm-package --PROJECT=demo
-    
-publish:
-    LOCALLY
-    BUILD charts+helm-publish --PROJECT=demo
-    
+  LOCALLY
+  FOR chart IN $(ls -d ./charts/*/)
+    BUILD $chart+package
+  END
+
 pre-commit:
-    LOCALLY
-    BUILD +validate
-    BUILD +package
+  BUILD +validate
+  BUILD +readme
+  BUILD +tests

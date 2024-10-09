@@ -1,0 +1,109 @@
+{}
+# global:
+#   # -- Enable debug mode
+#   # @section -- Global configuration
+#   debug: false
+
+#   # -- is the base domain for portal and console
+#   # @section -- Global configuration
+#   serviceHost: ""
+#   aws:
+#     # -- Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set
+#     # @section -- Global configuration
+#     iam: false
+#     # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+#     # @section -- Global configuration
+#     elb: false
+#   nats:
+#     # -- Enable NATS
+#     # @section -- Global configuration
+#     enabled: false
+
+#     # -- URL for NATS
+#     # @section -- Global configuration
+#     url: ""
+
+#   monitoring:
+#     traces:
+#       # -- Enable otel tracing
+#       # @section -- Global configuration
+#       enabled: true
+#       # -- Endpoint
+#       # @section -- Global configuration
+#       endpoint: "localhost"
+#       # -- Exporter
+#       # @section -- Global configuration
+#       exporter: "otlp"
+#       # -- Insecure
+#       # @section -- Global configuration
+#       insecure: true
+#       # -- Mode
+#       # @section -- Global configuration
+#       mode: "grpc"
+#       # -- Port
+#       # @section -- Global configuration
+#       port: 4317
+#     logs:
+#       # -- Enable logging
+#       # @section -- Global configuration
+#       enabled: true
+#       # -- Level
+#       # @section -- Global configuration
+#       level: "info"
+#       # -- Format
+#       # @section -- Global configuration
+#       format: "json"
+
+#     metrics:
+#       # -- Enable
+#       # @section -- Global configuration
+#       enabled: true
+#       # -- Exporter
+#       # @section -- Global configuration
+#       exporter: "otlp"
+#       # -- Insecure
+#       # @section -- Global configuration
+#       insecure: true
+#       # -- Mode
+#       # @section -- Global configuration
+#       mode: "grpc"
+#       # -- Port
+#       # @section -- Global configuration
+#       port: 4317
+
+#   postgresql:
+#     # -- Host for PostgreSQL (overrides included postgreql `host`)
+#     # @section -- Global configuration
+#     host: ""
+#     # -- Additional arguments for PostgreSQL Connection URI
+#     # @section -- Global configuration
+#     additionalArgs: "sslmode=disable"
+#     auth:
+#       # -- Name for a custom user to create (overrides `auth.username`)
+#       # @section -- Global configuration
+#       username: formance
+#       # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+#       # @section -- Global configuration
+#       password: formance
+#       # -- Name for a custom database to create (overrides `auth.database`)
+#       # @section -- Global configuration
+#       database: formance
+#       # -- Password for the custom user to create (overrides `auth.password`)
+#       # @section -- Global configuration
+#       postgresPassword: formance
+#       # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+#       # @section -- Global configuration
+#       existingSecret: ""
+#       secretKeys:
+#         # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+#         # @section -- Global configuration
+#         adminPasswordKey: ""
+#         # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+#         # @section -- Global configuration
+#         userPasswordKey: ""
+
+#     service:
+#       ports:
+#         # -- PostgreSQL service port (overrides `service.ports.postgresql`)
+#         # @section -- Global configuration
+#         postgresql: 5432

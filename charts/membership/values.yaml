@@ -1,0 +1,434 @@
+global:
+  # -- Enable debug mode
+  # @section -- Global configuration
+  debug: false
+  # -- is the base domain for portal and console
+  # @section -- Global configuration
+  serviceHost: ""
+
+  aws:
+    # -- Enable AWS IAM Authentification
+    # @section -- Global configuration
+    iam: false
+
+  platform:
+    # -- Enable Platform OAuth Client
+    # @section -- Global configuration
+    enabled: true
+    console:
+      # -- is the scheme for the console
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the console
+      # @section -- Global configuration
+      host: "console.{{ .Values.global.serviceHost }}"
+    portal:
+      # -- is the scheme for the portal
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the portal
+      # @section -- Global configuration
+      host: "portal.{{ .Values.global.serviceHost }}"
+    membership:
+      # -- is the scheme for the membership
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the membership
+      # @section -- Global configuration
+      host: "membership.{{ .Values.global.serviceHost }}"
+
+      oauthClient:
+        # -- is the id of the client
+        # @section -- Global configuration
+        id: "platform"
+        # -- is the secret of the client
+        # @section -- Global configuration
+        secret: "changeMe1"
+        # -- is the name of the secret
+        # @section -- Global configuration
+        existingSecret: ""
+        # -- is the key contained within the secret
+        # @section -- Global configuration
+        secretKeys:
+          secret: ""
+
+  monitoring:
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: "localhost"
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+    logs:
+      # -- Enable logging
+      # @section -- Global configuration
+      enabled: true
+      # -- Level: Info, Debug, Error
+      # @section -- Global configuration
+      level: "info"
+      # -- Format
+      # @section -- Global configuration
+      format: "json"
+
+  postgresql:
+    # -- Host for PostgreSQL (overrides included postgreql `host`)
+    # @section -- Global configuration
+    host: ""
+    # -- Additional arguments for PostgreSQL Connection URI
+    # @section -- Global configuration
+    additionalArgs: "sslmode=disable"
+    auth:
+      # -- Name for a custom user to create (overrides `auth.username`)
+      # @section -- Global configuration
+      username: formance
+      # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+      # @section -- Global configuration
+      password: formance
+      # -- Name for a custom database to create (overrides `auth.database`)
+      # @section -- Global configuration
+      database: formance
+      # -- Password for the custom user to create (overrides `auth.password`)
+      # @section -- Global configuration
+      postgresPassword: formance
+      # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+      # @section -- Global configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        adminPasswordKey: ""
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        userPasswordKey: ""
+
+    service:
+      ports:
+        # -- PostgreSQL service port (overrides `service.ports.postgresql`)
+        # @section -- Global configuration
+        postgresql: 5432
+
+# -- Count of replicas
+replicaCount: 1
+
+serviceAccount:
+  # -- Service account creation
+  create: true
+  # -- Service account name
+  name: ""
+  # -- Service account annotations
+  annotations:
+    {}
+    # eks.amazonaws.com/role-arn: ""
+
+image:
+  # -- Membership image repository
+  repository: ghcr.io/formancehq/membership
+  # -- Membership image pull policy
+  pullPolicy: IfNotPresent
+  # -- Membership image tag
+  tag: ""
+
+# -- Membership image pull secrets
+imagePullSecrets: []
+
+# -- Membership name override
+nameOverride: ""
+# -- Membership fullname override
+fullnameOverride: ""
+
+feature:
+  # -- Membership feature managed stacks
+  managedStacks: true
+  # -- Membership feature disable events
+  disableEvents: true
+
+# -- Membership pod security context
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext:
+  # -- Membership security context capabilities drop
+  capabilities:
+    drop:
+      - ALL
+  # -- Membership security context read only root filesystem
+  readOnlyRootFilesystem: true
+  # -- Membership security context run as non root
+  runAsNonRoot: true
+  # -- Membership security context run as user
+  runAsUser: 1000
+
+# -- Membership resources
+resources:
+  {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# -- Membership autoscaling
+autoscaling:
+  {}
+  # enabled: false
+  # minReplicas: 1
+  # maxReplicas: 10
+  # targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# -- Membership node selector
+nodeSelector: {}
+
+# -- Membership tolerations
+tolerations: []
+
+# -- Membership affinity
+affinity: {}
+
+# -- DEPRECATED Membership service
+commonLabels: {}
+
+# -- Membership debug
+debug: false
+
+# To disable ssl verification
+# -- Membership dev
+dev: false
+
+# -- Membership init containers
+initContainers: []
+
+# -- Membership volume mounts
+volumeMounts: []
+
+# -- Membership volumes
+volumes: []
+
+service:
+  # -- service annotations
+  annotations: {}
+  # -- service type
+  type: ClusterIP
+  # -- service cluster IP
+  clusterIP: ""
+  ports:
+    # -- service http port
+    http:
+      port: 8080
+      # -- service node port
+      # nodePort:
+    # -- service grpc port
+    grpc:
+      port: 8082
+      # -- Membership service node port
+      # nodePort:
+
+ingress:
+  # -- Membership ingress enabled
+  enabled: true
+  # -- Membership ingress class name
+  className: ""
+  # -- Membership ingress annotations
+  annotations: {}
+  hosts:
+    # -- Membership ingress host
+    - host: "{{ tpl .Values.global.platform.membership.host $ }}"
+      paths:
+        - # -- Membership ingress path
+          path: /api
+          # -- Membership ingress path type
+          pathType: Prefix
+  # -- Membership ingress tls
+  tls:
+    []
+    # -- Membership ingress tls secret name
+    # - secretName: YOUR_TLS_SECRET_NAME
+
+config:
+  # -- Enable Fctl
+  fctl: true
+  # -- DEPRECATED Membership postgresql connection url
+  # postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable"
+  oidc:
+    # -- Membership oidc issuer
+    issuer: https://dex.{{ .Values.global.serviceHost }}
+    # -- Membership oidc client id
+    clientId: "membership"
+    # -- Membership oidc client secret
+    clientSecret: "changeMe"
+    # -- Membership oidc existing secret
+    existingSecret: ""
+    # -- Membership oidc secret key
+    secretKeys:
+      secret: ""
+
+  migration:
+    # -- Membership migration annotations
+    annotations:
+      # -- Membership migration helm hook
+      helm.sh/hook: pre-upgrade
+      # -- Membership migration hook delete policy
+      helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
+
+      # Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync
+
+  additionalOAuthClients: []
+
+dex:
+  # -- Enable dex
+  # @section -- Dex configuration
+  enabled: true
+
+  image:
+    # -- image repository
+    # @section -- Dex configuration
+    repository: ghcr.io/formancehq/dex
+    # -- image pull policy
+    # @section -- Dex configuration
+    pullPolicy: IfNotPresent
+    # -- image tag
+    # @section -- Dex configuration
+    tag: v0.33.10
+
+  ingress:
+    # -- Dex ingress enabled
+    # @section -- Dex configuration
+    enabled: true
+    # -- Dex ingress class name
+    # @section -- Dex configuration
+    className: ""
+    # -- Dex ingress annotations
+    # @section -- Dex configuration
+    annotations: {}
+    hosts:
+      - # -- Dex ingress host
+        # @section -- Dex configuration
+        host: dex.{{ .Values.global.serviceHost }}
+        paths:
+          - # -- Dex ingress path
+            # @section -- Dex configuration
+            path: /
+            # -- Dex ingress path type
+            # @section -- Dex configuration
+            pathType: Prefix
+    # -- Dex ingress tls
+    # @section -- Dex configuration
+    tls:
+      []
+      # -- Dex ingress tls secret name
+      # @section -- Dex configuration
+      # - secretName: YOUR_TLS_SECRET_NAME
+
+  # -- Dex resources
+  # @section -- Dex configuration
+  resources:
+    {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  configSecret:
+    # -- Dex config secret create
+    # Default secret provided by the dex chart
+    # @section -- Dex configuration
+    create: false
+    # -- Dex config secret create config secret overrides
+    # @section -- Dex configuration
+    # Enable secret config overrides provided by the cloudprem chart
+    createConfigSecretOverrides: true
+    # -- Dex config secret name
+    # @section -- Dex configuration
+    name: "membership-dex-config"
+
+  # -- Dex additional environment variables
+  # @section -- Dex configuration
+  envVars: []
+
+  # Unfortunalty Dex chart does not provide a way to use function within values
+  #
+  # # When using
+  # # - oidc.clientSecret.secretKeys.secret
+  # # - oidc.clientSecret.existingSecret
+  # envVars:
+  #   - name: MEMBERSHIP_CLIENT_SECRET
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: "membership-secrets"
+  #         key: "dex-client-secret"
+  #
+  # # When using .global.postgresql.auth.existingSecret
+  #   - name: POSTGRES_PASSWORD
+  #     valueFrom:
+  #       secretKeyRef:
+  # #       name: {{ include "postgresql.v1.secretName" . }}
+  # #       key: {{ include "postgresql.v1.adminPasswordKey" . }}
+  #
+
+  # -- Config override allow template function.
+  # Database is setup on the chart global, make sure that user/password when using kubernetes secret
+  # @section -- Dex configuration
+  configOverrides:
+    oauth2:
+      # -- oauth2 skip approval screen
+      # @section -- Dex configuration
+      skipApprovalScreen: true
+      # -- oauth2 response types
+      # @section -- Dex configuration
+      responseTypes:
+        - code
+        - token
+        - id_token
+
+    # -- enable password db
+    # @section -- Dex configuration
+    enablePasswordDB: true
+    # Generate password:  https://github.com/dexidp/dex/blob/576f990d257d9dd63e283cf379960e50506e8bcc/examples/config-dev.yaml#L145
+    staticPasswords:
+      - # -- static passwords email
+        # @section -- Dex configuration
+        email: admin@formance.com
+        # -- static passwords hash
+        # @section -- Dex configuration
+        hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
+        # -- static passwords username
+        # @section -- Dex configuration
+        username: admin
+        # -- static passwords user id
+        # @section -- Dex configuration
+        userID: 08a8684b-db88-4b73-90a9-3cd1661f5466
+
+postgresql:
+  # -- Enable postgresql
+  # @section -- Postgresql configuration
+  enabled: true
+
+  # -- Postgresql fullname override
+  # @section -- Postgresql configuration
+  fullnameOverride: postgresql
+
+  # -- Postgresql architecture
+  # @section -- Postgresql configuration
+  architecture: standalone
+
+  # -- Postgresql primary persistence enabled
+  # @section -- Postgresql configuration
+  primary:
+    persistence:
+      enabled: false

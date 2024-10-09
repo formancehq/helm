@@ -1,0 +1,29 @@
+inputs:
+  GH_TOKEN:
+    description: "Github token to access the ghcr registry"
+    required: true
+  CHART_PATH:
+    description: "Path to the chart to publish"
+    required: true
+
+name: Publish
+description: Publish a chart
+runs:
+  using: composite
+  steps:
+    - name: Base Earthly action
+      uses: ./.github/actions/earthly/base
+    - uses: "actions/checkout@v4"
+      with:
+        fetch-depth: 0
+    - name: Publish
+      shell: bash
+      run: >
+        earthly
+        --no-output
+        --allow-privileged
+        --secret GITHUB_TOKEN=$GH_TOKEN
+        $CHART_PATH+publish
+      env:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        CHART_PATH: ${{ inputs.CHART_PATH }}

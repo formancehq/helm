@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "core.fullname" . }}
+  labels:
+    {{- include "core.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ default 8080 .Values.service.ports.http.port }}
+      targetPort: {{ default 8080 .Values.service.ports.http.port }}
+      protocol: TCP
+      name: http
+    - port: {{ default 3068 .Values.service.ports.grpc.port }}
+      targetPort: {{ default 3068 .Values.service.ports.grpc.port }}
+      protocol: TCP
+      name: grpc
+  selector:
+    {{- include "core.selectorLabels" . | nindent 4 }}

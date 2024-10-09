@@ -1,0 +1,27 @@
+global:
+  # -- is the base domain for portal, console, membership, and dex
+  # @section -- Global configuration
+  serviceHost: ""
+
+# membership:
+#   ingress:
+#     enabled: true
+#     tls:
+#       - secretName: ""
+#   dex:
+#     ingress:
+#       enabled: true
+#       tls:
+#         - secretName: ""
+
+# portal:
+#   ingress:
+#     enabled: true
+#     tls:
+#       - secretName: ""
+
+# console:
+#   ingress:
+#     enabled: true
+#     tls:
+#       - secretName: ""

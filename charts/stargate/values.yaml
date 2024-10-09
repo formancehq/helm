@@ -1,0 +1,259 @@
+global:
+  # -- Enable debug mode
+  debug: false
+  # -- is the base domain for portal and console
+  serviceHost: ""
+
+  monitoring:
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: "localhost"
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+    logs:
+      # -- Enable logging
+      # @section -- Global configuration
+      enabled: true
+      # -- Level: Info, Debug, Error
+      # @section -- Global configuration
+      level: "info"
+      # -- Format
+      # @section -- Global configuration
+      format: "json"
+    metrics:
+      # -- Enable
+      # @section -- Global configuration
+      enabled: false
+      # -- Mode
+      # @section -- Global configuration
+      mode: grpc
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: otlp
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: ""
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+
+  nats:
+    # -- Enable NATS
+    # @section -- Global Nats configuration
+    enabled: false
+
+    # -- URL for NATS
+    # @section -- Global Nats configuration
+    url: ""
+
+  aws:
+    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+    # @section -- Global AWS configuration
+
+    elb: false
+    # -- Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set
+    # @section -- Global AWS configuration
+    iam: false
+
+  postgresql:
+    # -- Host for PostgreSQL (overrides included postgreql `host`)
+    # @section -- Global configuration
+    host: ""
+    # -- Additional arguments for PostgreSQL Connection URI
+    # @section -- Global configuration
+    additionalArgs: "sslmode=disable"
+    auth:
+      # -- Name for a custom user to create (overrides `auth.username`)
+      # @section -- Global configuration
+      username: formance
+      # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+      # @section -- Global configuration
+      password: formance
+      # -- Name for a custom database to create (overrides `auth.database`)
+      # @section -- Global configuration
+      database: formance
+      # -- Password for the custom user to create (overrides `auth.password`)
+      # @section -- Global configuration
+      postgresPassword: formance
+      # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+      # @section -- Global configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        adminPasswordKey: ""
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        userPasswordKey: ""
+
+    service:
+      ports:
+        # -- PostgreSQL service port (overrides `service.ports.postgresql`)
+        # @section -- Global configuration
+        postgresql: 5432
+
+podDisruptionBudget:
+  # -- Enable a [pod distruption budget](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) to help dealing with [disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/).
+  # It is **highly recommended** for webhooks as disruptions can prevent launching new pods.
+  enabled: false
+  minAvailable: 1
+  maxUnavailable: 0
+
+# -- Topology spread constraints
+topologySpreadConstraints:
+  []
+  #   - maxSkew: 1
+  #     topologyKey: kubernetes.io/hostname
+  #     whenUnsatisfiable: DoNotSchedule
+
+# -- Number of replicas
+replicaCount: 1
+
+# -- String to partially override stargate.fullname template with a string (will append the release name)
+nameOverride: ""
+# -- String to fully override stargate.fullname template with a string
+fullnameOverride: ""
+
+# -- Specifies whether a service account should be created
+# -- Annotations to add to the service account
+# -- The name of the service account to use.
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# -- Annotations to add to the pod
+podAnnotations: {}
+
+# -- Security context for the pod
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+# -- Security context for the container
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# -- Kubernetes service type
+# -- HTTP port
+# -- gRPC port
+service:
+  type: ClusterIP
+  ports:
+    http:
+      port: 8080
+    grpc:
+      port: 3068
+
+# -- Enable ingress
+# -- Ingress class name
+# -- Ingress annotations
+# -- Ingress host
+# -- Ingress path
+# -- Ingress path type
+# -- Ingress TLS
+ingress:
+  enabled: false
+  className: ""
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: "stargate.{{ .Values.global.serviceHost }}"
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Resource limits and requests
+resources:
+  {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# -- Enable autoscaling
+# -- Minimum replicas
+# -- Maximum replicas
+# -- Target CPU utilization percentage
+# -- Target memory utilization percentage
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# -- Node labels for pod assignment
+nodeSelector: {}
+
+# -- Tolerations for pod assignment
+tolerations: []
+
+# -- Affinity for pod assignment
+affinity: {}
+
+# -- Target group IP address type
+# -- Target group target type
+# -- Target group service reference name
+# -- Target group service reference port
+# -- Target group name
+aws:
+  targetGroups:
+    grpc:
+      ipAddressType: "ipv4"
+      targetType: "ip"
+      targetGroupARN: ""
+      serviceRef:
+        name: '{{ include "stargate.fullname" $ }}'
+        port: "{{ .Values.service.ports.grpc | default 3068 }}"
+
+# -- Auth issuer URL <-> Membership
+# -- NATS client ID
+# -- NATS topic mapping
+# -- Service name for monitoring
+config:
+  auth_issuer_url: ""
+  nats:
+    clientID: "stargate"
+    topicMapping: "stargate"
+  monitoring:
+    serviceName: "stargate"
+
+# -- Image repository
+# -- Image pull policy
+# -- Image tag
+image:
+  repository: "ghcr.io/formancehq/stargate"
+  pullPolicy: "IfNotPresent"
+  tag: ""

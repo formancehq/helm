@@ -1,0 +1,13 @@
+flowchart LR
+  subgraph ControlPlane [Control Plane]
+    Portal -->  Membership
+    Portal --> Console
+    Membership -- OAuth2 Relying Party  --> Dex
+    Console --> Portal
+  end
+
+  subgraph DataPlane [Data Plane]
+    Operator
+  end
+
+  ControlPlane --> DataPlane
