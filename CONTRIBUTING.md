@@ -23,20 +23,24 @@ Each chart **must** implement the following targets:
 
 > LICENCE is included in every chart throught the helper [SOURCE](./charts/Earthfile)
 
+> README is generated with `helm-docs` and it is included in the chart throught the helper [README_GENERATOR](./charts/Earthfile)
+
 ### Core Dependencies
 
 Each chart must implement the core helm library as a dependency to include the common helper:
-- resources naming
+
+- resources naming 
 - values naming
 - values structure
 - kubernetes recommended labels
 - (optional): aws, tgb, ingress, pdp, hpa
 
-# CI
+## CI: Github Actions
 
 The CI is based on github actions and it is triggered on each PR and push to the main branch.
 
 The CI is composed by the following workflows:
+
 - Labeler:
   - It checks for changes in the `charts/` folder and labels the PR with the chart name
 - Main: 
@@ -46,11 +50,18 @@ The CI is composed by the following workflows:
 - Release:
   - Use chart-releaser to release the charts where the PR has been merged on main. It will create a new tag with the version of the chart and release it to the helm repo.
 
-# CD
+## CD
 
-Some external repository relies on the `+package` target to be able to deploy the chart on the dev environment.
+External repository can relies on the `+package` target and artifact to be able to deploy from specific branch or tag.
 
-- Membership, Stargate, Report: https://github.com/formancehq/membership-api
-- Platform-UI: https://github.com/formancehq/platform-ui
-  - Portal
-- Console: https://github.com/formancehq/console
+```bash
+earthly github.com/formancehq/helm/charts/cloudprem+package
+```
+
+<!-- Each chart are published to the [Artifact HUB](https://artifacthub.io/packages/search?repo=formancehq) and can be installed with helm:
+
+```bash
+helm repo add formancehq https://formancehq.github.io/helm
+helm install formancehq/cloudprem
+``` -->
+
