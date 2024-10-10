@@ -6,7 +6,7 @@
 - name: CONFIG
   value: "/config/config.yaml"
 - name: RP_ISSUER
-  value: "{{ tpl .Values.config.oidc.issuer .}}"
+  value: "{{ tpl (printf "%s://%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host) $ }}"
 - name: RP_CLIENT_ID
   value: "{{ tpl .Values.config.oidc.clientId .}}"
 - name: RP_CLIENT_SECRET
@@ -53,7 +53,7 @@
 {{- end }}
 
 {{ define "dex-values" }}
-issuer: https://dex.{{ .Values.global.serviceHost }}
+issuer: "{{ tpl (printf "%s://%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host) $ }}"
 logger:
   # -- logger format
   # @section -- Dex configuration

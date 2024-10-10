@@ -12,7 +12,7 @@ global:
     iam: false
 
   platform:
-    # -- Enable Platform OAuth Client
+    # -- Enable platform oauth2 client
     # @section -- Global configuration
     enabled: true
     console:
@@ -36,6 +36,14 @@ global:
       # -- is the host for the membership
       # @section -- Global configuration
       host: "membership.{{ .Values.global.serviceHost }}"
+
+      relyingParty:
+        # -- is the scheme for the membership
+        # @section -- Global configuration
+        scheme: "https"
+        # -- is the host for the membership
+        # @section -- Global configuration
+        host: "dex.{{ .Values.global.serviceHost }}"
 
       oauthClient:
         # -- is the id of the client
@@ -264,8 +272,6 @@ config:
   # -- DEPRECATED Membership postgresql connection url
   # postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable"
   oidc:
-    # -- Membership oidc issuer
-    issuer: https://dex.{{ .Values.global.serviceHost }}
     # -- Membership oidc client id
     clientId: "membership"
     # -- Membership oidc client secret
@@ -317,7 +323,7 @@ dex:
     hosts:
       - # -- Dex ingress host
         # @section -- Dex configuration
-        host: dex.{{ .Values.global.serviceHost }}
+        host: "{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"
         paths:
           - # -- Dex ingress path
             # @section -- Dex configuration

@@ -1,27 +1,135 @@
 global:
-  # -- is the base domain for portal, console, membership, and dex
+  # -- Enable debug mode
+  # @section -- Global configuration
+  debug: false
+  # -- is the base domain for portal and console
   # @section -- Global configuration
   serviceHost: ""
 
-# membership:
-#   ingress:
-#     enabled: true
-#     tls:
-#       - secretName: ""
-#   dex:
-#     ingress:
-#       enabled: true
-#       tls:
-#         - secretName: ""
+  aws:
+    # -- Enable AWS IAM Authentification
+    # @section -- Global configuration
+    iam: false
 
-# portal:
-#   ingress:
-#     enabled: true
-#     tls:
-#       - secretName: ""
+  platform:
+    # -- Enable platform oauth2 client
+    # @section -- Global configuration
+    enabled: true
+    console:
+      # -- is the scheme for the console
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the console
+      # @section -- Global configuration
+      host: "console.{{ .Values.global.serviceHost }}"
+    portal:
+      # -- is the scheme for the portal
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the portal
+      # @section -- Global configuration
+      host: "portal.{{ .Values.global.serviceHost }}"
+    membership:
+      # -- is the scheme for the membership
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the membership
+      # @section -- Global configuration
+      host: "membership.{{ .Values.global.serviceHost }}"
 
-# console:
-#   ingress:
-#     enabled: true
-#     tls:
-#       - secretName: ""
+      relyingParty:
+        # -- is the scheme for the membership
+        # @section -- Global configuration
+        scheme: "https"
+        # -- is the host for the membership
+        # @section -- Global configuration
+        host: "dex.{{ .Values.global.serviceHost }}"
+
+      oauthClient:
+        # -- is the id of the client
+        # @section -- Global configuration
+        id: "platform"
+        # -- is the secret of the client
+        # @section -- Global configuration
+        secret: "changeMe1"
+        # -- is the name of the secret
+        # @section -- Global configuration
+        existingSecret: ""
+        # -- is the key contained within the secret
+        # @section -- Global configuration
+        secretKeys:
+          secret: ""
+
+      oidc:
+        # -- is the scheme for the issuer
+        scheme: "https"
+        # -- is the host for the oidc
+        host: "dex.{{ .Values.global.serviceHost }}"
+
+  monitoring:
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: "localhost"
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+    logs:
+      # -- Enable logging
+      # @section -- Global configuration
+      enabled: true
+      # -- Level: Info, Debug, Error
+      # @section -- Global configuration
+      level: "info"
+      # -- Format
+      # @section -- Global configuration
+      format: "json"
+
+  postgresql:
+    # -- Host for PostgreSQL (overrides included postgreql `host`)
+    # @section -- Global configuration
+    host: ""
+    # -- Additional arguments for PostgreSQL Connection URI
+    # @section -- Global configuration
+    additionalArgs: "sslmode=disable"
+    auth:
+      # -- Name for a custom user to create (overrides `auth.username`)
+      # @section -- Global configuration
+      username: formance
+      # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+      # @section -- Global configuration
+      password: formance
+      # -- Name for a custom database to create (overrides `auth.database`)
+      # @section -- Global configuration
+      database: formance
+      # -- Password for the custom user to create (overrides `auth.password`)
+      # @section -- Global configuration
+      postgresPassword: formance
+      # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+      # @section -- Global configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        adminPasswordKey: ""
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        userPasswordKey: ""
+
+    service:
+      ports:
+        # -- PostgreSQL service port (overrides `service.ports.postgresql`)
+        # @section -- Global configuration
+        postgresql: 5432

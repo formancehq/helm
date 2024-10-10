@@ -2,10 +2,10 @@
 
 ## How to use Helm charts
 
-| Charts | App Version | Description | Hub |
-|-------|---------|-------------|-----|
+| Charts | Chart Version | App Version | Description | Hub |
+|--------|---------------|-------------|-------------|-----|
 {{- range .Charts }}
-| [{{ .Name | title }}](./charts/{{ .Name }}/README.md) | {{ .AppVersion }} | {{ .Description }} | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/{{ .Name }})](https://artifacthub.io/packages/search?repo={{ .Name }}) |
+| [{{ .Name | title }}](./charts/{{ .Name }}/README.md) | {{ .Version }} |{{ .AppVersion }} | {{ .Description }} | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/{{ .Name }})](https://artifacthub.io/packages/search?repo={{ .Name }}) |
 {{- end }}
 
 ## How to contribute

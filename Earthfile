@@ -3,11 +3,11 @@ VERSION 0.8
 IMPORT ./charts AS charts
 IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
 
-licence:
+license:
   FROM core+base-image
   WORKDIR /src
-  COPY LICENCE .
-  SAVE ARTIFACT LICENCE
+  COPY ./LICENSE .
+  SAVE ARTIFACT LICENSE
 
 formance-runner:
   FROM earthly/earthly:latest

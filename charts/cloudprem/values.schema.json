@@ -3,6 +3,199 @@
     "properties": {
         "global": {
             "properties": {
+                "aws": {
+                    "properties": {
+                        "iam": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "debug": {
+                    "type": "boolean"
+                },
+                "monitoring": {
+                    "properties": {
+                        "logs": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "format": {
+                                    "type": "string"
+                                },
+                                "level": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "traces": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "endpoint": {
+                                    "type": "string"
+                                },
+                                "exporter": {
+                                    "type": "string"
+                                },
+                                "insecure": {
+                                    "type": "boolean"
+                                },
+                                "mode": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "platform": {
+                    "properties": {
+                        "console": {
+                            "properties": {
+                                "host": {
+                                    "type": "string"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "membership": {
+                            "properties": {
+                                "host": {
+                                    "type": "string"
+                                },
+                                "oauthClient": {
+                                    "properties": {
+                                        "existingSecret": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "secret": {
+                                            "type": "string"
+                                        },
+                                        "secretKeys": {
+                                            "properties": {
+                                                "secret": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "oidc": {
+                                    "properties": {
+                                        "host": {
+                                            "type": "string"
+                                        },
+                                        "scheme": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "relyingParty": {
+                                    "properties": {
+                                        "host": {
+                                            "type": "string"
+                                        },
+                                        "scheme": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "portal": {
+                            "properties": {
+                                "host": {
+                                    "type": "string"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "postgresql": {
+                    "properties": {
+                        "additionalArgs": {
+                            "type": "string"
+                        },
+                        "auth": {
+                            "properties": {
+                                "database": {
+                                    "type": "string"
+                                },
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "postgresPassword": {
+                                    "type": "string"
+                                },
+                                "secretKeys": {
+                                    "properties": {
+                                        "adminPasswordKey": {
+                                            "type": "string"
+                                        },
+                                        "userPasswordKey": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "username": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "host": {
+                            "type": "string"
+                        },
+                        "service": {
+                            "properties": {
+                                "ports": {
+                                    "properties": {
+                                        "postgresql": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
                 "serviceHost": {
                     "type": "string"
                 }

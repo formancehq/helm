@@ -48,9 +48,6 @@
                         "existingSecret": {
                             "type": "string"
                         },
-                        "issuer": {
-                            "type": "string"
-                        },
                         "secretKeys": {
                             "properties": {
                                 "secret": {
@@ -307,6 +304,17 @@
                                                 }
                                             },
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "relyingParty": {
+                                    "properties": {
+                                        "host": {
+                                            "type": "string"
+                                        },
+                                        "scheme": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"

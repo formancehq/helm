@@ -2,7 +2,7 @@
 
 ![Version: v1.0.0-beta.1](https://img.shields.io/badge/Version-v1.0.0--beta.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb](https://img.shields.io/badge/AppVersion-9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb-informational?style=flat-square)
 
-Formance Console Helm Chart
+Formance Console
 
 **Homepage:** <https://formance.com>
 

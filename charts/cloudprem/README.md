@@ -1,9 +1,9 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.10](https://img.shields.io/badge/Version-v2.0.0--beta.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.11](https://img.shields.io/badge/Version-v2.0.0--beta.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
-This chart deploy formance control-plane
+Formance control-plane
 
 [Formance Cloudprem](https://docs.formance.com/deployment/cloudprem2/intro) is a platform that allows you to manage your users, organizations and your data plane.
 
@@ -351,12 +351,14 @@ Dex:
 | global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
 | global.platform.cookie.existingSecret | string | `""` | is the name of the secret |
 | global.platform.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
-| global.platform.enabled | bool | `true` | Enable Platform OAuth Client |
+| global.platform.enabled | bool | `true` | Enable platform oauth2 client |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.oauthClient.existingSecret | string | `""` | is the name of the secret |
 | global.platform.membership.oauthClient.id | string | `"platform"` | is the id of the client |
 | global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
+| global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
@@ -370,7 +372,7 @@ Dex:
 | global.postgresql.auth.username | string | `"formance"` | Name for a custom user to create (overrides `auth.username`) |
 | global.postgresql.host | string | `""` | Host for PostgreSQL (overrides included postgreql `host`) |
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
-| global.serviceHost | string | `""` | is the base domain for portal, console, membership, and dex |
+| global.serviceHost | string | `""` | is the base domain for portal and console |
 
 ### Dex configuration
 
@@ -395,7 +397,7 @@ Dex:
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
-| membership.dex.ingress.hosts[0].host | string | `"dex.{{ .Values.global.serviceHost }}"` | Dex ingress host |
+| membership.dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
 | membership.dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path |
 | membership.dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | membership.dex.ingress.tls | list | `[]` | Dex ingress tls |
@@ -414,6 +416,8 @@ Dex:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
+| global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | console.affinity | object | `{}` | Console affinity |
 | console.config.additionalEnv | object | `{}` | Console additional environment variables |
 | console.config.environment | string | `"production"` | Console environment |
@@ -455,11 +459,10 @@ Dex:
 | membership.config.migration.annotations | object | `{"helm.sh/hook":"pre-upgrade","helm.sh/hook-delete-policy":"before-hook-creation,hook-succeeded,hook-failed"}` | Membership migration annotations |
 | membership.config.migration.annotations."helm.sh/hook" | string | `"pre-upgrade"` | Membership migration helm hook |
 | membership.config.migration.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
-| membership.config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","issuer":"https://dex.{{ .Values.global.serviceHost }}","secretKeys":{"secret":""}}` | DEPRECATED Membership postgresql connection url postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable" |
+| membership.config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","secretKeys":{"secret":""}}` | DEPRECATED Membership postgresql connection url postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable" |
 | membership.config.oidc.clientId | string | `"membership"` | Membership oidc client id |
 | membership.config.oidc.clientSecret | string | `"changeMe"` | Membership oidc client secret |
 | membership.config.oidc.existingSecret | string | `""` | Membership oidc existing secret |
-| membership.config.oidc.issuer | string | `"https://dex.{{ .Values.global.serviceHost }}"` | Membership oidc issuer |
 | membership.config.oidc.secretKeys | object | `{"secret":""}` | Membership oidc secret key |
 | membership.debug | bool | `false` | Membership debug |
 | membership.dev | bool | `false` | Membership dev |

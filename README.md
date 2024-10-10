@@ -2,15 +2,15 @@
 
 ## How to use Helm charts
 
-| Charts | App Version | Description | Hub |
-|-------|---------|-------------|-----|
-| [Cloudprem](./charts/cloudprem/README.md) | v0.35.3 | Formance control-plane | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem) |
-| [Console](./charts/console/README.md) | 9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb | Formance Console | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/console)](https://artifacthub.io/packages/search?repo=console) |
-| [Core](./charts/core/README.md) | latest | Formance Core Library | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/core)](https://artifacthub.io/packages/search?repo=core) |
-| [Demo](./charts/demo/README.md) | latest | Formance Private Regions Demo | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/demo)](https://artifacthub.io/packages/search?repo=demo) |
-| [Membership](./charts/membership/README.md) | v0.35.3 | Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions. | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/membership)](https://artifacthub.io/packages/search?repo=membership) |
-| [Portal](./charts/portal/README.md) | 764bb7e199e1d2882e4d5cd205eada0ef0abc283 | Formance Portal | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/portal)](https://artifacthub.io/packages/search?repo=portal) |
-| [Stargate](./charts/stargate/README.md) | latest | Formance Stargate gRPC Gateway | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/stargate)](https://artifacthub.io/packages/search?repo=stargate) |
+| Charts | Chart Version | App Version | Description | Hub |
+|--------|---------------|-------------|-------------|-----|
+| [Cloudprem](./charts/cloudprem/README.md) | v2.0.0-beta.11 |v0.35.3 | Formance control-plane | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem) |
+| [Console](./charts/console/README.md) | v1.0.0-beta.1 |9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb | Formance Console | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/console)](https://artifacthub.io/packages/search?repo=console) |
+| [Core](./charts/core/README.md) | v1.0.0-beta.1 |latest | Formance Core Library | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/core)](https://artifacthub.io/packages/search?repo=core) |
+| [Demo](./charts/demo/README.md) | 2.0.0 |latest | Formance Private Regions Demo | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/demo)](https://artifacthub.io/packages/search?repo=demo) |
+| [Membership](./charts/membership/README.md) | v1.0.0-beta.1 |v0.35.3 | Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions. | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/membership)](https://artifacthub.io/packages/search?repo=membership) |
+| [Portal](./charts/portal/README.md) | v1.0.0-beta.1 |764bb7e199e1d2882e4d5cd205eada0ef0abc283 | Formance Portal | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/portal)](https://artifacthub.io/packages/search?repo=portal) |
+| [Stargate](./charts/stargate/README.md) | 0.3.0 |latest | Formance Stargate gRPC Gateway | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/stargate)](https://artifacthub.io/packages/search?repo=stargate) |
 
 ## How to contribute
 

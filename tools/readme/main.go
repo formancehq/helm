@@ -21,6 +21,7 @@ type chart struct {
 	Name         string   `yaml:"name"`
 	Description  string   `yaml:"description"`
 	AppVersion   string   `yaml:"appVersion"`
+	Version      string   `yaml:"version"`
 	KubeVersion  string   `yaml:"kubeVersion"`
 	Sources      []string `yaml:"sources"`
 	Dependencies []struct {
