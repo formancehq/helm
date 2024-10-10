@@ -19,7 +19,6 @@ type TemplatePlatfromTest struct {
 }
 
 func TestCloudprem(t *testing.T) {
-	// could be ldflags, but does not seem to work with go test ./... -ldflags "-X tests/helm/suite_test.ChartPath=../../charts/cloudprem"
 	if chartDirFromEnv := os.Getenv("CHART_DIR"); chartDirFromEnv != "" {
 		chartDir = chartDirFromEnv
 	}

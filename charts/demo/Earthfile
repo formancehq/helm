@@ -1,39 +1,39 @@
 VERSION 0.8
 
-IMPORT ../ AS root
+IMPORT ../ AS charts
 IMPORT ../core AS core
 
 schema:
-  FROM root+schema-base
+  FROM charts+schema-base
   WORKDIR /src
-  DO --pass-args root+SCHEMA
+  DO --pass-args charts+SCHEMA
 
 readme:
-  FROM root+readme-base
+  FROM charts+readme-base
   WORKDIR /src/demo
   COPY --dir (+dependencies/*) .
-  DO --pass-args root+README_GENERATOR
+  DO --pass-args charts+README_GENERATOR
 
 sources:
-  DO --pass-args root+BASE
+  DO --pass-args charts+BASE
   WORKDIR /src/demo
   COPY (+schema/*) .
-  DO --pass-args root+SOURCES
+  DO --pass-args charts+SOURCES
 
 dependencies:
   FROM +sources
   WORKDIR /src/demo
-  DO --pass-args root+DEPENDENCIES
+  DO --pass-args charts+DEPENDENCIES
 
 validate:
   FROM +dependencies
   WORKDIR /src/demo
   COPY (+readme/*) .
-  DO --pass-args root+VALIDATE
+  DO --pass-args charts+VALIDATE
 
 package:
   FROM +validate
   WORKDIR /src/demo
-  DO --pass-args root+PACKAGE
+  DO --pass-args charts+PACKAGE
 
 
