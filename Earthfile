@@ -3,6 +3,12 @@ VERSION 0.8
 IMPORT ./charts AS charts
 IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
 
+licence:
+  FROM core+base-image
+  WORKDIR /src
+  COPY LICENCE .
+  SAVE ARTIFACT LICENCE
+
 formance-runner:
   FROM earthly/earthly:latest
   RUN apk add --no-cache bash
@@ -12,8 +18,13 @@ formance-runner:
   DO core+SAVE_IMAGE --COMPONENT=formance-runner --REPOSITORY=${REPOSITORY} --TAG=$tag
 
 readme:
-  FROM core+base-image
-  RUN echo "not implemented"
+  FROM core+builder-image
+  COPY --dir charts /charts
+  COPY (./tools/readme+sources/*) /src
+  WORKDIR /src
+  RUN touch README.md
+  RUN go run ./ readme --chart-dir /charts  >> README.md
+  SAVE ARTIFACT README.md AS LOCAL README.md
 
 validate:
   LOCALLY
@@ -22,7 +33,7 @@ validate:
   END
 
 tests:
-  BUILD ./tests/helm+tests
+  BUILD ./test/helm+tests
 
 package:
   LOCALLY

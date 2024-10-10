@@ -1,6 +1,7 @@
 apiVersion: v2
 name: membership
-description: Formance Membership Helm Chart
+description: |-
+  Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 # A chart can be either an 'application' or a 'library' chart.
 #

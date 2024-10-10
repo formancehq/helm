@@ -1,6 +1,6 @@
 apiVersion: v2
 name: demo
-description: Formance Private Regions Demo Helm Chart
+description: Formance Private Regions Demo
 home: "https://formance.com"
 sources:
   - "https://github.com/formancehq/stack"

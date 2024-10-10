@@ -1,4 +1,4 @@
-# Day to day
+# Helm Charts
 
 ## Validating the PR
 
@@ -21,6 +21,7 @@ Each chart **must** implement the following targets:
 - `+validate`: validate the chart from the dependencies
 - `+package`: package the chart from validated sources
 
+> LICENCE is included in every chart throught the helper [SOURCE](./charts/Earthfile)
 
 ### Core Dependencies
 
@@ -30,7 +31,6 @@ Each chart must implement the core helm library as a dependency to include the c
 - values structure
 - kubernetes recommended labels
 - (optional): aws, tgb, ingress, pdp, hpa
-
 
 # CI
 

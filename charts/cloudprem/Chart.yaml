@@ -2,7 +2,7 @@ annotations: {}
 apiVersion: v2
 name: cloudprem
 description: |-
-  This chart deploy formance control-plane
+  Formance control-plane
 
 home: "https://formance.com"
 

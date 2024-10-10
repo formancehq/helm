@@ -1,6 +1,7 @@
 apiVersion: v2
 name: portal
-description: Formance Portal Helm Chart
+description: |-
+  Formance Portal
 
 home: "https://formance.com"
 

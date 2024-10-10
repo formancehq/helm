@@ -1,6 +1,6 @@
 apiVersion: v2
 name: console
-description: Formance Console Helm Chart
+description: Formance Console
 
 home: "https://formance.com"
 

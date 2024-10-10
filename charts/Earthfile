@@ -1,6 +1,7 @@
 VERSION 0.8
 
 IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
+IMPORT .. as root
 
 BASE:
   FUNCTION
@@ -9,6 +10,7 @@ BASE:
 
 SOURCES:
   FUNCTION
+  COPY (root+licence/*) .
   COPY --if-exists Chart.lock .
   COPY Chart.yaml .
   COPY --if-exists README.md .

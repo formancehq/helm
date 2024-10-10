@@ -1,6 +1,7 @@
 apiVersion: v2
 name: stargate
-description: A Helm chart for Kubernetes
+description: |-
+  Formance Stargate gRPC Gateway
 
 # A chart can be either an 'application' or a 'library' chart.
 #

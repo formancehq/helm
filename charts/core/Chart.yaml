@@ -1,6 +1,6 @@
 apiVersion: v2
 name: core
-description: Formance Core Helm Chart
+description: Formance Core Library
 home: "https://formance.com"
 
 keywords:

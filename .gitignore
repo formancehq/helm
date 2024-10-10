@@ -4,3 +4,5 @@
 .DS_Store
 
 dist
+
+.tmp-earthly-out
