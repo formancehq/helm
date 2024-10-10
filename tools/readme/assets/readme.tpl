@@ -2,7 +2,7 @@
 
 ## How to use Helm charts
 
-| Charts | Chart Version | App Version | Description | Hub |
+| Readme | Chart Version | App Version | Description | Hub |
 |--------|---------------|-------------|-------------|-----|
 {{- range .Charts }}
 | [{{ .Name | title }}](./charts/{{ .Name }}/README.md) | {{ .Version }} |{{ .AppVersion }} | {{ .Description }} | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/{{ .Name }})](https://artifacthub.io/packages/search?repo={{ .Name }}) |
