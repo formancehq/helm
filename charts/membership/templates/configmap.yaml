@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "core.fullname" . }}
+  labels:
+    {{- include "core.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    staticClients:
+      {{- if .Values.config.fctl }}
+      - id: fctl
+        public: true
+      {{- end }}
+      {{- if .Values.global.platform.enabled }}
+      - id: "{{ .Values.global.platform.membership.oauthClient.id }}"
+        secrets:
+          - "$PLATFORM_OAUTH_CLIENT_SECRET"
+        redirectUris:
+          - '{{ tpl (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login'
+          - '{{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login'
+        postLogoutRedirectUris:
+          - '{{ tpl (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout'
+          - '{{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout'
+        scopes:
+          - supertoken
+          - accesses
+          - remember_me
+          - keep_refresh_token
+      {{- end }}
+      {{- with .Values.config.additionalOAuthClients }}
+      {{- tpl (toYaml .) $ | nindent 6 }}
+      {{- end }}

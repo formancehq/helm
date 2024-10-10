@@ -1,0 +1,9 @@
+global:
+  aws:
+    iam: true
+
+
+membership:
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: ""

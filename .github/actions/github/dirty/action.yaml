@@ -1,0 +1,15 @@
+name: Dirty
+description: Check if the current state is dirty
+runs:
+  using: composite
+  steps:
+    - name: Get changed files
+      id: changed-files
+      shell: bash
+      run: |
+        hasChanged=$(git status --porcelain) 
+        if (( $(echo ${#hasChanged}) != 0 )); then
+          git status
+          echo "There are changes in the repository"
+          exit 1
+        fi

@@ -1,0 +1,45 @@
+VERSION 0.8
+
+IMPORT "github.com/formancehq/earthly" AS core
+
+IMPORT ../../charts/core AS lib
+
+IMPORT ../../charts/cloudprem AS cloudprem
+IMPORT ../../charts/console AS console
+IMPORT ../../charts/membership AS membership
+IMPORT ../../charts/portal AS portal
+IMPORT ../../charts/stargate AS stargate
+
+sources:
+  FROM core+base-image
+  WORKDIR /src
+  COPY go.* .
+  COPY --dir suite .
+  WORKDIR /src/chart/core
+  COPY --dir (lib+sources/*) .
+  WORKDIR /src/chart/cloudprem
+  COPY --dir (cloudprem+sources/*) .
+  WORKDIR /src/chart/console
+  COPY --dir (console+sources/*) .
+  WORKDIR /src/chart/membership
+  COPY --dir (membership+sources/*) .
+  WORKDIR /src/chart/portal
+  COPY --dir (portal+sources/*) .
+  WORKDIR /src/chart/stargate
+  COPY --dir (stargate+sources/*) .
+  WORKDIR /src/chart/migrator
+  SAVE ARTIFACT /src
+
+tests:
+  FROM core+builder-image
+  RUN apk add helm
+  WORKDIR /src
+  COPY (+sources/*) .
+  
+  ARG additionalArgs
+  ENV CHART_DIR /src/chart/
+  ENV CGO_ENABLED=1
+  RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
+      --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
+      --mount=type=cache,id=golangci,target=/root/.cache/golangci-lint \
+      go test ./... -race $additionalArgs

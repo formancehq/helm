@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "core.fullname" . }}
+  labels:
+    {{- include "core.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "core.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "core.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "core.serviceAccountName" . }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+          {{- range $constraint := . }}
+        - {{ toYaml $constraint | nindent 10 | trim }}
+          {{- if not $constraint.labelSelector }}
+          labelSelector:
+            matchLabels: 
+              {{- include "core.selectorLabels" $ | nindent 14 }}
+          {{- end }}
+          {{- end }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "core.fullname" . }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args:
+            - stargate
+            - server
+          env:
+            - name: AUTH_ISSUER_URL
+              value: "{{ tpl .Values.config.auth_issuer_url . }}"
+            - name: GRPC_ADDR
+              value: "0.0.0.0:{{ .Values.service.ports.grpc | default 3068 }}"
+            - name: HTTP_ADDR
+              value: "0.0.0.0:{{ .Values.service.ports.http | default 8080 }}"
+            {{- include "core.postgres.uri" . | nindent 12 }}
+            {{- include "aws.iam.postgres" . | nindent 12 }}
+            {{- include "core.nats.env" . | nindent 12 }}
+            {{- include "core.env.common" . | nindent 12 }}
+            {{- include "core.monitoring" . | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ default 8080 .Values.service.ports.http.port }}
+              protocol: TCP
+            - name: grpc
+              containerPort: {{ default 3068 .Values.service.ports.grpc.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /_healthcheck
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /_healthcheck
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

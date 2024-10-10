@@ -1,0 +1,25 @@
+global:
+  serviceHost: "example.com"
+
+membership:
+  ingress:
+    enabled: true
+    tls:
+      - secretName: example-com-wildcard-certificate-tls
+  dex:
+    ingress:
+      enabled: true
+      tls:
+        - secretName: example-com-wildcard-certificate-tls
+
+portal:
+  ingress:
+    enabled: true
+    tls:
+      - secretName: example-com-wildcard-certificate-tls
+
+console:
+  ingress:
+    enabled: true
+    tls:
+      - secretName: example-com-wildcard-certificate-tls

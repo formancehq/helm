@@ -1,0 +1,21 @@
+inputs:
+  CHART_PATH:
+    description: "Path to the chart to package"
+    required: true
+
+name: Validate
+description: Validate a chart
+runs:
+  using: composite
+  steps:
+    - name: Base Earthly action
+      uses: ./.github/actions/earthly/base
+    - uses: "actions/checkout@v4"
+      with:
+        fetch-depth: 0
+    - name: Validate
+      shell: bash
+      run: >
+        earthly $CHART_PATH+validate
+      env:
+        CHART_PATH: ${{ inputs.CHART_PATH }}

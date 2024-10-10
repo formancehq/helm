@@ -1,0 +1,46 @@
+VERSION 0.8
+
+IMPORT ../ AS root
+IMPORT ../core AS core
+
+schema:
+  FROM root+schema-base
+  WORKDIR /src
+  DO --pass-args root+SCHEMA
+
+readme:
+  FROM root+readme-base
+  WORKDIR /src/core
+  COPY --dir (core+dependencies/*) .
+  WORKDIR /src/membership
+  COPY --dir (+dependencies/*) .  
+  DO --pass-args root+README_GENERATOR
+
+sources:
+  DO --pass-args root+BASE
+  WORKDIR /src/console
+  COPY (+schema/*) .
+  DO --pass-args root+SOURCES
+
+dependencies:
+  FROM +sources
+  WORKDIR /src/core
+  COPY --dir (core+dependencies/*) .
+  WORKDIR /src/console
+  DO --pass-args root+DEPENDENCIES
+
+validate:
+  FROM +dependencies
+  WORKDIR /src/console
+  COPY (+readme/*) .
+  DO --pass-args root+VALIDATE
+
+package:
+  FROM +validate
+  WORKDIR /src/console
+  DO --pass-args root+PACKAGE
+
+publish:
+  FROM +package
+  WORKDIR /src/console
+  DO --pass-args root+PUBLISH

@@ -1,21 +1,39 @@
 VERSION 0.8
 
-IMPORT github.com/formancehq/earthly:tags/v0.15.0 AS core
+IMPORT ../ AS root
+IMPORT ../core AS core
+
+schema:
+  FROM root+schema-base
+  WORKDIR /src
+  DO --pass-args root+SCHEMA
+
+readme:
+  FROM root+readme-base
+  WORKDIR /src/demo
+  COPY --dir (+dependencies/*) .
+  DO --pass-args root+README_GENERATOR
 
 sources:
-  FROM core+base-image
-  WORKDIR /src
-  COPY Chart.lock /src/Chart.lock
-  COPY Chart.yaml /src/Chart.yaml
-  COPY README.md /src/README.md
-  COPY values.yaml /src/values.yaml
-  COPY --dir templates /src/templates
-  SAVE ARTIFACT /src
+  DO --pass-args root+BASE
+  WORKDIR /src/demo
+  COPY (+schema/*) .
+  DO --pass-args root+SOURCES
 
-helm-validate:
-  FROM core+helm-base
-  WORKDIR /src
-  COPY (+sources/*) /src/
+dependencies:
+  FROM +sources
+  WORKDIR /src/demo
+  DO --pass-args root+DEPENDENCIES
 
-  RUN helm dependencies update
-  DO --pass-args core+HELM_VALIDATE
+validate:
+  FROM +dependencies
+  WORKDIR /src/demo
+  COPY (+readme/*) .
+  DO --pass-args root+VALIDATE
+
+package:
+  FROM +validate
+  WORKDIR /src/demo
+  DO --pass-args root+PACKAGE
+
+
