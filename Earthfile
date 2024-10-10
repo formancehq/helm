@@ -41,7 +41,11 @@ package:
     BUILD $chart+package
   END
 
+ci:
+  BUILD +pre-commit
+  BUILD +tests
+  BUILD +package
+
 pre-commit:
   BUILD +validate
   BUILD +readme
-  BUILD +tests
