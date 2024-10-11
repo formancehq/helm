@@ -32,6 +32,7 @@ jobs:
             echo "There are changes in the repository"
             exit 1
           fi
+  
   release:
     name: Release
     needs:
@@ -40,6 +41,10 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+      - name: Install earthly
+        uses: earthly/actions-setup@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
         with:
