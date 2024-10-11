@@ -1,4 +1,4 @@
-VERSION 0.8
+VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT ../console AS console
 IMPORT ../membership AS membership
@@ -15,7 +15,6 @@ readme:
   FROM charts+readme-base
   WORKDIR /src/core
   COPY --dir (core+dependencies/*) .
-  
   WORKDIR /src/console
   COPY --dir (console+dependencies/*) .
   WORKDIR /src/membership
@@ -24,8 +23,7 @@ readme:
   COPY --dir (portal+dependencies/*) .
 
   WORKDIR /src/cloudprem
-  COPY (+dependencies/*) .
-  COPY (+schema/*) .
+  COPY (+sources/*) .
   COPY *.gotmpl .
   DO --pass-args charts+README_GENERATOR
 

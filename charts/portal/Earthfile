@@ -1,4 +1,4 @@
-VERSION 0.8
+VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT ../ AS charts
 IMPORT ../core AS core
@@ -12,7 +12,7 @@ readme:
   FROM charts+readme-base
   WORKDIR /src/core
   COPY --dir (core+dependencies/*) .
-  WORKDIR /src/membership
+  WORKDIR /src/portal
   COPY --dir (+dependencies/*) .
   DO --pass-args charts+README_GENERATOR
 
