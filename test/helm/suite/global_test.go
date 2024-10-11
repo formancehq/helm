@@ -377,7 +377,3 @@ func (s *TemplateGoldenTest) TestTolerations() {
 	}
 
 }
-
-func (s *TemplateGoldenTest) TestPodDisruptionBudget() {
-
-}

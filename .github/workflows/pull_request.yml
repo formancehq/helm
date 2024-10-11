@@ -25,7 +25,7 @@ jobs:
       - name: Retrieve chart changes
         id: chart_changes
         run: |
-          CHARTS=$(git diff origin/main --stat | grep -oE 'charts/[^/]+/' | sed 's|charts/||;s|/||' | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          CHARTS=$(git diff ${{ github.base_ref }} --stat | grep -oE 'charts/[^/]+/' | sed 's|charts/||;s|/||' | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
           echo "Changed charts: $CHARTS"
           echo "::set-output name=changed_charts::$CHARTS"
 
@@ -84,3 +84,9 @@ jobs:
             echo "There are changes in the repository"
             exit 1
           fi
+      - name: Archive chart
+        uses: actions/upload-artifact@v4
+        with:
+          name: charts_${{ github.ref_type == 'branch' && github.sha }}.tgz
+          path: charts/**/*.tgz
+          retention-days: 3

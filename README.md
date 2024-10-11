@@ -2,7 +2,7 @@
 
 ## How to use Helm charts
 
-| Charts | Chart Version | App Version | Description | Hub |
+| Readme | Chart Version | App Version | Description | Hub |
 |--------|---------------|-------------|-------------|-----|
 | [Cloudprem](./charts/cloudprem/README.md) | v2.0.0-beta.11 |v0.35.3 | Formance control-plane | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem) |
 | [Console](./charts/console/README.md) | v1.0.0-beta.1 |9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb | Formance Console | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/console)](https://artifacthub.io/packages/search?repo=console) |

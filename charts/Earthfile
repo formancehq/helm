@@ -1,7 +1,7 @@
 VERSION 0.8
 
 IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
-# IMPORT ../.. AS root
+IMPORT .. AS root
 
 BASE:
   FUNCTION
@@ -10,10 +10,9 @@ BASE:
 
 SOURCES:
   FUNCTION
-  # COPY (root+license/*) .
+  COPY (root+sources/* --PATH=LICENSE) .
   COPY --if-exists Chart.lock .
   COPY Chart.yaml .
-  COPY --if-exists README.md .
   COPY --if-exists values.yaml .
   COPY --dir --if-exists templates .
   SAVE ARTIFACT ./* AS LOCAL ./
@@ -45,17 +44,6 @@ PACKAGE:
   RUN helm package .
   SAVE ARTIFACT *.tgz AS LOCAL ./
 
-# publish:
-#   ARG --required PROJECT
-#   FROM ./$PROJECT+package
-#   WITH DOCKER
-#     RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | docker login ghcr.io -u NumaryBot --password-stdin
-#   END
-#   WITH DOCKER
-#     RUN helm push *.tgz oci://ghcr.io/formancehq/helm
-#   END
-
-
 README_GENERATOR:
   FUNCTION
   RUN helm-docs --chart-search-root=.. --document-dependency-values
@@ -71,6 +59,7 @@ readme-base:
   ARG HELM_DOCS_VERSION=v1.14
   ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
   DO --pass-args core+GO_INSTALL --package=github.com/norwoodj/helm-docs/cmd/helm-docs@$HELM_DOCS_VERSION
+
 SCHEMA:
   FUNCTION
   COPY values.yaml .
@@ -82,11 +71,3 @@ schema-base:
   DO --pass-args +BASE
   RUN apk add --no-cache git
   RUN helm plugin install https://github.com/losisin/helm-values-schema-json.git
-
-increment-version:
-  FROM core+base-image
-  ARG --required CHART
-  WORKDIR /src
-  COPY $CHART/Chart.yaml .
-  RUN yq eval '.version = "$VERSION"' -i Chart.yaml
-  SAVE ARTIFACT Chart.yaml AS LOCAL $CHART/Chart.yaml

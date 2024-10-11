@@ -48,7 +48,7 @@ func WithDefaultValues(base *Base) helmOpt {
 }
 
 func (s *Base) setupSuite(t *testing.T) error {
-	if os.Getenv("NO_SETUP") == "true" {
+	if os.Getenv("NO_UPDATE") == "true" {
 		return nil
 	}
 	if _, err := helm.RunHelmCommandAndGetStdOutE(t, s.Options(), "dependency", "update", s.ChartPath); err != nil {
@@ -61,6 +61,7 @@ func (s *Base) Options(helmOpts ...helmOpt) *helm.Options {
 	// Find a way to read the Chart.yaml to add the repository
 	opts := &helm.Options{
 		KubectlOptions: k8s.NewKubectlOptions("", "", s.Namespace),
+		// Need to add all the repositories
 		// BuildDependencies: true,
 		SetValues: map[string]string{},
 	}

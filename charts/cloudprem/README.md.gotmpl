@@ -33,8 +33,6 @@ helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
 - Membership > 0.28.0
 - Dex > 0.28.0
 
-<!-- ![diagram](./controlplane.svg) -->
-
 ## Introduction
 
 This chart bootstraps 5 different components that form the Formance Control Plane, additionally you will need to install the Formance Data Plane composed of a Kubernetes Operator.
