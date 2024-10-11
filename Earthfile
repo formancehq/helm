@@ -3,17 +3,16 @@ VERSION --wildcard-builds --wildcard-copy 0.8
 IMPORT ./charts AS charts
 IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
 
-ARG PLATFORM=linux/amd64
-
 sources:
   ARG --required PATH
   FROM core+base-image
   WORKDIR /src
+  WORKDIR /src/${PATH}
   COPY --dir ./${PATH} .
-  SAVE ARTIFACT /src
+  SAVE ARTIFACT /src/${PATH}
 
 readme:
-  FROM --platform=${PLATFORM} core+base-image
+  FROM core+base-image
   RUN apk add go
   RUN touch README.md
   COPY --dir charts /charts
