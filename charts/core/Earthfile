@@ -1,7 +1,6 @@
 VERSION --wildcard-builds --wildcard-copy 0.8
 
-IMPORT ../ AS charts
-IMPORT ../core AS core
+IMPORT .. AS charts
 
 schema:
   FROM charts+schema-base
@@ -10,30 +9,31 @@ schema:
 
 readme:
   FROM charts+readme-base
-  WORKDIR /src/demo
-  COPY --dir (+dependencies/*) .
+  WORKDIR /src/core
+  COPY --dir (+sources/*) .
   DO --pass-args charts+README_GENERATOR
 
 sources:
   DO --pass-args charts+BASE
-  WORKDIR /src/demo
+  WORKDIR /src/core
   COPY (+schema/*) .
   DO --pass-args charts+SOURCES
 
-dependencies:
-  FROM +sources
-  WORKDIR /src/demo
-  DO --pass-args charts+DEPENDENCIES
-
 validate:
   FROM +dependencies
-  WORKDIR /src/demo
-  COPY (+readme/*) .
-  DO --pass-args charts+VALIDATE
+  RUN echo "No validation required"
+
+dependencies:
+  FROM +sources
+  WORKDIR /src/core
+  DO --pass-args charts+DEPENDENCIES
+
+lint:
+  FROM +dependencies
+  WORKDIR /src/core
+  DO --pass-args charts+LINT
 
 package:
-  FROM +validate
-  WORKDIR /src/demo
+  FROM +lint
+  WORKDIR /src/core
   DO --pass-args charts+PACKAGE
-
-

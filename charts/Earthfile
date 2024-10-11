@@ -1,50 +1,73 @@
-VERSION 0.8
+VERSION --wildcard-builds --wildcard-copy 0.8
 
-IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
+IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
+IMPORT .. AS root
 
-helm-sources:
-    ARG --required PROJECT
-    FROM core+helm-base
-    WORKDIR /src/helm
-    COPY --dir ./$PROJECT/* /src/helm
-    SAVE ARTIFACT /src/helm
+BASE:
+  FUNCTION
+  FROM core+base-image
+  RUN apk update && apk add openssl helm
 
-helm-readme-generator:
-    ARG --required PROJECT
-    FROM node:20
-    WORKDIR /src/readme-generator-for-helm
-    GIT CLONE git@github.com:bitnami/readme-generator-for-helm.git .
-    RUN npm install
-    WORKDIR /src/helm
-    COPY --pass-args (+helm-sources/*) .
-    RUN node /src/readme-generator-for-helm/bin/index.js --values values.yaml --schema values.schema.json --readme README.md
-    SAVE ARTIFACT README.md AS LOCAL ./$PROJECT/README.md
-    
-helm-validate:
-    ARG --required PROJECT
-    FROM +helm-sources --PROJECT=$PROJECT
-    RUN apk add --no-cache git
-    RUN helm plugin install https://github.com/losisin/helm-values-schema-json.git
-    WORKDIR /src/helm
-    RUN helm dependencies update
-    RUN helm lint ./ --strict
-    RUN helm schema -input values.yaml -output values.schema.json
-    SAVE ARTIFACT /src/helm AS LOCAL ./$PROJECT
+SOURCES:
+  FUNCTION
+  COPY (root+sources/* --PATH=LICENSE) .
+  COPY --if-exists Chart.lock .
+  COPY Chart.yaml .
+  COPY --if-exists values.yaml .
+  COPY --dir --if-exists templates .
+  SAVE ARTIFACT ./* AS LOCAL ./
 
-helm-package:
-    ARG --required PROJECT
-    FROM +helm-sources --PROJECT=$PROJECT
-    WORKDIR /src/helm
-    RUN helm package . --destination /src/build/
-    SAVE ARTIFACT /src/build
+VALIDATE:
+  FUNCTION
+  DO --pass-args +LINT
+  DO --pass-args +TEMPLATE
+  SAVE ARTIFACT ./*.lock AS LOCAL ./
+  SAVE ARTIFACT ./README.md AS LOCAL ./
+  SAVE ARTIFACT ./values.schema.json AS LOCAL ./
 
-helm-publish:
-    ARG --required PROJECT
-    FROM +helm-package --PROJECT=$PROJECT
-    WORKDIR /src/build
-    WITH DOCKER
-        RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | docker login ghcr.io -u NumaryBot --password-stdin
-    END
-    WITH DOCKER
-        RUN helm push ./*.tgz oci://ghcr.io/formancehq/helm
-    END
+LINT:
+  FUNCTION
+  ARG additionalArgs
+  RUN helm lint ./ --strict $additionalArgs
+
+TEMPLATE:
+  FUNCTION
+  RUN helm template ./ $additionalArgs
+
+DEPENDENCIES:
+  FUNCTION
+  RUN helm dependencies update
+  SAVE ARTIFACT ./* AS LOCAL ./
+
+PACKAGE:
+  FUNCTION
+  RUN helm package .
+  SAVE ARTIFACT *.tgz AS LOCAL ./
+
+README_GENERATOR:
+  FUNCTION
+  RUN helm-docs --chart-search-root=.. --document-dependency-values
+  SAVE ARTIFACT README.md AS LOCAL README.md
+
+readme-base:
+  DO --pass-args +BASE
+  RUN apk add go
+  ENV GOPATH /go
+  ENV GOTOOLCHAIN=local
+  ARG GOCACHE=/go-cache
+  ARG GOMODCACHE=/go-mod-cache
+  ARG HELM_DOCS_VERSION=v1.14
+  ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+  DO --pass-args core+GO_INSTALL --package=github.com/norwoodj/helm-docs/cmd/helm-docs@$HELM_DOCS_VERSION
+
+SCHEMA:
+  FUNCTION
+  COPY values.yaml .
+  RUN helm schema -input values.yaml -output values.schema.json
+  SAVE ARTIFACT values.schema.json AS LOCAL values.schema.json
+  SAVE ARTIFACT values.yaml
+
+schema-base:
+  DO --pass-args +BASE
+  RUN apk add --no-cache git
+  RUN helm plugin install https://github.com/losisin/helm-values-schema-json.git

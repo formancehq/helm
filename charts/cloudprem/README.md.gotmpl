@@ -1,0 +1,335 @@
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
+{{ template "chart.badgesSection" . }}
+
+# Formance Cloudprem Helm Chart
+
+{{ template "chart.description" . }}
+
+[Formance Cloudprem](https://docs.formance.com/deployment/cloudprem2/intro) is a platform that allows you to manage your users, organizations and your data plane.
+
+## TL;DR
+
+```bash
+export BASE_DOMAIN=example.com
+export BASE_DOMAIN_WILDCARD_CERTIFICATE=example-com-wildcard-certificate-tls
+
+helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
+  --set global.serviceHost=$BASE_DOMAIN \
+  --set membership.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
+  --set portal.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
+  --set console.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
+  --set dex.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE
+```
+
+## Requirements
+
+- SSL Certificate (Let's Encrypt or another)
+- Public domain according to the certificate authority
+
+## Control plane components
+
+- Portal > 0.0.1
+- Console > 2.2.1
+- Membership > 0.28.0
+- Dex > 0.28.0
+
+## Introduction
+
+This chart bootstraps 5 different components that form the Formance Control Plane, additionally you will need to install the Formance Data Plane composed of a Kubernetes Operator.
+
+In order to deploy the 5 different components, you must have a Kubernetes cluster with an Ingress Controller and valid SSL certificates for the different domains.
+
+Following components need his own database:
+
+- [Dex](https://dexidp.io/) (Authentication)
+- Membership (User and Organization Management)
+
+Addtionnaly all components need a public URL that can be accessible through a VPN or a public domain.
+
+The deployment is done via Helm. Make sure you have Helm installed and configured.
+
+You will first have to create a `values.yaml` file to define your values.
+
+> [!TIP]
+>By default, a PostgreSQL database is included in this configuration without any data persistence.
+
+In order to do your first deployment you will need to complete the following steps:
+- [Complete de minimal profile](#minimal-valuesyaml-profile)
+- [Deploy Operator](https://docs.formance.com/operator/Installation)
+- [Deploy Stack](#deploy-stack)
+- [Init Cloudprem](#init-cloudprem)
+
+## Minimal `values.yaml` profile
+
+> [!IMPORTANT]
+> Each certificate must be in the form of `.global.serviceHost` following the example below:
+>- Console: `console.{{ printf "{{ .Values.global.serviceHost }}" }}`
+>- Portal: `portal.{{ printf "{{ .Values.global.serviceHost }}" }}`
+>- Membership: `membership.{{ printf "{{ .Values.global.serviceHost }}" }}`
+>- Dex: `dex.{{ printf "{{ .Values.global.serviceHost }}" }}`
+
+> [!TIP]
+> A quick win is to use a wildcard certificate for all the components on `*.{{ printf "{{ .Values.global.serviceHost }}" }}}`.
+>Then reference the secret same as the example bellow.
+
+> [!TIP]
+> You can use [Cert Manager](https://cert-manager.io/docs/) to manage your certificates.
+
+```yaml
+global:
+  serviceHost: "example.com"
+
+membership:
+  ingress:
+    enabled: true
+    tls:
+      - secretName: example-com-wildcard-certificate-tls
+  dex:
+    ingress:
+      enabled: true
+      tls:
+        - secretName: example-com-wildcard-certificate-tls
+
+portal:
+  ingress:
+    enabled: true
+    tls:
+      - secretName: example-com-wildcard-certificate-tls
+
+console:
+  ingress:
+    enabled: true
+    tls:
+      - secretName: example-com-wildcard-certificate-tls
+```
+
+
+## Init Cloudprem
+
+### [Install FCTL](https://docs.formance.com/getting-started/fctl-quick-start)
+
+```bash
+# Linux amd64, arm64
+ARCH="amd64"; curl -L -o fctl.tar.gz "https://github.com/formancehq/stack/releases/download/v2.0.9/fctl_linux-$ARCH.tar.gz" \
+&& tar -xvf fctl.tar.gz \
+&& sudo mv fctl /usr/local/bin \
+&& chmod +x /usr/local/bin/fctl \
+&& rm fctl.tar.gz
+
+# MacOS
+brew install formancehq/tap/fctl
+brew upgrade fctl
+
+
+## Debian
+deb [trusted=yes] https://apt.fury.io/formance/ / > /etc/apt/sources.list
+apt update && apt install fctl
+```
+
+```bash
+fctl version
+```
+
+### Login on membership
+
+> [!IMPORTANT]
+> According to [Dex default configuration](#dex-configuration), you can login with the following credentials: `admin@formance.com` / `password`.
+> You can also define `Google`, `Github`, `Microsoft` as OAuth2 connectors.
+> Additional configuration can be found on the [Dex documentation](https://artifacthub.io/packages/helm/dex/dex).
+
+```bash
+export BASE_DOMAIN=example.com
+fctl -p $user login --membership-uri https://membership.$BASE_DOMAIN/api
+```
+
+This will create a new organization and a user.
+
+### (Optional) Add domain for Auto Login
+
+```bash
+
+export EMAIL_DOMAIN_NAME=example.com
+
+fctl cloud organizations list
+
+fctl cloud organizations update ORGANIZATION_ID --domain=$EMAIL_DOMAIN_NAME --default-organization-role=GUEST --default-stack-role=GUEST
+
+fctl cloud organizations list
+```
+
+The possible values are GUEST or ADMIN.
+This allows to give the rights by default to a user who logs in with an email of domain DOMAIN_NAME.
+
+### Init databases
+
+```sql
+insert into membership."regions" (id, base_url, name, creator_id, created_at, production, active) values (
+    gen_random_uuid(),
+    'https://${BASE_DOMAIN}',
+    'default',
+    (select id from membership."users" where id = (
+        select owner_id from membership."organizations" limit 1
+    )),
+    now(),
+    true,
+    true
+);
+insert into membership."stacks" (name, organization_id, id, region_id, created_at, updated_at, stargate_enabled, client_secret, state, status, expected_status) values (
+    'default',
+     (select id from membership."organizations" limit 1),
+     'sdgsd', -- update if needed, this is your stack id
+     (select id from membership."regions" limit 1),
+     now(),
+     now(),
+     false,
+     gen_random_uuid(),
+     'ACTIVE',
+     'READY',
+     'READY'
+);
+```
+
+This query will create the region and a stack associated with your organization in that region.
+
+### Create stack on cluster
+
+After creating your region and your Stack.
+You can retrieve your Organization ID and search & replace the value of your organization ID and BASE_URL
+
+> [!IMPORTANT]
+> In the Formance CRDs, the stack name has format `<organization ID>-<stack ID>`
+
+```bash
+cat <<"EOF" > stack.sh
+
+#!bin/bash
+
+export BASE_DOMAIN_WILDCARD_CERTIFICATE=example-com-wildcard-certificate-tls
+export BASE_DOMAIN=example.com
+export ORGANIZATION_ID=ylzsigispivc
+export STACK_ID=sdgs
+
+cat <<EOF > stack.yaml 
+---
+apiVersion: formance.com/v1beta1
+kind: Stack
+metadata:
+  name: ${ORGANIZATION_ID}-${STACK_ID}
+spec:
+  debug: true
+  dev: true
+  versionsFromFile: v2.0
+---
+apiVersion: formance.com/v1beta1
+kind: Gateway
+metadata:
+  name: ${ORGANIZATION_ID}-${STACK_ID}
+spec:
+  stack: ${ORGANIZATION_ID}-${STACK_ID}
+  ingress:
+    host: ${ORGANIZATION_ID}-${STACK_ID}.${BASE_DOMAIN}
+    scheme: https
+    tls:
+      secretName: ${BASE_DOMAIN_WILDCARD_CERTIFICATE}
+---
+apiVersion: formance.com/v1beta1
+kind: Ledger
+metadata:
+  name: ${ORGANIZATION_ID}-${STACK_ID}
+spec:
+  stack: ${ORGANIZATION_ID}-${STACK_ID}
+---
+apiVersion: formance.com/v1beta1
+kind: Auth
+metadata:
+  name: ${ORGANIZATION_ID}-${STACK_ID}
+spec:
+  stack: ${ORGANIZATION_ID}-${STACK_ID}
+  enableScopes: true
+  delegatedOIDCServer:
+    clientID: stack_${ORGANIZATION_ID}_${STACK_ID}
+    clientSecret: changeMe
+    issuer: $(echo "https://membership.${BASE_DOMAIN}/api")
+EOF
+
+echo "EOF" >> stack.sh && bash stack.sh
+
+kubectl apply -f . /stack.yml
+```
+
+Here, we have deployed a basic configuration. Refer to [the Formance operator documentation](https://docs.formance.com/operator/Requirements) for information on possible configurations.
+
+### Access to the portal
+
+```bash
+fctl ui
+```
+
+## Migration
+
+### From v1.0.X To v2.0.X
+
+A global configuration has been introduced to manage values accross different services. To see the detail of the default values, please refer to the [Global Parameters](#global-configuration) section.
+
+Each platform key has beeen moved to `global.platform`
+
+This chart adds several `existingSecret` and `secretKeys` to manage the secret either from configuration or from a secret.
+
+The chart is now divided into 5 charts :
+- Portal
+- Console
+- Membership
+- Dex
+- Postgresql
+
+#### Breaking changes by service
+
+Labels:
+- Each service now depends on the global configuration to manage the labels according to [Kubernetes best recommendations](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)
+  - Each service now has a static `app.kubernetes.io/app` label overridable by with `.<service>.nameOverride`
+- By default, if not using the `.<service>.nameOverride`, the `app.kubernetes.io/name` changes and will generate a breaking change in the deployment. 
+  - To keep the default behavior managed by formance. Make sure if you use the embedded postgresql to `Retain` the related volume. Then you can `helm uninstall <release> --namespace <namespace>` and then `helm install <release> --namespace <namespace>`. (If you change the name of the release, make sure to bind the `postgresql.primary.persistence.existingClaim` accordingly)
+  - This change permits Formance to help you debugging any resources created by the chart by using the `app.kubernetes.io/name`, and ``app.kubernetes.io/instance` labels. (then with `kubectl get pods -l app.kubernetes.io/name=console -A` or all the instance `kubectl get pods -l app.kubernetes.io/instance=cloudprem -A`)
+  
+Global:
+- `.serviceAccount` has been removed, use `.<service>.serviceAccount` instead.
+- `.commonLabels` has been removed
+
+Console:
+-  `.console.membership` has been removed, and is now managed through the `.global.platform.membership.oauthClient`. It's going to be used by all platform services.
+
+Dex:
+- `.dex.config` has been moved `.dex.configOverrides` enabled by default with`.dex.createConfigSecretOverrides` allowing templating.
+
+#### Others changes
+
+Console:
+-  `.console.config.stargate_url` has been removed, it will be managed for a kubernetes service.
+-  `.console.config.feature_disabled` has been removed, it will be managed through `.console.config.additionalEnv.FEATURE_DISABLED`.
+-  `.console.config.managed_stack` has been removed, console now manage the stack through portal.
+-  `.console.config.database` has been removed, console now manage the session through portal cookie. 
+
+-  `.console.config.redirect_url` has been deprecated, it is now templated with `https://console.global.serviceHost`.
+-  `.console.config.encryption_key` has been deprecated, it will be managed through `.global.platform.cookie.encryptionKey`.
+
+Membership:
+- `.membership.config.url` has been removed, it will be templated through `.global.platform.membership.host` and `.global.platform.membership.scheme`
+- `.membership.config.postgresqlUrl` has been deprecated, it will be mangaged through `.global.postgresql.auth`. 
+- OAuth clients are now managed within the template and disablable with  `.global.platform.enabled`, `.membership.config.fctl`. Additionaly, you can add new client with `.membership.config.additionalOAuthClients` 
+
+Dex:
+
+- `.dex.envVars` and `.dex.configOverrides.staticClients.[].secretEnv` can be used together to set static clients secrets.
+
+
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

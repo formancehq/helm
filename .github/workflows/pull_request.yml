@@ -1,0 +1,92 @@
+name: Pull Request
+on:
+  merge_group:
+  pull_request:
+    types: [ assigned, opened, synchronize, reopened, labeled, unlabeled ]
+  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  labeler:
+    name: Chart Diff Labeler
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: 'actions/checkout@v4'
+        with:
+          fetch-depth: 0
+      - uses: actions/labeler@v5
+        with:
+          sync-labels: true
+      - name: Retrieve chart changes
+        id: chart_changes
+        run: |
+          CHARTS=$(git diff ${{ github.base_ref }} --stat | grep -oE 'charts/[^/]+/' | sed 's|charts/||;s|/||' | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "Changed charts: $CHARTS"
+          echo "::set-output name=changed_charts::$CHARTS"
+
+      - name: Label PR based on chart changes
+        if: steps.chart_changes.outputs.changed_charts != ''
+        uses: actions/github-script@v7
+        env:
+          CHARTS: ${{ steps.chart_changes.outputs.changed_charts }}
+        with:
+          script: |
+            const charts = JSON.parse(process.env.CHARTS);
+            const labels = charts.map(chart => `chart-${chart.trim()}`).filter(label => label.length > 0);
+
+            if (labels.length > 0) {
+              console.log(`Applying labels: ${labels.join(', ')}`);
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: labels
+              });
+            } else {
+              console.log('No charts changed, skipping labeling.');
+            }
+
+  pr_name:
+    if: github.event_name == 'pull_request'
+    name: Check PR Title
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install earthly
+        uses: earthly/actions-setup@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: 'actions/checkout@v4'
+        with:
+          fetch-depth: 0
+      - name: Tests
+        run: earthly +ci
+      - name: Get changed files
+        id: changed-files
+        shell: bash
+        run: |
+          hasChanged=$(git status --porcelain) 
+          if (( $(echo ${#hasChanged}) != 0 )); then
+            git status
+            echo "There are changes in the repository"
+            exit 1
+          fi
+      - name: Archive chart
+        uses: actions/upload-artifact@v4
+        with:
+          name: charts_${{ github.ref_type == 'branch' && github.sha }}.tgz
+          path: charts/**/*.tgz
+          retention-days: 3

@@ -1,0 +1,57 @@
+VERSION --wildcard-builds --wildcard-copy 0.8
+
+IMPORT ../console AS console
+IMPORT ../membership AS membership
+IMPORT ../portal AS portal
+IMPORT ../core AS core
+IMPORT .. AS charts
+
+schema:
+  FROM charts+schema-base
+  WORKDIR /src
+  DO --pass-args charts+SCHEMA
+
+readme:
+  FROM charts+readme-base
+  WORKDIR /src/core
+  COPY --dir (core+dependencies/*) .
+  WORKDIR /src/console
+  COPY --dir (console+dependencies/*) .
+  WORKDIR /src/membership
+  COPY --dir (membership+dependencies/*) .
+  WORKDIR /src/portal
+  COPY --dir (portal+dependencies/*) .
+
+  WORKDIR /src/cloudprem
+  COPY (+sources/*) .
+  COPY *.gotmpl .
+  DO --pass-args charts+README_GENERATOR
+
+sources:
+  DO --pass-args charts+BASE
+  WORKDIR /src/cloudprem
+  COPY --dir profiles .
+  COPY (+schema/*) .
+  DO --pass-args charts+SOURCES
+
+dependencies:
+  FROM +sources
+  WORKDIR /src/console
+  COPY --dir (console+dependencies/*) .
+  WORKDIR /src/membership
+  COPY --dir (membership+dependencies/*) .
+  WORKDIR /src/portal
+  COPY --dir (portal+dependencies/*) .
+  WORKDIR /src/cloudprem
+  DO --pass-args charts+DEPENDENCIES
+
+validate:
+  FROM +dependencies
+  WORKDIR /src/cloudprem
+  COPY (+readme/*) .
+  DO --pass-args charts+VALIDATE
+
+package:
+  FROM +validate
+  WORKDIR /src/cloudprem
+  DO --pass-args charts+PACKAGE

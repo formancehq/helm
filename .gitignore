@@ -1,3 +1,10 @@
 ./dist/
 *.tgz
-Chart.lock
+
+.DS_Store
+
+dist
+
+charts/**/LICENSE
+
+.tmp-earthly-out

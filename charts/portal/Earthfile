@@ -10,30 +10,32 @@ schema:
 
 readme:
   FROM charts+readme-base
-  WORKDIR /src/demo
+  WORKDIR /src/core
+  COPY --dir (core+dependencies/*) .
+  WORKDIR /src/portal
   COPY --dir (+dependencies/*) .
   DO --pass-args charts+README_GENERATOR
 
 sources:
   DO --pass-args charts+BASE
-  WORKDIR /src/demo
+  WORKDIR /src/portal
   COPY (+schema/*) .
   DO --pass-args charts+SOURCES
 
 dependencies:
   FROM +sources
-  WORKDIR /src/demo
+  WORKDIR /src/core
+  COPY --dir (core+dependencies/*) .
+  WORKDIR /src/portal
   DO --pass-args charts+DEPENDENCIES
 
 validate:
   FROM +dependencies
-  WORKDIR /src/demo
+  WORKDIR /src/portal
   COPY (+readme/*) .
   DO --pass-args charts+VALIDATE
 
 package:
   FROM +validate
-  WORKDIR /src/demo
+  WORKDIR /src/portal
   DO --pass-args charts+PACKAGE
-
-
