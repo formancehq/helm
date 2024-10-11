@@ -1,4 +1,4 @@
-VERSION 0.8
+VERSION --wildcard-builds 0.8
 
 IMPORT ./charts AS charts
 IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
@@ -24,18 +24,14 @@ readme:
 
 validate:
   FROM core+base-image
-  FOR chart IN $(ls -d ./charts/*/)
-    BUILD $chart+validate
-  END
+  BUILD ./charts/*+validate
 
 tests:
   BUILD ./test/helm+tests
 
 package:
   FROM core+base-image
-  FOR chart IN $(ls -d ./charts/*/)
-    BUILD $chart+package
-  END
+  BUILD ./charts/*+package
 
 ci:
   BUILD +pre-commit
