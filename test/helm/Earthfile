@@ -1,33 +1,16 @@
 VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
-
-IMPORT ../../charts/core AS lib
-
-IMPORT ../../charts/cloudprem AS cloudprem
-IMPORT ../../charts/console AS console
-IMPORT ../../charts/membership AS membership
-IMPORT ../../charts/portal AS portal
-IMPORT ../../charts/stargate AS stargate
+IMPORT ../.. AS root
 
 sources:
   FROM core+base-image
   WORKDIR /src
   COPY go.* .
   COPY --dir suite .
-  WORKDIR /src/chart/core
-  COPY --dir (lib+sources/*) .
-  WORKDIR /src/chart/cloudprem
-  COPY --dir (cloudprem+sources/*) .
-  WORKDIR /src/chart/console
-  COPY --dir (console+sources/*) .
-  WORKDIR /src/chart/membership
-  COPY --dir (membership+sources/*) .
-  WORKDIR /src/chart/portal
-  COPY --dir (portal+sources/*) .
-  WORKDIR /src/chart/stargate
-  COPY --dir (stargate+sources/*) .
-  WORKDIR /src/chart/migrator
+  # TODO(david): refactor tests to base test on specific helm package name-version.tgz
+  # Then we can remove this line, and COPY root+packages/* /build 
+  COPY --dir (root+sources/*/charts --PATH=charts) .
   SAVE ARTIFACT /src
 
 tests:
@@ -37,7 +20,7 @@ tests:
   COPY (+sources/*) .
   
   ARG additionalArgs
-  ENV CHART_DIR /src/chart/
+  ENV CHART_DIR /src/charts/
   ENV CGO_ENABLED=1
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
