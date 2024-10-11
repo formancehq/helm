@@ -14,7 +14,7 @@ Formance Membership Agent Helm Chart
 
 ## Source Code
 
-* <https://github.com/formancehq/membership-api>
+* <https://github.com/formancehq/agent>
 
 ## Values
 

@@ -63,7 +63,7 @@ earthly +pre-commit
 
 >[!TIP]
 > On the operator chart,
-> use `earthly +pre-commit --OPERATOR_VERSION=v2.0.19 OPERATOR_CRD_VERSION=v2.0.19`
+> use `earthly +pre-commit --OPERATOR_VERSION=v2.1.0-beta.1 OPERATOR_CRD_VERSION=v2.1.0-beta.1`
 
 1. First run
 once running it for the first time, it will build all the dependencies and validate all the charts and the charts.

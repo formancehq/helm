@@ -1,0 +1,9 @@
+dependencies:
+- name: agent
+  repository: file://../agent
+  version: v2.1.0-beta.1
+- name: operator
+  repository: file://../operator
+  version: v2.1.0-beta.1
+digest: sha256:ab6dde2d9bbc8f13485a93f6f2d1a87a45cac5ede4896447290bc326ccf853cc
+generated: "2024-10-11T18:48:21.075906547Z"
