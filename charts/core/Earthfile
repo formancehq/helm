@@ -1,4 +1,4 @@
-VERSION 0.8
+VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT .. AS charts
 
@@ -9,6 +9,8 @@ schema:
 
 readme:
   FROM charts+readme-base
+  WORKDIR /src/core
+  COPY --dir (+sources/*) .
   DO --pass-args charts+README_GENERATOR
 
 sources:
@@ -18,7 +20,8 @@ sources:
   DO --pass-args charts+SOURCES
 
 validate:
-  BUILD +dependencies
+  FROM +dependencies
+  RUN echo "No validation required"
 
 dependencies:
   FROM +sources

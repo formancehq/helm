@@ -1,7 +1,9 @@
-VERSION --wildcard-builds 0.8
+VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT ./charts AS charts
 IMPORT github.com/formancehq/earthly:tags/v0.16.2 AS core
+
+ARG PLATFORM=linux/amd64
 
 sources:
   ARG --required PATH
@@ -11,7 +13,7 @@ sources:
   SAVE ARTIFACT /src
 
 readme:
-  FROM core+base-image
+  FROM --platform=${PLATFORM} core+base-image
   RUN apk add go
   RUN touch README.md
   COPY --dir charts /charts
@@ -23,7 +25,6 @@ readme:
   SAVE ARTIFACT README.md AS LOCAL README.md
 
 validate:
-  FROM core+base-image
   BUILD ./charts/*+validate
 
 tests:
@@ -31,13 +32,32 @@ tests:
 
 package:
   FROM core+base-image
-  BUILD ./charts/*+package
+  COPY (./charts/*+package/*) /build/
+  SAVE ARTIFACT /build AS LOCAL ./
 
-ci:
+ci:  
+  FROM core+base-image
   BUILD +pre-commit
   BUILD +tests
-  BUILD +package
+  COPY (+package/*) /build
+  SAVE ARTIFACT /build
 
 pre-commit:
   BUILD +validate
   BUILD +readme
+
+release:
+  FROM core+builder-image
+  GIT CLONE --branch=v1.6.1 https://github.com/helm/chart-releaser /src/chart-releaser
+  WORKDIR /src/chart-releaser
+  DO core+GO_INSTALL --package ./...
+  COPY ./cr.yaml .
+  COPY (+ci/*) /build
+  RUN --secret GITHUB_TOKEN cr upload \
+      --config cr.yaml \
+      --git-repo helm \
+      --token ${GITHUB_TOKEN} \
+      --skip-existing \
+      --package-path /build
+  
+  
