@@ -1,0 +1,50 @@
+VERSION --wildcard-builds --wildcard-copy 0.8
+
+IMPORT ../ AS charts
+IMPORT ../operator-crds AS crds
+
+schema:
+  FROM charts+schema-base
+  WORKDIR /src
+  DO --pass-args charts+SCHEMA
+
+readme:
+  FROM charts+readme-base
+  RUN apk add yq
+  WORKDIR /src/operator
+  COPY --dir (+dependencies/*) .
+  ARG CRD_VERSION=$(yq -e ".appVersion" Chart.yaml)
+  WORKDIR /src/operator-crds
+  COPY --dir (crds+dependencies/* --CRD_VERSION=$CRD_VERSION) .  
+  WORKDIR /src/operator
+  DO --pass-args charts+README_GENERATOR
+
+sources:
+  DO --pass-args charts+BASE
+  RUN apk add yq
+  WORKDIR /src/operator
+  COPY (+schema/*) .
+  DO --pass-args charts+SOURCES
+  ARG VERSION=$(yq -e ".appVersion" Chart.yaml)
+  COPY (github.com/formancehq/operator:$VERSION+helm-operator/*) ./templates/gen
+  SAVE ARTIFACT ./* AS LOCAL ./
+
+dependencies:
+  FROM +sources
+  WORKDIR /src/operator
+  ARG CRD_VERSION=$(yq -e ".appVersion" Chart.yaml)
+  WORKDIR /src/operator-crds
+  COPY --dir (crds+dependencies/* --CRD_VERSION=$CRD_VERSION) .
+  WORKDIR /src/operator
+  DO --pass-args charts+DEPENDENCIES
+
+validate:
+  FROM +dependencies
+  WORKDIR /src/operator
+  COPY (+readme/*) .
+  DO --pass-args charts+VALIDATE
+
+package:
+  FROM +validate
+  WORKDIR /src/operator
+  DO --pass-args charts+PACKAGE

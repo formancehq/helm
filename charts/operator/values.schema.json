@@ -1,0 +1,142 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "affinity": {
+            "properties": {},
+            "type": "object"
+        },
+        "fullnameOverride": {
+            "type": "string"
+        },
+        "image": {
+            "properties": {
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "imagePullSecrets": {
+            "type": "array"
+        },
+        "kubeRbacProxy": {
+            "properties": {
+                "image": {
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "nameOverride": {
+            "type": "string"
+        },
+        "nodeSelector": {
+            "properties": {},
+            "type": "object"
+        },
+        "operator": {
+            "properties": {
+                "dev": {
+                    "type": "boolean"
+                },
+                "enableLeaderElection": {
+                    "type": "boolean"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "licence": {
+                    "properties": {
+                        "create": {
+                            "type": "boolean"
+                        },
+                        "issuer": {
+                            "type": "string"
+                        },
+                        "secretName": {
+                            "type": "string"
+                        },
+                        "token": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "metricsAddr": {
+                    "type": "string"
+                },
+                "probeAddr": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "utils": {
+                    "properties": {
+                        "tag": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "operator-crds": {
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "podAnnotations": {
+            "properties": {},
+            "type": "object"
+        },
+        "podSecurityContext": {
+            "properties": {},
+            "type": "object"
+        },
+        "replicaCount": {
+            "type": "integer"
+        },
+        "resources": {
+            "properties": {},
+            "type": "object"
+        },
+        "securityContext": {
+            "properties": {},
+            "type": "object"
+        },
+        "tolerations": {
+            "type": "array"
+        },
+        "webhooks": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}

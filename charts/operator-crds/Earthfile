@@ -1,0 +1,38 @@
+VERSION --wildcard-builds --wildcard-copy 0.8
+
+IMPORT ../ AS charts
+
+readme:
+  FROM charts+readme-base
+  WORKDIR /src/operator-crds
+  RUN touch README.md
+  COPY --dir (+dependencies/*) .
+  DO --pass-args charts+README_GENERATOR
+
+sources:
+  DO --pass-args charts+BASE
+  RUN apk add yq
+  WORKDIR /src/operator-crds
+  DO --pass-args charts+SOURCES
+  ARG CRD_VERSION=$(yq -e ".appVersion" Chart.yaml)
+  COPY (github.com/formancehq/operator:$CRD_VERSION+helm-crds/*) ./templates/crds
+  SAVE ARTIFACT ./* AS LOCAL ./
+
+
+dependencies:
+  FROM +sources
+  WORKDIR /src/operator-crds
+  COPY --dir (+sources/*) .
+  DO --pass-args charts+DEPENDENCIES
+
+validate:
+  FROM +dependencies
+  WORKDIR /src/operator-crds
+  COPY (+readme/*) .
+  DO --pass-args charts+VALIDATE
+
+package:
+  FROM +validate
+  WORKDIR /src/operator-crds
+  DO --pass-args charts+PACKAGE
+

@@ -24,14 +24,14 @@ readme:
   SAVE ARTIFACT README.md AS LOCAL README.md
 
 validate:
-  BUILD ./charts/*+validate
+  BUILD --pass-args ./charts/*+validate
 
 tests:
   BUILD ./test/helm+tests
 
 package:
   FROM core+base-image
-  COPY (./charts/*+package/*) /build/
+  COPY --pass-args (./charts/*+package/*) /build/
   SAVE ARTIFACT /build AS LOCAL ./
 
 ci:  
@@ -42,7 +42,7 @@ ci:
   SAVE ARTIFACT /build
 
 pre-commit:
-  BUILD +validate
+  BUILD --pass-args +validate
   BUILD +readme
 
 release:

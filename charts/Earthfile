@@ -21,9 +21,8 @@ VALIDATE:
   FUNCTION
   DO --pass-args +LINT
   DO --pass-args +TEMPLATE
-  SAVE ARTIFACT ./*.lock AS LOCAL ./
-  SAVE ARTIFACT ./README.md AS LOCAL ./
-  SAVE ARTIFACT ./values.schema.json AS LOCAL ./
+  SAVE ARTIFACT ./* AS LOCAL ./
+
 
 LINT:
   FUNCTION
@@ -64,7 +63,7 @@ SCHEMA:
   FUNCTION
   COPY values.yaml .
   RUN helm schema -input values.yaml -output values.schema.json
-  SAVE ARTIFACT values.schema.json AS LOCAL values.schema.json
+  SAVE ARTIFACT --if-exists values.schema.json AS LOCAL values.schema.json
   SAVE ARTIFACT values.yaml
 
 schema-base:
