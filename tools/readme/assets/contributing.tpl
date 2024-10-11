@@ -61,9 +61,20 @@ To validate the all the changes arround the repository, run the following comman
 earthly +pre-commit
 ```
 
+{{- $operatorVersion := "" }}
+{{- $operatorCrdVersion := "" }}
+{{- range .Charts }}
+{{- if eq .Name "operator" }}
+{{- $operatorVersion = .Version }}
+{{- end }}
+{{- if eq .Name "operator-crds" }}
+{{- $operatorCrdVersion = .Version }}
+{{- end }}
+{{- end }}
+
 >[!TIP]
 > On the operator chart,
-> use `earthly +pre-commit --OPERATOR_VERSION=v2.0.19 OPERATOR_CRD_VERSION=v2.0.19`
+> use `earthly +pre-commit --OPERATOR_VERSION={{ $operatorVersion }} OPERATOR_CRD_VERSION={{ $operatorCrdVersion }}`
 
 1. First run
 once running it for the first time, it will build all the dependencies and validate all the charts and the charts.

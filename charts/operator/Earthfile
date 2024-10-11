@@ -13,9 +13,9 @@ readme:
   RUN apk add yq
   WORKDIR /src/operator
   COPY --dir (+dependencies/*) .
-  ARG CRD_VERSION=$(yq -e ".appVersion" Chart.yaml)
+  ARG OPERATOR_VERSION=$(yq -e ".appVersion" Chart.yaml)
   WORKDIR /src/operator-crds
-  COPY --dir (crds+dependencies/* --CRD_VERSION=$CRD_VERSION) .  
+  COPY --dir (crds+dependencies/* --OPERATOR_CRD_VERSION=$OPERATOR_VERSION) .  
   WORKDIR /src/operator
   DO --pass-args charts+README_GENERATOR
 
@@ -25,16 +25,16 @@ sources:
   WORKDIR /src/operator
   COPY (+schema/*) .
   DO --pass-args charts+SOURCES
-  ARG VERSION=$(yq -e ".appVersion" Chart.yaml)
-  COPY (github.com/formancehq/operator:$VERSION+helm-operator/*) ./templates/gen
+  ARG OPERATOR_VERSION=$(yq -e ".appVersion" Chart.yaml)
+  COPY (github.com/formancehq/operator:$OPERATOR_VERSION+helm-operator/*) ./templates/gen
   SAVE ARTIFACT ./* AS LOCAL ./
 
 dependencies:
   FROM +sources
   WORKDIR /src/operator
-  ARG CRD_VERSION=$(yq -e ".appVersion" Chart.yaml)
+  ARG OPERATOR_VERSION=$(yq -e ".appVersion" Chart.yaml)
   WORKDIR /src/operator-crds
-  COPY --dir (crds+dependencies/* --CRD_VERSION=$CRD_VERSION) .
+  COPY --dir (crds+dependencies/* --OPERATOR_CRD_VERSION=$OPERATOR_VERSION) .
   WORKDIR /src/operator
   DO --pass-args charts+DEPENDENCIES
 

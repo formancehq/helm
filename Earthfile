@@ -21,7 +21,11 @@ readme:
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
     go run ./ readme --chart-dir /charts  >> README.md
+  RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
+      --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
+    go run ./ readme --chart-dir /charts --template-file contributing.tpl >> CONTRIBUTING.md
   SAVE ARTIFACT README.md AS LOCAL README.md
+  SAVE ARTIFACT CONTRIBUTING.md AS LOCAL CONTRIBUTING.md
 
 validate:
   BUILD --pass-args ./charts/*+validate

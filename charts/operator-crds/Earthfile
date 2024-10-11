@@ -14,8 +14,8 @@ sources:
   RUN apk add yq
   WORKDIR /src/operator-crds
   DO --pass-args charts+SOURCES
-  ARG CRD_VERSION=$(yq -e ".appVersion" Chart.yaml)
-  COPY (github.com/formancehq/operator:$CRD_VERSION+helm-crds/*) ./templates/crds
+  ARG OPERATOR_CRD_VERSION=$(yq -e ".appVersion" Chart.yaml)
+  COPY (github.com/formancehq/operator:$OPERATOR_CRD_VERSION+helm-crds/*) ./templates/crds
   SAVE ARTIFACT ./* AS LOCAL ./
 
 
