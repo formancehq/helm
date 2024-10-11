@@ -1,23 +1,41 @@
 name: Release
 on:
-  workflow_run:
-    workflows: [Main]
-    types: [completed]
+  push:
     branches:
-      - 'v*.*.*'
-
-concurrency:
-  group: main
-  cancel-in-progress: true
+      - main
 
 permissions:
   contents: write
   packages: write
 
 jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install earthly
+        uses: earthly/actions-setup@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: 'actions/checkout@v4'
+        with:
+          fetch-depth: 0
+      - name: Tests
+        run: earthly +ci
+      - name: Get changed files
+        id: changed-files
+        shell: bash
+        run: |
+          hasChanged=$(git status --porcelain) 
+          if (( $(echo ${#hasChanged}) != 0 )); then
+            git status
+            echo "There are changes in the repository"
+            exit 1
+          fi
   release:
     name: Release
-    if: github.ref == 'refs/heads/main'
+    needs:
+      - tests
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -26,17 +44,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
       - name: Install Helm
         uses: azure/setup-helm@v4
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
