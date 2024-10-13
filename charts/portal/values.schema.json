@@ -5,6 +5,41 @@
             "properties": {},
             "type": "object"
         },
+        "aws": {
+            "properties": {
+                "targetGroups": {
+                    "properties": {
+                        "http": {
+                            "properties": {
+                                "ipAddressType": {
+                                    "type": "string"
+                                },
+                                "serviceRef": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "port": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "targetGroupARN": {
+                                    "type": "string"
+                                },
+                                "targetType": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
         "config": {
             "properties": {
                 "additionalEnv": {
@@ -38,6 +73,14 @@
         },
         "global": {
             "properties": {
+                "aws": {
+                    "properties": {
+                        "elb": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
                 "debug": {
                     "type": "boolean"
                 },

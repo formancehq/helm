@@ -1,0 +1,7 @@
+{{- if .Values.global.aws.elb }}
+{{- template "aws.tgb.generics" (list $ .Values.aws.targetGroups) }}
+---
+{{- if .Values.dex.enabled }}
+{{- template "aws.tgb.generics" (list $ .Values.dex.aws.targetGroups) }}
+{{- end -}}
+{{- end -}}

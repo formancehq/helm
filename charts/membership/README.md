@@ -20,11 +20,19 @@ Kubernetes: `>=1.14.0-0`
 
 ## Values
 
+### Global AWS configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.aws.elb | bool | `false` | Enable AWS ELB |
+| global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
+| aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port }}"},"targetGroupARN":"","targetType":"ip"},"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Membership target groups |
+| dex.aws | object | `{"targetGroups":{"dex-http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"dex.fullname\" .Subcharts.dex }}","port":"{{ .Values.dex.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Target Groups |
+
 ### Global configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
 | global.debug | bool | `false` | Enable debug mode |
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
@@ -43,8 +51,9 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.membership.oauthClient.id | string | `"platform"` | is the id of the client |
 | global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
-| global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
-| global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme for the membership |
+| global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the relying party issuer |
+| global.platform.membership.relyingParty.path | string | `"/"` | is the path for the relying party issuer |
+| global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme the relying party |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
@@ -102,23 +111,32 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalEnv | list | `[]` |  |
 | affinity | object | `{}` | Membership affinity |
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |
-| config.additionalOAuthClients | list | `[]` |  |
+| config.agent.grpc.existingSecret | string | `""` |  |
+| config.agent.grpc.h2c | bool | `false` |  |
+| config.agent.grpc.secretKeys.secret | string | `"TOKENS"` |  |
+| config.agent.grpc.tls.insecure | bool | `true` |  |
+| config.agent.grpc.tokens | list | `["changeMe"]` | Membership agent grpc token |
+| config.auth.additionalOAuthClients | list | `[]` |  |
+| config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | config.fctl | bool | `true` | Enable Fctl |
 | config.migration.annotations | object | `{"helm.sh/hook":"pre-upgrade","helm.sh/hook-delete-policy":"before-hook-creation,hook-succeeded,hook-failed"}` | Membership migration annotations |
 | config.migration.annotations."helm.sh/hook" | string | `"pre-upgrade"` | Membership migration helm hook |
 | config.migration.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
-| config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","secretKeys":{"secret":""}}` | DEPRECATED Membership postgresql connection url postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable" |
+| config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","scopes":["openid","email","federated:id"],"secretKeys":{"secret":""}}` | Membership relying party connection url |
 | config.oidc.clientId | string | `"membership"` | Membership oidc client id |
 | config.oidc.clientSecret | string | `"changeMe"` | Membership oidc client secret |
 | config.oidc.existingSecret | string | `""` | Membership oidc existing secret |
+| config.oidc.scopes | list | `["openid","email","federated:id"]` | Membership oidc redirect uri |
+| config.oidc.scopes[2] | string | `"federated:id"` | Membership Dex federated id scope |
 | config.oidc.secretKeys | object | `{"secret":""}` | Membership oidc secret key |
 | debug | bool | `false` | Membership debug |
 | dev | bool | `false` | Membership dev |
 | feature.disableEvents | bool | `true` | Membership feature disable events |
-| feature.managedStacks | bool | `true` | Membership feature managed stacks |
+| feature.managedStacks | bool | `false` | Membership feature managed stacks |
 | fullnameOverride | string | `""` | Membership fullname override |
 | image.pullPolicy | string | `"IfNotPresent"` | Membership image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/membership"` | Membership image repository |

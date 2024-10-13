@@ -3,7 +3,13 @@ global:
   debug: false
   # -- is the base domain for portal and console
   serviceHost: ""
-
+  aws:
+    # -- Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set
+    # @section -- Global AWS configuration
+    iam: false
+    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+    # @section -- Global AWS configuration
+    elb: false
   monitoring:
     traces:
       # -- Enable otel tracing
@@ -62,15 +68,6 @@ global:
     # -- URL for NATS
     # @section -- Global Nats configuration
     url: ""
-
-  aws:
-    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
-    # @section -- Global AWS configuration
-
-    elb: false
-    # -- Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set
-    # @section -- Global AWS configuration
-    iam: false
 
   postgresql:
     # -- Host for PostgreSQL (overrides included postgreql `host`)
@@ -223,11 +220,8 @@ tolerations: []
 # -- Affinity for pod assignment
 affinity: {}
 
-# -- Target group IP address type
-# -- Target group target type
-# -- Target group service reference name
-# -- Target group service reference port
-# -- Target group name
+# -- Aws Stargate target groups
+# @section -- Global AWS configuration
 aws:
   targetGroups:
     grpc:
@@ -235,7 +229,7 @@ aws:
       targetType: "ip"
       targetGroupARN: ""
       serviceRef:
-        name: '{{ include "stargate.fullname" $ }}'
+        name: '{{ include "core.fullname" $ }}'
         port: "{{ .Values.service.ports.grpc | default 3068 }}"
 
 # -- Auth issuer URL <-> Membership

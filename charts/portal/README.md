@@ -26,6 +26,13 @@ Kubernetes: `>=1.14.0-0`
 
 ## Values
 
+### Global AWS configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.aws.elb | bool | `false` | Enable AWS ELB |
+| aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
+
 ### Global configuration
 
 | Key | Type | Default | Description |

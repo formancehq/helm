@@ -22,8 +22,8 @@
 
 
 {{- define "aws.tgb.generics" -}}
-{{ $ := index . 0 }}
-{{ $data := index . 1 }}
+{{- $ := index . 0 }}
+{{- $data := index . 1 }}
 {{- range $k,$v := $data }}
 apiVersion: elbv2.k8s.aws/v1beta1
 kind: TargetGroupBinding
@@ -38,6 +38,5 @@ spec:
     port: {{ tpl $v.serviceRef.port $ }}
   targetGroupARN: {{ $v.targetGroupARN }}
   targetType: {{ $v.targetType }}
----
-{{- end -}}
-{{- end -}}
+{{- end }}
+{{- end }}

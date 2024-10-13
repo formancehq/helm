@@ -25,4 +25,5 @@ tests:
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
       --mount=type=cache,id=golangci,target=/root/.cache/golangci-lint \
-      go test ./... -race $additionalArgs
+      go mod download
+  RUN go test ./... -race $additionalArgs

@@ -78,6 +78,8 @@ func (s *TemplateChart) testLabels(templateName string) func(t *testing.T) {
 	return func(t *testing.T) {
 		values := make(map[string]string, 0)
 		switch templateName {
+		case "tgb.yaml":
+			values["global.aws.elb"] = "true"
 		case "hpa.yaml":
 			values["autoscaling.enabled"] = "true"
 		case "ingress.yaml":
@@ -115,6 +117,8 @@ func (s *TemplateChart) testNames(templateName string) func(t *testing.T) {
 		t.Parallel()
 		values := make(map[string]string, 0)
 		switch templateName {
+		case "tgb.yaml":
+			values["global.aws.elb"] = "true"
 		case "hpa.yaml":
 			values["autoscaling.enabled"] = "true"
 		case "ingress.yaml":
@@ -134,7 +138,7 @@ func (s *TemplateChart) testNames(templateName string) func(t *testing.T) {
 		case "Job":
 			require.Contains(t, r.GetName(), s.Release)
 		default:
-			require.Equal(t, r.GetName(), fmt.Sprintf("%s-%s", s.Release, s.Name))
+			require.Contains(t, r.GetName(), fmt.Sprintf("%s-%s", s.Release, s.Name))
 		}
 	}
 }

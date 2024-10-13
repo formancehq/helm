@@ -26,6 +26,13 @@ Kubernetes: `>=1.14.0-0`
 
 ## Values
 
+### Global AWS configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
+| aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
+
 ### Global configuration
 
 | Key | Type | Default | Description |
@@ -51,6 +58,11 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Console affinity |
+| aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
+| aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
+| aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
+| aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
+| aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | config.additionalEnv | object | `{}` | Console additional environment variables |
 | config.environment | string | `"production"` | Console environment |
 | config.monitoring | object | `{"traces":{"attributes":"","enabled":false,"port":4317,"url":""}}` | Otel collector configuration |

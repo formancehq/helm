@@ -6,6 +6,11 @@ global:
   # @section -- Global configuration
   serviceHost: ""
 
+  aws:
+    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+    # @section -- Global AWS configuration
+    elb: false
+
   platform:
     console:
       # -- is the scheme for the console
@@ -104,6 +109,23 @@ service:
       port: 3000
       # -- service node port
       # nodePort:
+
+# -- AWS Console target groups
+# @section -- Global AWS configuration
+aws:
+  targetGroups:
+    http:
+      # -- Target group IP address type
+      ipAddressType: "ipv4"
+      # -- Target group target type
+      targetType: "ip"
+      # -- Target group ARN
+      targetGroupARN: ""
+      serviceRef:
+        # -- Target group service reference name
+        name: '{{ include "core.fullname" $ }}'
+        # -- Target group service reference port
+        port: "{{ .Values.service.ports.http.port }}"
 
 ingress:
   # -- ingress enabled

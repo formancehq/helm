@@ -79,6 +79,8 @@ func (s *TemplatePlatfromTest) TestAppEnabled() {
 				t.Run(fmt.Sprintf("app-%s-%s-enabled-%s", app, templateName, strconv.FormatBool(enabled)), func(t *testing.T) {
 					t.Parallel()
 					values := make(map[string]string, 0)
+
+					// service
 					switch templateName {
 					case "hpa.yaml":
 						values["autoscaling.enabled"] = "true"
@@ -91,6 +93,13 @@ func (s *TemplatePlatfromTest) TestAppEnabled() {
 					for k, v := range values {
 						options.SetValues[fmt.Sprintf("%s.%s", app, k)] = v
 					}
+
+					// global
+					switch templateName {
+					case "tgb.yaml":
+						options.SetValues["global.aws.elb"] = "true"
+					}
+
 					options.SetValues[fmt.Sprintf("%s.enabled", app)] = strconv.FormatBool(enabled)
 					output, err := helm.RenderTemplateE(t, options, s.ChartPath, s.Release, []string{fmt.Sprintf("charts/%s/templates/%s", app, templateName)})
 					if enabled {

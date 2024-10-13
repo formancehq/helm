@@ -19,6 +19,7 @@ Formance Stargate gRPC Gateway
 |-----|------|---------|-------------|
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set |
+| aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc | default 3068 }}"},"targetGroupARN":"","targetType":"ip"}}}` | Aws Stargate target groups |
 
 ### Global configuration
 
@@ -65,7 +66,6 @@ Formance Stargate gRPC Gateway
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 | affinity | object | `{}` | Affinity for pod assignment |
 | autoscaling | object | `{"enabled":false,"maxReplicas":100,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Target memory utilization percentage |
-| aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"stargate.fullname\" $ }}","port":"{{ .Values.service.ports.grpc | default 3068 }}"},"targetGroupARN":"","targetType":"ip"}}}` | Target group name |
 | config | object | `{"auth_issuer_url":"","monitoring":{"serviceName":"stargate"},"nats":{"clientID":"stargate","topicMapping":"stargate"}}` | Service name for monitoring |
 | fullnameOverride | string | `""` | String to fully override stargate.fullname template with a string |
 | image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/formancehq/stargate","tag":""}` | Image tag |
