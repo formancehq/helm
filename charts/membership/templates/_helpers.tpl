@@ -44,64 +44,39 @@
 {{- end }}
 {{- end }}
 
-{{ define "render-value" }}
-  {{- if kindIs "string" .value }}
-    {{- tpl .value .context }}
-  {{- else }}
-    {{- tpl (.value | toYaml) .context }}     
-  {{- end }}
-{{- end }}
-
 {{ define "dex-values" }}
 issuer: "{{ tpl (printf "%s://%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host) $ }}"
 logger:
-  # -- logger format
-  # @section -- Dex configuration
   format: "json"
 storage:
-  # -- storage type
-  # @section -- Dex configuration
   type: postgres
   config:
-    # -- storage config host
-    # @section -- Dex configuration
-    host: '{{.Values.global.postgresql.host | default (printf "%s.%s.svc" (include "postgresql.v1.primary.fullname" .Subcharts.postgresql) .Release.Namespace ) }}'
-    # -- (number) storage config port, cannot be templated from other values
-    # @section -- Dex configuration
-    port: {{ .Values.global.postgresql.service.ports.postgresql }} # @schema type:number
-    # -- storage config database
-    # @section -- Dex configuration
-    database: "{{.Values.global.postgresql.auth.database }}"
-    # -- storage config user
-    # @section -- Dex configuration
-    user: formance
-    # -- storage config password
-    # @section -- Dex configuration
-    password: formance
+    {{- if .Values.postgresql.enabled }}
+    host: {{ printf "%s.%s.svc" (include "postgresql.v1.primary.fullname" .Subcharts.postgresql) .Release.Namespace }}
+    {{- else }}
+    host: {{ .Values.global.postgresql.host }}
+    {{- end }}
+    port: {{ .Values.global.postgresql.service.ports.postgresql }}
+    database: {{ .Values.global.postgresql.auth.database }}
+    user: {{ .Values.global.postgresql.auth.username }}
+    {{- if not .Values.global.postgresql.auth.existingSecret }}
+    password: {{ .Values.global.postgresql.auth.password }}
+    {{- else }}
+    password: $POSTGRES_PASSWORD
+    {{- end }}
+    {{- if contains .Values.global.postgresql.additionalArgs "sslmode=disable" }}
     ssl:
-      # -- storage config ssl mode
-      # @section -- Dex configuration
       mode: disable
+    {{- end }}
 
 staticClients:
-  - # -- static clients name
-    # @section -- Dex configuration
-    name: "membership"
-    # -- static clients id
-    # @section -- Dex configuration
+  - name: "membership"
     id: "{{ .Values.config.oidc.clientId }}"
     {{ if .Values.config.oidc.existingSecret }}
-    # -- static clients secret env var, do not use secret and secretEnv at the same time
-    # -- According to dex.envVars
-    # @section -- Dex configuration
     secretEnv: MEMBERSHIP_CLIENT_SECRET
     {{ else }}
-    # -- static clients secret
-    # @section -- Dex configuration
     secret: "{{ tpl .Values.config.oidc.clientSecret $ }}"
     {{ end }}
-    # -- static clients redirect uris
-    # @section -- Dex configuration
     redirectURIs:
       - "{{ .Values.global.platform.membership.scheme }}://{{ tpl .Values.global.platform.membership.host $ }}/api/authorize/callback"
 {{- end }}

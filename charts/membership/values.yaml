@@ -383,8 +383,8 @@ dex:
   #   - name: POSTGRES_PASSWORD
   #     valueFrom:
   #       secretKeyRef:
-  # #       name: {{ include "postgresql.v1.secretName" . }}
-  # #       key: {{ include "postgresql.v1.adminPasswordKey" . }}
+  # #       name:
+  # #       key:
   #
 
   # -- Config override allow template function.
