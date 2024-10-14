@@ -1,6 +1,7 @@
 VERSION --wildcard-builds --wildcard-copy 0.8
 
-IMPORT .. AS charts
+IMPORT ../ AS charts
+IMPORT ../agent AS agent
 
 schema:
   FROM charts+schema-base
@@ -9,32 +10,32 @@ schema:
 
 readme:
   FROM charts+readme-base
-  WORKDIR /src/core
+  WORKDIR /src/agent/
+  COPY --dir (agent+dependencies/*) .
+  WORKDIR /src/regions
   COPY --dir (+sources/*) .
   DO --pass-args charts+README_GENERATOR
 
 sources:
   DO --pass-args charts+BASE
-  WORKDIR /src/core
+  WORKDIR /src/regions
   COPY (+schema/*) .
   DO --pass-args charts+SOURCES
 
-validate:
-  FROM +dependencies
-  DO --pass-args charts+ARTIFACT
-
 dependencies:
   FROM +sources
-  WORKDIR /src/core
-  COPY (+readme/*) .
+  WORKDIR /src/agent/
+  COPY --dir (agent+dependencies/*) .
+  WORKDIR /src/regions
   DO --pass-args charts+DEPENDENCIES
 
-lint:
+validate:
   FROM +dependencies
-  WORKDIR /src/core
-  DO --pass-args charts+LINT
+  WORKDIR /src/regions
+  COPY (+readme/*) .
+  DO --pass-args charts+VALIDATE
 
 package:
-  FROM +lint
-  WORKDIR /src/core
+  FROM +validate
+  WORKDIR /src/regions
   DO --pass-args charts+PACKAGE

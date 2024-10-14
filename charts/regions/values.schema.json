@@ -1,0 +1,307 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "agent": {
+            "properties": {
+                "agent": {
+                    "properties": {
+                        "authentication": {
+                            "properties": {
+                                "clientID": {
+                                    "type": "string"
+                                },
+                                "clientSecret": {
+                                    "type": "string"
+                                },
+                                "issuer": {
+                                    "type": "string"
+                                },
+                                "mode": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "baseUrl": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "image": {
+                    "properties": {
+                        "tag": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "server": {
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "tls": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "insecureSkipVerify": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "operator": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "fullnameOverride": {
+                    "type": "string"
+                },
+                "image": {
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "nameOverride": {
+                    "type": "string"
+                },
+                "operator": {
+                    "properties": {
+                        "disableWebhooks": {
+                            "type": "boolean"
+                        },
+                        "enableLeaderElection": {
+                            "type": "boolean"
+                        },
+                        "env": {
+                            "type": "string"
+                        },
+                        "licence": {
+                            "properties": {
+                                "create": {
+                                    "type": "boolean"
+                                },
+                                "issuer": {
+                                    "type": "string"
+                                },
+                                "secretName": {
+                                    "type": "string"
+                                },
+                                "token": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "metricsAddr": {
+                            "type": "string"
+                        },
+                        "probeAddr": {
+                            "type": "string"
+                        },
+                        "region": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "operator-crds": {
+                    "properties": {
+                        "create": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "versions": {
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                },
+                "files": {
+                    "properties": {
+                        "default": {
+                            "properties": {
+                                "auth": {
+                                    "type": "string"
+                                },
+                                "gateway": {
+                                    "type": "string"
+                                },
+                                "ledger": {
+                                    "type": "string"
+                                },
+                                "operator-utils": {
+                                    "type": "string"
+                                },
+                                "orchestration": {
+                                    "type": "string"
+                                },
+                                "payments": {
+                                    "type": "string"
+                                },
+                                "reconciliation": {
+                                    "type": "string"
+                                },
+                                "search": {
+                                    "type": "string"
+                                },
+                                "stargate": {
+                                    "type": "string"
+                                },
+                                "wallets": {
+                                    "type": "string"
+                                },
+                                "webhooks": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "v1.0": {
+                            "properties": {
+                                "auth": {
+                                    "type": "string"
+                                },
+                                "gateway": {
+                                    "type": "string"
+                                },
+                                "ledger": {
+                                    "type": "string"
+                                },
+                                "operator-utils": {
+                                    "type": "string"
+                                },
+                                "orchestration": {
+                                    "type": "string"
+                                },
+                                "payments": {
+                                    "type": "string"
+                                },
+                                "reconciliation": {
+                                    "type": "string"
+                                },
+                                "search": {
+                                    "type": "string"
+                                },
+                                "stargate": {
+                                    "type": "string"
+                                },
+                                "wallets": {
+                                    "type": "string"
+                                },
+                                "webhooks": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "v2.0": {
+                            "properties": {
+                                "auth": {
+                                    "type": "string"
+                                },
+                                "gateway": {
+                                    "type": "string"
+                                },
+                                "ledger": {
+                                    "type": "string"
+                                },
+                                "operator-utils": {
+                                    "type": "string"
+                                },
+                                "orchestration": {
+                                    "type": "string"
+                                },
+                                "payments": {
+                                    "type": "string"
+                                },
+                                "reconciliation": {
+                                    "type": "string"
+                                },
+                                "search": {
+                                    "type": "string"
+                                },
+                                "stargate": {
+                                    "type": "string"
+                                },
+                                "wallets": {
+                                    "type": "string"
+                                },
+                                "webhooks": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "v2.1": {
+                            "properties": {
+                                "auth": {
+                                    "type": "string"
+                                },
+                                "gateway": {
+                                    "type": "string"
+                                },
+                                "ledger": {
+                                    "type": "string"
+                                },
+                                "operator-utils": {
+                                    "type": "string"
+                                },
+                                "orchestration": {
+                                    "type": "string"
+                                },
+                                "payments": {
+                                    "type": "string"
+                                },
+                                "reconciliation": {
+                                    "type": "string"
+                                },
+                                "search": {
+                                    "type": "string"
+                                },
+                                "stargate": {
+                                    "type": "string"
+                                },
+                                "wallets": {
+                                    "type": "string"
+                                },
+                                "webhooks": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}
