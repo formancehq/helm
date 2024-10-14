@@ -49,10 +49,10 @@ dependencies:
     repository: file://../membership
     condition: membership.enabled
   - name: portal
-    version: v1.0.0-beta.1
+    version: v1.0.0-beta.2
     repository: file://../portal
     condition: portal.enabled
   - name: console
-    version: v1.0.0-beta.1
+    version: v1.0.0-beta.2
     repository: file://../console
     condition: console.enabled

@@ -6,6 +6,11 @@ global:
   # @section -- Global configuration
   serviceHost: ""
 
+  aws:
+    # -- Enable AWS ELB
+    # @section -- Global AWS configuration
+    elb: false
+
   platform:
     console:
       # -- is the scheme for the console
@@ -103,6 +108,18 @@ ingress:
     []
     # -- ingress tls secret name
     # - secretName: YOUR_TLS_SECRET_NAME
+
+# -- AWS Portal target groups
+# @section -- Global AWS configuration
+aws:
+  targetGroups:
+    http:
+      ipAddressType: "ipv4"
+      targetType: "ip"
+      targetGroupARN: ""
+      serviceRef:
+        name: '{{ include "core.fullname" $ }}'
+        port: "{{ .Values.service.ports.http.port }}"
 
 # Cookie store portal session in a cookie
 config:

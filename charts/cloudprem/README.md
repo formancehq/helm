@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.11](https://img.shields.io/badge/Version-v2.0.0--beta.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.12](https://img.shields.io/badge/Version-v2.0.0--beta.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -329,11 +329,21 @@ Dex:
 
 ## Values
 
+### Global AWS configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
+| global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
+| console.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
+| membership.aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port }}"},"targetGroupARN":"","targetType":"ip"},"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Membership target groups |
+| membership.dex.aws | object | `{"targetGroups":{"dex-http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"dex.fullname\" .Subcharts.dex }}","port":"{{ .Values.dex.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Target Groups |
+| portal.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
+
 ### Global configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
 | global.debug | bool | `false` | Enable debug mode |
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
@@ -356,6 +366,7 @@ Dex:
 | global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
+| global.platform.membership.relyingParty.path | string | `"/"` | is the path for the relying party issuer |
 | global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
@@ -417,6 +428,11 @@ Dex:
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | console.affinity | object | `{}` | Console affinity |
+| console.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
+| console.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
+| console.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
+| console.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
+| console.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | console.config.additionalEnv | object | `{}` | Console additional environment variables |
 | console.config.environment | string | `"production"` | Console environment |
 | console.config.monitoring | object | `{"traces":{"attributes":"","enabled":false,"port":4317,"url":""}}` | Otel collector configuration |
@@ -449,23 +465,32 @@ Dex:
 | console.tolerations | list | `[]` | Console tolerations |
 | console.volumeMounts | list | `[]` | Console volume mounts |
 | console.volumes | list | `[]` | Console volumes |
+| membership.additionalEnv | list | `[]` |  |
 | membership.affinity | object | `{}` | Membership affinity |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
-| membership.config.additionalOAuthClients | list | `[]` |  |
+| membership.config.agent.grpc.existingSecret | string | `""` |  |
+| membership.config.agent.grpc.h2c | bool | `false` |  |
+| membership.config.agent.grpc.secretKeys.secret | string | `"TOKENS"` |  |
+| membership.config.agent.grpc.tls.insecure | bool | `true` |  |
+| membership.config.agent.grpc.tokens | list | `["changeMe"]` | Membership agent grpc token |
+| membership.config.auth.additionalOAuthClients | list | `[]` |  |
+| membership.config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | membership.config.fctl | bool | `true` | Enable Fctl |
 | membership.config.migration.annotations | object | `{"helm.sh/hook":"pre-upgrade","helm.sh/hook-delete-policy":"before-hook-creation,hook-succeeded,hook-failed"}` | Membership migration annotations |
 | membership.config.migration.annotations."helm.sh/hook" | string | `"pre-upgrade"` | Membership migration helm hook |
 | membership.config.migration.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
-| membership.config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","secretKeys":{"secret":""}}` | DEPRECATED Membership postgresql connection url postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable" |
+| membership.config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","scopes":["openid","email","federated:id"],"secretKeys":{"secret":""}}` | Membership relying party connection url |
 | membership.config.oidc.clientId | string | `"membership"` | Membership oidc client id |
 | membership.config.oidc.clientSecret | string | `"changeMe"` | Membership oidc client secret |
 | membership.config.oidc.existingSecret | string | `""` | Membership oidc existing secret |
+| membership.config.oidc.scopes | list | `["openid","email","federated:id"]` | Membership oidc redirect uri |
+| membership.config.oidc.scopes[2] | string | `"federated:id"` | Membership Dex federated id scope |
 | membership.config.oidc.secretKeys | object | `{"secret":""}` | Membership oidc secret key |
 | membership.debug | bool | `false` | Membership debug |
 | membership.dev | bool | `false` | Membership dev |
 | membership.feature.disableEvents | bool | `true` | Membership feature disable events |
-| membership.feature.managedStacks | bool | `true` | Membership feature managed stacks |
+| membership.feature.managedStacks | bool | `false` | Membership feature managed stacks |
 | membership.fullnameOverride | string | `""` | Membership fullname override |
 | membership.image.pullPolicy | string | `"IfNotPresent"` | Membership image pull policy |
 | membership.image.repository | string | `"ghcr.io/formancehq/membership"` | Membership image repository |

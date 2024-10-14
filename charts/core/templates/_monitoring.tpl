@@ -76,7 +76,7 @@
   value: {{ include "resolveGlobalOrServiceValue" (dict "Values" .Values "Key" "monitoring.metrics.port" "Default" "") | quote }}
 - name: OTEL_METRICS_EXPORTER_OTLP_ENDPOINT
   value: "$(OTEL_TRACES_ENDPOINT):$(OTEL_METRICS_PORT)"
-{{- end -}}
+{{- end }}
 
 {{- define "core.monitoring.logs" }}
 - name: LOGS_ENABLED
@@ -86,16 +86,16 @@
 {{- if eq (include "resolveGlobalOrServiceValue" (dict "Values" .Values "Key" "monitoring.logs.format" "Default" "")) "json" }}
 - name: JSON_FORMATTING_LOGGER
   value: "true"
-{{- end -}}
-{{- end -}}
+{{- end }}
+{{- end }}
 
 
 {{- define "core.monitoring.common" }}
 - name: OTEL_SERVICE_NAME
   value: "{{ .Chart.Name }}"
-{{- end -}}
+{{- end }}
 
-{{- define "core.monitoring" -}}
+{{- define "core.monitoring" }}
 {{- include "core.monitoring.common" . }}
 {{- $traces := include "resolveGlobalOrServiceValue" (dict "Values" .Values "Key" "monitoring.traces.enabled" "Default" "") }}
 {{- $logs := include "resolveGlobalOrServiceValue" (dict "Values" .Values "Key" "monitoring.logs.enabled" "Default" "") }}
@@ -109,5 +109,5 @@
 {{- if eq $metrics "true" }}
 {{- include "core.monitoring.metrics" . }}
 {{- end }}
-{{- end -}}
+{{- end }}
 
