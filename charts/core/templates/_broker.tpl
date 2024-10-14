@@ -22,10 +22,10 @@
 - name: PUBLISHER_NATS_ENABLED
   value: '{{ .Values.global.nats.enabled }}'
 - name: PUBLISHER_NATS_URL
-  value: "{{ .Values.global.nats.url }}"
+  value: "{{ tpl .Values.global.nats.url $ }}"
 - name: PUBLISHER_NATS_CLIENT_ID
-  value: "{{ .Values.config.nats.clientID}}"
+  value: "{{ .Values.config.publisher.clientID}}"
 - name: PUBLISHER_TOPIC_MAPPING
-  value: "{{ .Values.config.nats.topicMapping }}"
+  value: "{{ .Values.config.publisher.topicMapping }}"
 {{- end -}}
 {{- end -}}

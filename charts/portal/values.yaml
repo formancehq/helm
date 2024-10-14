@@ -64,6 +64,14 @@ global:
 # -- Number of replicas
 replicas: 1
 
+# -- Portal autoscaling
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
 podDisruptionBudget:
   # -- Enable pod disruption budget
   enabled: false

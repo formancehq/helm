@@ -88,6 +88,10 @@ func (s *TemplatePlatfromTest) TestAppEnabled() {
 						values["ingress.enabled"] = "true"
 					case "pdp.yaml":
 						values["podDisruptionBudget.enabled"] = "true"
+					case "cronjob-gc.yaml":
+						values["config.job.garbageCollector.enabled"] = "true"
+					case "cronjob-stack-lifeycle.yaml":
+						values["config.job.stackLifeCycle.enabled"] = "true"
 					}
 					options := s.Options()
 					for k, v := range values {

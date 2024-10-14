@@ -68,6 +68,9 @@ global:
         # @section -- Global configuration
         secretKeys:
           secret: ""
+  nats:
+    enabled: false
+    url: ""
 
   monitoring:
     traces:
@@ -202,12 +205,11 @@ resources:
 
 # -- Membership autoscaling
 autoscaling:
-  {}
-  # enabled: false
-  # minReplicas: 1
-  # maxReplicas: 10
-  # targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
 
 # -- Membership node selector
 nodeSelector: {}
@@ -329,6 +331,7 @@ config:
       secret: ""
 
   auth:
+    # -- Membership additional oauth clients
     additionalOAuthClients: []
     # -- According to "nsuµmh"
     # And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3
@@ -336,17 +339,94 @@ config:
       accessToken: "5m"
       refreshToken: "72h"
 
-  agent:
-    grpc:
-      h2c: false
-      tls:
-        insecure: true
-      # -- Membership agent grpc token
-      tokens:
-        - "changeMe"
-      existingSecret: ""
-      secretKeys:
-        secret: "TOKENS"
+  grpc:
+    # -- Membership agent grpc token
+    tokens: []
+    existingSecret: ""
+    secretKeys:
+      secret: "TOKENS"
+
+  publisher:
+    clientID: "membership"
+    topicMapping: "membership"
+
+  stack:
+    # # -- Only need for external use
+    # # It inform stack client to reach the following server
+    # # It might change depending on you stargate ingress configuration
+    # stargateServerURL: "stargate.{{ .Values.global.serviceHost }}:443"
+
+    # Modules created by default on a stack
+    minimalStackModules:
+      - Auth
+      - Ledger
+      - Payments
+      - Gateway
+
+    cycle:
+      dryRun: false
+      # According to https://github.com/spf13/viper/blob/f62f86a84b8395051efe0e490a29f3f89830a3ed/viper.go#L1048
+      # And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3
+      delay:
+        # Based on last_state_update
+        # ONLY for public region in a non production environment
+        # 15 days
+        # AFTER: Reset with /enable
+        disposable: "360h"
+        # ONLY for public region in a non production environment
+        # Based on disposable_since datetime
+        # SoftDelete: this update the state to Deleted and the cluster state to Disable
+        # It is next up to warn cycle to handle the deletion
+        # AFTER: Reset with /restore
+        disable: "72h"
+        # Configure polling delay on disable cycle
+        disablePollingDelay: "1m"
+        # Based on last_state_update
+        # This is the delay from the disable state update to the prune state'udpate delay
+        # It is also from now IF the state is overwriten by the user
+        # Tipically with a
+        # ```
+        #  DELETE /organization/:orgId/stacks/:stackId/
+        # ```
+        # AFTER: Reset with /restore
+        warn: "72h"
+        # Based on warned_at datetime
+        # This update the cluster state to Delete
+        # 30 days
+        # AFTER: Reset with /restore
+        prune: "720h"
+        # Configure polling delay on prune cycle
+        prunePollingDelay: "1m"
+
+  # -- CronJob to manage the stack life cycle and the garbage collector
+  job:
+    # -- Job create 2 jobs to eaither warn or prune a stacks
+    # This does not change the state of the stack
+    # WARN: Mark stack Disposable -> trigger a mail
+    # PRUNE: Mark stack Warned -> trigger a mail
+    # It blocks stack cycles if supendend
+    # It is highly recommended to enable it as it is the only way we control
+    stackLifeCycle:
+      enabled: false
+      suspend: false
+      concurrencyPolicy: Forbid
+      startingDeadlineSeconds: 200
+      restartPolicy: Never
+      schedule: "*/30 * * * *"
+      additionalEnv: []
+      resources: {}
+      tolerations: []
+
+    # -- Clean expired tokens and refresh tokens after X time
+    garbageCollector:
+      enabled: false
+      suspend: false
+      concurrencyPolicy: Forbid
+      startingDeadlineSeconds: 200
+      restartPolicy: Never
+      schedule: "0 0 * * *"
+      resources: {}
+      tolerations: []
 
   migration:
     # -- Membership migration annotations

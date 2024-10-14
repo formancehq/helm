@@ -77,16 +77,7 @@ func (s *TemplateChart) TestLabelAndNaming() {
 func (s *TemplateChart) testLabels(templateName string) func(t *testing.T) {
 	return func(t *testing.T) {
 		values := make(map[string]string, 0)
-		switch templateName {
-		case "tgb.yaml":
-			values["global.aws.elb"] = "true"
-		case "hpa.yaml":
-			values["autoscaling.enabled"] = "true"
-		case "ingress.yaml":
-			values["ingress.enabled"] = "true"
-		case "pdp.yaml":
-			values["podDisruptionBudget.enabled"] = "true"
-		}
+		values = activateFeatures(templateName, values)
 		options := s.Options()
 		for k, v := range values {
 			options.SetValues[k] = v
@@ -112,20 +103,29 @@ func (s *TemplateChart) testLabels(templateName string) func(t *testing.T) {
 	}
 }
 
+func activateFeatures(templateName string, values map[string]string) map[string]string {
+	switch templateName {
+	case "tgb.yaml":
+		values["global.aws.elb"] = "true"
+	case "hpa.yaml":
+		values["autoscaling.enabled"] = "true"
+	case "ingress.yaml":
+		values["ingress.enabled"] = "true"
+	case "pdp.yaml":
+		values["podDisruptionBudget.enabled"] = "true"
+	case "cronjob-gc.yaml":
+		values["config.job.garbageCollector.enabled"] = "true"
+	case "cronjob-stack-lifeycle.yaml":
+		values["config.job.stackLifeCycle.enabled"] = "true"
+	}
+	return values
+}
+
 func (s *TemplateChart) testNames(templateName string) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Parallel()
 		values := make(map[string]string, 0)
-		switch templateName {
-		case "tgb.yaml":
-			values["global.aws.elb"] = "true"
-		case "hpa.yaml":
-			values["autoscaling.enabled"] = "true"
-		case "ingress.yaml":
-			values["ingress.enabled"] = "true"
-		case "pdp.yaml":
-			values["podDisruptionBudget.enabled"] = "true"
-		}
+		values = activateFeatures(templateName, values)
 		options := s.Options()
 		for k, v := range values {
 			options.SetValues[k] = v

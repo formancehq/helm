@@ -18,20 +18,26 @@
   value: "{{.Values.config.stack.cycle.delay.disposable}}"
 {{- end }}
 
+{{- define "membership.stack.env" -}}
+{{- include "membership.stack.cycle" . }}
+- name: STACK_MINIMAL_MODULES
+  value: "{{ join " " .Values.config.stack.minimalStackModules}}"
+{{- end -}}
+
 {{- define "membership.grpc.env" -}}
 {{- if not .Values.feature.managedStacks }}
 - name: GRPC_TLS_INSECURE
-  value: "{{ .Values.config.agent.grpc.tls.insecure }}"
+  value: "true"
 - name: GRPC_H2C_ENABLED
-  value: "{{ .Values.config.agent.grpc.h2c }}"
+  value: "true"
 - name: GRPC_TOKEN
-{{- if .Values.config.agent.grpc.existingSecret }}
+{{- if .Values.config.grpc.existingSecret }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.config.agent.grpc.existingSecret }}
-      key: {{ .Values.config.agent.grpc.secretKeys.secret }}
+      name: {{ .Values.config.grpc.existingSecret }}
+      key: {{ .Values.config.grpc.secretKeys.secret }}
 {{- else }}
-  value: '{{ join " " .Values.config.agent.grpc.tokens }}'
+  value: '{{ join " " .Values.config.grpc.tokens }}'
 {{- end }}
 {{- end }}
 {{- end -}}
@@ -80,6 +86,8 @@
 {{- include "core.postgres.uri" . }}
 {{- include "core.monitoring" . }}
 {{- include "membership.grpc.env" . }}
+{{- include "membership.stack.env" . }}
+{{- include "core.nats.env" . | nindent 12 }}
 {{ include "membership.auth.tokenValidities" . }}
 {{- with .Values.additionalEnv }}
 {{- tpl (toYaml .) $ }}
