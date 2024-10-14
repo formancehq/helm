@@ -62,8 +62,8 @@ earthly +pre-commit
 ```
 
 >[!TIP]
-> On the operator chart,
-> use `earthly +pre-commit --OPERATOR_VERSION=v2.0.19 OPERATOR_CRD_VERSION=v2.0.19`
+> On the operator chart, use a tag or a branch
+> use `earthly +pre-commit --OPERATOR_VERSION=v2.0.20 OPERATOR_CRD_VERSION=v2.0.20`
 
 1. First run
 once running it for the first time, it will build all the dependencies and validate all the charts and the charts.

@@ -73,7 +73,7 @@ earthly +pre-commit
 {{- end }}
 
 >[!TIP]
-> On the operator chart,
+> On the operator chart, use a tag or a branch
 > use `earthly +pre-commit --OPERATOR_VERSION={{ $operatorVersion }} OPERATOR_CRD_VERSION={{ $operatorCrdVersion }}`
 
 1. First run

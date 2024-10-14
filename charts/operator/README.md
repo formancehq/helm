@@ -1,6 +1,6 @@
 # operator
 
-![Version: v2.0.19](https://img.shields.io/badge/Version-v2.0.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.19](https://img.shields.io/badge/AppVersion-v2.0.19-informational?style=flat-square)
+![Version: v2.0.20](https://img.shields.io/badge/Version-v2.0.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.20](https://img.shields.io/badge/AppVersion-v2.0.20-informational?style=flat-square)
 
 Formance Operator Helm Chart
 
@@ -20,7 +20,7 @@ Formance Operator Helm Chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../operator-crds | operator-crds | v2.0.19 |
+| file://../operator-crds | operator-crds | v2.0.20 |
 
 ## Values
 
