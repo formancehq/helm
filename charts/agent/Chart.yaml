@@ -13,4 +13,4 @@ type: application
 version: v2.1.0
 
 # Not tied anymore
-appVersion: v2.1.0
+appVersion: "v2.0.18"
