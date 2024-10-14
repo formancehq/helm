@@ -302,7 +302,7 @@ additionalEnv: []
 
 feature:
   # -- Membership feature managed stacks
-  managedStacks: false
+  managedStacks: true
   # -- Membership feature disable events
   disableEvents: true
 
@@ -349,6 +349,8 @@ config:
   publisher:
     clientID: "membership"
     topicMapping: "membership"
+    jetstream:
+      replicas: 1
 
   stack:
     # # -- Only need for external use

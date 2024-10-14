@@ -28,3 +28,17 @@ spec:
             - name: DEV
               value: "{{.Values.dev}}"
             {{- include "core.postgres.uri" . | nindent 12 }}
+        {{- if .Values.global.nats.enabled }}
+        - name: {{ .Chart.Name }}-init
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- include "membership.image" . | nindent 10 }}
+          args:
+            - stream
+            - init
+          env:
+          - name: JETSTREAM_REPLICAS
+            value: "{{ .Values.config.publisher.jetstream.replicas }}"
+          {{- include "core.env.common" . | nindent 10 }}
+          {{- include "core.nats.env" . | nindent 10 }}
+        {{- end }}

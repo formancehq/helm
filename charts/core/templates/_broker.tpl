@@ -18,9 +18,9 @@
 
 
 {{- define "core.nats.env" -}}
-{{- if .Values.global.nats.enabled }}
 - name: PUBLISHER_NATS_ENABLED
   value: '{{ .Values.global.nats.enabled }}'
+{{- if .Values.global.nats.enabled }}
 - name: PUBLISHER_NATS_URL
   value: "{{ tpl .Values.global.nats.url $ }}"
 - name: PUBLISHER_NATS_CLIENT_ID
