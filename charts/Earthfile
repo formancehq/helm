@@ -21,9 +21,7 @@ VALIDATE:
   FUNCTION
   DO --pass-args +LINT
   DO --pass-args +TEMPLATE
-  SAVE ARTIFACT ./*.lock AS LOCAL ./
-  SAVE ARTIFACT ./README.md AS LOCAL ./
-  SAVE ARTIFACT ./values.schema.json AS LOCAL ./
+  SAVE ARTIFACT ./* AS LOCAL ./
 
 LINT:
   FUNCTION
