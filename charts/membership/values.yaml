@@ -140,6 +140,14 @@ global:
 # -- Count of replicas
 replicaCount: 1
 
+podDisruptionBudget:
+  # -- Enable pod disruption budget
+  enabled: false
+  # -- Minimum available pods
+  minAvailable: 1
+  # -- Maximum unavailable pods
+  maxUnavailable: 0
+
 serviceAccount:
   # -- Service account creation
   create: true

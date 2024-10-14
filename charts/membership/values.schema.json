@@ -618,6 +618,20 @@
             "properties": {},
             "type": "object"
         },
+        "podDisruptionBudget": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "maxUnavailable": {
+                    "type": "integer"
+                },
+                "minAvailable": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
         "podSecurityContext": {
             "properties": {},
             "type": "object"
