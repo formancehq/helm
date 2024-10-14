@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "membership.fullname" . }}-gc
+  labels:
+    {{- include "membership.labels" . | nindent 4 }}
+spec:
+  suspend: {{ .Values.config.job.garbageCollector.suspend }}
+  # timeZone: "europe/paris"    # Depending of kubernetes v1.27
+  schedule: {{ .Values.config.job.garbageCollector.schedule | quote }}
+  startingDeadlineSeconds: {{ .Values.config.job.garbageCollector.startingDeadlineSeconds }}
+  concurrencyPolicy: {{ .Values.config.job.garbageCollector.concurrencyPolicy }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName:  {{ include "membership.serviceAccountName" . }}
+          restartPolicy: {{ .Values.config.job.garbageCollector.restartPolicy }}
+          {{- with .Values.global.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: {{ include "core.fullname" . }}-gc
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              args:
+                - gc
+              env:
+                {{- include "core.env.common" . | nindent 16 }}
+                {{- include "core.postgres.uri" . | nindent 16 }}
+                {{- include "core.monitoring" . | nindent 16 }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}

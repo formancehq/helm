@@ -1,0 +1,47 @@
+{{- if .Values.config.stack.cycle.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "core.fullname" . }}-cycle
+  labels:
+    {{- include "core.labels" . | nindent 4 }}
+spec:
+  suspend: {{ .Values.config.job.stackLifeCycle.suspend }}
+  # timeZone: "europe/paris"    # Depending of kubernetes v1.27
+  schedule: {{ .Values.config.job.stackLifeCycle.schedule | quote }}
+  startingDeadlineSeconds: {{ .Values.config.job.stackLifeCycle.startingDeadlineSeconds }}
+  concurrencyPolicy: {{ .Values.config.job.stackLifeCycle.concurrencyPolicy }}
+  jobTemplate:
+    metadata:
+      labels:
+        {{- include "core.selectorLabels" . | nindent 8 }}
+    spec:
+      template:
+        spec:
+          serviceAccountName:  {{ include "core.serviceAccountName" . }}
+          restartPolicy: {{ .Values.config.job.stackLifeCycle.restartPolicy }}
+          {{- with .Values.global.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: {{ include "core.fullname" . }}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              args:
+                - stack-cycle
+                - --dry-run={{ .Values.config.stack.cycle.dryRun }}
+              env:
+                - name: STACK_WARN_DELAY
+                  value: "{{.Values.config.stack.cycle.delay.warn}}"
+                - name: STACK_DISPOSABLE_DELAY
+                  value: "{{.Values.config.stack.cycle.delay.disposable}}"
+                - name: SERVICE_URL
+                  value: "{{ .Values.global.scheme }}://{{ .Values.global.serviceHost }}/api"
+                {{- include "core.postgres.uri" . | nindent 16 }}
+                # {{- include "membership.mailgun" . | nindent 16 }}
+                {{- include "core.env.common" . | nindent 16 }}
+                {{- include "core.nats.env" . | nindent 16 }}
+                {{- include "core.monitoring" . | nindent 16 }}
+{{- end -}}
