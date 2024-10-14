@@ -11,6 +11,7 @@
 | [Demo](./charts/demo/README.md) | 2.0.0 |latest | Formance Private Regions Demo | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/demo)](https://artifacthub.io/packages/search?repo=demo) |
 | [Membership](./charts/membership/README.md) | v1.0.0-beta.1 |v0.35.3 | Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions. | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/membership)](https://artifacthub.io/packages/search?repo=membership) |
 | [Portal](./charts/portal/README.md) | v1.0.0-beta.1 |764bb7e199e1d2882e4d5cd205eada0ef0abc283 | Formance Portal | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/portal)](https://artifacthub.io/packages/search?repo=portal) |
+| [Regions](./charts/regions/README.md) | v2.1.0 |latest | Formance Private Regions Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/regions)](https://artifacthub.io/packages/search?repo=regions) |
 | [Stargate](./charts/stargate/README.md) | 0.3.0 |latest | Formance Stargate gRPC Gateway | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/stargate)](https://artifacthub.io/packages/search?repo=stargate) |
 
 ## How to contribute
