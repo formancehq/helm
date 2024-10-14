@@ -8,6 +8,17 @@ BASE:
   FROM core+base-image
   RUN apk update && apk add openssl helm
 
+ARTIFACT:
+  FUNCTION
+  SAVE ARTIFACT --if-exists ./*.lock AS LOCAL ./
+  SAVE ARTIFACT ./*.yaml AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./*.json AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./*.md AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./templates AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./charts AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./profiles AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./LICENCE AS LOCAL ./
+
 SOURCES:
   FUNCTION
   COPY (root+sources/* --PATH=LICENSE) .
@@ -15,13 +26,13 @@ SOURCES:
   COPY Chart.yaml .
   COPY --if-exists values.yaml .
   COPY --dir --if-exists templates .
-  SAVE ARTIFACT ./* AS LOCAL ./
+  DO --pass-args +ARTIFACT
 
 VALIDATE:
   FUNCTION
   DO --pass-args +LINT
   DO --pass-args +TEMPLATE
-  SAVE ARTIFACT ./* AS LOCAL ./
+  DO --pass-args +ARTIFACT
 
 LINT:
   FUNCTION
@@ -35,12 +46,12 @@ TEMPLATE:
 DEPENDENCIES:
   FUNCTION
   RUN helm dependencies update
-  SAVE ARTIFACT ./* AS LOCAL ./
+  DO --pass-args +ARTIFACT
 
 PACKAGE:
   FUNCTION
   RUN helm package .
-  SAVE ARTIFACT *.tgz AS LOCAL ./
+  SAVE ARTIFACT ./*.tgz AS LOCAL ./
 
 README_GENERATOR:
   FUNCTION
@@ -62,8 +73,7 @@ SCHEMA:
   FUNCTION
   COPY values.yaml .
   RUN helm schema -input values.yaml -output values.schema.json
-  SAVE ARTIFACT values.schema.json AS LOCAL values.schema.json
-  SAVE ARTIFACT values.yaml
+  SAVE ARTIFACT ./values.schema.json AS LOCAL ./
 
 schema-base:
   DO --pass-args +BASE

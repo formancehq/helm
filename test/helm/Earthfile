@@ -8,9 +8,6 @@ sources:
   WORKDIR /src
   COPY go.* .
   COPY --dir suite .
-  # TODO(david): refactor tests to base test on specific helm package name-version.tgz
-  # Then we can remove this line, and COPY root+packages/* /build 
-  COPY --dir (root+sources/*/charts --PATH=charts) .
   SAVE ARTIFACT /src
 
 tests:
@@ -22,6 +19,9 @@ tests:
   ARG additionalArgs
   ENV CHART_DIR /src/charts/
   ENV CGO_ENABLED=1
+  # TODO(david): refactor tests to base test on specific helm package name-version.tgz
+  # Then we can remove this line, and COPY root+packages/* /build 
+  COPY --dir (root+sources/*/charts --PATH=charts) .
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
       --mount=type=cache,id=golangci,target=/root/.cache/golangci-lint \

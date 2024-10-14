@@ -21,11 +21,12 @@ sources:
 
 validate:
   FROM +dependencies
-  RUN echo "No validation required"
+  DO --pass-args charts+ARTIFACT
 
 dependencies:
   FROM +sources
   WORKDIR /src/core
+  COPY (+readme/*) .
   DO --pass-args charts+DEPENDENCIES
 
 lint:

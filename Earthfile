@@ -36,10 +36,12 @@ package:
 
 ci:  
   FROM core+base-image
-  BUILD +pre-commit
-  BUILD +tests
+  WAIT
+    BUILD +pre-commit
+    BUILD +tests
+  END
   COPY (+package/*) /build
-  SAVE ARTIFACT /build
+  SAVE ARTIFACT /build AS LOCAL ./
 
 pre-commit:
   BUILD +validate
