@@ -73,7 +73,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Tests
-        run: earthly +ci
+        run: earthly +pre-commit
       - name: Get changed files
         id: changed-files
         shell: bash
