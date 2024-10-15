@@ -27,15 +27,12 @@ package:
   COPY (./charts/*+package/*) /build/
   SAVE ARTIFACT /build AS LOCAL ./
 
-ci:  
-  BUILD +pre-commit
-  BUILD +tests # This target could depend on updated dependencies with the env variable NO_UPDATE
-  BUILD +package
-
 pre-commit:
   BUILD --pass-args +validate
   BUILD +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md
   BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
+  BUILD +tests # This target could depend on updated dependencies with the env variable NO_UPDATE
+  BUILD +package
 
 release:
   FROM core+builder-image
@@ -43,7 +40,7 @@ release:
   WORKDIR /src/chart-releaser
   DO core+GO_INSTALL --package ./...
   COPY ./cr.yaml .
-  COPY (+ci/*) /build
+  COPY (+package/*) /build
   RUN --secret GITHUB_TOKEN cr upload \
       --config cr.yaml \
       --git-repo helm \
