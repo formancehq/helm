@@ -72,6 +72,13 @@ podDisruptionBudget:
   # -- Maximum unavailable pods
   maxUnavailable: 0
 
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
 image:
   # -- image repository
   repository: ghcr.io/formancehq/membership-ui
