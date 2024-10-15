@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.4](https://img.shields.io/badge/Version-v1.0.0--beta.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.5](https://img.shields.io/badge/Version-v1.0.0--beta.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -150,6 +150,9 @@ Kubernetes: `>=1.14.0-0`
 | initContainers | list | `[]` | Membership init containers |
 | nameOverride | string | `""` | Membership name override |
 | nodeSelector | object | `{}` | Membership node selector |
+| podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | podSecurityContext | object | `{}` | Membership pod security context |
 | replicaCount | int | `1` | Count of replicas |
 | resources | object | `{}` | Membership resources |

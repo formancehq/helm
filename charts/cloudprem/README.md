@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.14](https://img.shields.io/badge/Version-v2.0.0--beta.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.15](https://img.shields.io/badge/Version-v2.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -452,6 +452,9 @@ Dex:
 | console.ingress.tls | list | `[]` | ingress tls |
 | console.livenessProbe | object | `{}` | Console liveness probe |
 | console.nodeSelector | object | `{}` | Console node selector |
+| console.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| console.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| console.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | console.readinessProbe | object | `{}` | Console readiness probe |
 | console.replicas | int | `1` | Number of replicas |
 | console.resources | object | `{}` | Console resources |
@@ -504,6 +507,9 @@ Dex:
 | membership.initContainers | list | `[]` | Membership init containers |
 | membership.nameOverride | string | `""` | Membership name override |
 | membership.nodeSelector | object | `{}` | Membership node selector |
+| membership.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| membership.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| membership.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | membership.podSecurityContext | object | `{}` | Membership pod security context |
 | membership.replicaCount | int | `1` | Count of replicas |
 | membership.resources | object | `{}` | Membership resources |
