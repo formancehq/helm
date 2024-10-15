@@ -8,8 +8,12 @@ global:
 
   aws:
     # -- Enable AWS IAM Authentification
-    # @section -- Global configuration
+    # @section -- Global AWS configuration
     iam: false
+
+    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+    # @section -- Global AWS configuration
+    elb: false
 
   platform:
     # -- Enable platform oauth2 client

@@ -1,12 +1,28 @@
 VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
+IMPORT ../.. AS root 
 
 sources:
   FROM core+base-image
   RUN apk add go
   WORKDIR /src
-  COPY --dir  go.* *.go assets .
+  COPY go.* . 
+  RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
+      --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
+      go mod download
+
+  COPY --dir *.go assets .
   SAVE ARTIFACT /src
 
   
+template:
+  FROM +sources  
+  WORKDIR /src
+  COPY (root+sources/* --PATH=charts) /
+  ARG TEMPLATE_FILE=readme.tpl
+  ARG OUTPUT_FILE=README.md
+  RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
+      --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
+    go run ./ readme --chart-dir /charts --template-file $TEMPLATE_FILE >> ${OUTPUT_FILE}
+  SAVE ARTIFACT $OUTPUT_FILE AS LOCAL $OUTPUT_FILE

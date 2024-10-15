@@ -21,6 +21,7 @@ sources:
 
 validate:
   FROM +dependencies
+  WORKDIR /src/core
   DO --pass-args charts+ARTIFACT
 
 dependencies:

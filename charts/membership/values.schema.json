@@ -1,6 +1,9 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "properties": {
+        "additionalEnv": {
+            "type": "array"
+        },
         "affinity": {
             "properties": {},
             "type": "object"
@@ -9,17 +12,115 @@
             "properties": {},
             "type": "object"
         },
+        "aws": {
+            "properties": {
+                "targetGroups": {
+                    "properties": {
+                        "grpc": {
+                            "properties": {
+                                "ipAddressType": {
+                                    "type": "string"
+                                },
+                                "serviceRef": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "port": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "targetGroupARN": {
+                                    "type": "string"
+                                },
+                                "targetType": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "http": {
+                            "properties": {
+                                "ipAddressType": {
+                                    "type": "string"
+                                },
+                                "serviceRef": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "port": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "targetGroupARN": {
+                                    "type": "string"
+                                },
+                                "targetType": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
         "commonLabels": {
             "properties": {},
             "type": "object"
         },
         "config": {
             "properties": {
-                "additionalOAuthClients": {
-                    "type": "array"
+                "auth": {
+                    "properties": {
+                        "additionalOAuthClients": {
+                            "type": "array"
+                        },
+                        "tokenValidity": {
+                            "properties": {
+                                "accessToken": {
+                                    "type": "string"
+                                },
+                                "refreshToken": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
                 },
                 "fctl": {
                     "type": "boolean"
+                },
+                "grpc": {
+                    "properties": {
+                        "existingSecret": {
+                            "type": "string"
+                        },
+                        "secretKeys": {
+                            "properties": {
+                                "secret": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "tokens": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
                 },
                 "migration": {
                     "properties": {
@@ -48,6 +149,12 @@
                         "existingSecret": {
                             "type": "string"
                         },
+                        "scopes": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
                         "secretKeys": {
                             "properties": {
                                 "secret": {
@@ -70,6 +177,41 @@
         },
         "dex": {
             "properties": {
+                "aws": {
+                    "properties": {
+                        "targetGroups": {
+                            "properties": {
+                                "dex-http": {
+                                    "properties": {
+                                        "ipAddressType": {
+                                            "type": "string"
+                                        },
+                                        "serviceRef": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "port": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "targetGroupARN": {
+                                            "type": "string"
+                                        },
+                                        "targetType": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
                 "configOverrides": {
                     "properties": {
                         "enablePasswordDB": {
@@ -214,6 +356,9 @@
             "properties": {
                 "aws": {
                     "properties": {
+                        "elb": {
+                            "type": "boolean"
+                        },
                         "iam": {
                             "type": "boolean"
                         }
@@ -311,6 +456,9 @@
                                 "relyingParty": {
                                     "properties": {
                                         "host": {
+                                            "type": "string"
+                                        },
+                                        "path": {
                                             "type": "string"
                                         },
                                         "scheme": {

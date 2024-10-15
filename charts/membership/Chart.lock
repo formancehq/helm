@@ -7,6 +7,6 @@ dependencies:
   version: 0.17.1
 - name: core
   repository: file://../core
-  version: v1.0.0-beta.1
-digest: sha256:54a650b634aa35bd266b741b4cfc2cde63cf52cda68d96be83a58c63c68279a4
-generated: "2024-10-14T17:48:14.313176+02:00"
+  version: v1.0.0-beta.2
+digest: sha256:d6fe9ae248a5041731b291cd052f998b4f0e0309d306675bd150a4b644b76879
+generated: "2024-10-15T11:59:40.314583408Z"

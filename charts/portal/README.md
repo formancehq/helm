@@ -1,6 +1,6 @@
 # portal
 
-![Version: v1.0.0-beta.1](https://img.shields.io/badge/Version-v1.0.0--beta.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 764bb7e199e1d2882e4d5cd205eada0ef0abc283](https://img.shields.io/badge/AppVersion-764bb7e199e1d2882e4d5cd205eada0ef0abc283-informational?style=flat-square)
+![Version: v1.0.0-beta.2](https://img.shields.io/badge/Version-v1.0.0--beta.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 764bb7e199e1d2882e4d5cd205eada0ef0abc283](https://img.shields.io/badge/AppVersion-764bb7e199e1d2882e4d5cd205eada0ef0abc283-informational?style=flat-square)
 
 Formance Portal
 
@@ -22,9 +22,16 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.1 |
+| file://../core | core | v1.0.0-beta.2 |
 
 ## Values
+
+### Global AWS configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.aws.elb | bool | `false` | Enable AWS ELB |
+| aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
 
 ### Global configuration
 

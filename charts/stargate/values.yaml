@@ -3,7 +3,13 @@ global:
   debug: false
   # -- is the base domain for portal and console
   serviceHost: ""
-
+  aws:
+    # -- Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set
+    # @section -- Global AWS configuration
+    iam: false
+    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+    # @section -- Global AWS configuration
+    elb: false
   monitoring:
     traces:
       # -- Enable otel tracing
@@ -62,15 +68,6 @@ global:
     # -- URL for NATS
     # @section -- Global Nats configuration
     url: ""
-
-  aws:
-    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
-    # @section -- Global AWS configuration
-
-    elb: false
-    # -- Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set
-    # @section -- Global AWS configuration
-    iam: false
 
   postgresql:
     # -- Host for PostgreSQL (overrides included postgreql `host`)
@@ -131,9 +128,6 @@ nameOverride: ""
 # -- String to fully override stargate.fullname template with a string
 fullnameOverride: ""
 
-# -- Specifies whether a service account should be created
-# -- Annotations to add to the service account
-# -- The name of the service account to use.
 serviceAccount:
   create: true
   annotations: {}
@@ -157,9 +151,6 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
-# -- Kubernetes service type
-# -- HTTP port
-# -- gRPC port
 service:
   type: ClusterIP
   ports:
@@ -168,13 +159,6 @@ service:
     grpc:
       port: 3068
 
-# -- Enable ingress
-# -- Ingress class name
-# -- Ingress annotations
-# -- Ingress host
-# -- Ingress path
-# -- Ingress path type
-# -- Ingress TLS
 ingress:
   enabled: false
   className: ""
@@ -202,11 +186,6 @@ resources:
   #   cpu: 100m
   #   memory: 128Mi
 
-# -- Enable autoscaling
-# -- Minimum replicas
-# -- Maximum replicas
-# -- Target CPU utilization percentage
-# -- Target memory utilization percentage
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -223,11 +202,8 @@ tolerations: []
 # -- Affinity for pod assignment
 affinity: {}
 
-# -- Target group IP address type
-# -- Target group target type
-# -- Target group service reference name
-# -- Target group service reference port
-# -- Target group name
+# -- Aws Stargate target groups
+# @section -- Global AWS configuration
 aws:
   targetGroups:
     grpc:
@@ -235,13 +211,9 @@ aws:
       targetType: "ip"
       targetGroupARN: ""
       serviceRef:
-        name: '{{ include "stargate.fullname" $ }}'
+        name: '{{ include "core.fullname" $ }}'
         port: "{{ .Values.service.ports.grpc | default 3068 }}"
 
-# -- Auth issuer URL <-> Membership
-# -- NATS client ID
-# -- NATS topic mapping
-# -- Service name for monitoring
 config:
   auth_issuer_url: ""
   nats:
@@ -250,9 +222,6 @@ config:
   monitoring:
     serviceName: "stargate"
 
-# -- Image repository
-# -- Image pull policy
-# -- Image tag
 image:
   repository: "ghcr.io/formancehq/stargate"
   pullPolicy: "IfNotPresent"

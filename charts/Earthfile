@@ -10,10 +10,11 @@ BASE:
 
 ARTIFACT:
   FUNCTION
-  SAVE ARTIFACT --if-exists ./*.lock AS LOCAL ./
-  SAVE ARTIFACT ./*.yaml AS LOCAL ./
-  SAVE ARTIFACT --if-exists ./*.json AS LOCAL ./
-  SAVE ARTIFACT --if-exists ./*.md AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./Chart.lock AS LOCAL ./
+  SAVE ARTIFACT ./Chart.yaml AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./values.yaml AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./values.schema.json AS LOCAL ./
+  SAVE ARTIFACT --if-exists ./README.md AS LOCAL ./
   SAVE ARTIFACT --if-exists ./templates AS LOCAL ./
   SAVE ARTIFACT --if-exists ./charts AS LOCAL ./
   SAVE ARTIFACT --if-exists ./profiles AS LOCAL ./

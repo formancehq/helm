@@ -33,7 +33,7 @@
   # OTEL_RESOURCE_ATTRIBUTES is the attributes to set
 
 **/}}
-{{- define "console.env" -}}
+{{- define "console.env" }}
 - name: API_URL
   value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
 - name: REDIRECT_URI
@@ -72,7 +72,7 @@
 {{ include "console.additionalEnv" . }}
 {{- end }}
 
-{{- define "console.otel.env" -}}
+{{- define "console.otel.env" }}
 - name: OTEL_TRACES
   value: "{{ .Values.config.monitoring.traces.enabled }}"
 {{- if .Values.config.monitoring.traces.enabled }}
@@ -94,7 +94,7 @@
 {{- end }}
 
 
-{{- define "console.additionalEnv" -}}
+{{- define "console.additionalEnv" }}
 {{ range $key, $val := .Values.config.additionalEnv }}
 - name: {{ $key }}
   value: {{ tpl (tpl $val $) $ | quote}}

@@ -37,11 +37,11 @@ sources:
 dependencies:
   FROM +sources
   WORKDIR /src/console
-  COPY --dir (console+dependencies/*) .
+  COPY --dir (console+validate/*) .
   WORKDIR /src/membership
-  COPY --dir (membership+dependencies/*) .
+  COPY --dir (membership+validate/*) .
   WORKDIR /src/portal
-  COPY --dir (portal+dependencies/*) .
+  COPY --dir (portal+validate/*) .
   WORKDIR /src/cloudprem
   DO --pass-args charts+DEPENDENCIES
 
