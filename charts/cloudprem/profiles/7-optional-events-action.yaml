@@ -1,0 +1,7 @@
+membership:
+  global:
+    nats:
+      enabled: true
+      url: "nats://nats.{{ .Release.Namespace }}.svc:4222"
+  feature:
+    disableEvents: false
