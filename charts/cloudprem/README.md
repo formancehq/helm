@@ -366,7 +366,7 @@ Dex:
 | global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
-| global.platform.membership.relyingParty.path | string | `"/"` | is the path for the relying party issuer |
+| global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
 | global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |

@@ -52,7 +52,7 @@ global:
 
         # -- is the path for the relying party issuer
         # @section -- Global configuration
-        path: "/"
+        path: ""
 
       oauthClient:
         # -- is the id of the client
