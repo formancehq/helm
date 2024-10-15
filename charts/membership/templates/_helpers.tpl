@@ -1,9 +1,9 @@
-{{- define "membership.auth.tokenValidities" -}}
+{{- define "membership.auth.tokenValidities" }}
 - name: TOKENS_VALIDITY_ACCESS
   value: "{{ .Values.config.auth.tokenValidity.accessToken }}"
 - name: TOKENS_VALIDITY_REFRESH
   value: "{{ .Values.config.auth.tokenValidity.refreshToken }}"
-{{- end -}}
+{{- end }}
 
 {{- define "membership.stack.cycle" }}
 - name: STACK_PRUNING_DELAY
@@ -18,13 +18,13 @@
   value: "{{.Values.config.stack.cycle.delay.disposable}}"
 {{- end }}
 
-{{- define "membership.stack.env" -}}
+{{- define "membership.stack.env" }}
 {{- include "membership.stack.cycle" . }}
 - name: STACK_MINIMAL_MODULES
   value: "{{ join " " .Values.config.stack.minimalStackModules}}"
-{{- end -}}
+{{- end }}
 
-{{- define "membership.grpc.env" -}}
+{{- define "membership.grpc.env" }}
 {{- if not .Values.feature.managedStacks }}
 - name: GRPC_TLS_INSECURE
   value: "true"
@@ -40,9 +40,9 @@
   value: '{{ join " " .Values.config.grpc.tokens }}'
 {{- end }}
 {{- end }}
-{{- end -}}
+{{- end }}
 
-{{- define "membership.env" -}}
+{{- define "membership.env" }}
 - name: DEBUG
   value: "{{.Values.debug}}"
 - name: DEV
@@ -87,14 +87,14 @@
 {{- include "core.monitoring" . }}
 {{- include "membership.grpc.env" . }}
 {{- include "membership.stack.env" . }}
-{{- include "core.nats.env" . | nindent 12 }}
-{{ include "membership.auth.tokenValidities" . }}
+{{- include "core.nats.env" .  }}
+{{- include "membership.auth.tokenValidities" . }}
 {{- with .Values.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
 {{- end }}
 
-{{ define "dex-values" }}
+{{- define "dex-values" }}
 issuer: "{{ tpl (printf "%s://%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host) $ }}"
 logger:
   format: "json"

@@ -70,7 +70,16 @@ global:
           secret: ""
   nats:
     enabled: false
+    # -- NATS URL: nats://user:password@nats:4222
+    # @section -- Global configuration
     url: ""
+    auth:
+      user:
+      password:
+      existingSecret: ""
+      secretKeys:
+        password: password
+        username: username
 
   monitoring:
     traces:
@@ -300,6 +309,8 @@ aws:
 
 additionalEnv: []
 
+# See helm tags for more information
+# https://helm.sh/docs/chart_template_guide/variables/#tags
 feature:
   # -- Membership feature managed stacks
   managedStacks: true
@@ -366,7 +377,7 @@ config:
       - Gateway
 
     cycle:
-      dryRun: false
+      dryRun: true
       # According to https://github.com/spf13/viper/blob/f62f86a84b8395051efe0e490a29f3f89830a3ed/viper.go#L1048
       # And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3
       delay:

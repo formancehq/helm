@@ -1,0 +1,36 @@
+global:
+  aws:
+    elb: true
+
+membership:
+  ingress:
+    enabled: false
+  aws:
+    targetGroups:
+      http:
+        targetGroupARN: ""
+      grpc: # H2C
+        targetGroupARN: ""
+  dex:
+    ingress:
+      enabled: false
+    aws:
+      targetGroups:
+        http:
+          targetGroupARN: ""
+
+console:
+  ingress:
+    enabled: false
+  aws:
+    targetGroups:
+      http:
+        targetGroupARN: ""
+
+portal:
+  ingress:
+    enabled: false
+  aws:
+    targetGroups:
+      http:
+        targetGroupARN: ""

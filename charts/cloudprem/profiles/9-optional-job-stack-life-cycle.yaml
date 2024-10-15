@@ -1,0 +1,7 @@
+membership:
+  config:
+    cycle:
+      dryRun: false
+  job:
+    stackLifeCycle:
+      enabled: true

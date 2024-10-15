@@ -40,7 +40,6 @@ spec:
                 - name: SERVICE_URL
                   value: "{{ .Values.global.scheme }}://{{ .Values.global.serviceHost }}/api"
                 {{- include "core.postgres.uri" . | nindent 16 }}
-                {{- include "aws.iam.postgres" . | nindent 16 }}
                 {{- include "core.env.common" . | nindent 16 }}
                 {{- include "core.nats.env" . | nindent 16 }}
                 {{- include "core.monitoring" . | nindent 16 }}

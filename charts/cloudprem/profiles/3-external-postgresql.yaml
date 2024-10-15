@@ -1,0 +1,23 @@
+# Before all:
+# This chart use only 1 db user account, you might to have separated user for dex/membership. You are allowed to bind any secret and override the default config under .membership.dex.configOverrides with template
+#
+# Make sure to create the following secret within the release namespace:
+# - platform
+# - membership
+# - postgresql-credentials
+# - portal
+# You will be able to rename them accordingly
+#
+global:
+  postgresql:
+    host: "postgresql.formance-control.svc.cluster.local"
+
+  service:
+    ports:
+      # -- PostgreSQL service port (overrides `service.ports.postgresql`)
+      # @section -- Global configuration
+      postgresql: 5432
+
+membership:
+  postgresql:
+    enabled: false

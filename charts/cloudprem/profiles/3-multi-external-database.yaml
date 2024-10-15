@@ -1,0 +1,21 @@
+global:
+  postgresql:
+    auth:
+      username: formance
+      password: formance
+      database: formance
+      existingSecret: ""
+      secretKeys:
+        adminPasswordKey: ""
+        userPasswordKey: ""
+
+membership:
+  dex:
+    envVars:
+      - name: POSTGRES_PASSWORD
+        value: "mysql"
+    configOverrides:
+      storage:
+        database: "dex"
+        password: $POSTGRES_PASSWORD
+        username: formance

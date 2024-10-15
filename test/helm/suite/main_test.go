@@ -12,11 +12,13 @@ import (
 )
 
 var (
-	releaseName   = "helm-basic"
-	chartDir      = "../../../charts/"
+	releaseName = "helm-basic"
+	chartDir    = "../../../charts/"
+
 	mainChart     = "cloudprem"
 	plaformCharts = []string{"portal", "console", "membership"}
-	charts        = []string{"portal", "console", "stargate"}
+
+	charts = []string{"portal", "console", "stargate"}
 )
 
 type Base struct {

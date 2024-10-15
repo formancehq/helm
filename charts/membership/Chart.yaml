@@ -32,6 +32,10 @@ dependencies:
     repository: oci://registry-1.docker.io/bitnamicharts
     version: 15.5.X
     condition: postgresql.enabled
+  - name: stargate
+    version: 0.4.X
+    repository: file://../stargate
+    condition: stargate.enabled
   - name: dex
     version: 0.17.X
     repository: https://charts.dexidp.io
