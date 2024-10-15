@@ -8,11 +8,15 @@ global:
 
   aws:
     # -- Enable AWS IAM Authentification
-    # @section -- Global configuration
+    # @section -- Global AWS configuration
     iam: false
 
+    # -- Enable AWS ELB
+    # @section -- Global AWS configuration
+    elb: false
+
   platform:
-    # -- Enable platform oauth2 client
+    # -- Enable platform communication with membership, add specific oauth2 clients, and will rollout membership depending to .membership.oauthClient
     # @section -- Global configuration
     enabled: true
     console:
@@ -38,12 +42,17 @@ global:
       host: "membership.{{ .Values.global.serviceHost }}"
 
       relyingParty:
-        # -- is the scheme for the membership
+        # -- is the scheme the relying party
         # @section -- Global configuration
         scheme: "https"
-        # -- is the host for the membership
+
+        # -- is the host for the relying party issuer
         # @section -- Global configuration
         host: "dex.{{ .Values.global.serviceHost }}"
+
+        # -- is the path for the relying party issuer
+        # @section -- Global configuration
+        path: "/"
 
       oauthClient:
         # -- is the id of the client
@@ -157,12 +166,6 @@ nameOverride: ""
 # -- Membership fullname override
 fullnameOverride: ""
 
-feature:
-  # -- Membership feature managed stacks
-  managedStacks: true
-  # -- Membership feature disable events
-  disableEvents: true
-
 # -- Membership pod security context
 podSecurityContext: {}
 # fsGroup: 2000
@@ -266,21 +269,72 @@ ingress:
     # -- Membership ingress tls secret name
     # - secretName: YOUR_TLS_SECRET_NAME
 
+# -- AWS Membership target groups
+# @section -- Global AWS configuration
+aws:
+  targetGroups:
+    http:
+      ipAddressType: "ipv4"
+      targetType: "ip"
+      targetGroupARN: ""
+      serviceRef:
+        name: '{{ include "core.fullname" $ }}'
+        port: "{{ .Values.service.ports.http.port }}"
+    grpc:
+      ipAddressType: "ipv4"
+      targetType: "ip"
+      targetGroupARN: ""
+      serviceRef:
+        name: '{{ include "core.fullname" $ }}'
+        port: "{{ .Values.service.ports.grpc.port }}"
+
+additionalEnv: []
+
+feature:
+  # -- Membership feature managed stacks
+  managedStacks: true
+  # -- Membership feature disable events
+  disableEvents: true
+
 config:
   # -- Enable Fctl
   fctl: true
   # -- DEPRECATED Membership postgresql connection url
   # postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable"
+
+  # -- Membership relying party connection url
   oidc:
     # -- Membership oidc client id
     clientId: "membership"
     # -- Membership oidc client secret
     clientSecret: "changeMe"
+    # -- Membership oidc redirect uri
+    scopes:
+      - openid
+      - email
+      # -- Membership Dex federated id scope
+      - federated:id
     # -- Membership oidc existing secret
     existingSecret: ""
     # -- Membership oidc secret key
     secretKeys:
       secret: ""
+
+  auth:
+    additionalOAuthClients: []
+    # -- According to "nsuµmh"
+    # And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3
+    tokenValidity:
+      accessToken: "5m"
+      refreshToken: "72h"
+
+  grpc:
+    # -- Membership agent grpc token
+    tokens:
+      - "changeMe"
+    existingSecret: ""
+    secretKeys:
+      secret: "TOKENS"
 
   migration:
     # -- Membership migration annotations
@@ -291,8 +345,6 @@ config:
       helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
 
       # Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync
-
-  additionalOAuthClients: []
 
 dex:
   # -- Enable dex
@@ -338,6 +390,18 @@ dex:
       # -- Dex ingress tls secret name
       # @section -- Dex configuration
       # - secretName: YOUR_TLS_SECRET_NAME
+
+  # -- AWS Target Groups
+  # @section -- Global AWS configuration
+  aws:
+    targetGroups:
+      dex-http:
+        ipAddressType: "ipv4"
+        targetType: "ip"
+        targetGroupARN: ""
+        serviceRef:
+          name: '{{ include "dex.fullname" .Subcharts.dex }}'
+          port: "{{ .Values.dex.service.ports.http.port }}"
 
   # -- Dex resources
   # @section -- Dex configuration

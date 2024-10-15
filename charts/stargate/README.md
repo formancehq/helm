@@ -1,6 +1,6 @@
 # stargate
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Stargate gRPC Gateway
 
@@ -8,7 +8,7 @@ Formance Stargate gRPC Gateway
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.1 |
+| file://../core | core | v1.0.0-beta.2 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
 
 ## Values
@@ -19,6 +19,7 @@ Formance Stargate gRPC Gateway
 |-----|------|---------|-------------|
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set |
+| aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc | default 3068 }}"},"targetGroupARN":"","targetType":"ip"}}}` | Aws Stargate target groups |
 
 ### Global configuration
 
@@ -64,12 +65,25 @@ Formance Stargate gRPC Gateway
 | global.debug | bool | `false` | Enable debug mode |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 | affinity | object | `{}` | Affinity for pod assignment |
-| autoscaling | object | `{"enabled":false,"maxReplicas":100,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Target memory utilization percentage |
-| aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"stargate.fullname\" $ }}","port":"{{ .Values.service.ports.grpc | default 3068 }}"},"targetGroupARN":"","targetType":"ip"}}}` | Target group name |
-| config | object | `{"auth_issuer_url":"","monitoring":{"serviceName":"stargate"},"nats":{"clientID":"stargate","topicMapping":"stargate"}}` | Service name for monitoring |
+| autoscaling.enabled | bool | `false` |  |
+| autoscaling.maxReplicas | int | `100` |  |
+| autoscaling.minReplicas | int | `1` |  |
+| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| config.auth_issuer_url | string | `""` |  |
+| config.monitoring.serviceName | string | `"stargate"` |  |
+| config.nats.clientID | string | `"stargate"` |  |
+| config.nats.topicMapping | string | `"stargate"` |  |
 | fullnameOverride | string | `""` | String to fully override stargate.fullname template with a string |
-| image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/formancehq/stargate","tag":""}` | Image tag |
-| ingress | object | `{"annotations":{},"className":"","enabled":false,"hosts":[{"host":"stargate.{{ .Values.global.serviceHost }}","paths":[{"path":"/","pathType":"Prefix"}]}],"tls":[]}` | Ingress TLS |
+| image.pullPolicy | string | `"IfNotPresent"` |  |
+| image.repository | string | `"ghcr.io/formancehq/stargate"` |  |
+| image.tag | string | `""` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.className | string | `""` |  |
+| ingress.enabled | bool | `false` |  |
+| ingress.hosts[0].host | string | `"stargate.{{ .Values.global.serviceHost }}"` |  |
+| ingress.hosts[0].paths[0].path | string | `"/"` |  |
+| ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
+| ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` | String to partially override stargate.fullname template with a string (will append the release name) |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
 | podAnnotations | object | `{}` | Annotations to add to the pod |
@@ -80,8 +94,12 @@ Formance Stargate gRPC Gateway
 | replicaCount | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource limits and requests |
 | securityContext | object | `{}` | Security context for the container |
-| service | object | `{"ports":{"grpc":{"port":3068},"http":{"port":8080}},"type":"ClusterIP"}` | gRPC port |
-| serviceAccount | object | `{"annotations":{},"create":true,"name":""}` | The name of the service account to use. |
+| service.ports.grpc.port | int | `3068` |  |
+| service.ports.http.port | int | `8080` |  |
+| service.type | string | `"ClusterIP"` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.create | bool | `true` |  |
+| serviceAccount.name | string | `""` |  |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | list | `[]` | Topology spread constraints |
 

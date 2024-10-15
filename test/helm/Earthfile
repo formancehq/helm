@@ -4,25 +4,28 @@ IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
 IMPORT ../.. AS root
 
 sources:
-  FROM core+base-image
+  FROM core+builder-image
+  RUN apk add --no-cache helm
   WORKDIR /src
   COPY go.* .
+  RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
+      --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
+      --mount=type=cache,id=golangci,target=/root/.cache/golangci-lint \
+      go mod download
+
   COPY --dir suite .
   SAVE ARTIFACT /src
 
 tests:
-  FROM core+builder-image
-  RUN apk add helm
+  FROM +sources
   WORKDIR /src
-  COPY (+sources/*) .
-  
   ARG additionalArgs
   ENV CHART_DIR /src/charts/
   ENV CGO_ENABLED=1
-  # TODO(david): refactor tests to base test on specific helm package name-version.tgz
-  # Then we can remove this line, and COPY root+packages/* /build 
+
+  # We need validated helm charts with the dir architecture
   COPY --dir (root+sources/*/charts --PATH=charts) .
-  RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
-      --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
-      --mount=type=cache,id=golangci,target=/root/.cache/golangci-lint \
+
+  RUN --mount type=cache,id=gopkgcache,target=${GOPATH}/pkg/mod \
+      --mount type=cache,id=gobuildcache,target=/root/.cache/go-build \
       go test ./... -race $additionalArgs
