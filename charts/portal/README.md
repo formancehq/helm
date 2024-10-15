@@ -1,6 +1,6 @@
 # portal
 
-![Version: v1.0.0-beta.2](https://img.shields.io/badge/Version-v1.0.0--beta.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 764bb7e199e1d2882e4d5cd205eada0ef0abc283](https://img.shields.io/badge/AppVersion-764bb7e199e1d2882e4d5cd205eada0ef0abc283-informational?style=flat-square)
+![Version: v1.0.0-beta.3](https://img.shields.io/badge/Version-v1.0.0--beta.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 764bb7e199e1d2882e4d5cd205eada0ef0abc283](https://img.shields.io/badge/AppVersion-764bb7e199e1d2882e4d5cd205eada0ef0abc283-informational?style=flat-square)
 
 Formance Portal
 
@@ -58,6 +58,10 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Portal affinity |
+| autoscaling.enabled | bool | `false` |  |
+| autoscaling.maxReplicas | int | `100` |  |
+| autoscaling.minReplicas | int | `1` |  |
+| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | config.additionalEnv | object | `{}` | Additional environment variables |
 | config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | config.cookie.secret | string | `"changeMe2"` | Cookie secret |

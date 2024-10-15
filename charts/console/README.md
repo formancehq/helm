@@ -1,6 +1,6 @@
 # console
 
-![Version: v1.0.0-beta.3](https://img.shields.io/badge/Version-v1.0.0--beta.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb](https://img.shields.io/badge/AppVersion-9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb-informational?style=flat-square)
+![Version: v1.0.0-beta.4](https://img.shields.io/badge/Version-v1.0.0--beta.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb](https://img.shields.io/badge/AppVersion-9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb-informational?style=flat-square)
 
 Formance Console
 
@@ -58,6 +58,10 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Console affinity |
+| autoscaling.enabled | bool | `false` |  |
+| autoscaling.maxReplicas | int | `100` |  |
+| autoscaling.minReplicas | int | `1` |  |
+| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
 | aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
 | aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |

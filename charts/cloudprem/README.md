@@ -428,6 +428,10 @@ Dex:
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | console.affinity | object | `{}` | Console affinity |
+| console.autoscaling.enabled | bool | `false` |  |
+| console.autoscaling.maxReplicas | int | `100` |  |
+| console.autoscaling.minReplicas | int | `1` |  |
+| console.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | console.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
 | console.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
 | console.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
@@ -529,6 +533,10 @@ Dex:
 | membership.volumeMounts | list | `[]` | Membership volume mounts |
 | membership.volumes | list | `[]` | Membership volumes |
 | portal.affinity | object | `{}` | Portal affinity |
+| portal.autoscaling.enabled | bool | `false` |  |
+| portal.autoscaling.maxReplicas | int | `100` |  |
+| portal.autoscaling.minReplicas | int | `1` |  |
+| portal.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | portal.config.additionalEnv | object | `{}` | Additional environment variables |
 | portal.config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
