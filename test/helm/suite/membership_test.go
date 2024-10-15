@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/stretchr/testify/require"
@@ -45,6 +46,56 @@ func TestMembership(t *testing.T) {
 
 	chartTest.setupSuite(t)
 	suite.Run(t, chartTest)
+}
+
+func (s *TemplateMembership) TestsWithoutPG() {
+	t := s.T()
+	t.Parallel()
+
+	t.Run(t.Name()+"_should template without postgresql", func(t *testing.T) {
+		options := s.Options()
+		options.SetValues["postgresql.enabled"] = "false"
+
+		_, err := helm.RenderTemplateE(t, options, s.ChartPath, s.Release, []string{})
+		require.NoError(t, err)
+	})
+}
+
+func (s *TemplateMembership) TestsWithSecrets() {
+	t := s.T()
+	t.Parallel()
+
+	for _, pgEnabled := range []bool{true, false} {
+		t.Run(t.Name()+"with secrets, pg enabled: "+strconv.FormatBool(pgEnabled), func(t *testing.T) {
+			t.Parallel()
+			options := s.Options()
+			options.SetValues["postgresql.enabled"] = strconv.FormatBool(pgEnabled)
+			if !pgEnabled {
+				options.SetValues["global.postgresql.host"] = "localhost"
+			}
+
+			options.SetValues["global.postgresql.auth.existingSecret"] = uuid.NewString()
+			options.SetValues["global.postgresql.auth.secretKeys.adminPasswordKey"] = uuid.NewString()
+
+			templateNames := []string{"deployment", "dex/secret"}
+			for _, templateName := range templateNames {
+				t.Run(t.Name()+"templates:"+strings.Join(templateNames, ","), func(t *testing.T) {
+					output, err := helm.RenderTemplateE(t, options, s.ChartPath, s.Release, []string{fmt.Sprintf("templates/%s.yaml", templateName)})
+					require.NoError(t, err)
+					switch templateName {
+					case "deployment":
+						r := v1.Deployment{}
+						helm.UnmarshalK8SYaml(t, output, &r)
+					case "dex/secret":
+						r := coreV1.Secret{}
+						helm.UnmarshalK8SYaml(t, output, &r)
+					default:
+						t.Fatal("unknown template")
+					}
+				})
+			}
+		})
+	}
 }
 
 func (s *TemplateMembership) TestManagedStack() {
