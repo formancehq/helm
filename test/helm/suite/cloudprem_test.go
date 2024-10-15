@@ -88,6 +88,11 @@ func (s *TemplatePlatfromTest) TestAppEnabled() {
 						values["ingress.enabled"] = "true"
 					case "pdp.yaml":
 						values["podDisruptionBudget.enabled"] = "true"
+					case "cronjob-gc.yaml":
+						values["config.job.garbageCollector.enabled"] = "true"
+					case "cronjob-stack-lifeycle.yaml":
+						values["config.job.stackLifeCycle.enabled"] = "true"
+						values["feature.managedStacks"] = "false"
 					}
 					options := s.Options()
 					for k, v := range values {
@@ -98,6 +103,8 @@ func (s *TemplatePlatfromTest) TestAppEnabled() {
 					switch templateName {
 					case "tgb.yaml":
 						options.SetValues["global.aws.elb"] = "true"
+					case "cronjob-stack-lifeycle.yaml":
+						options.SetValues["global.nats.enabled"] = "true"
 					}
 
 					options.SetValues[fmt.Sprintf("%s.enabled", app)] = strconv.FormatBool(enabled)

@@ -70,7 +70,7 @@
                     },
                     "type": "object"
                 },
-                "nats": {
+                "publisher": {
                     "properties": {
                         "clientID": {
                             "type": "string"

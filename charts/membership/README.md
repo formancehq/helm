@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.6](https://img.shields.io/badge/Version-v1.0.0--beta.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.7](https://img.shields.io/badge/Version-v1.0.0--beta.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -14,7 +14,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.2 |
+| file://../core | core | v1.0.0-beta.3 |
 | https://charts.dexidp.io | dex | 0.17.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
 
@@ -43,6 +43,7 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
+| global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.enabled | bool | `true` | Enable platform communication with membership, add specific oauth2 clients, and will rollout membership depending to .membership.oauthClient |
@@ -111,16 +112,25 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.nats.auth.existingSecret | string | `""` |  |
+| global.nats.auth.password | string | `nil` |  |
+| global.nats.auth.secretKeys.password | string | `"password"` |  |
+| global.nats.auth.secretKeys.username | string | `"username"` |  |
+| global.nats.auth.user | string | `nil` |  |
+| global.nats.enabled | bool | `false` |  |
 | additionalEnv | list | `[]` |  |
 | affinity | object | `{}` | Membership affinity |
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |
-| config.auth.additionalOAuthClients | list | `[]` |  |
+| config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | config.fctl | bool | `true` | Enable Fctl |
 | config.grpc.existingSecret | string | `""` |  |
 | config.grpc.secretKeys.secret | string | `"TOKENS"` |  |
-| config.grpc.tokens | list | `["changeMe"]` | Membership agent grpc token |
+| config.grpc.tokens | list | `[]` | Membership agent grpc token |
+| config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
+| config.job.garbageCollector | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]}` | Clean expired tokens and refresh tokens after X time |
+| config.job.stackLifeCycle | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]}` | Job create 2 jobs to eaither warn or prune a stacks This does not change the state of the stack WARN: Mark stack Disposable -> trigger a mail PRUNE: Mark stack Warned -> trigger a mail It blocks stack cycles if supendend It is highly recommended to enable it as it is the only way we control |
 | config.migration.annotations | object | `{"helm.sh/hook":"pre-upgrade","helm.sh/hook-delete-policy":"before-hook-creation,hook-succeeded,hook-failed"}` | Membership migration annotations |
 | config.migration.annotations."helm.sh/hook" | string | `"pre-upgrade"` | Membership migration helm hook |
 | config.migration.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
@@ -131,6 +141,20 @@ Kubernetes: `>=1.14.0-0`
 | config.oidc.scopes | list | `["openid","email","federated:id"]` | Membership oidc redirect uri |
 | config.oidc.scopes[2] | string | `"federated:id"` | Membership Dex federated id scope |
 | config.oidc.secretKeys | object | `{"secret":""}` | Membership oidc secret key |
+| config.publisher.clientID | string | `"membership"` |  |
+| config.publisher.jetstream.replicas | int | `1` |  |
+| config.publisher.topicMapping | string | `"membership"` |  |
+| config.stack.cycle.delay.disable | string | `"72h"` |  |
+| config.stack.cycle.delay.disablePollingDelay | string | `"1m"` |  |
+| config.stack.cycle.delay.disposable | string | `"360h"` |  |
+| config.stack.cycle.delay.prune | string | `"720h"` |  |
+| config.stack.cycle.delay.prunePollingDelay | string | `"1m"` |  |
+| config.stack.cycle.delay.warn | string | `"72h"` |  |
+| config.stack.cycle.dryRun | bool | `true` |  |
+| config.stack.minimalStackModules[0] | string | `"Auth"` |  |
+| config.stack.minimalStackModules[1] | string | `"Ledger"` |  |
+| config.stack.minimalStackModules[2] | string | `"Payments"` |  |
+| config.stack.minimalStackModules[3] | string | `"Gateway"` |  |
 | debug | bool | `false` | Membership debug |
 | dev | bool | `false` | Membership dev |
 | feature.disableEvents | bool | `true` | Membership feature disable events |

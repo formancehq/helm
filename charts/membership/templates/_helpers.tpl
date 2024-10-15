@@ -18,8 +18,14 @@
   value: "{{.Values.config.stack.cycle.delay.disposable}}"
 {{- end }}
 
+{{- define "membership.stack.env" }}
+{{- include "membership.stack.cycle" . }}
+- name: STACK_MINIMAL_MODULES
+  value: "{{ join " " .Values.config.stack.minimalStackModules}}"
+{{- end }}
+
 {{- define "membership.grpc.env" }}
-{{- if not .Values.feature.managedStacks }}
+{{- if and (not .Values.feature.managedStacks) (.Values.global.nats.enabled)  }}
 - name: GRPC_TLS_INSECURE
   value: "true"
 - name: GRPC_H2C_ENABLED
@@ -80,13 +86,17 @@
 {{- include "core.postgres.uri" . }}
 {{- include "core.monitoring" . }}
 {{- include "membership.grpc.env" . }}
+{{- include "membership.stack.env" . }}
+{{- if not .Values.feature.managedStacks }}
+{{- include "core.nats.env" .  }}
+{{- end }}
 {{- include "membership.auth.tokenValidities" . }}
 {{- with .Values.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
 {{- end }}
 
-{{ define "dex-values" }}
+{{- define "dex-values" }}
 issuer: "{{ tpl (printf "%s://%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host) $ }}"
 logger:
   format: "json"
