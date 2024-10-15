@@ -27,6 +27,6 @@ data:
           - remember_me
           - keep_refresh_token
       {{- end }}
-      {{- with .Values.config.additionalOAuthClients }}
+      {{- with .Values.config.auth.additionalOAuthClients }}
       {{- tpl (toYaml .) $ | nindent 6 }}
       {{- end }}

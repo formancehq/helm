@@ -43,6 +43,9 @@ spec:
           - name: config
             mountPath: "/config"
             readOnly: true
+          {{- with .Values.volumeMounts }}
+          {{ toYaml . | nindent 10 }}
+          {{- end }}
           env:
             {{- include "membership.env" . | nindent 12 }}
           ports:
@@ -64,10 +67,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{ with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
