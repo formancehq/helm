@@ -1,0 +1,21 @@
+global:
+  aws:
+    iam: true
+
+  postgresql:
+    # sslmode=disable by default
+    additionalArgs: ""
+
+membership:
+  serviceAccount:
+    create: true
+    annotations:
+      eks.amazonaws.com/role-arn: ""
+
+  dex:
+    configOverrides:
+      # Not IAM compatible
+      ssl:
+        # mode: verify-ca
+        mode: disable
+        # caFile: /etc/dex/postgres.ca

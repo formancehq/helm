@@ -1,0 +1,11 @@
+global:
+  nats:
+    enabled: true
+
+membership:
+  config:
+    cycle:
+      dryRun: false
+  job:
+    stackLifeCycle:
+      enabled: true

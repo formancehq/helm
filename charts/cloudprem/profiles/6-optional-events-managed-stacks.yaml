@@ -1,0 +1,8 @@
+membership:
+  global:
+    nats:
+      # Not included in the chart
+      url: "nats://nats.{{ .Release.Namespace }}.svc:4222"
+      enabled: true
+  feature:
+    managedStacks: false

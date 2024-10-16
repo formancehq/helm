@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.16](https://img.shields.io/badge/Version-v2.0.0--beta.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.17](https://img.shields.io/badge/Version-v2.0.0--beta.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -262,6 +262,10 @@ Here, we have deployed a basic configuration. Refer to [the Formance operator do
 ```bash
 fctl ui
 ```
+
+## Profiles
+
+See [profiles](./profiles) for more examples.
 
 ## Migration
 
