@@ -106,6 +106,7 @@ func (s *TemplateMembership) TestManagedStack() {
 	for _, managedStack := range []bool{true, false} {
 		options := s.Options()
 		options.SetValues["feature.managedStacks"] = strconv.FormatBool(managedStack)
+		options.SetValues["global.nats.enabled"] = strconv.FormatBool(!managedStack)
 
 		for _, templateName := range templateNames {
 			if managedStack {

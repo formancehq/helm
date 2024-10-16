@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.15](https://img.shields.io/badge/Version-v2.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.16](https://img.shields.io/badge/Version-v2.0.0--beta.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -354,6 +354,7 @@ Dex:
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
+| global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
@@ -425,6 +426,12 @@ Dex:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.nats.auth.existingSecret | string | `""` |  |
+| global.nats.auth.password | string | `nil` |  |
+| global.nats.auth.secretKeys.password | string | `"password"` |  |
+| global.nats.auth.secretKeys.username | string | `"username"` |  |
+| global.nats.auth.user | string | `nil` |  |
+| global.nats.enabled | bool | `false` |  |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | console.affinity | object | `{}` | Console affinity |
@@ -476,12 +483,15 @@ Dex:
 | membership.affinity | object | `{}` | Membership affinity |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
-| membership.config.auth.additionalOAuthClients | list | `[]` |  |
+| membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | membership.config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | membership.config.fctl | bool | `true` | Enable Fctl |
 | membership.config.grpc.existingSecret | string | `""` |  |
 | membership.config.grpc.secretKeys.secret | string | `"TOKENS"` |  |
-| membership.config.grpc.tokens | list | `["changeMe"]` | Membership agent grpc token |
+| membership.config.grpc.tokens | list | `[]` | Membership agent grpc token |
+| membership.config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
+| membership.config.job.garbageCollector | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]}` | Clean expired tokens and refresh tokens after X time |
+| membership.config.job.stackLifeCycle | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[]}` | Job create 2 jobs to eaither warn or prune a stacks This does not change the state of the stack WARN: Mark stack Disposable -> trigger a mail PRUNE: Mark stack Warned -> trigger a mail It blocks stack cycles if supendend It is highly recommended to enable it as it is the only way we control |
 | membership.config.migration.annotations | object | `{"helm.sh/hook":"pre-upgrade","helm.sh/hook-delete-policy":"before-hook-creation,hook-succeeded,hook-failed"}` | Membership migration annotations |
 | membership.config.migration.annotations."helm.sh/hook" | string | `"pre-upgrade"` | Membership migration helm hook |
 | membership.config.migration.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
@@ -492,6 +502,20 @@ Dex:
 | membership.config.oidc.scopes | list | `["openid","email","federated:id"]` | Membership oidc redirect uri |
 | membership.config.oidc.scopes[2] | string | `"federated:id"` | Membership Dex federated id scope |
 | membership.config.oidc.secretKeys | object | `{"secret":""}` | Membership oidc secret key |
+| membership.config.publisher.clientID | string | `"membership"` |  |
+| membership.config.publisher.jetstream.replicas | int | `1` |  |
+| membership.config.publisher.topicMapping | string | `"membership"` |  |
+| membership.config.stack.cycle.delay.disable | string | `"72h"` |  |
+| membership.config.stack.cycle.delay.disablePollingDelay | string | `"1m"` |  |
+| membership.config.stack.cycle.delay.disposable | string | `"360h"` |  |
+| membership.config.stack.cycle.delay.prune | string | `"720h"` |  |
+| membership.config.stack.cycle.delay.prunePollingDelay | string | `"1m"` |  |
+| membership.config.stack.cycle.delay.warn | string | `"72h"` |  |
+| membership.config.stack.cycle.dryRun | bool | `true` |  |
+| membership.config.stack.minimalStackModules[0] | string | `"Auth"` |  |
+| membership.config.stack.minimalStackModules[1] | string | `"Ledger"` |  |
+| membership.config.stack.minimalStackModules[2] | string | `"Payments"` |  |
+| membership.config.stack.minimalStackModules[3] | string | `"Gateway"` |  |
 | membership.debug | bool | `false` | Membership debug |
 | membership.dev | bool | `false` | Membership dev |
 | membership.feature.disableEvents | bool | `true` | Membership feature disable events |

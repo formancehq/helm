@@ -17,15 +17,32 @@
 **/}}
 
 
-{{- define "core.nats.env" -}}
-{{- if .Values.global.nats.enabled }}
+{{- define "core.nats.env" }}
 - name: PUBLISHER_NATS_ENABLED
   value: '{{ .Values.global.nats.enabled }}'
+{{- if .Values.global.nats.enabled }}
+  {{- if .Values.global.nats.auth.existingSecret }}
+- name: PUBLISHER_NATS_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.global.nats.auth.existingSecret }}
+      key: {{ .Values.global.nats.auth.secretKeys.username }}
+- name: PUBLISHER_NATS_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.global.nats.auth.existingSecret }}
+      key: {{ .Values.global.nats.auth.secretKeys.password }}
+  {{- else }}
+- name: PUBLISHER_NATS_USERNAME
+  value: {{ .Values.global.nats.auth.username | quote }}
+- name: PUBLISHER_NATS_PASSWORD
+  value: {{ .Values.global.nats.auth.password | quote }}
+  {{- end }}
 - name: PUBLISHER_NATS_URL
-  value: "{{ .Values.global.nats.url }}"
+  value: "{{ tpl .Values.global.nats.url $ }}"
 - name: PUBLISHER_NATS_CLIENT_ID
-  value: "{{ .Values.config.nats.clientID}}"
+  value: "{{ .Values.config.publisher.clientID}}"
 - name: PUBLISHER_TOPIC_MAPPING
-  value: "{{ .Values.config.nats.topicMapping }}"
-{{- end -}}
-{{- end -}}
+  value: "{{ .Values.config.publisher.topicMapping }}"
+{{- end }}
+{{- end }}

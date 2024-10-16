@@ -114,10 +114,72 @@
                             "type": "object"
                         },
                         "tokens": {
-                            "items": {
-                                "type": "string"
-                            },
                             "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "job": {
+                    "properties": {
+                        "garbageCollector": {
+                            "properties": {
+                                "concurrencyPolicy": {
+                                    "type": "string"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "resources": {
+                                    "properties": {},
+                                    "type": "object"
+                                },
+                                "restartPolicy": {
+                                    "type": "string"
+                                },
+                                "schedule": {
+                                    "type": "string"
+                                },
+                                "startingDeadlineSeconds": {
+                                    "type": "integer"
+                                },
+                                "suspend": {
+                                    "type": "boolean"
+                                },
+                                "tolerations": {
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "stackLifeCycle": {
+                            "properties": {
+                                "concurrencyPolicy": {
+                                    "type": "string"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "resources": {
+                                    "properties": {},
+                                    "type": "object"
+                                },
+                                "restartPolicy": {
+                                    "type": "string"
+                                },
+                                "schedule": {
+                                    "type": "string"
+                                },
+                                "startingDeadlineSeconds": {
+                                    "type": "integer"
+                                },
+                                "suspend": {
+                                    "type": "boolean"
+                                },
+                                "tolerations": {
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
                         }
                     },
                     "type": "object"
@@ -162,6 +224,67 @@
                                 }
                             },
                             "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "publisher": {
+                    "properties": {
+                        "clientID": {
+                            "type": "string"
+                        },
+                        "jetstream": {
+                            "properties": {
+                                "replicas": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "topicMapping": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "stack": {
+                    "properties": {
+                        "cycle": {
+                            "properties": {
+                                "delay": {
+                                    "properties": {
+                                        "disable": {
+                                            "type": "string"
+                                        },
+                                        "disablePollingDelay": {
+                                            "type": "string"
+                                        },
+                                        "disposable": {
+                                            "type": "string"
+                                        },
+                                        "prune": {
+                                            "type": "string"
+                                        },
+                                        "prunePollingDelay": {
+                                            "type": "string"
+                                        },
+                                        "warn": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "dryRun": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "minimalStackModules": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
                         }
                     },
                     "type": "object"
@@ -406,6 +529,42 @@
                                 }
                             },
                             "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "nats": {
+                    "properties": {
+                        "auth": {
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "null"
+                                },
+                                "secretKeys": {
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "user": {
+                                    "type": "null"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "url": {
+                            "type": "string"
                         }
                     },
                     "type": "object"

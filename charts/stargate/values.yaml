@@ -216,7 +216,7 @@ aws:
 
 config:
   auth_issuer_url: ""
-  nats:
+  publisher:
     clientID: "stargate"
     topicMapping: "stargate"
   monitoring:

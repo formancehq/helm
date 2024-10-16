@@ -52,7 +52,7 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-            {{- if not .Values.feature.managedStacks }}
+            {{- if and (not .Values.feature.managedStacks) .Values.global.nats.enabled }}
             - name: grpc
               containerPort: 8082
               protocol: TCP
