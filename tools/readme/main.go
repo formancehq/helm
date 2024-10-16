@@ -94,9 +94,48 @@ func runE(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
+
+	funcMaps := sprig.FuncMap()
+
+	// add listCharts
+	// Need to remove it from the flag specification
+	funcMaps["listCharts"] = func(chartDir string) (l []chart, err error) {
+		fmt.Println("listing charts")
+		return listCharts(chartDir)
+	}
+
+	funcMaps["readFile"] = func(filepath string) []byte {
+		b, err := os.ReadFile(filepath)
+		if err != nil {
+			panic(err)
+		}
+		return b
+	}
+
+	funcMaps["fromYaml"] = func(data []byte) map[string]interface{} {
+		values := make(map[string]interface{})
+		if err := yaml.Unmarshal(data, &values); err != nil {
+			panic(err)
+		}
+
+		return values
+	}
+
+	funcMaps["toString"] = func(v []byte) string {
+		return string(v)
+	}
+
+	funcMaps["toYaml"] = func(v interface{}) string {
+		b, err := yaml.Marshal(v)
+		if err != nil {
+			panic(err)
+		}
+		return string(b)
+	}
+
 	tmpl, err := template.
 		New(fileName).
-		Funcs(sprig.FuncMap()).
+		Funcs(funcMaps).
 		ParseGlob(assetPattern)
 	if err != nil {
 		return err

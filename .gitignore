@@ -8,3 +8,5 @@ dist
 charts/**/LICENSE
 
 .tmp-earthly-out
+
+.ci

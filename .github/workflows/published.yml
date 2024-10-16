@@ -1,0 +1,31 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install earthly
+        uses: earthly/actions-setup@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: download-release-asset
+        name: Download release asset
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: "formancehq/helm"
+          version: "tags/${{github.ref_name}}"
+          file: ${{github.ref_name}}.tgz
+          target: ${{github.ref_name}}.tgz
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push
+        run: earthly -P +publish --path=${{github.ref_name}}.tgz
+        env:
+          EARTHLY_SECRETS: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}

@@ -11,18 +11,21 @@ sources:
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
       go mod download
-
-  COPY --dir *.go assets .
+  COPY *.go .
   SAVE ARTIFACT /src
-
   
 template:
   FROM +sources  
   WORKDIR /src
-  COPY (root+sources/* --PATH=charts) /
+  COPY --dir assets .
+  COPY --dir (root+sources/*/* --PATH=charts) /src/charts
+  DO --pass-args +GENERATE
+
+GENERATE:
+  FUNCTION
   ARG TEMPLATE_FILE=readme.tpl
   ARG OUTPUT_FILE=README.md
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
-    go run ./ readme --chart-dir /charts --template-file $TEMPLATE_FILE >> ${OUTPUT_FILE}
+    go run ./ readme --chart-dir /src/charts --template-file $TEMPLATE_FILE >> ${OUTPUT_FILE}
   SAVE ARTIFACT $OUTPUT_FILE AS LOCAL $OUTPUT_FILE
