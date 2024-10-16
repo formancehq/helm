@@ -34,12 +34,16 @@ pre-commit:
   BUILD +tests # This target could depend on updated dependencies with the env variable NO_UPDATE
   BUILD +package
 
-release:
+releaser:
   FROM core+builder-image
   GIT CLONE --branch=v1.6.1 https://github.com/helm/chart-releaser /src/chart-releaser
   WORKDIR /src/chart-releaser
   DO core+GO_INSTALL --package ./...
   COPY ./cr.yaml .
+  
+release:
+  FROM +releaser
+  WORKDIR /src/chart-releaser
   COPY (+package/*) /build
   RUN --secret GITHUB_TOKEN cr upload \
       --config cr.yaml \
@@ -47,5 +51,21 @@ release:
       --token ${GITHUB_TOKEN} \
       --skip-existing \
       --package-path /build
-  
-  
+      
+publish:
+  FROM core+base-image
+  RUN apk add helm
+  WORKDIR /src
+  ARG path
+  COPY $path /src
+  DO --pass-args +HELM_PUBLISH --path=/src/$path
+
+HELM_PUBLISH:
+    FUNCTION
+    ARG --required path
+    WITH DOCKER
+        RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | docker login ghcr.io -u NumaryBot --password-stdin
+    END
+    WITH DOCKER
+        RUN helm push ${path} oci://ghcr.io/formancehq/helm
+    END
