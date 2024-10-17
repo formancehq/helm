@@ -15,6 +15,7 @@ spec:
         {{- include "core.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: OnFailure
+      serviceAccountName: {{ include "core.serviceAccountName" . }}
       containers:
         - name: migrate
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
