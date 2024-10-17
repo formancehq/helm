@@ -51,13 +51,13 @@ release:
       --package-path /build
       
 publish:
-  DO --pass-args +HELM_PUBLISH --path=$path
+  DO --pass-args +HELM_PUBLISH
 
 HELM_PUBLISH:
     FUNCTION
     FROM core+helm-base
     ARG --required path
-    COPY $path /src
+    COPY $path /src/
     WITH DOCKER
         RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | docker login ghcr.io -u NumaryBot --password-stdin
     END
