@@ -1,3 +1,4 @@
----
 owner: formancehq
 git-base-url: https://api.github.com/
+git-repo: helm
+index-path: index.yaml

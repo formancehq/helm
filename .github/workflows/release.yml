@@ -11,13 +11,12 @@ permissions:
 jobs:
   release:
     name: Release
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Install earthly
         uses: earthly/actions-setup@v1
         with:
+          use-cache: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,7 +28,7 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - name: Tests and Package
         run: earthly +pre-commit
-      - name: Has filesystem changed ?
+      - name: Dirty
         id: changed-files
         shell: bash
         run: |
@@ -42,4 +41,4 @@ jobs:
       - name: Release
         run: earthly +release 
         env:
-          EARTHLY_SECRETS: "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+          EARTHLY_SECRETS: "GITHUB_TOKEN=${{ secrets.NUMARY_GITHUB_TOKEN }}"
