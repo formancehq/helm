@@ -50,10 +50,12 @@
 {{- if .Values.config.postgresqlUrl }}
   value: "{{ .Values.config.postgresqlUrl }}"
 {{- else }}
-  {{- if .Values.postgresql.enabled }}
+  {{- $host := .Values.global.postgresql.host }}
+  {{- if .Values.global.aws.iam }}
+  value: "postgresql://{{ $host }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
+  {{- else if .Values.postgresql.enabled }}
   value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ printf "%s.%s.svc" (include "postgresql.v1.primary.fullname" .Subcharts.postgresql) .Release.Namespace }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
   {{- else }}
-  {{- $host := .Values.global.postgresql.host }}
   value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ $host }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
   {{- end }}
 {{- end }}

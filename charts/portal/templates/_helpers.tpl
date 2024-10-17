@@ -45,7 +45,14 @@
 - name: REDIRECT_URI
   value: {{ include "service.url" (dict "service" .Values.global.platform.portal "Context" .) }}
 - name: COOKIE_SECRET
+  {{- if gt (len .Values.config.cookie.existingSecret) 0 }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.config.cookie.existingSecret }}
+      key: {{ .Values.config.cookie.secretKeys.secret }}
+  {{- else }}
   value: {{ .Values.config.cookie.secret }}
+  {{- end }}
 - name: COOKIE_NAME
   value: __session_platform
 - name: COOKIE_DOMAIN
