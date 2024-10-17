@@ -132,3 +132,12 @@ staticClients:
     redirectURIs:
       - "{{ .Values.global.platform.membership.scheme }}://{{ tpl .Values.global.platform.membership.host $ }}/api/authorize/callback"
 {{- end }}
+
+
+{{- define "membership.job.serviceAccountName" -}}
+{{- if .Values.config.migration.serviceAccount.create }}
+{{- default (printf "%s-%s" (include "core.fullname" .) "migrate") .Values.config.migration.serviceAccount.name }}
+{{- else }}
+{{- default "default-migrate" .Values.config.migration.serviceAccount.name }}
+{{- end }}
+{{- end }}

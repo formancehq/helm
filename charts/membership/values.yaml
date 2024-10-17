@@ -442,7 +442,16 @@ config:
       tolerations: []
 
   migration:
-    # -- Membership migration annotations
+    serviceAccount:
+      create: true
+      name: ""
+      annotations:
+        # -- Membership migration helm hook
+        helm.sh/hook: pre-upgrade
+        # -- Membership migration hook delete policy
+        helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
+
+    # -- Membership job migration annotations
     annotations:
       # -- Membership migration helm hook
       helm.sh/hook: pre-upgrade
