@@ -196,6 +196,28 @@
                                 }
                             },
                             "type": "object"
+                        },
+                        "serviceAccount": {
+                            "properties": {
+                                "annotations": {
+                                    "properties": {
+                                        "helm.sh/hook": {
+                                            "type": "string"
+                                        },
+                                        "helm.sh/hook-delete-policy": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "create": {
+                                    "type": "boolean"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
                         }
                     },
                     "type": "object"
