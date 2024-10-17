@@ -147,6 +147,12 @@
                                 },
                                 "tolerations": {
                                     "type": "array"
+                                },
+                                "volumeMounts": {
+                                    "type": "array"
+                                },
+                                "volumes": {
+                                    "type": "array"
                                 }
                             },
                             "type": "object"
@@ -176,6 +182,12 @@
                                     "type": "boolean"
                                 },
                                 "tolerations": {
+                                    "type": "array"
+                                },
+                                "volumeMounts": {
+                                    "type": "array"
+                                },
+                                "volumes": {
                                     "type": "array"
                                 }
                             },
@@ -218,6 +230,12 @@
                                 }
                             },
                             "type": "object"
+                        },
+                        "volumeMounts": {
+                            "type": "array"
+                        },
+                        "volumes": {
+                            "type": "array"
                         }
                     },
                     "type": "object"

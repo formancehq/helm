@@ -23,6 +23,10 @@ spec:
           {{- end }}
           containers:
             - name: {{ include "core.fullname" . }}
+              {{- with .Values.config.job.garbageCollector.volumeMounts }}
+              volumeMounts:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
               securityContext:
                 {{- toYaml .Values.securityContext | nindent 16 }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -45,6 +49,10 @@ spec:
           {{- end }}
           {{- with .Values.config.job.garbageCollector.tolerations }}
           tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{ with .Values.config.job.garbageCollector.volumes }}
+          volumes:
             {{- toYaml . | nindent 12 }}
           {{- end }}
 {{- end }}

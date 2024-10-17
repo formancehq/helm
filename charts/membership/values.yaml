@@ -429,6 +429,8 @@ config:
       schedule: "*/30 * * * *"
       resources: {}
       tolerations: []
+      volumes: []
+      volumeMounts: []
 
     # -- Clean expired tokens and refresh tokens after X time
     garbageCollector:
@@ -440,6 +442,8 @@ config:
       schedule: "0 0 * * *"
       resources: {}
       tolerations: []
+      volumes: []
+      volumeMounts: []
 
   migration:
     serviceAccount:
@@ -450,7 +454,8 @@ config:
         helm.sh/hook: pre-upgrade
         # -- Membership migration hook delete policy
         helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
-
+    volumes: []
+    volumeMounts: []
     # -- Membership job migration annotations
     annotations:
       # -- Membership migration helm hook
