@@ -30,8 +30,8 @@ pre-commit:
   BUILD --pass-args +validate
   BUILD +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md
   BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
-  #BUILD +tests # This target could depend on updated dependencies with the env variable NO_UPDATE
-  #BUILD +package
+  BUILD +tests # This target could depend on updated dependencies with the env variable NO_UPDATE
+  BUILD +package
 
 releaser:
   FROM core+builder-image
