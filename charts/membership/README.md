@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.8](https://img.shields.io/badge/Version-v1.0.0--beta.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.9](https://img.shields.io/badge/Version-v1.0.0--beta.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -14,7 +14,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.4 |
+| file://../core | core | v1.0.0-beta.5 |
 | https://charts.dexidp.io | dex | 0.17.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
 

@@ -1,6 +1,6 @@
 # portal
 
-![Version: v1.0.0-beta.5](https://img.shields.io/badge/Version-v1.0.0--beta.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 764bb7e199e1d2882e4d5cd205eada0ef0abc283](https://img.shields.io/badge/AppVersion-764bb7e199e1d2882e4d5cd205eada0ef0abc283-informational?style=flat-square)
+![Version: v1.0.0-beta.6](https://img.shields.io/badge/Version-v1.0.0--beta.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 764bb7e199e1d2882e4d5cd205eada0ef0abc283](https://img.shields.io/badge/AppVersion-764bb7e199e1d2882e4d5cd205eada0ef0abc283-informational?style=flat-square)
 
 Formance Portal
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.4 |
+| file://../core | core | v1.0.0-beta.5 |
 
 ## Values
 

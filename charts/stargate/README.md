@@ -8,7 +8,7 @@ Formance Stargate gRPC Gateway
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.4 |
+| file://../core | core | v1.0.0-beta.5 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
 
 ## Values
