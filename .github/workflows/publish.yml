@@ -27,4 +27,4 @@ jobs:
       - name: Push
         run: earthly -P +publish --path=${{github.ref_name}}.tgz
         env:
-          EARTHLY_SECRETS: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          EARTHLY_SECRETS: GITHUB_TOKEN=${{ secrets.NUMARY_GITHUB_TOKEN }}
