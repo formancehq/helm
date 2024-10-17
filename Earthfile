@@ -1,6 +1,5 @@
 VERSION --wildcard-builds --wildcard-copy 0.8
 
-IMPORT ./charts AS charts
 IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
 
 sources:
@@ -47,7 +46,6 @@ release:
   COPY (+package/*) /build
   RUN --secret GITHUB_TOKEN cr upload \
       --config cr.yaml \
-      --git-repo helm \
       --token ${GITHUB_TOKEN} \
       --skip-existing \
       --package-path /build
