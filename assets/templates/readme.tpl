@@ -8,11 +8,6 @@
 | [{{ .Name | title }}](./charts/{{ .Name }}/README.md) | {{ .Version }} |{{ .AppVersion }} | {{ .Description }} | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/{{ .Name }})](https://artifacthub.io/packages/search?repo={{ .Name }}) |
 {{- end }}
 
-## Test
-
-
-{{ readFile "CONTRIBUTING.md" | toString | toHTML }}
-
 ## How to contribute
 
 Please refer to the [CONTRIBUTING.md](./CONTRIBUTING.md) file for information on how to contribute to this project.

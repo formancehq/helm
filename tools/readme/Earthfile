@@ -20,7 +20,6 @@ template:
   WORKDIR /src
   COPY --dir (root+sources/*/* --PATH=assets) assets
   COPY --dir (root+sources/*/* --PATH=charts) charts
-  COPY (root+sources/* --PATH=CONTRIBUTING.md) .
   DO --pass-args +GENERATE
 
 GENERATE:
