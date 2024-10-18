@@ -101,6 +101,9 @@ issuer: "{{ tpl (printf "%s://%s" .Values.global.platform.membership.relyingPart
 logger:
   format: "json"
 storage:
+    {{- if ((index .Values.dex.configOverrides "storage")) }}
+    {{- if ((index .Values.dex.configOverrides.storage "type")) }}
+    {{- if eq .Values.dex.configOverrides.storage.type "postgres" }}
   type: postgres
   config:
     {{- if .Values.postgresql.enabled }}
@@ -119,7 +122,10 @@ storage:
     {{- if contains .Values.global.postgresql.additionalArgs "sslmode=disable" }}
     ssl:
       mode: disable
+      {{- end }}
+      {{- end }}
     {{- end }}
+  {{- end }}
 
 staticClients:
   - name: "membership"
