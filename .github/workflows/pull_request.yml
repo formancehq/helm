@@ -74,6 +74,8 @@ jobs:
           fetch-depth: 0
       - name: Tests
         run: earthly +pre-commit
+        env:
+          EARTHLY_SECRETS: "GITHUB_TOKEN=${{ secrets.NUMARY_GITHUB_TOKEN }}"
       - name: Get changed files
         id: changed-files
         shell: bash
