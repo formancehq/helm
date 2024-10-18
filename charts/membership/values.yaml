@@ -593,6 +593,8 @@ dex:
   # Database is setup on the chart global, make sure that user/password when using kubernetes secret
   # @section -- Dex configuration
   configOverrides:
+    storage:
+      type: postgres
     oauth2:
       # -- oauth2 skip approval screen
       # @section -- Dex configuration
