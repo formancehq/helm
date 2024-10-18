@@ -231,6 +231,9 @@
                             },
                             "type": "object"
                         },
+                        "ttlSecondsAfterFinished": {
+                            "type": "string"
+                        },
                         "volumeMounts": {
                             "type": "array"
                         },

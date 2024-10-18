@@ -66,6 +66,11 @@ publish:
 
 # docs target to generate the markdown files for the charts
 docs:
+  DO +EARTHLY_DOCS
+
+# EARTHLY_DOCS target to generate the markdown files for the charts
+EARTHLY_DOCS:
+  FUNCTION
   FROM core+base-image
   WORKDIR /src
   RUN apk add git
