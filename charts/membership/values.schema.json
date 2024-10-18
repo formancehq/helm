@@ -209,6 +209,33 @@
                             },
                             "type": "object"
                         },
+                        "postgresql": {
+                            "properties": {
+                                "auth": {
+                                    "properties": {
+                                        "existingSecret": {
+                                            "type": "string"
+                                        },
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "secretKeys": {
+                                            "properties": {
+                                                "adminPasswordKey": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "serviceAccount": {
                             "properties": {
                                 "annotations": {
