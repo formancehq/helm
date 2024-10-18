@@ -5,16 +5,13 @@ global:
   # -- is the base domain for portal and console
   # @section -- Global configuration
   serviceHost: ""
-
   aws:
     # -- Enable AWS IAM Authentification
     # @section -- Global AWS configuration
     iam: false
-
     # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
     # @section -- Global AWS configuration
     elb: false
-
   platform:
     # -- Enable platform oauth2 client
     # @section -- Global configuration
@@ -40,7 +37,6 @@ global:
       # -- is the host for the membership
       # @section -- Global configuration
       host: "membership.{{ .Values.global.serviceHost }}"
-
       relyingParty:
         # -- is the scheme for the membership
         # @section -- Global configuration
@@ -48,7 +44,6 @@ global:
         # -- is the host for the membership
         # @section -- Global configuration
         host: "dex.{{ .Values.global.serviceHost }}"
-
       oauthClient:
         # -- is the id of the client
         # @section -- Global configuration
@@ -63,13 +58,11 @@ global:
         # @section -- Global configuration
         secretKeys:
           secret: ""
-
       oidc:
         # -- is the scheme for the issuer
         scheme: "https"
         # -- is the host for the oidc
         host: "dex.{{ .Values.global.serviceHost }}"
-
   monitoring:
     traces:
       # -- Enable otel tracing
@@ -100,7 +93,6 @@ global:
       # -- Format
       # @section -- Global configuration
       format: "json"
-
   postgresql:
     # -- Host for PostgreSQL (overrides included postgreql `host`)
     # @section -- Global configuration
@@ -131,7 +123,6 @@ global:
         # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
         # @section -- Global configuration
         userPasswordKey: ""
-
     service:
       ports:
         # -- PostgreSQL service port (overrides `service.ports.postgresql`)

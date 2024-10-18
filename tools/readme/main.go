@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"os"
+	"path/filepath"
 
 	"github.com/Masterminds/sprig/v3"
 	"github.com/goccy/go-yaml"
@@ -12,9 +13,8 @@ import (
 )
 
 var (
-	chartDirFlag         string = "chart-dir"
 	assetsPatternFlag    string = "assets-dir"
-	templatefileNameFlag string = "template-file"
+	templateFileNameFlag string = "template-file"
 )
 
 type chart struct {
@@ -31,12 +31,15 @@ type chart struct {
 	}
 }
 
-type values struct {
-	Charts []chart
-}
+type values struct{}
 
 func listCharts(chartDir string) ([]chart, error) {
-	dir, err := os.ReadDir(chartDir)
+	pwd, err := os.Getwd()
+	if err != nil {
+		return nil, err
+	}
+
+	dir, err := os.ReadDir(filepath.Join(pwd, chartDir))
 	if err != nil {
 		return nil, err
 	}
@@ -49,10 +52,10 @@ func listCharts(chartDir string) ([]chart, error) {
 				ct           chart
 			)
 
-			if _, err := os.Stat(fmt.Sprintf("%s/%s/Chart.yaml", chartDir, entry.Name())); err == nil {
+			if _, err := os.Stat(filepath.Join(pwd, chartDir, entry.Name(), "Chart.yaml")); err == nil {
 				hasChartYaml = true
 
-				b, err := os.ReadFile(fmt.Sprintf("%s/%s/Chart.yaml", chartDir, entry.Name()))
+				b, err := os.ReadFile(filepath.Join(pwd, chartDir, entry.Name(), "Chart.yaml"))
 				if err != nil {
 					return nil, err
 				}
@@ -75,42 +78,21 @@ func listCharts(chartDir string) ([]chart, error) {
 
 func runE(cmd *cobra.Command, args []string) error {
 
-	chartDir := cmd.Flag(chartDirFlag).Value.String()
-	if chartDir == "" {
-		return fmt.Errorf("chart-dir is required")
-	}
-
 	assetPattern := cmd.Flag(assetsPatternFlag).Value.String()
 	if assetPattern == "" {
 		return fmt.Errorf("assets-pattern is required")
 	}
 
-	fileName := cmd.Flag(templatefileNameFlag).Value.String()
+	fileName := cmd.Flag(templateFileNameFlag).Value.String()
 	if fileName == "" {
 		return fmt.Errorf("template-file-name is required")
 	}
 
-	charts, err := listCharts(chartDir)
-	if err != nil {
-		return err
-	}
-
 	funcMaps := sprig.FuncMap()
 
-	// add listCharts
-	// Need to remove it from the flag specification
-	funcMaps["listCharts"] = func(chartDir string) (l []chart, err error) {
-		fmt.Println("listing charts")
-		return listCharts(chartDir)
-	}
+	funcMaps["listCharts"] = listCharts
 
-	funcMaps["readFile"] = func(filepath string) []byte {
-		b, err := os.ReadFile(filepath)
-		if err != nil {
-			panic(err)
-		}
-		return b
-	}
+	funcMaps["readFile"] = os.ReadFile
 
 	funcMaps["fromYaml"] = func(data []byte) map[string]interface{} {
 		values := make(map[string]interface{})
@@ -121,8 +103,8 @@ func runE(cmd *cobra.Command, args []string) error {
 		return values
 	}
 
-	funcMaps["toString"] = func(v []byte) string {
-		return string(v)
+	funcMaps["toHTML"] = func(s string) template.HTML {
+		return template.HTML(s)
 	}
 
 	funcMaps["toYaml"] = func(v interface{}) string {
@@ -140,9 +122,7 @@ func runE(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-	return tmpl.Execute(cmd.OutOrStdout(), &values{
-		Charts: charts,
-	})
+	return tmpl.Execute(cmd.OutOrStdout(), values{})
 }
 
 func NewRootCommand() *cobra.Command {
@@ -152,9 +132,8 @@ func NewRootCommand() *cobra.Command {
 		RunE: runE,
 	}
 
-	root.Flags().String(chartDirFlag, "../../charts", "chart directory")
-	root.Flags().String(assetsPatternFlag, "./assets/*.tpl", "assets pattern")
-	root.Flags().String(templatefileNameFlag, "readme.tpl", "template file name")
+	root.Flags().String(assetsPatternFlag, "assets/templates/*.tpl", "assets pattern")
+	root.Flags().String(templateFileNameFlag, "readme.tpl", "template file name")
 
 	return root
 }

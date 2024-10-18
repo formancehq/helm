@@ -46,6 +46,7 @@ TEMPLATE:
 
 DEPENDENCIES:
   FUNCTION
+  RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin
   RUN helm dependencies update
   DO --pass-args +ARTIFACT
 

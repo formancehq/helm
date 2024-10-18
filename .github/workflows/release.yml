@@ -28,6 +28,8 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - name: Tests and Package
         run: earthly +pre-commit
+        env:
+          EARTHLY_SECRETS: "GITHUB_TOKEN=${{ secrets.NUMARY_GITHUB_TOKEN }}"
       - name: Dirty
         id: changed-files
         shell: bash
