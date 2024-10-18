@@ -199,14 +199,7 @@
                 "migration": {
                     "properties": {
                         "annotations": {
-                            "properties": {
-                                "helm.sh/hook": {
-                                    "type": "string"
-                                },
-                                "helm.sh/hook-delete-policy": {
-                                    "type": "string"
-                                }
-                            },
+                            "properties": {},
                             "type": "object"
                         },
                         "postgresql": {
@@ -239,14 +232,7 @@
                         "serviceAccount": {
                             "properties": {
                                 "annotations": {
-                                    "properties": {
-                                        "helm.sh/hook": {
-                                            "type": "string"
-                                        },
-                                        "helm.sh/hook-delete-policy": {
-                                            "type": "string"
-                                        }
-                                    },
+                                    "properties": {},
                                     "type": "object"
                                 },
                                 "create": {
