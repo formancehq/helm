@@ -33,7 +33,7 @@ spec:
               value: "{{.Values.debug}}"
             - name: DEV
               value: "{{.Values.dev}}"
-            {{- include "core.postgres.uri" . | nindent 12 }}
+            {{- include "job.postgres.uri" . | nindent 12 }}
         {{- if .Values.global.nats.enabled }}
         - name: {{ .Chart.Name }}-init
           securityContext:

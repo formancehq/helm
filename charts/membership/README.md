@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.14](https://img.shields.io/badge/Version-v1.0.0--beta.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.15](https://img.shields.io/badge/Version-v1.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -69,6 +69,10 @@ Kubernetes: `>=1.14.0-0`
 | global.postgresql.host | string | `""` | Host for PostgreSQL (overrides included postgreql `host`) |
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
+| config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
+| config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
+| config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
+| config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
 
 ### Dex configuration
 

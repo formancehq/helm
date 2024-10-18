@@ -141,3 +141,34 @@ staticClients:
 {{- default "default-migrate" .Values.config.migration.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "job.postgres.uri" -}}
+{{- include "aws.iam.postgres" . }}
+- name: POSTGRES_USERNAME
+  value: {{ default .Values.global.postgresql.auth.username .Values.config.migration.postgresql.auth.username }}
+{{- if and (or .Values.global.postgresql.auth.existingSecret .Values.config.migration.postgresql.auth.existingSecret) (not .Values.config.postgresqlUrl) }}
+  {{- if (not .Values.global.aws.iam) }}
+- name: POSTGRES_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ default .Values.global.postgresql.auth.existingSecret .Values.config.migration.postgresql.auth.existingSecret }}
+      key: {{ default .Values.global.postgresql.auth.secretKeys.adminPasswordKey .Values.config.migration.postgresql.auth.secretKeys.adminPasswordKey }}
+  {{- end }}
+{{- else if (not .Values.global.aws.iam) }}
+- name: POSTGRES_PASSWORD
+  value: {{ default .Values.global.postgresql.auth.password .Values.config.migration.postgresql.auth.password }}
+{{- end }}
+- name: POSTGRES_URI
+{{- if .Values.config.postgresqlUrl }}
+  value: "{{ .Values.config.postgresqlUrl }}"
+{{- else }}
+  {{- $host := .Values.global.postgresql.host }}
+  {{- if .Values.global.aws.iam }}
+  value: "postgresql://$(POSTGRES_USERNAME)@{{ $host }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
+  {{- else if .Values.postgresql.enabled }}
+  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ printf "%s.%s.svc" (include "postgresql.v1.primary.fullname" .Subcharts.postgresql) .Release.Namespace }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
+  {{- else }}
+  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ $host }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
+  {{- end }}
+{{- end }}
+{{- end }}
