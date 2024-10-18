@@ -2,6 +2,7 @@ VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
 
+
 sources:
   ARG --required PATH
   FROM core+base-image
@@ -10,35 +11,44 @@ sources:
   COPY --dir ./${PATH} .
   SAVE ARTIFACT /src/${PATH}
 
+# schema target to generate the schema files
 template:
   FROM core+base-image
   COPY --pass-args (./tools/readme+template/*.md) /src/
   SAVE ARTIFACT /src/*.md AS LOCAL ./
 
+# validate target to run the helm lint
 validate:
   BUILD ./charts/*+validate
 
+# tests target to run the helm tests
 tests:
-  BUILD ./test/helm+tests
+  BUILD ./test/*+tests
 
+# package target to package the helm chart
 package:
   FROM core+base-image
   COPY (./charts/*+package/*) /build/
   SAVE ARTIFACT /build AS LOCAL ./
 
+# pre-commit target to run the pre-commit checks
 pre-commit:
   BUILD --pass-args +validate
-  BUILD +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md
-  BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
   BUILD +tests # This target could depend on updated dependencies with the env variable NO_UPDATE
   BUILD +package
+  WAIT
+    BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
+  END
+  BUILD +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md
 
+# releaser target to upload the helm chart to the github release
 releaser:
   FROM core+builder-image
   GIT CLONE --branch=v1.6.1 https://github.com/helm/chart-releaser /src/chart-releaser
   WORKDIR /src/chart-releaser
   DO core+GO_INSTALL --package ./...
   
+# release target to upload the helm chart to the github release
 release:
   FROM +releaser
   WORKDIR /src/chart-releaser
@@ -49,18 +59,30 @@ release:
       --token ${GITHUB_TOKEN} \
       --skip-existing \
       --package-path /build
-      
+
+# publish the helm chart to the ghcr.io registry
 publish:
   DO --pass-args +HELM_PUBLISH
 
+# docs target to generate the markdown files for the charts
+docs:
+  FROM core+base-image
+  WORKDIR /src
+  RUN apk add git
+  RUN /bin/sh -c 'wget https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'
+  COPY . .
+  ARG additionalArgs="--long"
+  WITH DOCKER
+    RUN mkdir -p docs && find . -name 'Earthfile' | while read -r file; do dir=$(dirname "$file"); clean_dir=$(echo "$dir" | sed "s|^\./docs||; s|^\./||; s|/$||;"); markdown_file="docs/$clean_dir/readme.md"; mkdir -p "$(dirname "$markdown_file")"; touch "$markdown_file"; earthly doc $additionalArgs "$dir" >> "$markdown_file"; done
+  END
+  SAVE ARTIFACT /src/docs AS LOCAL ./docs/earthly
+
+# HELM_PUBLISH target to publish the helm chart to the ghcr.io registry
 HELM_PUBLISH:
     FUNCTION
     FROM core+helm-base
     ARG --required path
     COPY $path /src/
-    WITH DOCKER
-        RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | docker login ghcr.io -u NumaryBot --password-stdin
-    END
-    WITH DOCKER
-        RUN helm push /src/${path} oci://ghcr.io/formancehq/helm
-    END
+    RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin
+    RUN helm push /src/${path} oci://ghcr.io/formancehq/helm
+    

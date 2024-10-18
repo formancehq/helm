@@ -14,11 +14,13 @@ sources:
   COPY *.go .
   SAVE ARTIFACT /src
   
+# template something
 template:
   FROM +sources  
   WORKDIR /src
-  COPY --dir assets .
-  COPY --dir (root+sources/*/* --PATH=charts) /src/charts
+  COPY --dir (root+sources/*/* --PATH=assets) assets
+  COPY --dir (root+sources/*/* --PATH=charts) charts
+  COPY (root+sources/* --PATH=CONTRIBUTING.md) .
   DO --pass-args +GENERATE
 
 GENERATE:
@@ -27,5 +29,5 @@ GENERATE:
   ARG OUTPUT_FILE=README.md
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
-    go run ./ readme --chart-dir /src/charts --template-file $TEMPLATE_FILE >> ${OUTPUT_FILE}
+    go run ./ readme --template-file $TEMPLATE_FILE >> ${OUTPUT_FILE}
   SAVE ARTIFACT $OUTPUT_FILE AS LOCAL $OUTPUT_FILE

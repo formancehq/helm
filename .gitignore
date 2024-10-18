@@ -10,3 +10,5 @@ charts/**/LICENSE
 .tmp-earthly-out
 
 .ci
+
+docs

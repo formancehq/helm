@@ -46,12 +46,8 @@ TEMPLATE:
 
 DEPENDENCIES:
   FUNCTION
-  WITH DOCKER
-      RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | docker login ghcr.io -u NumaryBot --password-stdin
-  END
-  WITH DOCKER
-    RUN helm dependencies update
-  END
+  RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin
+  RUN helm dependencies update
   DO --pass-args +ARTIFACT
 
 PACKAGE:

@@ -29,6 +29,9 @@ spec:
       - name: config
         configMap:
           name: {{ include "core.fullname" . }}
+      {{- with .Values.volumes }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
       initContainers:
       {{- if gt (len .Values.initContainers) 0 }}
         {{ .Values.initContainers | toYaml | nindent 8 }}
@@ -77,9 +80,5 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{ with .Values.volumes }}
-      volumes:
         {{- toYaml . | nindent 8 }}
       {{- end }}
