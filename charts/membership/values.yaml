@@ -446,6 +446,7 @@ config:
       volumeMounts: []
 
   migration:
+    ttlSecondsAfterFinished: ""
     serviceAccount:
       create: true
       name: ""
@@ -454,6 +455,7 @@ config:
         helm.sh/hook: pre-upgrade
         # -- Membership migration hook delete policy
         helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
+
     volumes: []
     volumeMounts: []
     # -- Membership job migration annotations

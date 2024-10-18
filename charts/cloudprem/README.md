@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.23](https://img.shields.io/badge/Version-v2.0.0--beta.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.24](https://img.shields.io/badge/Version-v2.0.0--beta.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -503,6 +503,7 @@ Dex:
 | membership.config.migration.serviceAccount.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
 | membership.config.migration.serviceAccount.create | bool | `true` |  |
 | membership.config.migration.serviceAccount.name | string | `""` |  |
+| membership.config.migration.ttlSecondsAfterFinished | string | `""` |  |
 | membership.config.migration.volumeMounts | list | `[]` |  |
 | membership.config.migration.volumes | list | `[]` |  |
 | membership.config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","scopes":["openid","email","federated:id"],"secretKeys":{"secret":""}}` | Membership relying party connection url |

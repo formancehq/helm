@@ -9,6 +9,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  ttlSecondsAfterFinished: {{ .Values.config.migration.ttlSecondsAfterFinished }}
   template:
     metadata:
       labels:
