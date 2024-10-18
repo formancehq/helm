@@ -12,6 +12,13 @@ membership:
     annotations:
       eks.amazonaws.com/role-arn: ""
 
+  config:
+    migration:
+      serviceAccount:
+        create: true
+        annotations:
+          eks.amazonaws.com/role-arn: ""
+
   dex:
     configOverrides:
       # Not IAM compatible
