@@ -5,7 +5,7 @@ metadata:
   name: {{ include "membership.job.serviceAccountName" . }}
   labels:
     {{- include "core.labels" . | nindent 4 }}
-  {{- with .Values.config.migration.serviceAccount.annotations }}
+  {{- with merge .Values.config.migration.serviceAccount.annotations (include "migrations.job.sa.annotations" . | fromYaml) }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}

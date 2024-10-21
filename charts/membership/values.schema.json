@@ -199,14 +199,7 @@
                 "migration": {
                     "properties": {
                         "annotations": {
-                            "properties": {
-                                "helm.sh/hook": {
-                                    "type": "string"
-                                },
-                                "helm.sh/hook-delete-policy": {
-                                    "type": "string"
-                                }
-                            },
+                            "properties": {},
                             "type": "object"
                         },
                         "postgresql": {
@@ -239,14 +232,7 @@
                         "serviceAccount": {
                             "properties": {
                                 "annotations": {
-                                    "properties": {
-                                        "helm.sh/hook": {
-                                            "type": "string"
-                                        },
-                                        "helm.sh/hook-delete-policy": {
-                                            "type": "string"
-                                        }
-                                    },
+                                    "properties": {},
                                     "type": "object"
                                 },
                                 "create": {
@@ -546,6 +532,9 @@
                 },
                 "managedStacks": {
                     "type": "boolean"
+                },
+                "migrationHooks": {
+                    "type": "boolean"
                 }
             },
             "type": "object"
@@ -619,7 +608,7 @@
                                     "type": "string"
                                 },
                                 "password": {
-                                    "type": "null"
+                                    "type": "string"
                                 },
                                 "secretKeys": {
                                     "properties": {
@@ -633,7 +622,7 @@
                                     "type": "object"
                                 },
                                 "user": {
-                                    "type": "null"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"

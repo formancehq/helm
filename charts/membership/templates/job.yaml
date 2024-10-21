@@ -4,7 +4,7 @@ metadata:
   name: {{ include "core.fullname" . }}
   labels:
     {{- include "core.labels" . | nindent 4 }}
-  {{- with .Values.config.migration.annotations }}
+  {{- with merge .Values.config.migration.annotations (include "migrations.job.annotations" . | fromYaml) }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -52,7 +52,6 @@ spec:
           {{- include "core.env.common" . | nindent 10 }}
           {{- include "core.nats.env" . | nindent 10 }}
         {{- end }}
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

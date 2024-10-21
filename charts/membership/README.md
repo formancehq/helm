@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.16](https://img.shields.io/badge/Version-v1.0.0--beta.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.17](https://img.shields.io/badge/Version-v1.0.0--beta.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -103,6 +103,14 @@ Kubernetes: `>=1.14.0-0`
 | dex.ingress.tls | list | `[]` | Dex ingress tls |
 | dex.resources | object | `{}` | Dex resources |
 
+### Membership Feature
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| feature.disableEvents | bool | `true` | Membership feature disable events |
+| feature.managedStacks | bool | `true` | Membership feature managed stacks |
+| feature.migrationHooks | bool | `true` | Run migration in a hook |
+
 ### Postgresql configuration
 
 | Key | Type | Default | Description |
@@ -117,10 +125,10 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.nats.auth.existingSecret | string | `""` |  |
-| global.nats.auth.password | string | `nil` |  |
+| global.nats.auth.password | string | `""` |  |
 | global.nats.auth.secretKeys.password | string | `"password"` |  |
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
-| global.nats.auth.user | string | `nil` |  |
+| global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
 | additionalEnv | list | `[]` |  |
 | affinity | object | `{}` | Membership affinity |
@@ -135,11 +143,8 @@ Kubernetes: `>=1.14.0-0`
 | config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
 | config.job.garbageCollector | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Clean expired tokens and refresh tokens after X time |
 | config.job.stackLifeCycle | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Job create 2 jobs to eaither warn or prune a stacks This does not change the state of the stack WARN: Mark stack Disposable -> trigger a mail PRUNE: Mark stack Warned -> trigger a mail It blocks stack cycles if supendend It is highly recommended to enable it as it is the only way we control |
-| config.migration.annotations | object | `{"helm.sh/hook":"pre-upgrade","helm.sh/hook-delete-policy":"before-hook-creation,hook-succeeded,hook-failed"}` | Membership job migration annotations |
-| config.migration.annotations."helm.sh/hook" | string | `"pre-upgrade"` | Membership migration helm hook |
-| config.migration.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
-| config.migration.serviceAccount.annotations."helm.sh/hook" | string | `"pre-upgrade"` | Membership migration helm hook |
-| config.migration.serviceAccount.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation,hook-succeeded,hook-failed"` | Membership migration hook delete policy |
+| config.migration.annotations | object | `{}` | Membership job migration annotations |
+| config.migration.serviceAccount.annotations | object | `{}` |  |
 | config.migration.serviceAccount.create | bool | `true` |  |
 | config.migration.serviceAccount.name | string | `""` |  |
 | config.migration.ttlSecondsAfterFinished | string | `""` |  |
@@ -168,8 +173,6 @@ Kubernetes: `>=1.14.0-0`
 | config.stack.minimalStackModules[3] | string | `"Gateway"` |  |
 | debug | bool | `false` | Membership debug |
 | dev | bool | `false` | Membership dev |
-| feature.disableEvents | bool | `true` | Membership feature disable events |
-| feature.managedStacks | bool | `true` | Membership feature managed stacks |
 | fullnameOverride | string | `""` | Membership fullname override |
 | image.pullPolicy | string | `"IfNotPresent"` | Membership image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/membership"` | Membership image repository |
