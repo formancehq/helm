@@ -170,6 +170,31 @@
                 },
                 "nats": {
                     "properties": {
+                        "auth": {
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "null"
+                                },
+                                "secretKeys": {
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "user": {
+                                    "type": "null"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "enabled": {
                             "type": "boolean"
                         },

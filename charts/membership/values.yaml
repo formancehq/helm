@@ -74,8 +74,8 @@ global:
     # @section -- Global configuration
     url: ""
     auth:
-      user:
-      password:
+      user: ""
+      password: ""
       existingSecret: ""
       secretKeys:
         password: password
@@ -310,13 +310,18 @@ aws:
 
 additionalEnv: []
 
-# See helm tags for more information
+# TODO: See helm tags for more information
 # https://helm.sh/docs/chart_template_guide/variables/#tags
 feature:
   # -- Membership feature managed stacks
+  # @section -- Membership Feature
   managedStacks: true
   # -- Membership feature disable events
+  # @section -- Membership Feature
   disableEvents: true
+  # -- Run migration in a hook
+  # @section -- Membership Feature
+  migrationHooks: true
 
 config:
   # -- Enable Fctl
@@ -465,19 +470,11 @@ config:
     serviceAccount:
       create: true
       name: ""
-      annotations:
-        # -- Membership migration helm hook
-        helm.sh/hook: pre-upgrade
-        # -- Membership migration hook delete policy
-        helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
+      annotations: {}
 
     # -- Membership job migration annotations
     annotations:
-      # -- Membership migration helm hook
-      helm.sh/hook: pre-upgrade
-      # -- Membership migration hook delete policy
-      helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
-
+      {}
       # Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync
 
     ttlSecondsAfterFinished: ""

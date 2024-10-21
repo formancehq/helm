@@ -1,6 +1,6 @@
 # stargate
 
-![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Stargate gRPC Gateway
 
@@ -63,6 +63,11 @@ Formance Stargate gRPC Gateway
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.debug | bool | `false` | Enable debug mode |
+| global.nats.auth.existingSecret | string | `""` |  |
+| global.nats.auth.password | string | `nil` |  |
+| global.nats.auth.secretKeys.password | string | `"password"` |  |
+| global.nats.auth.secretKeys.username | string | `"username"` |  |
+| global.nats.auth.user | string | `nil` |  |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 | affinity | object | `{}` | Affinity for pod assignment |
 | autoscaling.enabled | bool | `false` |  |
