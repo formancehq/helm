@@ -308,8 +308,6 @@ aws:
         name: '{{ include "core.fullname" $ }}'
         port: "{{ .Values.service.ports.grpc.port }}"
 
-additionalEnv: []
-
 # TODO: See helm tags for more information
 # https://helm.sh/docs/chart_template_guide/variables/#tags
 feature:
@@ -324,6 +322,8 @@ feature:
   migrationHooks: true
 
 config:
+  # -- Additional Environment variables on the main deployment
+  additionalEnv: []
   # -- Enable Fctl
   fctl: true
   # -- DEPRECATED Membership postgresql connection url
@@ -592,7 +592,7 @@ dex:
   configOverrides:
     storage:
       type: postgres
-      
+
     oauth2:
       # -- oauth2 skip approval screen
       # @section -- Dex configuration

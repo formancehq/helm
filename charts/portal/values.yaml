@@ -145,7 +145,7 @@ config:
       secret: ""
 
   # -- Additional environment variables
-  additionalEnv: {}
+  additionalEnv: []
 
 service:
   # -- service annotations

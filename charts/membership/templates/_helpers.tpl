@@ -25,7 +25,7 @@
 {{- end }}
 
 {{- define "membership.grpc.env" }}
-{{- if and (not .Values.feature.managedStacks) (.Values.global.nats.enabled)  }}
+{{- if and (not .Values.feature.managedStacks) (.Values.global.nats.enabled) }}
 - name: GRPC_TLS_INSECURE
   value: "true"
 - name: GRPC_H2C_ENABLED
@@ -42,7 +42,7 @@
 {{- end }}
 {{- end }}
 
-{{- define "membership.env" }}
+{{- define "membership.env" -}}
 - name: DEBUG
   value: "{{.Values.debug}}"
 - name: DEV
@@ -91,7 +91,7 @@
 {{- include "core.nats.env" .  }}
 {{- end }}
 {{- include "membership.auth.tokenValidities" . }}
-{{- with .Values.additionalEnv }}
+{{ with .Values.config.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
 {{- end }}

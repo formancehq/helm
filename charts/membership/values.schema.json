@@ -1,9 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "properties": {
-        "additionalEnv": {
-            "type": "array"
-        },
         "affinity": {
             "properties": {},
             "type": "object"
@@ -78,6 +75,9 @@
         },
         "config": {
             "properties": {
+                "additionalEnv": {
+                    "type": "array"
+                },
                 "auth": {
                     "properties": {
                         "additionalOAuthClients": {

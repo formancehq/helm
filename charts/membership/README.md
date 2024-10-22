@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.17](https://img.shields.io/badge/Version-v1.0.0--beta.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.18](https://img.shields.io/badge/Version-v1.0.0--beta.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -130,10 +130,10 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
-| additionalEnv | list | `[]` |  |
 | affinity | object | `{}` | Membership affinity |
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |
+| config.additionalEnv | list | `[]` | Additional Environment variables on the main deployment |
 | config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | config.fctl | bool | `true` | Enable Fctl |

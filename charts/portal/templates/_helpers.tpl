@@ -74,8 +74,7 @@
 {{- end }}
 
 {{- define "portal.additionalEnv" -}}
-{{ range $key, $value := $.Values.config.additionalEnv }}
-- name: {{ $key }}
-  value: {{ tpl (. | quote) $ }}
+{{- with .Values.config.additionalEnv }}
+{{- tpl (toYaml .) $ }}
 {{- end }}
 {{- end }}

@@ -24,7 +24,7 @@ tests:
   ENV CGO_ENABLED=1
 
   # We need validated helm charts with the dir architecture
-  COPY --dir (root+sources/*/charts --PATH=charts) .
+  COPY --dir (root+validate/*) .
 
   RUN --mount type=cache,id=gopkgcache,target=${GOPATH}/pkg/mod \
       --mount type=cache,id=gobuildcache,target=/root/.cache/go-build \

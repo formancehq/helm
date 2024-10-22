@@ -186,11 +186,13 @@ config:
   environment: production
   # -- Console additional environment variables
   additionalEnv:
-    {}
+    []
     # -- Console additional environment variables HOST
-    # HOST: "0.0.0.0"
+    # - name: HOST
+    #   value: "0.0.0.0"
     # -- Console additional environment variables FEATURE_DISABLED
-    # FEATURE_DISABLED: ""
+    # - name: FEATURE_DISABLED
+    #   value: "true"
 
   # -- Otel collector configuration
   monitoring:

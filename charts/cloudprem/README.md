@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.29](https://img.shields.io/badge/Version-v2.0.0--beta.29-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.30](https://img.shields.io/badge/Version-v2.0.0--beta.30-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -460,7 +460,7 @@ Dex:
 | console.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | console.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | console.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
-| console.config.additionalEnv | object | `{}` | Console additional environment variables |
+| console.config.additionalEnv | list | `[]` | Console additional environment variables |
 | console.config.environment | string | `"production"` | Console environment |
 | console.config.monitoring | object | `{"traces":{"attributes":"","enabled":false,"port":4317,"url":""}}` | Otel collector configuration |
 | console.config.monitoring.traces.attributes | string | `""` | Console monitoring traces attributes |
@@ -496,10 +496,10 @@ Dex:
 | console.tolerations | list | `[]` | Console tolerations |
 | console.volumeMounts | list | `[]` | Console volume mounts |
 | console.volumes | list | `[]` | Console volumes |
-| membership.additionalEnv | list | `[]` |  |
 | membership.affinity | object | `{}` | Membership affinity |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
+| membership.config.additionalEnv | list | `[]` | Additional Environment variables on the main deployment |
 | membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | membership.config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | membership.config.fctl | bool | `true` | Enable Fctl |
@@ -580,7 +580,7 @@ Dex:
 | portal.autoscaling.maxReplicas | int | `100` |  |
 | portal.autoscaling.minReplicas | int | `1` |  |
 | portal.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| portal.config.additionalEnv | object | `{}` | Additional environment variables |
+| portal.config.additionalEnv | list | `[]` | Additional environment variables |
 | portal.config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
