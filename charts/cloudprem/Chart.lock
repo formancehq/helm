@@ -4,9 +4,9 @@ dependencies:
   version: v1.0.0-beta.17
 - name: portal
   repository: file://../portal
-  version: v1.0.0-beta.7
+  version: v1.0.0-beta.8
 - name: console
   repository: file://../console
-  version: v1.0.0-beta.8
-digest: sha256:c9a539130c6925ceebf921eccad619291c50494407326c88bcb8d07f92582b52
-generated: "2024-10-19T22:04:44.764593072Z"
+  version: v1.0.0-beta.9
+digest: sha256:02ecb5f8a264f7ce2fd70db23187feb94207c16242e4bdfdfe8c03d91f86d70e
+generated: "2024-10-21T23:06:53.833102971Z"

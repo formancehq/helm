@@ -592,6 +592,7 @@ dex:
   configOverrides:
     storage:
       type: postgres
+      
     oauth2:
       # -- oauth2 skip approval screen
       # @section -- Dex configuration

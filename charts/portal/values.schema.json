@@ -200,6 +200,9 @@
             },
             "type": "object"
         },
+        "imagePullSecrets": {
+            "type": "array"
+        },
         "ingress": {
             "properties": {
                 "annotations": {
