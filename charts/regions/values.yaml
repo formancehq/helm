@@ -79,26 +79,26 @@ versions:
       ledger: v1.10.14
       operator-utils: v2.0.18
     v2.0:
-      ledger: v2.0.18
-      search: v2.0.18
-      stargate: v2.0.18
-      auth: v2.0.18
-      wallets: v2.0.18
-      webhooks: v2.0.18
-      gateway: v2.0.18
-      payments: v2.0.18
-      orchestration: v2.0.18
-      reconciliation: v2.0.18
-      operator-utils: v2.0.18
+      ledger: v2.0.20
+      search: v2.0.20
+      stargate: v2.0.20
+      auth: v2.0.20
+      wallets: v2.0.20
+      webhooks: v2.0.20
+      gateway: v2.0.20
+      payments: v2.0.20
+      orchestration: v2.0.20
+      reconciliation: v2.0.20
+      operator-utils: v2.0.20
     v2.1:
-      ledger: v2.1.0-beta.4
-      search: v2.1.0-beta.4
-      stargate: v2.1.0-beta.4
-      auth: v2.1.0-beta.4
-      wallets: v2.1.0-beta.4
-      webhooks: v2.1.0-beta.4
-      gateway: v2.1.0-beta.3
-      payments: v2.1.0-beta.4
-      orchestration: v2.1.0-beta.4
-      reconciliation: v2.1.0-beta.4
-      operator-utils: v2.1.0-beta.4
+      ledger: v2.1.0
+      search: v2.0.20
+      stargate: v2.0.20
+      auth: v2.0.20
+      wallets: v2.0.20
+      webhooks: v2.0.20
+      gateway: v2.0.20
+      payments: v2.0.20
+      orchestration: v2.0.20
+      reconciliation: v2.0.20
+      operator-utils: v2.0.20
