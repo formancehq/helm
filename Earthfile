@@ -19,7 +19,15 @@ template:
 
 # validate target to run the helm lint
 validate:
-  BUILD ./charts/*+validate
+  LOCALLY
+  LET dirs=$(ls -d ./charts/*/)
+  FROM core+base-image
+  WORKDIR /src
+  FOR dir IN $dirs
+    WORKDIR /src/$dir
+    COPY --pass-args --dir ${dir}+validate/* .
+  END
+  SAVE ARTIFACT /src/charts
 
 # tests target to run the helm tests
 tests:
@@ -33,8 +41,11 @@ package:
 
 # pre-commit target to run the pre-commit checks
 pre-commit:
-  BUILD --pass-args +validate
-  BUILD +tests # This target could depend on updated dependencies with the env variable NO_UPDATE
+  BUILD --pass-args ./charts/*+validate
+
+  # This target could depend on updated dependencies with the env variable NO_UPDATE
+  # Can be done like `+validate`
+  BUILD +tests 
   BUILD +package
   WAIT
     BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md

@@ -60,8 +60,7 @@
         "config": {
             "properties": {
                 "additionalEnv": {
-                    "properties": {},
-                    "type": "object"
+                    "type": "array"
                 },
                 "cookie": {
                     "properties": {

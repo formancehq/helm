@@ -95,8 +95,7 @@
 
 
 {{- define "console.additionalEnv" }}
-{{ range $key, $val := .Values.config.additionalEnv }}
-- name: {{ $key }}
-  value: {{ tpl (tpl $val $) $ | quote}}
+{{ with .Values.config.additionalEnv }}
+{{- tpl (toYaml .) $ }}
 {{- end }}
 {{- end}}

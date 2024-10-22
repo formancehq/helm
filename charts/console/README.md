@@ -1,6 +1,6 @@
 # console
 
-![Version: v1.0.0-beta.9](https://img.shields.io/badge/Version-v1.0.0--beta.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb](https://img.shields.io/badge/AppVersion-9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb-informational?style=flat-square)
+![Version: v1.0.0-beta.10](https://img.shields.io/badge/Version-v1.0.0--beta.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb](https://img.shields.io/badge/AppVersion-9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb-informational?style=flat-square)
 
 Formance Console
 
@@ -67,7 +67,7 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
-| config.additionalEnv | object | `{}` | Console additional environment variables |
+| config.additionalEnv | list | `[]` | Console additional environment variables |
 | config.environment | string | `"production"` | Console environment |
 | config.monitoring | object | `{"traces":{"attributes":"","enabled":false,"port":4317,"url":""}}` | Otel collector configuration |
 | config.monitoring.traces.attributes | string | `""` | Console monitoring traces attributes |
