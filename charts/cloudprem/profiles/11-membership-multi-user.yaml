@@ -1,0 +1,32 @@
+global:
+  postgresql:
+    auth:
+      username: formance
+      password: formance
+      existingSecret: ""
+
+membership:
+  # -- bind AWS ARN
+  serviceAccount:
+    create: true
+    name: ""
+    annotations: {}
+
+  config:
+    migration:
+      # -- bind AWS ARN
+      serviceAccount:
+        create: true
+        name: ""
+        annotations: {}
+      postgresql:
+        auth:
+          username: formance2
+          password: formance2
+          existingSecret: ""
+
+# When internal postgresql is enabled only global is installed
+# It need to be added using "bitnami/postgresql" chart
+# or disabling internal postgresql
+postgresql:
+  enabled: true

@@ -87,6 +87,8 @@ image:
   # -- image tag
   tag: 764bb7e199e1d2882e4d5cd205eada0ef0abc283
 
+imagePullSecrets: []
+
 serviceAccount:
   # -- Service account creation
   create: true

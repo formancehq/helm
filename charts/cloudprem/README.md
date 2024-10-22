@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.28](https://img.shields.io/badge/Version-v2.0.0--beta.28-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.29](https://img.shields.io/badge/Version-v2.0.0--beta.29-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -470,6 +470,7 @@ Dex:
 | console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | console.image.tag | string | `"9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb"` | image tag |
+| console.imagePullSecrets | list | `[]` | image pull secrets |
 | console.ingress.annotations | object | `{}` | ingress annotations |
 | console.ingress.className | string | `""` | ingress class name |
 | console.ingress.enabled | bool | `true` | ingress enabled |
@@ -587,6 +588,7 @@ Dex:
 | portal.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | portal.image.repository | string | `"ghcr.io/formancehq/membership-ui"` | image repository |
 | portal.image.tag | string | `"764bb7e199e1d2882e4d5cd205eada0ef0abc283"` | image tag |
+| portal.imagePullSecrets | list | `[]` |  |
 | portal.ingress.annotations | object | `{}` | ingress annotations |
 | portal.ingress.className | string | `""` | ingress class name |
 | portal.ingress.enabled | bool | `true` | ingress enabled |
