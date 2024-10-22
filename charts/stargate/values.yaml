@@ -68,6 +68,13 @@ global:
     # -- URL for NATS
     # @section -- Global Nats configuration
     url: ""
+    auth:
+      user:
+      password:
+      existingSecret: ""
+      secretKeys:
+        password: password
+        username: username
 
   postgresql:
     # -- Host for PostgreSQL (overrides included postgreql `host`)

@@ -50,9 +50,9 @@ spec:
             - name: AUTH_ISSUER_URL
               value: "{{ tpl .Values.config.auth_issuer_url . }}"
             - name: GRPC_ADDR
-              value: "0.0.0.0:{{ .Values.service.ports.grpc | default 3068 }}"
+              value: "0.0.0.0:{{ .Values.service.ports.grpc.port| default 3068 }}"
             - name: HTTP_ADDR
-              value: "0.0.0.0:{{ .Values.service.ports.http | default 8080 }}"
+              value: "0.0.0.0:{{ .Values.service.ports.http.port | default 8080 }}"
             {{- include "core.postgres.uri" . | nindent 12 }}
             {{- include "aws.iam.postgres" . | nindent 12 }}
             {{- include "core.nats.env" . | nindent 12 }}
