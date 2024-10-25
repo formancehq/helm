@@ -216,7 +216,14 @@ config:
   environment: production
   # -- Console additional environment variables
   additionalEnv:
-    []
+    - name: THEME_COOKIE_SECRET
+      value: "secret"
+    - name: THEME_COOKIE_NAME
+      value: "__session_theme"
+    - name: MICRO_STACK
+      value: "0"
+    - name: CONSOLE_V3_COOKIE_NAME
+      value: "__session_console_v3"
     # -- Console additional environment variables HOST
     # - name: HOST
     #   value: "0.0.0.0"

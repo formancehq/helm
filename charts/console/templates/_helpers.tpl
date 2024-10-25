@@ -7,22 +7,30 @@
   #
   # Console:
   # NODE_ENV is the environment of the app
-  # REDIRECT_URI is the url to redirect after login
-  #
-  # Platform_ Cookie:
-  # ENCRYPTION_KEY is the key to encrypt the auth cookies
-  # COOKIE_DOMAIN is the domain to set the auth cookies
-  # UNSECURE_COOKIES is a flag to set the cookies as secure or not
   #
   # Portal:
-  # PLATFORM_URL is the url to redirect after logout
+  # PORTAL_UI is the url to redirect after logout
   #
-  # Membership:
+  # Membership: (not required if MICRO_STACK=1)
   # MEMBERSHIP_CLIENT_ID is the client id of the membership api
   # MEMBERSHIP_CLIENT_SECRET is the client secret of the membership api
   # MEMBERSHIP_URL_API is the url to the membership api
   #
-  # Monitoring:
+  # Dark/light theme
+  # THEME_COOKIE_SECRET=secret
+  # THEME_COOKIE_NAME=__session_theme
+  #
+  # OAuth
+  # CONSOLE_V3_COOKIE_SECRET=secret
+  # CONSOLE_V3_COOKIE_NAME=__session_console_v3
+  # COOKIE_DOMAIN=localhost
+  #
+  # Stack url
+  # API_URL="https://#{organizationId}-#{stackId}.#{region}/api"
+  # Stack strategy (no membership, no oauth, only ui+stargate+standaloneService[ledger/payment])
+  # MICRO_STACK=0
+  #
+  # Monitoring: (soon, not implemented yet)
   # OTEL_TRACES is a flag to enable tracing
   # OTEL_TRACES_ENDPOINT is the url to the tracing endpoint
   # OTEL_TRACES_EXPORTER is the exporter to use
@@ -36,10 +44,8 @@
 {{- define "console.env" }}
 - name: API_URL
   value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
-- name: REDIRECT_URI
-  value: {{ tpl (default (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) .Values.config.redirect_url) $ }}
-- name: ENCRYPTION_KEY
-  {{- if .Values.global.platform.cookie.existingSecret }}
+- name: CONSOLE_V3_COOKIE_SECRET
+  {{- if gt (len .Values.config.cookie.existingSecret) 0 }}
   valueFrom:
     secretKeyRef:
       name: {{ .Values.global.platform.cookie.existingSecret }}
@@ -49,10 +55,8 @@
   {{- end }}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
-- name: PLATFORM_URL
+- name: PORTAL_UI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
-- name: UNSECURE_COOKIES
-  value: "false"
 - name: COOKIE_DOMAIN
   value: {{ .Values.global.serviceHost }}
 - name: MEMBERSHIP_CLIENT_ID

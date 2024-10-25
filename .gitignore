@@ -12,3 +12,5 @@ charts/**/LICENSE
 .ci
 
 docs
+
+.idea
