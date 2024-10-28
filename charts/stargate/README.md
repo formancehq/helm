@@ -1,6 +1,6 @@
 # stargate
 
-![Version: 0.5.4](https://img.shields.io/badge/Version-0.5.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Stargate gRPC Gateway
 
@@ -8,7 +8,7 @@ Formance Stargate gRPC Gateway
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.6 |
+| file://../core | core | v1.0.0-beta.7 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
 
 ## Values

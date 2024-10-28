@@ -3,6 +3,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "core.fullname" . }}-stack-lc
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "core.labels" . | nindent 4 }}
 spec:

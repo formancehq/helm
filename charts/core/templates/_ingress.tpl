@@ -17,6 +17,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ include "core.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "core.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}

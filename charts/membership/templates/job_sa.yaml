@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: {{ include "membership.job.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "core.labels" . | nindent 4 }}
   {{- with merge .Values.config.migration.serviceAccount.annotations (include "migrations.job.sa.annotations" . | fromYaml) }}

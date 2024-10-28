@@ -4,6 +4,7 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "core.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
 {{ include "core.labels" . | indent 4 }}
 spec:
