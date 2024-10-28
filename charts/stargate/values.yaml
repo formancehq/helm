@@ -219,7 +219,7 @@ aws:
       targetGroupARN: ""
       serviceRef:
         name: '{{ include "core.fullname" $ }}'
-        port: "{{ .Values.service.ports.grpc | default 3068 }}"
+        port: "{{ .Values.service.ports.grpc.port | default 3068 }}"
 
 config:
   auth_issuer_url: ""

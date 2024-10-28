@@ -81,7 +81,7 @@ autoscaling:
 
 image:
   # -- image repository
-  repository: ghcr.io/formancehq/membership-ui
+  repository: ghcr.io/formancehq/portal
   # -- image pull policy
   pullPolicy: IfNotPresent
   # -- image tag

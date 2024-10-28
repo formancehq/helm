@@ -514,7 +514,8 @@ dex:
         paths:
           - # -- Dex ingress path
             # @section -- Dex configuration
-            path: /
+            # refer to .Values.global.platform.membership.relyingParty.host.path
+            path: "/"
             # -- Dex ingress path type
             # @section -- Dex configuration
             pathType: Prefix

@@ -1,6 +1,6 @@
 # stargate
 
-![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.5.4](https://img.shields.io/badge/Version-0.5.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Stargate gRPC Gateway
 
@@ -19,7 +19,7 @@ Formance Stargate gRPC Gateway
 |-----|------|---------|-------------|
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set |
-| aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc | default 3068 }}"},"targetGroupARN":"","targetType":"ip"}}}` | Aws Stargate target groups |
+| aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port | default 3068 }}"},"targetGroupARN":"","targetType":"ip"}}}` | Aws Stargate target groups |
 
 ### Global configuration
 

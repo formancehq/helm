@@ -97,7 +97,7 @@
 {{- end }}
 
 {{- define "dex-values" }}
-issuer: "{{ tpl (printf "%s://%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host) $ }}"
+issuer: "{{ tpl (printf "%s://%s%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host .Values.global.platform.membership.relyingParty.path) $ }}"
 logger:
   format: "json"
 storage:
