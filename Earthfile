@@ -47,9 +47,7 @@ pre-commit:
   # Can be done like `+validate`
   BUILD +tests 
   BUILD +package
-  WAIT
-    BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
-  END
+  BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
   BUILD +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md
 
 # releaser target to upload the helm chart to the github release
