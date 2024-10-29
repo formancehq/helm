@@ -29,6 +29,7 @@ apiVersion: elbv2.k8s.aws/v1beta1
 kind: TargetGroupBinding
 metadata:
   name: {{ include "core.fullname" $ }}-{{ $k }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "core.labels" $ | nindent 4 }}
 spec:
