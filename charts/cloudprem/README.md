@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.32](https://img.shields.io/badge/Version-v2.0.0--beta.32-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.33](https://img.shields.io/badge/Version-v2.0.0--beta.33-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -587,7 +587,7 @@ Dex:
 | portal.config.environment | string | `"production"` | Portal environment |
 | portal.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | portal.image.repository | string | `"ghcr.io/formancehq/portal"` | image repository |
-| portal.image.tag | string | `"764bb7e199e1d2882e4d5cd205eada0ef0abc283"` | image tag |
+| portal.image.tag | string | `""` | image tag |
 | portal.imagePullSecrets | list | `[]` |  |
 | portal.ingress.annotations | object | `{}` | ingress annotations |
 | portal.ingress.className | string | `""` | ingress class name |

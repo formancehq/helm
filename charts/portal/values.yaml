@@ -85,7 +85,7 @@ image:
   # -- image pull policy
   pullPolicy: IfNotPresent
   # -- image tag
-  tag: 764bb7e199e1d2882e4d5cd205eada0ef0abc283
+  tag: ""
 
 imagePullSecrets: []
 
