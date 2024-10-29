@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.30](https://img.shields.io/badge/Version-v2.0.0--beta.30-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.31](https://img.shields.io/badge/Version-v2.0.0--beta.31-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -416,7 +416,7 @@ Dex:
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
 | membership.dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
-| membership.dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path |
+| membership.dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | membership.dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | membership.dex.ingress.tls | list | `[]` | Dex ingress tls |
 | membership.dex.resources | object | `{}` | Dex resources |
@@ -469,7 +469,7 @@ Dex:
 | console.config.monitoring.traces.url | string | `""` | Console monitoring traces url |
 | console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
-| console.image.tag | string | `"9431e5f4b4b1a03cb8f02ef1676507b9c023f2bb"` | image tag |
+| console.image.tag | string | `""` | image tag |
 | console.imagePullSecrets | list | `[]` | image pull secrets |
 | console.ingress.annotations | object | `{}` | ingress annotations |
 | console.ingress.className | string | `""` | ingress class name |
@@ -586,7 +586,7 @@ Dex:
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
 | portal.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
-| portal.image.repository | string | `"ghcr.io/formancehq/membership-ui"` | image repository |
+| portal.image.repository | string | `"ghcr.io/formancehq/portal"` | image repository |
 | portal.image.tag | string | `"764bb7e199e1d2882e4d5cd205eada0ef0abc283"` | image tag |
 | portal.imagePullSecrets | list | `[]` |  |
 | portal.ingress.annotations | object | `{}` | ingress annotations |

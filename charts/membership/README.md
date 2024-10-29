@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.18](https://img.shields.io/badge/Version-v1.0.0--beta.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.19](https://img.shields.io/badge/Version-v1.0.0--beta.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -98,7 +98,7 @@ Kubernetes: `>=1.14.0-0`
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |
 | dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
-| dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path |
+| dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | dex.ingress.tls | list | `[]` | Dex ingress tls |
 | dex.resources | object | `{}` | Dex resources |
