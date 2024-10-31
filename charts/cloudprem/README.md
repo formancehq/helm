@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.34](https://img.shields.io/badge/Version-v2.0.0--beta.34-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.35](https://img.shields.io/badge/Version-v2.0.0--beta.35-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -462,11 +462,6 @@ Dex:
 | console.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | console.config.additionalEnv | list | `[]` | Console additional environment variables |
 | console.config.environment | string | `"production"` | Console environment |
-| console.config.monitoring | object | `{"traces":{"attributes":"","enabled":false,"port":4317,"url":""}}` | Otel collector configuration |
-| console.config.monitoring.traces.attributes | string | `""` | Console monitoring traces attributes |
-| console.config.monitoring.traces.enabled | bool | `false` | Console monitoring traces enabled |
-| console.config.monitoring.traces.port | int | `4317` | Console monitoring traces port |
-| console.config.monitoring.traces.url | string | `""` | Console monitoring traces url |
 | console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | console.image.tag | string | `""` | image tag |

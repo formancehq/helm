@@ -1,12 +1,13 @@
 {{/*
-  .Values: Values to search within
+  .Context: Context of the chart
   .Key: Key to find in the <service>.config.<key> then in <global>.<key>
   .Default: default an object where each key is a string
 */}}
 {{- define "resolveGlobalOrServiceValue" -}}
-  {{- $values := .Values -}}
+  {{- $values := .Context -}}
+  {{- $values := $values.Values -}}
   {{- $key := .Key -}}
-  {{- $default := .Default -}}
+  {{- $default := tpl .Default .Context -}}
 
   {{- $keys := splitList "." $key -}}
   

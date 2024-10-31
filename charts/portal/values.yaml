@@ -11,6 +11,26 @@ global:
     # @section -- Global AWS configuration
     elb: false
 
+  monitoring:
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: ""
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
   platform:
     console:
       # -- is the scheme for the console
@@ -146,6 +166,13 @@ config:
 
   # -- Additional environment variables
   additionalEnv: []
+
+  # -- Override monitoring configuration
+  # monitoring:
+  #   # -- Override otel service name
+  #   serviceName: "portal"
+  #   # -- Override otel resources attributes
+  #   attributes: ""
 
 service:
   # -- service annotations

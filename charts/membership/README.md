@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.20](https://img.shields.io/badge/Version-v1.0.0--beta.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.21](https://img.shields.io/badge/Version-v1.0.0--beta.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -14,7 +14,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.7 |
+| file://../core | core | v1.0.0-beta.8 |
 | https://charts.dexidp.io | dex | 0.17.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
 
@@ -37,8 +37,8 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
 | global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
-| global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
-| global.monitoring.traces.endpoint | string | `"localhost"` | Endpoint |
+| global.monitoring.traces.enabled | bool | `true` | Enable otel tracing |
+| global.monitoring.traces.endpoint | string | `""` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |

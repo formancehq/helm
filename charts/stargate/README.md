@@ -1,6 +1,6 @@
 # stargate
 
-![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.5.6](https://img.shields.io/badge/Version-0.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Stargate gRPC Gateway
 
@@ -8,7 +8,7 @@ Formance Stargate gRPC Gateway
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.7 |
+| file://../core | core | v1.0.0-beta.8 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
 
 ## Values
@@ -75,7 +75,6 @@ Formance Stargate gRPC Gateway
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | config.auth_issuer_url | string | `""` |  |
-| config.monitoring.serviceName | string | `"stargate"` |  |
 | config.publisher.clientID | string | `"stargate"` |  |
 | config.publisher.topicMapping | string | `"stargate"` |  |
 | fullnameOverride | string | `""` | String to fully override stargate.fullname template with a string |

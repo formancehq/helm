@@ -64,28 +64,6 @@
                 },
                 "environment": {
                     "type": "string"
-                },
-                "monitoring": {
-                    "properties": {
-                        "traces": {
-                            "properties": {
-                                "attributes": {
-                                    "type": "string"
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                },
-                                "url": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    },
-                    "type": "object"
                 }
             },
             "type": "object"
@@ -102,6 +80,34 @@
                 },
                 "debug": {
                     "type": "boolean"
+                },
+                "monitoring": {
+                    "properties": {
+                        "traces": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "endpoint": {
+                                    "type": "string"
+                                },
+                                "exporter": {
+                                    "type": "string"
+                                },
+                                "insecure": {
+                                    "type": "boolean"
+                                },
+                                "mode": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
                 },
                 "platform": {
                     "properties": {
