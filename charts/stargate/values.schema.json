@@ -62,14 +62,6 @@
                 "auth_issuer_url": {
                     "type": "string"
                 },
-                "monitoring": {
-                    "properties": {
-                        "serviceName": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
                 "publisher": {
                     "properties": {
                         "clientID": {

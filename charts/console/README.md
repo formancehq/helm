@@ -1,6 +1,6 @@
 # console
 
-![Version: v1.0.0-beta.12](https://img.shields.io/badge/Version-v1.0.0--beta.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
+![Version: v1.0.0-beta.13](https://img.shields.io/badge/Version-v1.0.0--beta.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
 
 Formance Console
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.7 |
+| file://../core | core | v1.0.0-beta.8 |
 
 ## Values
 
@@ -38,6 +38,12 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.debug | bool | `false` | Enable debug mode |
+| global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
+| global.monitoring.traces.endpoint | string | `""` | Endpoint |
+| global.monitoring.traces.exporter | string | `"otlp"` | Exporter |
+| global.monitoring.traces.insecure | bool | `true` | Insecure |
+| global.monitoring.traces.mode | string | `"grpc"` | Mode |
+| global.monitoring.traces.port | int | `4317` | Port |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
@@ -69,11 +75,6 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | config.additionalEnv | list | `[]` | Console additional environment variables |
 | config.environment | string | `"production"` | Console environment |
-| config.monitoring | object | `{"traces":{"attributes":"","enabled":false,"port":4317,"url":""}}` | Otel collector configuration |
-| config.monitoring.traces.attributes | string | `""` | Console monitoring traces attributes |
-| config.monitoring.traces.enabled | bool | `false` | Console monitoring traces enabled |
-| config.monitoring.traces.port | int | `4317` | Console monitoring traces port |
-| config.monitoring.traces.url | string | `""` | Console monitoring traces url |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | image.tag | string | `""` | image tag |

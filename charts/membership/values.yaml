@@ -85,10 +85,10 @@ global:
     traces:
       # -- Enable otel tracing
       # @section -- Global configuration
-      enabled: false
+      enabled: true
       # -- Endpoint
       # @section -- Global configuration
-      endpoint: "localhost"
+      endpoint: ""
       # -- Exporter
       # @section -- Global configuration
       exporter: "otlp"
@@ -322,6 +322,13 @@ feature:
   migrationHooks: true
 
 config:
+  # -- Override monitoring configuration
+  # monitoring:
+  #   # -- Override otel service name
+  #   serviceName: "membership"
+  #   # -- Override otel resources attributes
+  #   attributes: ""
+
   # -- Additional Environment variables on the main deployment
   additionalEnv: []
   # -- Enable Fctl

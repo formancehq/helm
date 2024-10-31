@@ -11,5 +11,5 @@
 
 {{- define "core.env.common" -}}
 - name: DEBUG
-  value: {{ include "resolveGlobalOrServiceValue" (dict "Values" .Values "Key" "debug" "Default" "false") | quote }}
+  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "debug" "Default" "false") | quote }}
 {{- end -}}

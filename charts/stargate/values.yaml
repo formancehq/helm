@@ -226,8 +226,11 @@ config:
   publisher:
     clientID: "stargate"
     topicMapping: "stargate"
-  monitoring:
-    serviceName: "stargate"
+  # monitoring:
+  #   # -- Override otel service name
+  #   serviceName: "stargate"
+  #   # -- Override otel resources attributes
+  #   attributes: ""
 
 image:
   repository: "ghcr.io/formancehq/stargate"

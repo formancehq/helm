@@ -11,6 +11,27 @@ global:
     # @section -- Global AWS configuration
     elb: false
 
+  monitoring:
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: ""
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+
   platform:
     console:
       # -- is the scheme for the console
@@ -194,14 +215,28 @@ config:
     # - name: FEATURE_DISABLED
     #   value: "true"
 
-  # -- Otel collector configuration
-  monitoring:
-    traces:
-      # -- Console monitoring traces enabled
-      enabled: false
-      # -- Console monitoring traces url
-      url: ""
-      # -- Console monitoring traces port
-      port: 4317
-      # -- Console monitoring traces attributes
-      attributes: ""
+  # -- Override global configuration
+  # monitoring:
+  #   # -- Override otel service name
+  #   serviceName: ""
+  #   # -- Override otel resources attributes
+  #   attributes: ""
+  #   traces:
+  #     # -- Enable otel tracing
+  #     # @section -- Global configuration
+  #     enabled: false
+  #     # -- Endpoint
+  #     # @section -- Global configuration
+  #     endpoint: "localhost"
+  #     # -- Exporter
+  #     # @section -- Global configuration
+  #     exporter: "otlp"
+  #     # -- Insecure
+  #     # @section -- Global configuration
+  #     insecure: true
+  #     # -- Mode
+  #     # @section -- Global configuration
+  #     mode: "grpc"
+  #     # -- Port
+  #     # @section -- Global configuration
+  #     port: 4317

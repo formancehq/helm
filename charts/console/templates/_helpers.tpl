@@ -68,31 +68,9 @@
   {{- end }}
 - name: MEMBERSHIP_URL_API
   value: {{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $}}
-{{ include "console.otel.env" . }}
+{{ include "core.monitoring" . }}
 {{ include "console.additionalEnv" . }}
 {{- end }}
-
-{{- define "console.otel.env" }}
-- name: OTEL_TRACES
-  value: "{{ .Values.config.monitoring.traces.enabled }}"
-{{- if .Values.config.monitoring.traces.enabled }}
-- name: OTEL_TRACES_ENDPOINT
-  value: "{{ .Values.config.monitoring.traces.url }}"
-- name: OTEL_TRACES_EXPORTER
-  value: "otlp"
-- name: OTEL_TRACES_EXPORTER_OTLP_ENDPOINT
-  value: "{{ .Values.config.monitoring.traces.url }}:{{ .Values.config.monitoring.traces.port }}"
-- name: OTEL_TRACES_EXPORTER_OTLP_INSECURE
-  value: "true"
-- name: OTEL_TRACES_EXPORTER_OTLP_MODE
-  value: "grpc"
-- name: OTEL_TRACES_PORT
-  value: "{{ .Values.config.monitoring.traces.port }}"
-- name: OTEL_RESOURCE_ATTRIBUTES
-  value: "{{ .Values.config.monitoring.traces.attributes }}"
-{{- end }}
-{{- end }}
-
 
 {{- define "console.additionalEnv" }}
 {{ with .Values.config.additionalEnv }}
