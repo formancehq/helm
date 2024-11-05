@@ -54,7 +54,6 @@ spec:
             - name: HTTP_ADDR
               value: "0.0.0.0:{{ .Values.service.ports.http.port | default 8080 }}"
             {{- include "core.postgres.uri" . | nindent 12 }}
-            {{- include "aws.iam.postgres" . | nindent 12 }}
             {{- include "core.nats.env" . | nindent 12 }}
             {{- include "core.env.common" . | nindent 12 }}
             {{- include "core.monitoring" . | nindent 12 }}
