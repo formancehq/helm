@@ -12,6 +12,9 @@ global:
     elb: false
 
   monitoring:
+    # -- Enable otel batching
+    # @section -- Global configuration
+    batch: false
     traces:
       # -- Enable otel tracing
       # @section -- Global configuration

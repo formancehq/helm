@@ -102,6 +102,9 @@
                 },
                 "monitoring": {
                     "properties": {
+                        "batch": {
+                            "type": "boolean"
+                        },
                         "traces": {
                             "properties": {
                                 "enabled": {

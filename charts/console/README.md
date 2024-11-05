@@ -1,6 +1,6 @@
 # console
 
-![Version: v1.0.0-beta.14](https://img.shields.io/badge/Version-v1.0.0--beta.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
+![Version: v1.0.0-beta.15](https://img.shields.io/badge/Version-v1.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
 
 Formance Console
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.8 |
+| file://../core | core | v1.0.0-beta.9 |
 
 ## Values
 
@@ -38,6 +38,7 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.debug | bool | `false` | Enable debug mode |
+| global.monitoring.batch | bool | `false` | Enable otel batching |
 | global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
 | global.monitoring.traces.endpoint | string | `""` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |

@@ -19,6 +19,9 @@
                 },
                 "monitoring": {
                     "properties": {
+                        "batch": {
+                            "type": "boolean"
+                        },
                         "logs": {
                             "properties": {
                                 "enabled": {
