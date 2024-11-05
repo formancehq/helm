@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.35](https://img.shields.io/badge/Version-v2.0.0--beta.35-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.36](https://img.shields.io/badge/Version-v2.0.0--beta.36-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -478,9 +478,11 @@ Dex:
 | console.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | console.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | console.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| console.podSecurityContext | object | `{}` | Pod Security Context |
 | console.readinessProbe | object | `{}` | Console readiness probe |
 | console.replicas | int | `1` | Number of replicas |
 | console.resources | object | `{}` | Console resources |
+| console.securityContext | object | `{}` | Container Security Context |
 | console.service.annotations | object | `{}` | service annotations |
 | console.service.clusterIP | string | `""` | service cluster IP |
 | console.service.ports.http | object | `{"port":3000}` | service http port |
@@ -596,9 +598,11 @@ Dex:
 | portal.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | portal.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | portal.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| portal.podSecurityContext | object | `{}` | Pod Security Context |
 | portal.readinessProbe | object | `{}` | Portal readiness probe |
 | portal.replicas | int | `1` | Number of replicas |
 | portal.resources | object | `{}` | Portal resources |
+| portal.securityContext | object | `{}` | Container Security Context |
 | portal.service.annotations | object | `{}` | service annotations |
 | portal.service.clusterIP | string | `""` | service cluster IP |
 | portal.service.ports.http | object | `{"port":3000}` | service http port |

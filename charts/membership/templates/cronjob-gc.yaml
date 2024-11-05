@@ -22,6 +22,8 @@ spec:
           imagePullSecrets:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
             - name: {{ include "core.fullname" . }}
               {{- with .Values.config.job.garbageCollector.volumeMounts }}
@@ -37,7 +39,6 @@ spec:
                 {{- include "core.env.common" . | nindent 16 }}
                 {{- include "core.postgres.uri" . | nindent 16 }}
                 {{- include "core.monitoring" . | nindent 16 }}
-                {{- include "aws.iam.postgres" . | nindent 16 }}
               resources:
                 {{- toYaml .Values.config.job.garbageCollector.resources | nindent 16 }}
           {{- with .Values.nodeSelector }}

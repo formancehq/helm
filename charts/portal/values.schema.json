@@ -295,6 +295,10 @@
             },
             "type": "object"
         },
+        "podSecurityContext": {
+            "properties": {},
+            "type": "object"
+        },
         "readinessProbe": {
             "properties": {},
             "type": "object"
@@ -303,6 +307,10 @@
             "type": "integer"
         },
         "resources": {
+            "properties": {},
+            "type": "object"
+        },
+        "securityContext": {
             "properties": {},
             "type": "object"
         },
