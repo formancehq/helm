@@ -38,7 +38,7 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
 | global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
-| global.monitoring.traces.enabled | bool | `true` | Enable otel tracing |
+| global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
 | global.monitoring.traces.endpoint | string | `""` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |
 | global.monitoring.traces.insecure | bool | `true` | Insecure |

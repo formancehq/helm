@@ -88,7 +88,7 @@ global:
     traces:
       # -- Enable otel tracing
       # @section -- Global configuration
-      enabled: true
+      enabled: false
       # -- Endpoint
       # @section -- Global configuration
       endpoint: ""
