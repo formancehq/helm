@@ -59,10 +59,42 @@
             "properties": {
                 "monitoring": {
                     "properties": {
+                        "batch": {
+                            "type": "boolean"
+                        },
                         "logs": {
                             "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "format": {
                                     "type": "string"
+                                },
+                                "level": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "traces": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "endpoint": {
+                                    "type": "string"
+                                },
+                                "exporter": {
+                                    "type": "string"
+                                },
+                                "insecure": {
+                                    "type": "boolean"
+                                },
+                                "mode": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": "integer"
                                 }
                             },
                             "type": "object"

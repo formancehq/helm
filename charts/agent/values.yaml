@@ -1,10 +1,40 @@
 global:
-  # This is not a global value shared over all charts, but a global value shared over all templates in this chart.
+  # -- TORework
   serviceName: agent
+
   monitoring:
+    # -- Enable otel batching
+    # @section -- Global configuration
+    batch: false
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: ""
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
     logs:
-      # format:Enum:{json, ""}
-      format: json
+      # -- Enable logging
+      # @section -- Global configuration
+      enabled: true
+      # -- Level: Info, Debug, Error
+      # @section -- Global configuration
+      level: "info"
+      # -- Format
+      # @section -- Global configuration
+      format: "json"
 
 image:
   repository: ghcr.io/formancehq/agent
