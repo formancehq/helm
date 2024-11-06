@@ -48,10 +48,10 @@
   {{- if gt (len .Values.config.cookie.existingSecret) 0 }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.global.platform.cookie.existingSecret }}
-      key: {{ .Values.global.platform.cookie.secretKeys.encryptionKey }}
+      name: {{ .Values.config.cookie.existingSecret }}
+      key: {{ .Values.config.cookie.secretKeys.encryptionKey }}
   {{- else }}
-  value: {{ .Values.global.platform.cookie.encryptionKey | default .Values.config.encryption_key | quote }}
+  value: {{ .Values.config.cookie.encryptionKey | default .Values.config.encryption_key | quote }}
   {{- end }}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}

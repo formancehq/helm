@@ -59,6 +59,9 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
+| config.cookie.encryptionKey | string | `"changeMe0"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
+| config.cookie.existingSecret | string | `""` | is the name of the secret |
+| config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 
 ### Other Values
 
@@ -74,7 +77,7 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
-| config.additionalEnv | list | `[]` | Console additional environment variables |
+| config.additionalEnv | list | `[{"name":"THEME_COOKIE_SECRET","value":"secret"},{"name":"THEME_COOKIE_NAME","value":"__session_theme"},{"name":"MICRO_STACK","value":"0"},{"name":"CONSOLE_V3_COOKIE_NAME","value":"__session_console_v3"}]` | Console additional environment variables |
 | config.environment | string | `"production"` | Console environment |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
