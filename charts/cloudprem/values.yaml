@@ -64,6 +64,9 @@ global:
         # -- is the host for the oidc
         host: "dex.{{ .Values.global.serviceHost }}"
   monitoring:
+    # -- Enable otel batching
+    # @section -- Global configuration
+    batch: false
     traces:
       # -- Enable otel tracing
       # @section -- Global configuration

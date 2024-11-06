@@ -82,10 +82,13 @@ global:
         username: username
 
   monitoring:
+    # -- Enable otel batching
+    # @section -- Global configuration
+    batch: false
     traces:
       # -- Enable otel tracing
       # @section -- Global configuration
-      enabled: true
+      enabled: false
       # -- Endpoint
       # @section -- Global configuration
       endpoint: ""

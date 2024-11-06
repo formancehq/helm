@@ -93,6 +93,8 @@
 {{- define "core.monitoring.common" }}
 - name: OTEL_SERVICE_NAME
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.serviceName" "Default" "{{ .Chart.Name }}") | quote}}
+- name: OTEL_BATCH
+  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.batch" "Default" "false") | quote}}
 - name: OTEL_RESOURCE_ATTRIBUTES
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.attributes" "Default" "") | quote}}
 {{- end -}}
