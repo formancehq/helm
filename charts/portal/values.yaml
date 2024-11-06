@@ -92,6 +92,12 @@ podDisruptionBudget:
   # -- Maximum unavailable pods
   maxUnavailable: 0
 
+# -- Pod Security Context
+podSecurityContext: {}
+
+# -- Container Security Context
+securityContext: {}
+
 autoscaling:
   enabled: false
   minReplicas: 1

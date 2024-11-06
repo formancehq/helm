@@ -1,6 +1,6 @@
 # console
 
-![Version: v1.0.0-beta.13](https://img.shields.io/badge/Version-v1.0.0--beta.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
+![Version: v1.0.0-beta.14](https://img.shields.io/badge/Version-v1.0.0--beta.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
 
 Formance Console
 
@@ -91,9 +91,11 @@ Kubernetes: `>=1.14.0-0`
 | podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| podSecurityContext | object | `{}` | Pod Security Context |
 | readinessProbe | object | `{}` | Console readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Console resources |
+| securityContext | object | `{}` | Container Security Context |
 | service.annotations | object | `{}` | service annotations |
 | service.clusterIP | string | `""` | service cluster IP |
 | service.ports.http | object | `{"port":3000}` | service http port |

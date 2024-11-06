@@ -17,9 +17,13 @@ spec:
         {{- include "core.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: OnFailure
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       serviceAccountName: {{ include "membership.job.serviceAccountName" . }}
       containers:
         - name: migrate
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{- with .Values.config.migration.volumeMounts }}
           volumeMounts:

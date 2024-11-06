@@ -19,6 +19,8 @@ spec:
     spec:
       template:
         spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           serviceAccountName:  {{ include "core.serviceAccountName" . }}
           restartPolicy: {{ .Values.config.job.stackLifeCycle.restartPolicy }}
           {{- with .Values.imagePullSecrets }}

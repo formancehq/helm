@@ -1,6 +1,6 @@
 # portal
 
-![Version: v1.0.0-beta.14](https://img.shields.io/badge/Version-v1.0.0--beta.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
+![Version: v1.0.0-beta.15](https://img.shields.io/badge/Version-v1.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
 
 Formance Portal
 
@@ -89,9 +89,11 @@ Kubernetes: `>=1.14.0-0`
 | podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| podSecurityContext | object | `{}` | Pod Security Context |
 | readinessProbe | object | `{}` | Portal readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Portal resources |
+| securityContext | object | `{}` | Container Security Context |
 | service.annotations | object | `{}` | service annotations |
 | service.clusterIP | string | `""` | service cluster IP |
 | service.ports.http | object | `{"port":3000}` | service http port |
