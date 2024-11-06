@@ -477,13 +477,13 @@ Dex:
 | console.ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
 | console.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | console.ingress.tls | list | `[]` | ingress tls |
-| console.livenessProbe | object | `{}` | Console liveness probe |
+| console.livenessProbe | object | `{"httpGet":{"path":"/_info","port":3000},"initialDelaySeconds":30,"periodSeconds":3}` | Console liveness probe |
 | console.nodeSelector | object | `{}` | Console node selector |
 | console.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | console.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | console.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | console.podSecurityContext | object | `{}` | Pod Security Context |
-| console.readinessProbe | object | `{}` | Console readiness probe |
+| console.readinessProbe | object | `{"httpGet":{"path":"/_info","port":3000},"initialDelaySeconds":30,"periodSeconds":3}` | Console readiness probe |
 | console.replicas | int | `1` | Number of replicas |
 | console.resources | object | `{}` | Console resources |
 | console.securityContext | object | `{}` | Container Security Context |

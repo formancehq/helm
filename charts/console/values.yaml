@@ -139,10 +139,20 @@ resources:
   #   memory: 2048Mi
 
 # -- Console readiness probe
-readinessProbe: {}
+readinessProbe:
+  httpGet:
+    path: /_info
+    port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 3
 
 # -- Console liveness probe
-livenessProbe: {}
+livenessProbe:
+  httpGet:
+    path: /_info
+    port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 3
 
 service:
   # -- service annotations

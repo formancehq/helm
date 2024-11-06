@@ -35,17 +35,9 @@ spec:
               protocol: TCP
               name: http
           readinessProbe:
-            httpGet:
-              path: /_info
-              port: 3000
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds | default 30}}
-            periodSeconds: 3
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
           livenessProbe:
-            httpGet:
-              path: /_info
-              port: 3000
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds | default 30}}
-            periodSeconds: 3
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
           env:
             {{- include "console.env" . | nindent 12 }}
           {{ with .Values.volumeMounts }}

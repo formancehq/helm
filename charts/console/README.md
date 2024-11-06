@@ -90,13 +90,13 @@ Kubernetes: `>=1.14.0-0`
 | ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.tls | list | `[]` | ingress tls |
-| livenessProbe | object | `{}` | Console liveness probe |
+| livenessProbe | object | `{"httpGet":{"path":"/_info","port":3000},"initialDelaySeconds":30,"periodSeconds":3}` | Console liveness probe |
 | nodeSelector | object | `{}` | Console node selector |
 | podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | podSecurityContext | object | `{}` | Pod Security Context |
-| readinessProbe | object | `{}` | Console readiness probe |
+| readinessProbe | object | `{"httpGet":{"path":"/_info","port":3000},"initialDelaySeconds":30,"periodSeconds":3}` | Console readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Console resources |
 | securityContext | object | `{}` | Container Security Context |

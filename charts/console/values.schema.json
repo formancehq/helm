@@ -288,7 +288,25 @@
             "type": "object"
         },
         "livenessProbe": {
-            "properties": {},
+            "properties": {
+                "httpGet": {
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "periodSeconds": {
+                    "type": "integer"
+                }
+            },
             "type": "object"
         },
         "nodeSelector": {
@@ -314,7 +332,25 @@
             "type": "object"
         },
         "readinessProbe": {
-            "properties": {},
+            "properties": {
+                "httpGet": {
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "periodSeconds": {
+                    "type": "integer"
+                }
+            },
             "type": "object"
         },
         "replicas": {
