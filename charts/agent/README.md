@@ -1,6 +1,6 @@
 # agent
 
-![Version: v2.1.0](https://img.shields.io/badge/Version-v2.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.18](https://img.shields.io/badge/AppVersion-v2.0.18-informational?style=flat-square)
+![Version: v2.2.0](https://img.shields.io/badge/Version-v2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.18](https://img.shields.io/badge/AppVersion-v2.0.18-informational?style=flat-square)
 
 Formance Membership Agent Helm Chart
 
@@ -16,10 +16,34 @@ Formance Membership Agent Helm Chart
 
 * <https://github.com/formancehq/agent>
 
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| file://../core | core | v1.0.0-beta.9 |
+
 ## Values
+
+### Global configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.monitoring.batch | bool | `false` | Enable otel batching |
+| global.monitoring.logs.enabled | bool | `true` | Enable logging |
+| global.monitoring.logs.format | string | `"json"` | Format |
+| global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
+| global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
+| global.monitoring.traces.endpoint | string | `""` | Endpoint |
+| global.monitoring.traces.exporter | string | `"otlp"` | Exporter |
+| global.monitoring.traces.insecure | bool | `true` | Insecure |
+| global.monitoring.traces.mode | string | `"grpc"` | Mode |
+| global.monitoring.traces.port | int | `4317` | Port |
+
+### Other Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.serviceName | string | `"agent"` | TORework |
 | affinity | object | `{}` |  |
 | agent.authentication.clientID | string | `""` |  |
 | agent.authentication.clientSecret | string | `""` |  |
@@ -31,8 +55,6 @@ Formance Membership Agent Helm Chart
 | config.monitoring.serviceName | string | `"agent"` |  |
 | debug | bool | `false` |  |
 | fullnameOverride | string | `""` |  |
-| global.monitoring.logs.format | string | `"json"` |  |
-| global.serviceName | string | `"agent"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/formancehq/agent"` |  |
 | image.tag | string | `""` |  |

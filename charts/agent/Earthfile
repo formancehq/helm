@@ -10,6 +10,8 @@ schema:
 
 readme:
   FROM charts+readme-base
+  WORKDIR /src/core
+  COPY --dir (core+dependencies/*) .
   WORKDIR /src/agent
   COPY --dir (+dependencies/*) .
   DO --pass-args charts+README_GENERATOR
@@ -22,6 +24,8 @@ sources:
 
 dependencies:
   FROM +sources
+  WORKDIR /src/core
+  COPY --dir (core+dependencies/*) .
   WORKDIR /src/agent
   DO --pass-args charts+DEPENDENCIES
 

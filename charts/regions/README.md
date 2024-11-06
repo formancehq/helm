@@ -1,6 +1,6 @@
 # regions
 
-![Version: v2.2.0](https://img.shields.io/badge/Version-v2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: v2.3.0](https://img.shields.io/badge/Version-v2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -21,15 +21,31 @@ Formance Private Regions Helm Chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../agent | agent | v2.1.0 |
+| file://../agent | agent | v2.2.0 |
 | oci://ghcr.io/formancehq/helm | operator | v2.1.0 |
 
 ## Values
 
+### Global configuration
+
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.monitoring.logs.format | string | `"json"` |  |
-| global.serviceName | string | `"agent"` |  |
+| global.monitoring.batch | bool | `false` | Enable otel batching |
+| global.monitoring.logs.enabled | bool | `true` | Enable logging |
+| global.monitoring.logs.format | string | `"json"` | Format |
+| global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
+| global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
+| global.monitoring.traces.endpoint | string | `""` | Endpoint |
+| global.monitoring.traces.exporter | string | `"otlp"` | Exporter |
+| global.monitoring.traces.insecure | bool | `true` | Insecure |
+| global.monitoring.traces.mode | string | `"grpc"` | Mode |
+| global.monitoring.traces.port | int | `4317` | Port |
+
+### Other Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.serviceName | string | `"agent"` | TORework |
 | agent.agent.authentication.clientID | string | `"REGION_ID"` |  |
 | agent.agent.authentication.clientSecret | string | `""` |  |
 | agent.agent.authentication.issuer | string | `"https://app.formance.cloud/api"` |  |
