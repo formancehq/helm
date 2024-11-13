@@ -91,7 +91,7 @@ versions:
       reconciliation: v2.0.20
       operator-utils: v2.0.20
     v2.1:
-      ledger: v2.1.0
+      ledger: v2.1.1
       search: v2.0.20
       stargate: v2.0.20
       auth: v2.0.20
