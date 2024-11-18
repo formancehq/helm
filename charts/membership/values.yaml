@@ -322,7 +322,7 @@ feature:
   disableEvents: true
   # -- Run migration in a hook
   # @section -- Membership Feature
-  migrationHooks: true
+  migrationHooks: false
 
 config:
   # -- Override monitoring configuration

@@ -1,6 +1,6 @@
 # membership
 
-![Version: v1.0.0-beta.23](https://img.shields.io/badge/Version-v1.0.0--beta.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v1.0.0-beta.24](https://img.shields.io/badge/Version-v1.0.0--beta.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -110,7 +110,7 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | feature.disableEvents | bool | `true` | Membership feature disable events |
 | feature.managedStacks | bool | `true` | Membership feature managed stacks |
-| feature.migrationHooks | bool | `true` | Run migration in a hook |
+| feature.migrationHooks | bool | `false` | Run migration in a hook |
 
 ### Postgresql configuration
 

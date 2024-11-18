@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.37](https://img.shields.io/badge/Version-v2.0.0--beta.37-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
+![Version: v2.0.0-beta.38](https://img.shields.io/badge/Version-v2.0.0--beta.38-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.35.3](https://img.shields.io/badge/AppVersion-v0.35.3-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -428,7 +428,7 @@ Dex:
 |-----|------|---------|-------------|
 | membership.feature.disableEvents | bool | `true` | Membership feature disable events |
 | membership.feature.managedStacks | bool | `true` | Membership feature managed stacks |
-| membership.feature.migrationHooks | bool | `true` | Run migration in a hook |
+| membership.feature.migrationHooks | bool | `false` | Run migration in a hook |
 
 ### Postgresql configuration
 
