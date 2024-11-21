@@ -11,7 +11,7 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: "v2.3.3"
+version: "v2.4.0"
 appVersion: "latest"
 
 dependencies:
@@ -20,6 +20,6 @@ dependencies:
     repository: "file://../agent"
     condition: agent.enabled
   - name: operator
-    version: v2.1.2
+    version: v2.2.0
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.enabled
