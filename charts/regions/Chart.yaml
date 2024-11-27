@@ -16,7 +16,7 @@ appVersion: "latest"
 
 dependencies:
   - name: agent
-    version: v2.2.0
+    version: v2.3.0
     repository: "file://../agent"
     condition: agent.enabled
   - name: operator

@@ -4,7 +4,7 @@
 
 | Readme | Chart Version | App Version | Description | Hub |
 |--------|---------------|-------------|-------------|-----|
-| [Agent](./charts/agent/README.md) | v2.2.0 |v2.0.18 | Formance Membership Agent Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/agent)](https://artifacthub.io/packages/search?repo=agent) |
+| [Agent](./charts/agent/README.md) | v2.3.0 |v2.2.0 | Formance Membership Agent Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/agent)](https://artifacthub.io/packages/search?repo=agent) |
 | [Cloudprem](./charts/cloudprem/README.md) | v2.0.0-beta.38 |v0.35.3 | Formance control-plane | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem) |
 | [Console](./charts/console/README.md) | v1.0.0-beta.15 |fccc26c5b568781b86fbd06c651399c0edd67bac | Formance Console | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/console)](https://artifacthub.io/packages/search?repo=console) |
 | [Core](./charts/core/README.md) | v1.0.0-beta.9 |latest | Formance Core Library | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/core)](https://artifacthub.io/packages/search?repo=core) |

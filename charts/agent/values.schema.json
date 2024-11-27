@@ -30,6 +30,9 @@
                 "id": {
                     "type": "string"
                 },
+                "outdated": {
+                    "type": "boolean"
+                },
                 "production": {
                     "type": "boolean"
                 }

@@ -40,5 +40,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
   value: "{{ .Values.agent.baseUrl }}"
 - name: PRODUCTION
   value: "{{ .Values.agent.production }}"
+- name: OUTDATED
+  value: "{{ .Values.agent.outdated }}"
 {{- include "core.monitoring" . }}
 {{- end }}

@@ -21,7 +21,7 @@ Formance Private Regions Helm Chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../agent | agent | v2.2.0 |
+| file://../agent | agent | v2.3.0 |
 | oci://ghcr.io/formancehq/helm | operator | v2.3.1 |
 
 ## Values
@@ -125,7 +125,8 @@ Formance Private Regions Helm Chart
 | agent.agent.authentication.mode | string | `"bearer"` |  |
 | agent.agent.baseUrl | string | `""` |  |
 | agent.agent.id | string | `"b7549a16-f74a-4815-ab1e-bb8ef1c3833b"` |  |
-| agent.agent.production | bool | `false` |  |
+| agent.agent.outdated | bool | `false` | Any region: - this flag is sync by the server - it will mark the associated region as outdated and will block any new Creation/Enable/Restore |
+| agent.agent.production | bool | `false` | Only for public region This flag is not sync by the server |
 | agent.config.monitoring.serviceName | string | `"agent"` |  |
 | agent.debug | bool | `false` |  |
 | agent.fullnameOverride | string | `""` |  |

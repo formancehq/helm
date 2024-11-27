@@ -93,10 +93,23 @@ config:
 agent:
   id: "b7549a16-f74a-4815-ab1e-bb8ef1c3833b"
   baseUrl: ""
+
+  # -- Only for public region
+  # This flag is not sync by the server
   production: false
-  # Authentication token
+
+  # -- Any region:
+  # - this flag is sync by the server
+  # - it will mark the associated region as outdated and will block any new Creation/Enable/Restore
+  outdated: false
+
+  # Private Region Authentification
   authentication:
     mode: bearer
     issuer: https://app.formance.cloud/api
     clientID: ""
     clientSecret: ""
+
+    # -- Public Region
+    # mode: token
+    # token: abcd

@@ -1,6 +1,6 @@
 # agent
 
-![Version: v2.2.0](https://img.shields.io/badge/Version-v2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.18](https://img.shields.io/badge/AppVersion-v2.0.18-informational?style=flat-square)
+![Version: v2.3.0](https://img.shields.io/badge/Version-v2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.0](https://img.shields.io/badge/AppVersion-v2.2.0-informational?style=flat-square)
 
 Formance Membership Agent Helm Chart
 
@@ -51,7 +51,8 @@ Formance Membership Agent Helm Chart
 | agent.authentication.mode | string | `"bearer"` |  |
 | agent.baseUrl | string | `""` |  |
 | agent.id | string | `"b7549a16-f74a-4815-ab1e-bb8ef1c3833b"` |  |
-| agent.production | bool | `false` |  |
+| agent.outdated | bool | `false` | Any region: - this flag is sync by the server - it will mark the associated region as outdated and will block any new Creation/Enable/Restore |
+| agent.production | bool | `false` | Only for public region This flag is not sync by the server |
 | config.monitoring.serviceName | string | `"agent"` |  |
 | debug | bool | `false` |  |
 | fullnameOverride | string | `""` |  |
