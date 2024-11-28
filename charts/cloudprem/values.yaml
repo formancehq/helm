@@ -23,6 +23,14 @@ global:
       # -- is the host for the console
       # @section -- Global configuration
       host: "console.{{ .Values.global.serviceHost }}"
+    console_v3:
+      enabled: false
+      # -- is the scheme for the console
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the console
+      # @section -- Global configuration
+      host: "console.v3.{{ .Values.global.serviceHost }}"
     portal:
       # -- is the scheme for the portal
       # @section -- Global configuration

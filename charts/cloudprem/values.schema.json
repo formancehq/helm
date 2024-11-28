@@ -75,6 +75,20 @@
                             },
                             "type": "object"
                         },
+                        "console_v3": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "host": {
+                                    "type": "string"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "enabled": {
                             "type": "boolean"
                         },
