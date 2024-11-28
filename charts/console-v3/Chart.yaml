@@ -1,5 +1,5 @@
 apiVersion: v2
-name: console
+name: console-v3
 description: Formance Console
 
 home: "https://formance.com"
