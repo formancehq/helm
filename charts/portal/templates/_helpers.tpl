@@ -42,6 +42,8 @@
   {{- else }}
   value: {{ .Values.global.platform.membership.oauthClient.secret | quote }}
   {{- end }}
+- name: FEATURES_DISABLED
+  value: "console_v3_beta"
 - name: REDIRECT_URI
   value: {{ include "service.url" (dict "service" .Values.global.platform.portal "Context" .) }}
 - name: COOKIE_SECRET
