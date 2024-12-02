@@ -83,6 +83,12 @@
                 },
                 "environment": {
                     "type": "string"
+                },
+                "featuresDisabled": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
                 }
             },
             "type": "object"

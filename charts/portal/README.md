@@ -1,6 +1,6 @@
 # portal
 
-![Version: v1.0.0-beta.16](https://img.shields.io/badge/Version-v1.0.0--beta.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
+![Version: v1.0.0-beta.17](https://img.shields.io/badge/Version-v1.0.0--beta.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
 
 Formance Portal
 
@@ -74,6 +74,7 @@ Kubernetes: `>=1.14.0-0`
 | config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | config.environment | string | `"production"` | Portal environment |
+| config.featuresDisabled[0] | string | `"console_v3_beta"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/portal"` | image repository |
 | image.tag | string | `""` | image tag |
