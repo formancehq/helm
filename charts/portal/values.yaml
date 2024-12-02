@@ -163,7 +163,8 @@ aws:
 config:
   # -- Portal environment
   environment: production
-
+  featuresDisabled:
+    - console_v3_beta
   cookie:
     # -- Cookie secret
     secret: "changeMe2"
