@@ -19,14 +19,14 @@ data:
         redirectUris:
           - '{{ tpl (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login'
           - '{{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login'
-          {{ if .Values.global.platform.console_v3.enabled }}
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.console_v3.scheme .Values.global.platform.console.host) $ }}/auth/login'
+          {{ if .Values.global.platform.consoleV3.enabled }}
+          - '{{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.console.host) $ }}/auth/login'
           {{ end }}
         postLogoutRedirectUris:
           - '{{ tpl (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout'
           - '{{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout'
-          {{ if .Values.global.platform.console_v3.enabled }}
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.console_v3.scheme .Values.global.platform.console.host) $ }}/auth/logout'
+          {{ if .Values.global.platform.consoleV3.enabled }}
+          - '{{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.console.host) $ }}/auth/logout'
           {{ end }}
         scopes:
           - supertoken

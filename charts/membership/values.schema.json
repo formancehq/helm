@@ -652,7 +652,7 @@
                             },
                             "type": "object"
                         },
-                        "console_v3": {
+                        "consoleV3": {
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
