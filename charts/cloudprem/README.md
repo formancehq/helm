@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.40](https://img.shields.io/badge/Version-v2.0.0--beta.40-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: v2.0.0-beta.41](https://img.shields.io/badge/Version-v2.0.0--beta.41-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -340,6 +340,7 @@ Dex:
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
 | console.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
+| console-v3.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
 | membership.aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port }}"},"targetGroupARN":"","targetType":"ip"},"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Membership target groups |
 | membership.dex.aws | object | `{"targetGroups":{"dex-http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"dex.fullname\" .Subcharts.dex }}","port":"{{ .Values.dex.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Target Groups |
 | portal.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
@@ -362,6 +363,8 @@ Dex:
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
 | global.platform.cookie.existingSecret | string | `""` | is the name of the secret |
 | global.platform.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
@@ -449,6 +452,7 @@ Dex:
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
+| global.platform.consoleV3.enabled | bool | `false` |  |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | console.affinity | object | `{}` | Console affinity |
@@ -494,6 +498,54 @@ Dex:
 | console.tolerations | list | `[]` | Console tolerations |
 | console.volumeMounts | list | `[]` | Console volume mounts |
 | console.volumes | list | `[]` | Console volumes |
+| console-v3.affinity | object | `{}` | Console affinity |
+| console-v3.autoscaling.enabled | bool | `false` |  |
+| console-v3.autoscaling.maxReplicas | int | `100` |  |
+| console-v3.autoscaling.minReplicas | int | `1` |  |
+| console-v3.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| console-v3.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
+| console-v3.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
+| console-v3.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
+| console-v3.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
+| console-v3.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| console-v3.config.additionalEnv | list | `[]` | Console additional environment variables |
+| console-v3.config.environment | string | `"production"` | Console environment |
+| console-v3.config.sentry.authToken | string | `""` |  |
+| console-v3.config.sentry.dsn | string | `""` |  |
+| console-v3.config.sentry.enabled | bool | `false` |  |
+| console-v3.config.sentry.environment | string | `""` |  |
+| console-v3.config.sentry.release | string | `""` |  |
+| console-v3.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
+| console-v3.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
+| console-v3.image.tag | string | `""` | image tag |
+| console-v3.imagePullSecrets | list | `[]` | image pull secrets |
+| console-v3.ingress.annotations | object | `{}` | ingress annotations |
+| console-v3.ingress.className | string | `""` | ingress class name |
+| console-v3.ingress.enabled | bool | `true` | ingress enabled |
+| console-v3.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.console.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| console-v3.ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
+| console-v3.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| console-v3.ingress.tls | list | `[]` | ingress tls |
+| console-v3.livenessProbe | object | `{}` | Console liveness probe |
+| console-v3.nodeSelector | object | `{}` | Console node selector |
+| console-v3.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| console-v3.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| console-v3.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| console-v3.podSecurityContext | object | `{}` | Pod Security Context |
+| console-v3.readinessProbe | object | `{}` | Console readiness probe |
+| console-v3.replicas | int | `1` | Number of replicas |
+| console-v3.resources | object | `{}` | Console resources |
+| console-v3.securityContext | object | `{}` | Container Security Context |
+| console-v3.service.annotations | object | `{}` | service annotations |
+| console-v3.service.clusterIP | string | `""` | service cluster IP |
+| console-v3.service.ports.http | object | `{"port":3000}` | service http port |
+| console-v3.service.type | string | `"ClusterIP"` | service type |
+| console-v3.serviceAccount.annotations | object | `{}` | Service account annotations |
+| console-v3.serviceAccount.create | bool | `true` | Service account creation |
+| console-v3.serviceAccount.name | string | `""` | Service account name |
+| console-v3.tolerations | list | `[]` | Console tolerations |
+| console-v3.volumeMounts | list | `[]` | Console volume mounts |
+| console-v3.volumes | list | `[]` | Console volumes |
 | membership.affinity | object | `{}` | Membership affinity |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
