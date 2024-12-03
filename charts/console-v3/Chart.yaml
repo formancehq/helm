@@ -1,8 +1,6 @@
-annotations: {}
 apiVersion: v2
-name: cloudprem
-description: |-
-  Formance control-plane
+name: console-v3
+description: Formance Console
 
 home: "https://formance.com"
 
@@ -10,14 +8,6 @@ maintainers:
   - name: "Formance Team"
     email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
-
-keywords:
-  - cloudprem
-  - oidc
-  - portal
-  - membership
-  - dex
-  - portal
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -32,31 +22,18 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: "v2.0.0-beta.41"
+version: "v1.0.0"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "v0.36.2"
-
+appVersion: "368ae6f5bd0a51bd5d9ebc0248a866869df5e326"
 kubeVersion: ">=1.14.0-0"
-sources: []
+sources:
+  - https://github.com/formancehq/console
 
 dependencies:
-  - name: membership
-    version: v1.0.0-beta.25
-    repository: file://../membership
-    condition: membership.enabled
-  - name: portal
-    version: v1.0.0-beta.17
-    repository: file://../portal
-    condition: portal.enabled
-  - name: console
-    version: v1.0.0-beta.15
-    repository: file://../console
-    condition: console.enabled
-  - name: console-v3
-    version: v1.0.0
-    repository: file://../console-v3
-    condition: consoleV3.enabled
+  - name: core
+    version: "v1.0.0-beta.9"
+    repository: file://../core

@@ -47,6 +47,8 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.enabled | bool | `true` | Enable platform communication with membership, add specific oauth2 clients, and will rollout membership depending to .membership.oauthClient |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.oauthClient.existingSecret | string | `""` | is the name of the secret |
@@ -131,6 +133,7 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
+| global.platform.consoleV3.enabled | bool | `false` |  |
 | affinity | object | `{}` | Membership affinity |
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |

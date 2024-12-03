@@ -1,0 +1,257 @@
+global:
+  # -- Enable debug mode
+  # @section -- Global configuration
+  debug: false
+  # -- is the base domain for portal and console
+  # @section -- Global configuration
+  serviceHost: ""
+
+  aws:
+    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+    # @section -- Global AWS configuration
+    elb: false
+
+  monitoring:
+    # -- Enable otel batching
+    # @section -- Global configuration
+    batch: false
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: ""
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+
+  platform:
+    console:
+      # -- is the scheme for the console
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the console
+      # @section -- Global configuration
+      host: "console.{{ .Values.global.serviceHost }}"
+    consoleV3:
+      # -- is the scheme for the console
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the console
+      # @section -- Global configuration
+      host: "console.v3.{{ .Values.global.serviceHost }}"
+    cookie:
+      # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
+      # @section -- Global configuration
+      encryptionKey: "changeMe00"
+      # -- is the name of the secret
+      # @section -- Global configuration
+      existingSecret: ""
+      # -- is the key contained within the secret
+      # @section -- Global configuration
+      secretKeys:
+        encryptionKey: ""
+
+    membership:
+      # -- is the scheme for the membership
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the membership
+      # @section -- Global configuration
+      host: "membership.{{ .Values.global.serviceHost }}"
+
+      oauthClient:
+        # -- is the id of the client
+        # @section -- Global configuration
+        id: "platform"
+        # -- is the secret of the client
+        # @section -- Global configuration
+        secret: "changeMe1"
+        # -- is the name of the secret
+        # @section -- Global configuration
+        existingSecret: ""
+        # -- is the key contained within the secret
+        # @section -- Global configuration
+        secretKeys:
+          secret: ""
+
+# -- Number of replicas
+replicas: 1
+
+podDisruptionBudget:
+  # -- Enable pod disruption budget
+  enabled: false
+  # -- Minimum available pods
+  minAvailable: 1
+  # -- Maximum unavailable pods
+  maxUnavailable: 0
+
+# -- Pod Security Context
+podSecurityContext: {}
+
+# -- Container Security Context
+securityContext: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+serviceAccount:
+  # -- Service account creation
+  create: true
+  # -- Service account name
+  name: ""
+  # -- Service account annotations
+  annotations: {}
+
+image:
+  # -- image repository
+  repository: ghcr.io/formancehq/console
+  # -- image pull policy
+  pullPolicy: IfNotPresent
+  # -- image tag
+  tag: ""
+
+# -- image pull secrets
+imagePullSecrets: []
+
+# -- Console resources
+resources:
+  {}
+  # requests:
+  #   cpu: 250m
+  #   memory: 512Mi
+  # limits:
+  #   cpu: 500m
+  #   memory: 2048Mi
+
+# -- Console readiness probe
+readinessProbe: {}
+
+# -- Console liveness probe
+livenessProbe: {}
+
+service:
+  # -- service annotations
+  annotations: {}
+  # -- service type
+  type: ClusterIP
+  # -- service cluster IP
+  clusterIP: ""
+  ports:
+    # -- service http port
+    http:
+      port: 3000
+      # -- service node port
+      # nodePort:
+
+# -- AWS Console target groups
+# @section -- Global AWS configuration
+aws:
+  targetGroups:
+    http:
+      # -- Target group IP address type
+      ipAddressType: "ipv4"
+      # -- Target group target type
+      targetType: "ip"
+      # -- Target group ARN
+      targetGroupARN: ""
+      serviceRef:
+        # -- Target group service reference name
+        name: '{{ include "core.fullname" $ }}'
+        # -- Target group service reference port
+        port: "{{ .Values.service.ports.http.port }}"
+
+ingress:
+  # -- ingress enabled
+  enabled: true
+  # -- ingress class name
+  className: ""
+  # -- ingress annotations
+  annotations: {}
+  hosts:
+    # -- ingress host
+    - host: "{{ tpl .Values.global.platform.console.host $ }}"
+      paths:
+        - # -- ingress path
+          path: /
+          # -- ingress path type
+          pathType: Prefix
+  # -- ingress tls
+  tls:
+    []
+    # -- ingress tls secret name
+    # - secretName: YOUR_TLS_SECRET_NAME
+
+# -- Console volume mounts
+volumeMounts: []
+
+# -- Console volumes
+volumes: []
+
+# -- Console node selector
+nodeSelector: {}
+
+# -- Console tolerations
+tolerations: []
+
+# -- Console affinity
+affinity: {}
+
+config:
+  # -- Console environment
+  environment: production
+  sentry:
+    enabled: false
+    dsn: ""
+    release: ""
+    environment: ""
+    authToken: ""
+  # -- Console additional environment variables
+  additionalEnv:
+    []
+    # -- Console additional environment variables HOST
+    # - name: HOST
+    #   value: "0.0.0.0"
+    # -- Console additional environment variables FEATURE_DISABLED
+    # - name: FEATURE_DISABLED
+    #   value: "true"
+
+  # -- Override global configuration
+  # monitoring:
+  #   # -- Override otel service name
+  #   serviceName: ""
+  #   # -- Override otel resources attributes
+  #   attributes: ""
+  #   traces:
+  #     # -- Enable otel tracing
+  #     # @section -- Global configuration
+  #     enabled: false
+  #     # -- Endpoint
+  #     # @section -- Global configuration
+  #     endpoint: "localhost"
+  #     # -- Exporter
+  #     # @section -- Global configuration
+  #     exporter: "otlp"
+  #     # -- Insecure
+  #     # @section -- Global configuration
+  #     insecure: true
+  #     # -- Mode
+  #     # @section -- Global configuration
+  #     mode: "grpc"
+  #     # -- Port
+  #     # @section -- Global configuration
+  #     port: 4317
