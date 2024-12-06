@@ -47,6 +47,8 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.traces.port | int | `4317` | Port |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
 | global.platform.cookie.existingSecret | string | `""` | is the name of the secret |
 | global.platform.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |

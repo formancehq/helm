@@ -145,6 +145,17 @@
                             },
                             "type": "object"
                         },
+                        "consoleV3": {
+                            "properties": {
+                                "host": {
+                                    "type": "string"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "cookie": {
                             "properties": {
                                 "encryptionKey": {
