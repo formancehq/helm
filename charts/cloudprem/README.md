@@ -631,12 +631,12 @@ Dex:
 | portal.autoscaling.minReplicas | int | `1` |  |
 | portal.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | portal.config.additionalEnv | list | `[]` | Additional environment variables |
+| portal.config.apiStackUrl | string | `"https://#{organizationId}-#{stackId}.#{regionBaseUrl}/api"` | Stack URL |
 | portal.config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
 | portal.config.featuresDisabled[0] | string | `"console_v3_beta"` |  |
-| portal.config.stackUrl | string | `"https://#{organizationId}-#{stackId}.#{regionBaseUrl}/api"` | Stack URL |
 | portal.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | portal.image.repository | string | `"ghcr.io/formancehq/portal"` | image repository |
 | portal.image.tag | string | `""` | image tag |

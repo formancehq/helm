@@ -73,7 +73,7 @@
 - name: DEBUG
   value: {{ .Values.global.debug | quote }}
 - name: API_STACK_URL
-  value: {{ .Values.config.stackUrl }}
+  value: {{ .Values.config.apiStackUrl }}
 {{ include "core.monitoring" . }}
 {{ include "portal.additionalEnv" . }}
 {{- end }}

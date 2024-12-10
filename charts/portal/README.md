@@ -70,12 +70,12 @@ Kubernetes: `>=1.14.0-0`
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | config.additionalEnv | list | `[]` | Additional environment variables |
+| config.apiStackUrl | string | `"https://#{organizationId}-#{stackId}.#{regionBaseUrl}/api"` | Stack URL |
 | config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | config.environment | string | `"production"` | Portal environment |
 | config.featuresDisabled[0] | string | `"console_v3_beta"` |  |
-| config.stackUrl | string | `"https://#{organizationId}-#{stackId}.#{regionBaseUrl}/api"` | Stack URL |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/portal"` | image repository |
 | image.tag | string | `""` | image tag |

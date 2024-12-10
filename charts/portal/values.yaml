@@ -162,7 +162,7 @@ aws:
 # Cookie store portal session in a cookie
 config:
   # -- Stack URL
-  stackUrl: "https://#{organizationId}-#{stackId}.#{regionBaseUrl}/api"
+  apiStackUrl: "https://#{organizationId}-#{stackId}.#{regionBaseUrl}/api"
   # -- Portal environment
   environment: production
   featuresDisabled:

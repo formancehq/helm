@@ -62,6 +62,9 @@
                 "additionalEnv": {
                     "type": "array"
                 },
+                "apiStackUrl": {
+                    "type": "string"
+                },
                 "cookie": {
                     "properties": {
                         "existingSecret": {
@@ -89,9 +92,6 @@
                         "type": "string"
                     },
                     "type": "array"
-                },
-                "stackUrl": {
-                    "type": "string"
                 }
             },
             "type": "object"
