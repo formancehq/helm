@@ -72,6 +72,8 @@
   value: {{ include "service.url" (dict "service" .Values.global.platform.console "Context" .) }}
 - name: DEBUG
   value: {{ .Values.global.debug | quote }}
+- name: API_STACK_URL
+  value: {{ .Values.config.stackUrl }}
 {{ include "core.monitoring" . }}
 {{ include "portal.additionalEnv" . }}
 {{- end }}

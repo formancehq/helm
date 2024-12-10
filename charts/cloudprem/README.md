@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.41](https://img.shields.io/badge/Version-v2.0.0--beta.41-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -636,6 +636,7 @@ Dex:
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
 | portal.config.featuresDisabled[0] | string | `"console_v3_beta"` |  |
+| portal.config.stackUrl | string | `"https://#{organizationId}-#{stackId}.#{regionBaseUrl}/api"` | Stack URL |
 | portal.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | portal.image.repository | string | `"ghcr.io/formancehq/portal"` | image repository |
 | portal.image.tag | string | `""` | image tag |

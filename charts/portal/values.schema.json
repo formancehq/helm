@@ -89,6 +89,9 @@
                         "type": "string"
                     },
                     "type": "array"
+                },
+                "stackUrl": {
+                    "type": "string"
                 }
             },
             "type": "object"
