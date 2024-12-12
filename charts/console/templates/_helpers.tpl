@@ -34,8 +34,8 @@
 
 **/}}
 {{- define "console.env" }}
-- name: API_URL
-  value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
+- name: NODE_ENV
+  value: {{ .Values.config.environment }}
 - name: REDIRECT_URI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) .Values.config.redirect_url) $ }}
 - name: ENCRYPTION_KEY
@@ -47,8 +47,6 @@
   {{- else }}
   value: {{ .Values.global.platform.cookie.encryptionKey | default .Values.config.encryption_key | quote }}
   {{- end }}
-- name: NODE_ENV
-  value: {{ .Values.config.environment }}
 - name: PLATFORM_URL
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
 - name: UNSECURE_COOKIES
@@ -66,8 +64,11 @@
   {{- else }}
   value: {{ .Values.global.platform.membership.oauthClient.secret | quote }}
   {{- end }}
+- name: API_URL
+  value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
 - name: MEMBERSHIP_URL_API
   value: {{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $}}
+{{ include "core.sentry" . }}
 {{ include "core.monitoring" . }}
 {{ include "console.additionalEnv" . }}
 {{- end }}
@@ -76,4 +77,4 @@
 {{ with .Values.config.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
-{{- end}}
+{{- end }}

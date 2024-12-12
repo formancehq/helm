@@ -1,6 +1,6 @@
 # console
 
-![Version: v1.0.0-beta.15](https://img.shields.io/badge/Version-v1.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
+![Version: v1.0.0-beta.16](https://img.shields.io/badge/Version-v1.0.0--beta.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
 
 Formance Console
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.9 |
+| file://../core | core | v1.0.0-beta.10 |
 
 ## Values
 
@@ -76,6 +76,11 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | config.additionalEnv | list | `[]` | Console additional environment variables |
 | config.environment | string | `"production"` | Console environment |
+| config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
+| config.sentry.dsn | string | `""` | Sentry DSN |
+| config.sentry.enabled | bool | `false` | Sentry enabled |
+| config.sentry.environment | string | `""` | Sentry environment |
+| config.sentry.release | string | `""` | Sentry release |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | image.tag | string | `""` | image tag |
