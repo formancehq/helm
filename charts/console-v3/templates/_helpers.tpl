@@ -32,7 +32,7 @@
   # SENTRY_AUTH_TOKEN is the auth token to use
 
 **/}}
-{{- define "console.v3.env" }}
+{{- define "console.v3.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
 - name: COOKIE_SECRET
@@ -65,8 +65,8 @@
   value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
 - name: PORTAL_UI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
-{{ include "core.sentry" . }}
-{{ include "core.monitoring" . }}
+{{- include "core.sentry" . }}
+{{- include "core.monitoring" . }}
 {{ with .Values.config.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
