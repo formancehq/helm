@@ -1,15 +1,15 @@
 dependencies:
 - name: membership
   repository: file://../membership
-  version: v1.0.0-beta.25
+  version: v1.0.0-beta.26
 - name: portal
   repository: file://../portal
-  version: v1.0.0-beta.17
+  version: v1.0.0-beta.18
 - name: console
   repository: file://../console
-  version: v1.0.0-beta.15
+  version: v1.0.0-beta.16
 - name: console-v3
   repository: file://../console-v3
   version: v1.0.1
-digest: sha256:3b91cb033293f97cb8c60510d75d046f2d2fc984901208bbfb7d0fe1197706da
-generated: "2024-12-12T10:22:10.599898753Z"
+digest: sha256:1faea7fc120a86294201f0fe8c6432dfceb428ed3bd9a005727ae9e46ed3b810
+generated: "2024-12-12T12:05:41.235350138Z"
