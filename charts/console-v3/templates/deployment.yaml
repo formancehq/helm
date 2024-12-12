@@ -51,7 +51,7 @@ spec:
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds | default 30}}
             periodSeconds: 3
           env:
-            {{- include "consoleV3.env" . | nindent 12 }}
+            {{- include "console.v3.env" . | nindent 12 }}
           {{ with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}

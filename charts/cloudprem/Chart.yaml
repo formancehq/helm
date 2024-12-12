@@ -57,6 +57,6 @@ dependencies:
     repository: file://../console
     condition: console.enabled
   - name: console-v3
-    version: v1.0.0
+    version: v1.0.1
     repository: file://../console-v3
     condition: consoleV3.enabled

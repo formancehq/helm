@@ -32,7 +32,7 @@
   # SENTRY_AUTH_TOKEN is the auth token to use
 
 **/}}
-{{- define "consoleV3.env" }}
+{{- define "console.v3.env" }}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
 - name: COOKIE_SECRET
