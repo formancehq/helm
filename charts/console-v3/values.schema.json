@@ -68,7 +68,23 @@
                 "sentry": {
                     "properties": {
                         "authToken": {
-                            "type": "string"
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "secretKeys": {
+                                    "properties": {
+                                        "value": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
                         },
                         "dsn": {
                             "type": "string"
@@ -134,17 +150,6 @@
                 },
                 "platform": {
                     "properties": {
-                        "console": {
-                            "properties": {
-                                "host": {
-                                    "type": "string"
-                                },
-                                "scheme": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
                         "consoleV3": {
                             "properties": {
                                 "host": {
@@ -201,6 +206,17 @@
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "portal": {
+                            "properties": {
+                                "host": {
+                                    "type": "string"
                                 },
                                 "scheme": {
                                     "type": "string"

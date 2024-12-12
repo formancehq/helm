@@ -1,11 +1,11 @@
 VERSION --wildcard-builds --wildcard-copy 0.8
 
-IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
+IMPORT github.com/formancehq/earthly:tags/v0.19.0 AS core
 IMPORT ../.. AS root
 
 sources:
   FROM core+builder-image
-  RUN apk add --no-cache helm
+  RUN apk add --no-cache helm gcc musl-dev
   WORKDIR /src
   COPY go.* .
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \

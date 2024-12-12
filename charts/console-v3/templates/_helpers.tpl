@@ -32,17 +32,17 @@
   # SENTRY_AUTH_TOKEN is the auth token to use
 
 **/}}
-{{- define "console.env" }}
+{{- define "console.v3.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
 - name: COOKIE_SECRET
-  {{- if gt (len .Values.global.platform.cookie.existingSecret) 0 }}
+  {{- if .Values.global.platform.cookie.existingSecret }}
   valueFrom:
     secretKeyRef:
       name: {{ .Values.global.platform.cookie.existingSecret }}
-      key: {{ .Values.global.platform.cookie.secretKeys.secret }}
+      key: {{ .Values.global.platform.cookie.secretKeys.encryptionKey }}
   {{- else }}
-  value: {{ .Values.global.platform.cookie.secret }}
+  value: {{ .Values.global.platform.cookie.encryptionKey | quote }}
   {{- end }}
 - name: COOKIE_DOMAIN
   value: {{ .Values.global.serviceHost }}
@@ -62,21 +62,15 @@
 - name: MEMBERSHIP_URL_API
   value: {{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $}}
 - name: API_URL
-  value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}  {{- end }}
+  value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
 - name: PORTAL_UI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
-- name: SENTRY
-  value: {{ .Values.config.sentry.enabled | quote }}
-- name: SENTRY_DSN
-  value: {{ .Values.config.sentry.dsn }}
-- name: SENTRY_ENVIRONMENT
-  value: {{ .Values.config.sentry.environment }}
-- name: SENTRY_RELEASE
-  value: {{ .Values.config.sentry.release }}
-- name: SENTRY_AUTH_TOKEN
-  value: {{ .Values.config.sentry.authToken }}
-{{- define "console.additionalEnv" }}
+{{- include "core.sentry" . }}
+{{- include "core.monitoring" . }}
 {{ with .Values.config.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
-{{- end}}
+{{- end -}}
+
+
+
