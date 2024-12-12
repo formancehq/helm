@@ -36,13 +36,13 @@ global:
       port: 4317
 
   platform:
-    console:
-      # -- is the scheme for the console
+    portal:
+      # -- is the scheme for the portal
       # @section -- Global configuration
       scheme: "https"
-      # -- is the host for the console
+      # -- is the host for the portal
       # @section -- Global configuration
-      host: "console.{{ .Values.global.serviceHost }}"
+      host: "portal.{{ .Values.global.serviceHost }}"
     consoleV3:
       # -- is the scheme for the console
       # @section -- Global configuration
@@ -184,7 +184,7 @@ ingress:
   annotations: {}
   hosts:
     # -- ingress host
-    - host: "{{ tpl .Values.global.platform.console.host $ }}"
+    - host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"
       paths:
         - # -- ingress path
           path: /
@@ -229,7 +229,21 @@ config:
     # -- Console additional environment variables FEATURE_DISABLED
     # - name: FEATURE_DISABLED
     #   value: "true"
-
+  sentry:
+    # -- Sentry enabled
+    enabled: false
+    # -- Sentry DSN
+    dsn: ""
+    # -- Sentry environment
+    environment: ""
+    # -- Sentry release
+    release: ""
+    # -- Sentry Auth Token
+    authToken:
+      value: ""
+      existingSecret: ""
+      secretKeys:
+        value: ""
   # -- Override global configuration
   # monitoring:
   #   # -- Override otel service name
