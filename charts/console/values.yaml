@@ -223,6 +223,22 @@ config:
     # -- Console additional environment variables FEATURE_DISABLED
     # - name: FEATURE_DISABLED
     #   value: "true"
+  
+  sentry:
+    # -- Sentry enabled
+    enabled: false
+    # -- Sentry DSN
+    dsn: ""
+    # -- Sentry environment
+    environment: ""
+    # -- Sentry release
+    release: ""
+    # -- Sentry Auth Token
+    authToken:
+      value: ""
+      existingSecret: ""
+      secretKeys:
+        value: ""
 
   # -- Override global configuration
   # monitoring:

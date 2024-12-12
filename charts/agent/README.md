@@ -1,6 +1,6 @@
 # agent
 
-![Version: v2.3.0](https://img.shields.io/badge/Version-v2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.0](https://img.shields.io/badge/AppVersion-v2.2.0-informational?style=flat-square)
+![Version: v2.3.1](https://img.shields.io/badge/Version-v2.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.0](https://img.shields.io/badge/AppVersion-v2.2.0-informational?style=flat-square)
 
 Formance Membership Agent Helm Chart
 
@@ -20,7 +20,7 @@ Formance Membership Agent Helm Chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.9 |
+| file://../core | core | v1.0.0-beta.10 |
 
 ## Values
 

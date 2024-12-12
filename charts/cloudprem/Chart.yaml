@@ -32,7 +32,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: "v2.0.0-beta.41"
+version: "v2.0.0-beta.42"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -45,18 +45,18 @@ sources: []
 
 dependencies:
   - name: membership
-    version: v1.0.0-beta.25
+    version: v1.0.0-beta.26
     repository: file://../membership
     condition: membership.enabled
   - name: portal
-    version: v1.0.0-beta.17
+    version: v1.0.0-beta.18
     repository: file://../portal
     condition: portal.enabled
   - name: console
-    version: v1.0.0-beta.15
+    version: v1.0.0-beta.16
     repository: file://../console
     condition: console.enabled
   - name: console-v3
-    version: v1.0.0
+    version: v1.0.1
     repository: file://../console-v3
     condition: consoleV3.enabled

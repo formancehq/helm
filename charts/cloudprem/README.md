@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.41](https://img.shields.io/badge/Version-v2.0.0--beta.41-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: v2.0.0-beta.42](https://img.shields.io/badge/Version-v2.0.0--beta.42-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -467,6 +467,11 @@ Dex:
 | console.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | console.config.additionalEnv | list | `[]` | Console additional environment variables |
 | console.config.environment | string | `"production"` | Console environment |
+| console.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
+| console.config.sentry.dsn | string | `""` | Sentry DSN |
+| console.config.sentry.enabled | bool | `false` | Sentry enabled |
+| console.config.sentry.environment | string | `""` | Sentry environment |
+| console.config.sentry.release | string | `""` | Sentry release |
 | console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | console.image.tag | string | `""` | image tag |
@@ -510,11 +515,17 @@ Dex:
 | console-v3.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | console-v3.config.additionalEnv | list | `[]` | Console additional environment variables |
 | console-v3.config.environment | string | `"production"` | Console environment |
+| console-v3.config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
+| console-v3.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | console-v3.config.sentry.authToken | string | `""` |  |
 | console-v3.config.sentry.dsn | string | `""` |  |
+| console-v3.config.sentry.dsn | string | `""` | Sentry DSN |
 | console-v3.config.sentry.enabled | bool | `false` |  |
+| console-v3.config.sentry.enabled | bool | `false` | Sentry enabled |
 | console-v3.config.sentry.environment | string | `""` |  |
+| console-v3.config.sentry.environment | string | `""` | Sentry environment |
 | console-v3.config.sentry.release | string | `""` |  |
+| console-v3.config.sentry.release | string | `""` | Sentry release |
 | console-v3.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console-v3.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | console-v3.image.tag | string | `""` | image tag |
@@ -522,7 +533,7 @@ Dex:
 | console-v3.ingress.annotations | object | `{}` | ingress annotations |
 | console-v3.ingress.className | string | `""` | ingress class name |
 | console-v3.ingress.enabled | bool | `true` | ingress enabled |
-| console-v3.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.console.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| console-v3.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | console-v3.ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
 | console-v3.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | console-v3.ingress.tls | list | `[]` | ingress tls |
@@ -636,6 +647,11 @@ Dex:
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
 | portal.config.featuresDisabled[0] | string | `"console_v3_beta"` |  |
+| portal.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
+| portal.config.sentry.dsn | string | `""` | Sentry DSN |
+| portal.config.sentry.enabled | bool | `false` | Sentry enabled |
+| portal.config.sentry.environment | string | `""` | Sentry environment |
+| portal.config.sentry.release | string | `""` | Sentry release |
 | portal.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | portal.image.repository | string | `"ghcr.io/formancehq/portal"` | image repository |
 | portal.image.tag | string | `""` | image tag |

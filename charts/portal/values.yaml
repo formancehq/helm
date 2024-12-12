@@ -173,6 +173,22 @@ config:
     # -- Cookie secret key
     secretKeys:
       secret: ""
+  
+  sentry:
+    # -- Sentry enabled
+    enabled: false
+    # -- Sentry DSN
+    dsn: ""
+    # -- Sentry environment
+    environment: ""
+    # -- Sentry release
+    release: ""
+    # -- Sentry Auth Token
+    authToken:
+      value: ""
+      existingSecret: ""
+      secretKeys:
+        value: ""
 
   # -- Additional environment variables
   additionalEnv: []

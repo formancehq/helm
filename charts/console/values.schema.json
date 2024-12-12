@@ -64,6 +64,42 @@
                 },
                 "environment": {
                     "type": "string"
+                },
+                "sentry": {
+                    "properties": {
+                        "authToken": {
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "secretKeys": {
+                                    "properties": {
+                                        "value": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "dsn": {
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "environment": {
+                            "type": "string"
+                        },
+                        "release": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
                 }
             },
             "type": "object"

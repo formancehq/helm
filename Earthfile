@@ -1,6 +1,6 @@
 VERSION --wildcard-builds --wildcard-copy 0.8
 
-IMPORT github.com/formancehq/earthly:tags/v0.16.3 AS core
+IMPORT github.com/formancehq/earthly:tags/v0.19.0 AS core
 
 
 sources:
@@ -41,12 +41,14 @@ package:
 
 # pre-commit target to run the pre-commit checks
 pre-commit:
-  BUILD --pass-args ./charts/*+validate
+  WAIT
+    BUILD --pass-args +validate
 
-  # This target could depend on updated dependencies with the env variable NO_UPDATE
-  # Can be done like `+validate`
+    # This target could depend on updated dependencies with the env variable NO_UPDATE
+    # Can be done like `+validate`
+    BUILD +package
+  END
   BUILD +tests 
-  BUILD +package
   BUILD +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
   BUILD +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md
 
