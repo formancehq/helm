@@ -24,10 +24,6 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: console
-          command:
-            - yarn
-            - run
-            - start
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

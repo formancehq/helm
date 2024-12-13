@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.42](https://img.shields.io/badge/Version-v2.0.0--beta.42-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: v2.0.0-beta.43](https://img.shields.io/badge/Version-v2.0.0--beta.43-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -517,14 +517,9 @@ Dex:
 | console-v3.config.environment | string | `"production"` | Console environment |
 | console-v3.config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | console-v3.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
-| console-v3.config.sentry.authToken | string | `""` |  |
-| console-v3.config.sentry.dsn | string | `""` |  |
 | console-v3.config.sentry.dsn | string | `""` | Sentry DSN |
-| console-v3.config.sentry.enabled | bool | `false` |  |
 | console-v3.config.sentry.enabled | bool | `false` | Sentry enabled |
-| console-v3.config.sentry.environment | string | `""` |  |
 | console-v3.config.sentry.environment | string | `""` | Sentry environment |
-| console-v3.config.sentry.release | string | `""` |  |
 | console-v3.config.sentry.release | string | `""` | Sentry release |
 | console-v3.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console-v3.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
