@@ -214,12 +214,6 @@ affinity: {}
 config:
   # -- Console environment
   environment: production
-  sentry:
-    enabled: false
-    dsn: ""
-    release: ""
-    environment: ""
-    authToken: ""
   # -- Console additional environment variables
   additionalEnv:
     []

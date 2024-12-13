@@ -42,8 +42,7 @@ package:
 # pre-commit target to run the pre-commit checks
 pre-commit:
   WAIT
-    BUILD --pass-args +validate
-
+    BUILD --pass-args ./charts/*+validate
     # This target could depend on updated dependencies with the env variable NO_UPDATE
     # Can be done like `+validate`
     BUILD +package

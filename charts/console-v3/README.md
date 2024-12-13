@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: v1.0.1](https://img.shields.io/badge/Version-v1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
+![Version: v1.0.2](https://img.shields.io/badge/Version-v1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
 
 Formance Console
 
@@ -77,16 +77,11 @@ Kubernetes: `>=1.14.0-0`
 | config.additionalEnv | list | `[]` | Console additional environment variables |
 | config.environment | string | `"production"` | Console environment |
 | config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
-| config.sentry.authToken | string | `""` |  |
 | config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | config.sentry.dsn | string | `""` | Sentry DSN |
-| config.sentry.dsn | string | `""` |  |
 | config.sentry.enabled | bool | `false` | Sentry enabled |
-| config.sentry.enabled | bool | `false` |  |
-| config.sentry.environment | string | `""` |  |
 | config.sentry.environment | string | `""` | Sentry environment |
 | config.sentry.release | string | `""` | Sentry release |
-| config.sentry.release | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | image.tag | string | `""` | image tag |
