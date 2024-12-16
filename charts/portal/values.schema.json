@@ -240,6 +240,25 @@
                         },
                         "portal": {
                             "properties": {
+                                "cookie": {
+                                    "properties": {
+                                        "encryptionKey": {
+                                            "type": "string"
+                                        },
+                                        "existingSecret": {
+                                            "type": "string"
+                                        },
+                                        "secretKeys": {
+                                            "properties": {
+                                                "encryptionKey": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
                                 "host": {
                                     "type": "string"
                                 },

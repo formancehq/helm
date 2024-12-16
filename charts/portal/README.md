@@ -1,6 +1,6 @@
 # portal
 
-![Version: v1.0.0-beta.18](https://img.shields.io/badge/Version-v1.0.0--beta.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
+![Version: v1.0.0-beta.19](https://img.shields.io/badge/Version-v1.0.0--beta.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
 
 Formance Portal
 
@@ -56,6 +56,9 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
+| global.platform.portal.cookie.encryptionKey | string | `"changeMe1"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
+| global.platform.portal.cookie.existingSecret | string | `""` | is the name of the secret |
+| global.platform.portal.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
@@ -64,12 +67,15 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.platform.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V2 Cookie |
+| global.platform.portal.cookie | object | `{"encryptionKey":"changeMe1","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V3: EXPERIMENTAL |
 | affinity | object | `{}` | Portal affinity |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | config.additionalEnv | list | `[]` | Additional environment variables |
+| config.cookie | object | `{"existingSecret":"","secret":"changeMe2","secretKeys":{"secret":""}}` | EXPERIMENTAL: Console V3 also use this cookie DO not configure this if using .global.platform.portal.cookie |
 | config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
