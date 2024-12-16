@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: v1.0.2](https://img.shields.io/badge/Version-v1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
+![Version: v1.0.3](https://img.shields.io/badge/Version-v1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
 
 Formance Console
 
@@ -45,17 +45,18 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
+| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
-| global.platform.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.oauthClient.existingSecret | string | `""` | is the name of the secret |
 | global.platform.membership.oauthClient.id | string | `"platform"` | is the id of the client |
 | global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
+| global.platform.portal.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
+| global.platform.portal.cookie.existingSecret | string | `""` | is the name of the secret |
+| global.platform.portal.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
@@ -64,6 +65,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.platform.portal.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | EXPERIMENTAL |
 | affinity | object | `{}` | Console affinity |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |

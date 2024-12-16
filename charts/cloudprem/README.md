@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.43](https://img.shields.io/badge/Version-v2.0.0--beta.43-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: v2.0.0-beta.44](https://img.shields.io/badge/Version-v2.0.0--beta.44-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -363,6 +363,7 @@ Dex:
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
@@ -378,6 +379,9 @@ Dex:
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
 | global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
+| global.platform.portal.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
+| global.platform.portal.cookie.existingSecret | string | `""` | is the name of the secret |
+| global.platform.portal.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.postgresql.additionalArgs | string | `"sslmode=disable"` | Additional arguments for PostgreSQL Connection URI |
@@ -453,8 +457,10 @@ Dex:
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
 | global.platform.consoleV3.enabled | bool | `false` |  |
+| global.platform.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V2 Cookie Will be deprecated later |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
+| global.platform.portal.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | EXPERIMENTAL |
 | console.affinity | object | `{}` | Console affinity |
 | console.autoscaling.enabled | bool | `false` |  |
 | console.autoscaling.maxReplicas | int | `100` |  |
@@ -637,6 +643,7 @@ Dex:
 | portal.autoscaling.minReplicas | int | `1` |  |
 | portal.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | portal.config.additionalEnv | list | `[]` | Additional environment variables |
+| portal.config.cookie | object | `{"existingSecret":"","secret":"changeMe2","secretKeys":{"secret":""}}` | EXPERIMENTAL: Console V3 also use this cookie DO not configure this if using .global.platform.portal.cookie |
 | portal.config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |

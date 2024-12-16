@@ -4,12 +4,12 @@ dependencies:
   version: v1.0.0-beta.26
 - name: portal
   repository: file://../portal
-  version: v1.0.0-beta.18
+  version: v1.0.0-beta.19
 - name: console
   repository: file://../console
   version: v1.0.0-beta.16
 - name: console-v3
   repository: file://../console-v3
-  version: v1.0.2
-digest: sha256:f453f38438a49e7c93c2c4ab4e96287b531248a3ec6c4787d9ea9eebd73bbb75
-generated: "2024-12-13T09:20:17.44087919Z"
+  version: v1.0.3
+digest: sha256:949a5fae28ea6c8180e02a4aaf056c571865954932c398c8191b28c35dcfaa87
+generated: "2024-12-16T13:24:08.149949965Z"

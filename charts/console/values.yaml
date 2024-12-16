@@ -50,6 +50,9 @@ global:
       # -- is the host for the portal
       # @section -- Global configuration
       host: "portal.{{ .Values.global.serviceHost }}"
+
+    # -- Console V2 Cookie
+    # Will be deprecated later
     cookie:
       # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
       # @section -- Global configuration
@@ -223,7 +226,7 @@ config:
     # -- Console additional environment variables FEATURE_DISABLED
     # - name: FEATURE_DISABLED
     #   value: "true"
-  
+
   sentry:
     # -- Sentry enabled
     enabled: false
