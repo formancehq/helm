@@ -32,22 +32,27 @@
   # SENTRY_AUTH_TOKEN is the auth token to use
 
 **/}}
+
+{{- define "console.v3.cookie" }}
+- name: COOKIE_SECRET
+  {{- if or .Values.global.platform.portal.cookie.existingSecret }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.global.platform.portal.cookie.existingSecret }}
+      key: {{ .Values.global.platform.portal.cookie.secretKeys.encryptionKey }}
+  {{- else }}
+  value: {{ .Values.global.platform.portal.cookie.encryptionKey }}
+  {{- end }}
+- name: COOKIE_NAME
+  value: __session_platform
+- name: COOKIE_DOMAIN
+  value: {{ .Values.global.serviceHost }}
+{{- end -}}
+
+
 {{- define "console.v3.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
-- name: COOKIE_SECRET
-  {{- if .Values.global.platform.cookie.existingSecret }}
-  valueFrom:
-    secretKeyRef:
-      name: {{ .Values.global.platform.cookie.existingSecret }}
-      key: {{ .Values.global.platform.cookie.secretKeys.encryptionKey }}
-  {{- else }}
-  value: {{ .Values.global.platform.cookie.encryptionKey | quote }}
-  {{- end }}
-- name: COOKIE_DOMAIN
-  value: {{ .Values.global.serviceHost }}
-- name: COOKIE_NAME
-  value: __session_platform
 - name: MEMBERSHIP_CLIENT_ID
   value: "{{ .Values.global.platform.membership.oauthClient.id }}"
 - name: MEMBERSHIP_CLIENT_SECRET
@@ -65,6 +70,7 @@
   value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
 - name: PORTAL_UI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
+{{- include "console.v3.cookie" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
 {{ with .Values.config.additionalEnv }}
