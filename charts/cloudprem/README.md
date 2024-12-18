@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: v2.0.0-beta.44](https://img.shields.io/badge/Version-v2.0.0--beta.44-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: v2.0.0-beta.45](https://img.shields.io/badge/Version-v2.0.0--beta.45-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -685,4 +685,3 @@ Dex:
 | portal.tolerations | list | `[]` | Portal tolerations |
 | portal.volumeMounts | list | `[]` | Portal volume mounts |
 | portal.volumes | list | `[]` | Portal volumes |
-

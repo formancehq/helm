@@ -1,6 +1,6 @@
 # console
 
-![Version: v1.0.0-beta.16](https://img.shields.io/badge/Version-v1.0.0--beta.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
+![Version: v1.0.0-beta.17](https://img.shields.io/badge/Version-v1.0.0--beta.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fccc26c5b568781b86fbd06c651399c0edd67bac](https://img.shields.io/badge/AppVersion-fccc26c5b568781b86fbd06c651399c0edd67bac-informational?style=flat-square)
 
 Formance Console
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.10 |
+| file://../core | core | v1.0.0-beta.11 |
 
 ## Values
 
@@ -113,4 +113,3 @@ Kubernetes: `>=1.14.0-0`
 | tolerations | list | `[]` | Console tolerations |
 | volumeMounts | list | `[]` | Console volume mounts |
 | volumes | list | `[]` | Console volumes |
-
