@@ -56,4 +56,3 @@ Formance Private Regions Demo
 | postgresql.global.postgresql.auth.postgresPassword | string | `"formance"` |  |
 | postgresql.global.postgresql.auth.username | string | `"formance"` |  |
 | postgresql.primary.persistence.enabled | bool | `false` |  |
-

@@ -57,7 +57,7 @@ PACKAGE:
 
 README_GENERATOR:
   FUNCTION
-  RUN helm-docs --chart-search-root=.. --document-dependency-values
+  RUN helm-docs --chart-search-root=.. --document-dependency-values --skip-version-footer
   SAVE ARTIFACT README.md AS LOCAL README.md
 
 readme-base:

@@ -11,6 +11,10 @@ sources:
   COPY --dir ./${PATH} .
   SAVE ARTIFACT /src/${PATH}
 
+# readmes
+readme:
+  BUILD ./charts/*+readme
+
 # schema target to generate the schema files
 template:
   FROM core+base-image
