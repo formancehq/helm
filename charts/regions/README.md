@@ -1,6 +1,6 @@
 # regions
 
-![Version: v2.6.0](https://img.shields.io/badge/Version-v2.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: v2.6.1](https://img.shields.io/badge/Version-v2.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -85,28 +85,28 @@ Formance Private Regions Helm Chart
 | versions.files."v1.0".stargate | string | `"v0.1.10"` |  |
 | versions.files."v1.0".wallets | string | `"v0.4.6"` |  |
 | versions.files."v1.0".webhooks | string | `"v2.0.18"` |  |
-| versions.files."v2.0".auth | string | `"v2.0.22"` |  |
-| versions.files."v2.0".gateway | string | `"v2.0.22"` |  |
-| versions.files."v2.0".ledger | string | `"v2.0.22"` |  |
-| versions.files."v2.0".operator-utils | string | `"v2.0.22"` |  |
-| versions.files."v2.0".orchestration | string | `"v2.0.22"` |  |
-| versions.files."v2.0".payments | string | `"v2.0.22"` |  |
-| versions.files."v2.0".reconciliation | string | `"v2.0.22"` |  |
-| versions.files."v2.0".search | string | `"v2.0.22"` |  |
-| versions.files."v2.0".stargate | string | `"v2.0.22"` |  |
-| versions.files."v2.0".wallets | string | `"v2.0.22"` |  |
-| versions.files."v2.0".webhooks | string | `"v2.0.22"` |  |
-| versions.files."v2.1".auth | string | `"v2.0.22"` |  |
-| versions.files."v2.1".gateway | string | `"v2.0.22"` |  |
+| versions.files."v2.0".auth | string | `"v2.0.23"` |  |
+| versions.files."v2.0".gateway | string | `"v2.0.23"` |  |
+| versions.files."v2.0".ledger | string | `"v2.0.23"` |  |
+| versions.files."v2.0".operator-utils | string | `"v2.0.23"` |  |
+| versions.files."v2.0".orchestration | string | `"v2.0.23"` |  |
+| versions.files."v2.0".payments | string | `"v2.0.23"` |  |
+| versions.files."v2.0".reconciliation | string | `"v2.0.23"` |  |
+| versions.files."v2.0".search | string | `"v2.0.23"` |  |
+| versions.files."v2.0".stargate | string | `"v2.0.23"` |  |
+| versions.files."v2.0".wallets | string | `"v2.0.23"` |  |
+| versions.files."v2.0".webhooks | string | `"v2.0.23"` |  |
+| versions.files."v2.1".auth | string | `"v2.0.23"` |  |
+| versions.files."v2.1".gateway | string | `"v2.0.23"` |  |
 | versions.files."v2.1".ledger | string | `"v2.1.1"` |  |
-| versions.files."v2.1".operator-utils | string | `"v2.0.22"` |  |
-| versions.files."v2.1".orchestration | string | `"v2.0.22"` |  |
-| versions.files."v2.1".payments | string | `"v2.0.22"` |  |
-| versions.files."v2.1".reconciliation | string | `"v2.0.22"` |  |
-| versions.files."v2.1".search | string | `"v2.0.22"` |  |
-| versions.files."v2.1".stargate | string | `"v2.0.22"` |  |
-| versions.files."v2.1".wallets | string | `"v2.0.22"` |  |
-| versions.files."v2.1".webhooks | string | `"v2.0.22"` |  |
+| versions.files."v2.1".operator-utils | string | `"v2.0.23"` |  |
+| versions.files."v2.1".orchestration | string | `"v2.0.23"` |  |
+| versions.files."v2.1".payments | string | `"v2.0.23"` |  |
+| versions.files."v2.1".reconciliation | string | `"v2.0.23"` |  |
+| versions.files."v2.1".search | string | `"v2.0.23"` |  |
+| versions.files."v2.1".stargate | string | `"v2.0.23"` |  |
+| versions.files."v2.1".wallets | string | `"v2.0.23"` |  |
+| versions.files."v2.1".webhooks | string | `"v2.0.23"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
 | versions.files.default.gateway | string | `"v2.0.18"` |  |
 | versions.files.default.ledger | string | `"v1.10.14"` |  |
