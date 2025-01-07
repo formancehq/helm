@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: v1.0.5](https://img.shields.io/badge/Version-v1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
 
 Formance Console
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../core | core | v1.0.0-beta.11 |
+| file://../core | core | 1.X |
 
 ## Values
 
