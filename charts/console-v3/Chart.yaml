@@ -2,6 +2,13 @@ apiVersion: v2
 name: console-v3
 description: Formance Console
 
+annotations:
+  artifacthub.io/prerelease: "true"
+  artifacthub.io/images: |
+    - name: console-v3
+      image: ghcr.io/formancehq/console-v3
+      whitelisted: true
+
 home: "https://formance.com"
 
 maintainers:
@@ -22,7 +29,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: "v1.0.4"
+version: "v1.0.5"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

@@ -125,7 +125,7 @@ serviceAccount:
 
 image:
   # -- image repository
-  repository: ghcr.io/formancehq/console
+  repository: ghcr.io/formancehq/console-v3
   # -- image pull policy
   pullPolicy: IfNotPresent
   # -- image tag

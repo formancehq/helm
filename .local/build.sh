@@ -39,3 +39,6 @@ for chart in "$CHARTS_DIR"/*; do
 done
 
 echo "\nTraitement terminé. Tous les charts ont été mis à jour."
+
+earthly +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
+earthly +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md

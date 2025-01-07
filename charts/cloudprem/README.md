@@ -528,7 +528,7 @@ Dex:
 | console-v3.config.sentry.environment | string | `""` | Sentry environment |
 | console-v3.config.sentry.release | string | `""` | Sentry release |
 | console-v3.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
-| console-v3.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
+| console-v3.image.repository | string | `"ghcr.io/formancehq/console-v3"` | image repository |
 | console-v3.image.tag | string | `""` | image tag |
 | console-v3.imagePullSecrets | list | `[]` | image pull secrets |
 | console-v3.ingress.annotations | object | `{}` | ingress annotations |

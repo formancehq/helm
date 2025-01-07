@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: v1.0.4](https://img.shields.io/badge/Version-v1.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
+![Version: v1.0.5](https://img.shields.io/badge/Version-v1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
 
 Formance Console
 
@@ -85,7 +85,7 @@ Kubernetes: `>=1.14.0-0`
 | config.sentry.environment | string | `""` | Sentry environment |
 | config.sentry.release | string | `""` | Sentry release |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
-| image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
+| image.repository | string | `"ghcr.io/formancehq/console-v3"` | image repository |
 | image.tag | string | `""` | image tag |
 | imagePullSecrets | list | `[]` | image pull secrets |
 | ingress.annotations | object | `{}` | ingress annotations |
