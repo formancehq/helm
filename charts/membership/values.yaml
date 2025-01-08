@@ -513,7 +513,7 @@ dex:
     pullPolicy: IfNotPresent
     # -- image tag
     # @section -- Dex configuration
-    tag: v0.33.10
+    tag: v0.36.2
 
   ingress:
     # -- Dex ingress enabled

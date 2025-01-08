@@ -1,6 +1,6 @@
 # membership
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -96,7 +96,7 @@ Kubernetes: `>=1.14.0-0`
 | dex.envVars | list | `[]` | Dex additional environment variables |
 | dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| dex.image.tag | string | `"v0.33.10"` | image tag |
+| dex.image.tag | string | `"v0.36.2"` | image tag |
 | dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |

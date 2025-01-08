@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -419,7 +419,7 @@ Dex:
 | membership.dex.envVars | list | `[]` | Dex additional environment variables |
 | membership.dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | membership.dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| membership.dex.image.tag | string | `"v0.33.10"` | image tag |
+| membership.dex.image.tag | string | `"v0.36.2"` | image tag |
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
