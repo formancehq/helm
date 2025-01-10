@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: 2.2.0](https://img.shields.io/badge/Version-2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -462,6 +462,7 @@ Dex:
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | global.platform.portal.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | EXPERIMENTAL |
 | console.affinity | object | `{}` | Console affinity |
+| console.annotations | object | `{}` | Console annotations  |
 | console.autoscaling.enabled | bool | `false` |  |
 | console.autoscaling.maxReplicas | int | `100` |  |
 | console.autoscaling.minReplicas | int | `1` |  |
@@ -510,6 +511,7 @@ Dex:
 | console.volumeMounts | list | `[]` | Console volume mounts |
 | console.volumes | list | `[]` | Console volumes |
 | console-v3.affinity | object | `{}` | Console affinity |
+| console-v3.annotations | object | `{}` | Console annotations  |
 | console-v3.autoscaling.enabled | bool | `false` |  |
 | console-v3.autoscaling.maxReplicas | int | `100` |  |
 | console-v3.autoscaling.minReplicas | int | `1` |  |
@@ -559,6 +561,7 @@ Dex:
 | console-v3.volumeMounts | list | `[]` | Console volume mounts |
 | console-v3.volumes | list | `[]` | Console volumes |
 | membership.affinity | object | `{}` | Membership affinity |
+| membership.annotations | object | `{}` | Membership annotations  |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | membership.config.additionalEnv | list | `[]` | Additional Environment variables on the main deployment |
@@ -638,6 +641,7 @@ Dex:
 | membership.volumeMounts | list | `[]` | Membership volume mounts |
 | membership.volumes | list | `[]` | Membership volumes |
 | portal.affinity | object | `{}` | Portal affinity |
+| portal.annotations | object | `{}` | Portal annotations  |
 | portal.autoscaling.enabled | bool | `false` |  |
 | portal.autoscaling.maxReplicas | int | `100` |  |
 | portal.autoscaling.minReplicas | int | `1` |  |

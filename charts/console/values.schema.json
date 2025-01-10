@@ -5,6 +5,10 @@
             "properties": {},
             "type": "object"
         },
+        "annotations": {
+            "properties": {},
+            "type": "object"
+        },
         "autoscaling": {
             "properties": {
                 "enabled": {

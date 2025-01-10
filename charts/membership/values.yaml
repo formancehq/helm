@@ -257,6 +257,9 @@ initContainers: []
 # -- Membership volume mounts
 volumeMounts: []
 
+# -- Membership annotations 
+annotations: {}
+
 # -- Membership volumes
 volumes: []
 

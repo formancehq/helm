@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 368ae6f5bd0a51bd5d9ebc0248a866869df5e326](https://img.shields.io/badge/AppVersion-368ae6f5bd0a51bd5d9ebc0248a866869df5e326-informational?style=flat-square)
 
 Formance Console
 
@@ -67,6 +67,7 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | global.platform.portal.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | EXPERIMENTAL |
 | affinity | object | `{}` | Console affinity |
+| annotations | object | `{}` | Console annotations  |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |

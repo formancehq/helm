@@ -1,6 +1,6 @@
 # membership
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -135,6 +135,7 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.enabled | bool | `false` |  |
 | global.platform.consoleV3.enabled | bool | `false` |  |
 | affinity | object | `{}` | Membership affinity |
+| annotations | object | `{}` | Membership annotations  |
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |
 | config.additionalEnv | list | `[]` | Additional Environment variables on the main deployment |

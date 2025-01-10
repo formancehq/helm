@@ -1,6 +1,6 @@
 # portal
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
 
 Formance Portal
 
@@ -70,6 +70,7 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V2 Cookie |
 | global.platform.portal.cookie | object | `{"encryptionKey":"changeMe1","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V3: EXPERIMENTAL |
 | affinity | object | `{}` | Portal affinity |
+| annotations | object | `{}` | Portal annotations  |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
