@@ -205,6 +205,9 @@ ingress:
 # -- Console volume mounts
 volumeMounts: []
 
+# -- Console annotations 
+annotations: {}
+
 # -- Console volumes
 volumes: []
 

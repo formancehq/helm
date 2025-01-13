@@ -235,6 +235,9 @@ service:
 # -- Portal volume mounts
 volumeMounts: []
 
+# -- Portal annotations 
+annotations: {}
+
 # -- Portal volumes
 volumes: []
 
