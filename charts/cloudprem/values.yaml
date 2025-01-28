@@ -13,10 +13,8 @@ global:
     # @section -- Global AWS configuration
     elb: false
   platform:
-    # -- Enable platform oauth2 client
-    # @section -- Global configuration
-    enabled: true
     console:
+      enabled: true
       # -- is the scheme for the console
       # @section -- Global configuration
       scheme: "https"
@@ -32,6 +30,7 @@ global:
       # @section -- Global configuration
       host: "console.v3.{{ .Values.global.serviceHost }}"
     portal:
+      enabled: true
       # -- is the scheme for the portal
       # @section -- Global configuration
       scheme: "https"
@@ -52,20 +51,6 @@ global:
         # -- is the host for the membership
         # @section -- Global configuration
         host: "dex.{{ .Values.global.serviceHost }}"
-      oauthClient:
-        # -- is the id of the client
-        # @section -- Global configuration
-        id: "platform"
-        # -- is the secret of the client
-        # @section -- Global configuration
-        secret: "changeMe1"
-        # -- is the name of the secret
-        # @section -- Global configuration
-        existingSecret: ""
-        # -- is the key contained within the secret
-        # @section -- Global configuration
-        secretKeys:
-          secret: ""
       oidc:
         # -- is the scheme for the issuer
         scheme: "https"

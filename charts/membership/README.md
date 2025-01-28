@@ -1,6 +1,6 @@
 # membership
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.4](https://img.shields.io/badge/AppVersion-v1.0.4-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -48,18 +48,21 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
+| global.platform.consoleV3.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
+| global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
+| global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.enabled | bool | `true` | Enable platform communication with membership, add specific oauth2 clients, and will rollout membership depending to .membership.oauthClient |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
-| global.platform.membership.oauthClient.existingSecret | string | `""` | is the name of the secret |
-| global.platform.membership.oauthClient.id | string | `"platform"` | is the id of the client |
-| global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
-| global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the relying party issuer |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
 | global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme the relying party |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
+| global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
+| global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
+| global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
+| global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.postgresql.additionalArgs | string | `"sslmode=disable"` | Additional arguments for PostgreSQL Connection URI |
 | global.postgresql.auth.database | string | `"formance"` | Name for a custom database to create (overrides `auth.database`) |
@@ -85,7 +88,7 @@ Kubernetes: `>=1.14.0-0`
 | dex.configOverrides.enablePasswordDB | bool | `true` | enable password db |
 | dex.configOverrides.oauth2.responseTypes | list | `["code","token","id_token"]` | oauth2 response types |
 | dex.configOverrides.oauth2.skipApprovalScreen | bool | `true` | oauth2 skip approval screen |
-| dex.configOverrides.staticPasswords[0].email | string | `"admin@formance.com"` | static passwords email |
+| dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
 | dex.configOverrides.staticPasswords[0].hash | string | `"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"` | static passwords hash |
 | dex.configOverrides.staticPasswords[0].userID | string | `"08a8684b-db88-4b73-90a9-3cd1661f5466"` | static passwords user id |
 | dex.configOverrides.staticPasswords[0].username | string | `"admin"` | static passwords username |
@@ -100,8 +103,8 @@ Kubernetes: `>=1.14.0-0`
 | dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |
-| dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
-| dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
+| dex.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | Dex ingress host |
+| dex.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | dex.ingress.tls | list | `[]` | Dex ingress tls |
 | dex.resources | object | `{}` | Dex resources |
@@ -133,7 +136,11 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
+| global.platform.console.enabled | bool | `true` |  |
 | global.platform.consoleV3.enabled | bool | `false` |  |
+| global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
+| global.platform.portal.enabled | bool | `true` |  |
+| global.platform.portal.oauth.client.existingSecret | string | `""` |  |
 | affinity | object | `{}` | Membership affinity |
 | annotations | object | `{}` | Membership annotations  |
 | autoscaling | object | `{}` | Membership autoscaling |
@@ -187,7 +194,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.className | string | `""` | Membership ingress class name |
 | ingress.enabled | bool | `true` | Membership ingress enabled |
 | ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.host $ }}","paths":[{"path":"/api","pathType":"Prefix"}]}` | Membership ingress host |
-| ingress.hosts[0].paths[0].path | string | `"/api"` | Membership ingress path |
+| ingress.hosts[0].paths[0] | object | `{"path":"/api","pathType":"Prefix"}` | Membership ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Membership ingress path type |
 | ingress.tls | list | `[]` | Membership ingress tls |
 | initContainers | list | `[]` | Membership init containers |
@@ -205,7 +212,7 @@ Kubernetes: `>=1.14.0-0`
 | securityContext.runAsUser | int | `1000` | Membership security context run as user |
 | service.annotations | object | `{}` | service annotations |
 | service.clusterIP | string | `""` | service cluster IP |
-| service.ports.grpc | object | `{"port":8082}` | service grpc port |
+| service.ports.grpc.port | int | `8082` |  |
 | service.ports.http | object | `{"port":8080}` | service http port |
 | service.type | string | `"ClusterIP"` | service type |
 | serviceAccount.annotations | object | `{}` | Service account annotations |

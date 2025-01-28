@@ -30,6 +30,7 @@ for chart in "$CHARTS_DIR"/*; do
     if [ -f "$chart/Chart.yaml" ]; then
       echo "  Mise à jour des dépendances..."
       helm dependencies update "$chart"
+      helm template "$chart" --values "$chart/values.yaml" 
     else
       echo "  Chart.yaml non trouvé, saut de la mise à jour des dépendances."
     fi

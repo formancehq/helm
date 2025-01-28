@@ -107,7 +107,7 @@ func (s *TemplatePlatfromTest) TestAppEnabled() {
 						options.SetValues["global.nats.enabled"] = "true"
 					}
 
-					options.SetValues[fmt.Sprintf("%s.enabled", app)] = strconv.FormatBool(enabled)
+					options.SetValues[fmt.Sprintf("global.platform.%s.enabled", app)] = strconv.FormatBool(enabled)
 					output, err := helm.RenderTemplateE(t, options, s.ChartPath, s.Release, []string{fmt.Sprintf("charts/%s/templates/%s", app, templateName)})
 					if enabled {
 						require.NoError(t, err)

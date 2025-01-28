@@ -1,6 +1,6 @@
 # portal
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 191a441519a65dae56a5b2cf56fe64eee03fc059](https://img.shields.io/badge/AppVersion-191a441519a65dae56a5b2cf56fe64eee03fc059-informational?style=flat-square)
+![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fd50377c162c62a1dc4485a41996bb4e4574cf3d](https://img.shields.io/badge/AppVersion-fd50377c162c62a1dc4485a41996bb4e4574cf3d-informational?style=flat-square)
 
 Formance Portal
 
@@ -47,19 +47,16 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.traces.port | int | `4317` | Port |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
-| global.platform.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
-| global.platform.membership.oauthClient.existingSecret | string | `""` | is the name of the secret |
-| global.platform.membership.oauthClient.id | string | `"platform"` | is the id of the client |
-| global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
-| global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
-| global.platform.portal.cookie.encryptionKey | string | `"changeMe1"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
-| global.platform.portal.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.portal.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
+| global.platform.portal.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.portal.oauth.client.id | string | `"platform"` | is the id of the client |
+| global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
+| global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.portal.oauth.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that store authentication between console-v2 and portal |
+| global.platform.portal.oauth.cookie.existingSecret | string | `""` | is the name of the secret |
+| global.platform.portal.oauth.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 
@@ -67,8 +64,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.platform.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V2 Cookie |
-| global.platform.portal.cookie | object | `{"encryptionKey":"changeMe1","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V3: EXPERIMENTAL |
+| global.platform.console.enabled | bool | `true` |  |
 | affinity | object | `{}` | Portal affinity |
 | annotations | object | `{}` | Portal annotations  |
 | autoscaling.enabled | bool | `false` |  |
@@ -95,7 +91,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.className | string | `""` | ingress class name |
 | ingress.enabled | bool | `true` | ingress enabled |
 | ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.portal.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
-| ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
+| ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.tls | list | `[]` | ingress tls |
 | livenessProbe | object | `{}` | Portal liveness probe |
@@ -116,5 +112,5 @@ Kubernetes: `>=1.14.0-0`
 | serviceAccount.create | bool | `true` | Service account creation |
 | serviceAccount.name | string | `""` | Service account name |
 | tolerations | list | `[]` | Portal tolerations |
-| volumeMounts | list | `[]` | Portal volume mounts |
+| volumeMounts | list | `[]` |  |
 | volumes | list | `[]` | Portal volumes |

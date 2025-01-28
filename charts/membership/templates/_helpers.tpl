@@ -74,15 +74,19 @@
 - name: CONSOLE_PUBLIC_BASEURL
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) .Values.config.redirect_url) $ }}
 {{- end }}
-- name: PLATFORM_OAUTH_CLIENT_SECRET
-  {{- if gt (len .Values.global.platform.membership.oauthClient.existingSecret) 0 }}
+{{- range $serviceName, $service := .Values.global.platform }}
+{{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled }}
+- name: {{ printf "%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}
+  {{- if gt (len $service.oauth.client.existingSecret) 0 }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.global.platform.membership.oauthClient.existingSecret }}
-      key: {{ .Values.global.platform.membership.oauthClient.secretKeys.secret }}
+      name: {{ $service.oauth.client.existingSecret }}
+      key: {{ $service.oauth.client.secretKeys.secret }}
   {{- else }}
-  value: {{ .Values.global.platform.membership.oauthClient.secret | quote }}
+  value: {{ $service.oauth.client.secret | quote }}
   {{- end }}
+{{- end -}}
+{{- end -}}
 {{- include "core.postgres.uri" . }}
 {{- include "core.monitoring" . }}
 {{- include "membership.grpc.env" . }}

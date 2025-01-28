@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: 3.0.0-rc.0](https://img.shields.io/badge/Version-3.0.0--rc.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.4](https://img.shields.io/badge/AppVersion-v1.0.4-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -269,6 +269,22 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### From v2.X.X To v3.0.0
+
+> No configuration changes are required for this upgrade.
+
+Membership service contain a behavior breaking changes within the RBAC module.
+
+Before, permissions were managed dynamically on the organization and stack with a *fallback* on the organization resource. (default organization accesses and default stack accesses). Which led to a lot of confusion and inconsistency regarding the users permissions
+
+Now, the fallback has been removed from the RBAC module and is only used when a new user joins the organization.
+
+Note: `Console-v3` (experimental) and `Portal` have been updated to manage the new RBAC module.
+
+## Breaking changes
+
+TODO: Add breaking changes
+
 ### From v1.0.X To v2.0.X
 
 A global configuration has been introduced to manage values accross different services. To see the detail of the default values, please refer to the [Global Parameters](#global-configuration) section.
@@ -339,8 +355,6 @@ Dex:
 |-----|------|---------|-------------|
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
-| console.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
-| console-v3.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
 | membership.aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port }}"},"targetGroupARN":"","targetType":"ip"},"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Membership target groups |
 | membership.dex.aws | object | `{"targetGroups":{"dex-http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"dex.fullname\" .Subcharts.dex }}","port":"{{ .Values.dex.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Target Groups |
 | portal.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
@@ -363,26 +377,28 @@ Dex:
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","scheme":"https"}` | Console V3: EXPERIMENTAL |
+| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"platform","secret":"changeMe1","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.consoleV3.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.consoleV3.oauth.client.id | string | `"platform"` | is the id of the client |
+| global.platform.consoleV3.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
+| global.platform.consoleV3.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
+| global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
-| global.platform.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
-| global.platform.enabled | bool | `true` | Enable platform oauth2 client |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
-| global.platform.membership.oauthClient.existingSecret | string | `""` | is the name of the secret |
-| global.platform.membership.oauthClient.id | string | `"platform"` | is the id of the client |
-| global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
-| global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
 | global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
-| global.platform.portal.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
-| global.platform.portal.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.portal.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
+| global.platform.portal.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.portal.oauth.client.id | string | `"platform"` | is the id of the client |
+| global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
+| global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
+| global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.portal.oauth.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId It is not shared with console-v3 and the domain is only limited to portal app |
+| global.platform.portal.oauth.cookie.existingSecret | string | `""` | is the name of the secret |
+| global.platform.portal.oauth.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.postgresql.additionalArgs | string | `"sslmode=disable"` | Additional arguments for PostgreSQL Connection URI |
 | global.postgresql.auth.database | string | `"formance"` | Name for a custom database to create (overrides `auth.database`) |
@@ -395,6 +411,9 @@ Dex:
 | global.postgresql.host | string | `""` | Host for PostgreSQL (overrides included postgreql `host`) |
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
+| console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
+| console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
+| console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | membership.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
 | membership.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
 | membership.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
@@ -408,7 +427,7 @@ Dex:
 | membership.dex.configOverrides.enablePasswordDB | bool | `true` | enable password db |
 | membership.dex.configOverrides.oauth2.responseTypes | list | `["code","token","id_token"]` | oauth2 response types |
 | membership.dex.configOverrides.oauth2.skipApprovalScreen | bool | `true` | oauth2 skip approval screen |
-| membership.dex.configOverrides.staticPasswords[0].email | string | `"admin@formance.com"` | static passwords email |
+| membership.dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
 | membership.dex.configOverrides.staticPasswords[0].hash | string | `"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"` | static passwords hash |
 | membership.dex.configOverrides.staticPasswords[0].userID | string | `"08a8684b-db88-4b73-90a9-3cd1661f5466"` | static passwords user id |
 | membership.dex.configOverrides.staticPasswords[0].username | string | `"admin"` | static passwords username |
@@ -423,8 +442,8 @@ Dex:
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
-| membership.dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
-| membership.dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
+| membership.dex.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | Dex ingress host |
+| membership.dex.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | membership.dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | membership.dex.ingress.tls | list | `[]` | Dex ingress tls |
 | membership.dex.resources | object | `{}` | Dex resources |
@@ -456,11 +475,11 @@ Dex:
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
+| global.platform.console.enabled | bool | `true` |  |
 | global.platform.consoleV3.enabled | bool | `false` |  |
-| global.platform.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | Console V2 Cookie Will be deprecated later |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
-| global.platform.portal.cookie | object | `{"encryptionKey":"changeMe00","existingSecret":"","secretKeys":{"encryptionKey":""}}` | EXPERIMENTAL |
+| global.platform.portal.enabled | bool | `true` |  |
 | console.affinity | object | `{}` | Console affinity |
 | console.annotations | object | `{}` | Console annotations  |
 | console.autoscaling.enabled | bool | `false` |  |
@@ -487,7 +506,7 @@ Dex:
 | console.ingress.className | string | `""` | ingress class name |
 | console.ingress.enabled | bool | `true` | ingress enabled |
 | console.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.console.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
-| console.ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
+| console.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | console.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | console.ingress.tls | list | `[]` | ingress tls |
 | console.livenessProbe | object | `{}` | Console liveness probe |
@@ -537,7 +556,7 @@ Dex:
 | console-v3.ingress.className | string | `""` | ingress class name |
 | console-v3.ingress.enabled | bool | `true` | ingress enabled |
 | console-v3.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
-| console-v3.ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
+| console-v3.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | console-v3.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | console-v3.ingress.tls | list | `[]` | ingress tls |
 | console-v3.livenessProbe | object | `{}` | Console liveness probe |
@@ -613,7 +632,7 @@ Dex:
 | membership.ingress.className | string | `""` | Membership ingress class name |
 | membership.ingress.enabled | bool | `true` | Membership ingress enabled |
 | membership.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.host $ }}","paths":[{"path":"/api","pathType":"Prefix"}]}` | Membership ingress host |
-| membership.ingress.hosts[0].paths[0].path | string | `"/api"` | Membership ingress path |
+| membership.ingress.hosts[0].paths[0] | object | `{"path":"/api","pathType":"Prefix"}` | Membership ingress path |
 | membership.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Membership ingress path type |
 | membership.ingress.tls | list | `[]` | Membership ingress tls |
 | membership.initContainers | list | `[]` | Membership init containers |
@@ -631,7 +650,7 @@ Dex:
 | membership.securityContext.runAsUser | int | `1000` | Membership security context run as user |
 | membership.service.annotations | object | `{}` | service annotations |
 | membership.service.clusterIP | string | `""` | service cluster IP |
-| membership.service.ports.grpc | object | `{"port":8082}` | service grpc port |
+| membership.service.ports.grpc.port | int | `8082` |  |
 | membership.service.ports.http | object | `{"port":8080}` | service http port |
 | membership.service.type | string | `"ClusterIP"` | service type |
 | membership.serviceAccount.annotations | object | `{}` | Service account annotations |
@@ -666,7 +685,7 @@ Dex:
 | portal.ingress.className | string | `""` | ingress class name |
 | portal.ingress.enabled | bool | `true` | ingress enabled |
 | portal.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.portal.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
-| portal.ingress.hosts[0].paths[0].path | string | `"/"` | ingress path |
+| portal.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | portal.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | portal.ingress.tls | list | `[]` | ingress tls |
 | portal.livenessProbe | object | `{}` | Portal liveness probe |
@@ -687,5 +706,5 @@ Dex:
 | portal.serviceAccount.create | bool | `true` | Service account creation |
 | portal.serviceAccount.name | string | `""` | Service account name |
 | portal.tolerations | list | `[]` | Portal tolerations |
-| portal.volumeMounts | list | `[]` | Portal volume mounts |
+| portal.volumeMounts | list | `[]` |  |
 | portal.volumes | list | `[]` | Portal volumes |

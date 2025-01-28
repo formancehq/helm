@@ -647,6 +647,9 @@
                     "properties": {
                         "console": {
                             "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "host": {
                                     "type": "string"
                                 },
@@ -664,41 +667,49 @@
                                 "host": {
                                     "type": "string"
                                 },
-                                "scheme": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "membership": {
-                            "properties": {
-                                "host": {
-                                    "type": "string"
-                                },
-                                "oauthClient": {
+                                "oauth": {
                                     "properties": {
-                                        "existingSecret": {
-                                            "type": "string"
-                                        },
-                                        "id": {
-                                            "type": "string"
-                                        },
-                                        "secret": {
-                                            "type": "string"
-                                        },
-                                        "secretKeys": {
+                                        "client": {
                                             "properties": {
+                                                "existingSecret": {
+                                                    "type": "string"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "scopes": {
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
                                                 "secret": {
                                                     "type": "string"
+                                                },
+                                                "secretKeys": {
+                                                    "properties": {
+                                                        "secret": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
                                                 }
                                             },
                                             "type": "object"
                                         }
                                     },
                                     "type": "object"
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "membership": {
+                            "properties": {
+                                "host": {
+                                    "type": "string"
                                 },
                                 "relyingParty": {
                                     "properties": {
@@ -722,8 +733,44 @@
                         },
                         "portal": {
                             "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "host": {
                                     "type": "string"
+                                },
+                                "oauth": {
+                                    "properties": {
+                                        "client": {
+                                            "properties": {
+                                                "existingSecret": {
+                                                    "type": "string"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "scopes": {
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "secret": {
+                                                    "type": "string"
+                                                },
+                                                "secretKeys": {
+                                                    "properties": {
+                                                        "secret": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
                                 },
                                 "scheme": {
                                     "type": "string"

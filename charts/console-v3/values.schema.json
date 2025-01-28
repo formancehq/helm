@@ -66,6 +66,25 @@
                 "additionalEnv": {
                     "type": "array"
                 },
+                "cookie": {
+                    "properties": {
+                        "encryptionKey": {
+                            "type": "string"
+                        },
+                        "existingSecret": {
+                            "type": "string"
+                        },
+                        "secretKeys": {
+                            "properties": {
+                                "encryptionKey": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
                 "environment": {
                     "type": "string"
                 },
@@ -159,6 +178,33 @@
                                 "host": {
                                     "type": "string"
                                 },
+                                "oauth": {
+                                    "properties": {
+                                        "client": {
+                                            "properties": {
+                                                "existingSecret": {
+                                                    "type": "string"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "secret": {
+                                                    "type": "string"
+                                                },
+                                                "secretKeys": {
+                                                    "properties": {
+                                                        "secret": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
                                 "scheme": {
                                     "type": "string"
                                 }
@@ -170,28 +216,6 @@
                                 "host": {
                                     "type": "string"
                                 },
-                                "oauthClient": {
-                                    "properties": {
-                                        "existingSecret": {
-                                            "type": "string"
-                                        },
-                                        "id": {
-                                            "type": "string"
-                                        },
-                                        "secret": {
-                                            "type": "string"
-                                        },
-                                        "secretKeys": {
-                                            "properties": {
-                                                "secret": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
                                 "scheme": {
                                     "type": "string"
                                 }
@@ -200,25 +224,6 @@
                         },
                         "portal": {
                             "properties": {
-                                "cookie": {
-                                    "properties": {
-                                        "encryptionKey": {
-                                            "type": "string"
-                                        },
-                                        "existingSecret": {
-                                            "type": "string"
-                                        },
-                                        "secretKeys": {
-                                            "properties": {
-                                                "encryptionKey": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
                                 "host": {
                                     "type": "string"
                                 },

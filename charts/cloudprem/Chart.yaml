@@ -32,31 +32,31 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.2.1
+version: 3.0.0-rc.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "v0.36.2"
+appVersion: "v1.0.4"
 
 kubeVersion: ">=1.14.0-0"
 sources: []
 
 dependencies:
 - name: membership
-  version: 1.X
+  version: 2.X
   repository: file://../membership
-  condition: membership.enabled
+  condition: global.platform.membership.enabled
 - name: portal
-  version: 1.X
+  version: 2.X
   repository: file://../portal
-  condition: portal.enabled
+  condition: global.platform.portal.enabled
 - name: console
-  version: 1.X
+  version: 2.X
   repository: file://../console
-  condition: console.enabled
+  condition: global.platform.console.enabled
 - name: console-v3
-  version: 1.X
+  version: 2.X
   repository: file://../console-v3
   condition: global.platform.consoleV3.enabled
