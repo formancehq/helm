@@ -90,7 +90,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.annotations | object | `{}` | ingress annotations |
 | ingress.className | string | `""` | ingress class name |
 | ingress.enabled | bool | `true` | ingress enabled |
-| ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.portal.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.portal.host $ }}"` | ingress host |
 | ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.tls | list | `[]` | ingress tls |
@@ -112,5 +112,5 @@ Kubernetes: `>=1.14.0-0`
 | serviceAccount.create | bool | `true` | Service account creation |
 | serviceAccount.name | string | `""` | Service account name |
 | tolerations | list | `[]` | Portal tolerations |
-| volumeMounts | list | `[]` |  |
+| volumeMounts | list | `[]` | Portal volume mounts |
 | volumes | list | `[]` | Portal volumes |

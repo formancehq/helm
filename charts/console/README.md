@@ -88,7 +88,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.annotations | object | `{}` | ingress annotations |
 | ingress.className | string | `""` | ingress class name |
 | ingress.enabled | bool | `true` | ingress enabled |
-| ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.console.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.console.host $ }}"` | ingress host |
 | ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.tls | list | `[]` | ingress tls |

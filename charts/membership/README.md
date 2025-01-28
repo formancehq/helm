@@ -88,7 +88,7 @@ Kubernetes: `>=1.14.0-0`
 | dex.configOverrides.enablePasswordDB | bool | `true` | enable password db |
 | dex.configOverrides.oauth2.responseTypes | list | `["code","token","id_token"]` | oauth2 response types |
 | dex.configOverrides.oauth2.skipApprovalScreen | bool | `true` | oauth2 skip approval screen |
-| dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
+| dex.configOverrides.staticPasswords[0].email | string | `"admin@formance.com"` | static passwords email |
 | dex.configOverrides.staticPasswords[0].hash | string | `"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"` | static passwords hash |
 | dex.configOverrides.staticPasswords[0].userID | string | `"08a8684b-db88-4b73-90a9-3cd1661f5466"` | static passwords user id |
 | dex.configOverrides.staticPasswords[0].username | string | `"admin"` | static passwords username |
@@ -103,7 +103,7 @@ Kubernetes: `>=1.14.0-0`
 | dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |
-| dex.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | Dex ingress host |
+| dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
 | dex.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | dex.ingress.tls | list | `[]` | Dex ingress tls |
@@ -155,7 +155,7 @@ Kubernetes: `>=1.14.0-0`
 | config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
 | config.job.garbageCollector | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Clean expired tokens and refresh tokens after X time |
 | config.job.stackLifeCycle | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Job create 2 jobs to eaither warn or prune a stacks This does not change the state of the stack WARN: Mark stack Disposable -> trigger a mail PRUNE: Mark stack Warned -> trigger a mail It blocks stack cycles if supendend It is highly recommended to enable it as it is the only way we control |
-| config.migration.annotations | object | `{}` | Membership job migration annotations |
+| config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | config.migration.serviceAccount.annotations | object | `{}` |  |
 | config.migration.serviceAccount.create | bool | `true` |  |
 | config.migration.serviceAccount.name | string | `""` |  |
@@ -212,7 +212,7 @@ Kubernetes: `>=1.14.0-0`
 | securityContext.runAsUser | int | `1000` | Membership security context run as user |
 | service.annotations | object | `{}` | service annotations |
 | service.clusterIP | string | `""` | service cluster IP |
-| service.ports.grpc.port | int | `8082` |  |
+| service.ports.grpc.port | int | `8082` | service grpc port |
 | service.ports.http | object | `{"port":8080}` | service http port |
 | service.type | string | `"ClusterIP"` | service type |
 | serviceAccount.annotations | object | `{}` | Service account annotations |

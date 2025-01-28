@@ -149,8 +149,8 @@ service:
       # -- service node port
       # nodePort:
 
-      # -- AWS Console target groups
-      # @section -- Global AWS configuration
+# -- AWS Console target groups
+# @section -- Global AWS configuration
 aws:
   targetGroups:
     http:
@@ -174,8 +174,8 @@ ingress:
   # -- ingress annotations
   annotations: {}
   hosts:
-  # -- ingress host
-  - host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"
+  - # -- ingress host
+    host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"
     paths:
     # -- ingress path
     - path: /

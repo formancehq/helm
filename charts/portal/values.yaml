@@ -135,8 +135,8 @@ ingress:
   # -- ingress annotations
   annotations: {}
   hosts:
-  # -- ingress host
-  - host: "{{ tpl .Values.global.platform.portal.host $ }}"
+  - # -- ingress host
+    host: "{{ tpl .Values.global.platform.portal.host $ }}"
     paths:
     # -- ingress path
     - path: /
@@ -215,7 +215,7 @@ service:
       # -- service node port
       # nodePort:
 
-      # -- Portal volume mounts
+# -- Portal volume mounts
 volumeMounts: []
 
 # -- Portal annotations 

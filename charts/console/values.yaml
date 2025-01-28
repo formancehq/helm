@@ -183,8 +183,8 @@ ingress:
   # -- ingress annotations
   annotations: {}
   hosts:
-  # -- ingress host
-  - host: "{{ tpl .Values.global.platform.console.host $ }}"
+  - # -- ingress host
+    host: "{{ tpl .Values.global.platform.console.host $ }}"
     paths:
     # -- ingress path
     - path: /

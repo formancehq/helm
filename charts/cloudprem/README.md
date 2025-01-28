@@ -271,19 +271,29 @@ See [profiles](./profiles) for more examples.
 
 ### From v2.X.X To v3.0.0
 
-> No configuration changes are required for this upgrade.
+## RBAC
 
-Membership service contain a behavior breaking changes within the RBAC module.
+Membership service contains a behavior-breaking change within the RBAC module.
 
-Before, permissions were managed dynamically on the organization and stack with a *fallback* on the organization resource. (default organization accesses and default stack accesses). Which led to a lot of confusion and inconsistency regarding the users permissions
+Before, permissions were managed dynamically on the organization and stack with a *fallback* on the organization resource. (default organization accesses and default stack accesses). Which led to a lot of confusion and inconsistency regarding the user's permissions
 
-Now, the fallback has been removed from the RBAC module and is only used when a new user joins the organization.
+The fallback has been removed from the RBAC module and is only used when a new user joins the organization.
 
-Note: `Console-v3` (experimental) and `Portal` have been updated to manage the new RBAC module.
+## Cookies
+
+Portal and Console v3 are no longer sharing Oauth clients and cookies. The cookie domain is now set on the app domain. Enabling `console` will set the domain on the parent domain. See #breaking-changes for config changes.
 
 ## Breaking changes
 
-TODO: Add breaking changes
+> The structure does not change
+
+- `.global.platform.cookie` has been moved to `.global.platform.portal.oauth.cookie`
+- `.global.platform.membership.oauthClient` has been moved to `.global.platform.portal.oauth.client` for console backward compatibility but can be different when using console-v3.
+
+## Additions
+
+- `global.platform.consoleV3.oauth.client` has been added to manage the new console-v3 oauth client.
+- `console-v3.config.cookie` has been added to manage the new console-v3 cookie.
 
 ### From v1.0.X To v2.0.X
 
@@ -355,6 +365,7 @@ Dex:
 |-----|------|---------|-------------|
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
+| console-v3.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
 | membership.aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port }}"},"targetGroupARN":"","targetType":"ip"},"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Membership target groups |
 | membership.dex.aws | object | `{"targetGroups":{"dex-http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"dex.fullname\" .Subcharts.dex }}","port":"{{ .Values.dex.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Target Groups |
 | portal.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
@@ -427,7 +438,7 @@ Dex:
 | membership.dex.configOverrides.enablePasswordDB | bool | `true` | enable password db |
 | membership.dex.configOverrides.oauth2.responseTypes | list | `["code","token","id_token"]` | oauth2 response types |
 | membership.dex.configOverrides.oauth2.skipApprovalScreen | bool | `true` | oauth2 skip approval screen |
-| membership.dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
+| membership.dex.configOverrides.staticPasswords[0].email | string | `"admin@formance.com"` | static passwords email |
 | membership.dex.configOverrides.staticPasswords[0].hash | string | `"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"` | static passwords hash |
 | membership.dex.configOverrides.staticPasswords[0].userID | string | `"08a8684b-db88-4b73-90a9-3cd1661f5466"` | static passwords user id |
 | membership.dex.configOverrides.staticPasswords[0].username | string | `"admin"` | static passwords username |
@@ -442,7 +453,7 @@ Dex:
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
-| membership.dex.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | Dex ingress host |
+| membership.dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
 | membership.dex.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | membership.dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | membership.dex.ingress.tls | list | `[]` | Dex ingress tls |
@@ -505,7 +516,7 @@ Dex:
 | console.ingress.annotations | object | `{}` | ingress annotations |
 | console.ingress.className | string | `""` | ingress class name |
 | console.ingress.enabled | bool | `true` | ingress enabled |
-| console.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.console.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| console.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.console.host $ }}"` | ingress host |
 | console.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | console.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | console.ingress.tls | list | `[]` | ingress tls |
@@ -555,7 +566,7 @@ Dex:
 | console-v3.ingress.annotations | object | `{}` | ingress annotations |
 | console-v3.ingress.className | string | `""` | ingress class name |
 | console-v3.ingress.enabled | bool | `true` | ingress enabled |
-| console-v3.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| console-v3.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.consoleV3.host $ }}"` | ingress host |
 | console-v3.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | console-v3.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | console-v3.ingress.tls | list | `[]` | ingress tls |
@@ -593,7 +604,7 @@ Dex:
 | membership.config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
 | membership.config.job.garbageCollector | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Clean expired tokens and refresh tokens after X time |
 | membership.config.job.stackLifeCycle | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Job create 2 jobs to eaither warn or prune a stacks This does not change the state of the stack WARN: Mark stack Disposable -> trigger a mail PRUNE: Mark stack Warned -> trigger a mail It blocks stack cycles if supendend It is highly recommended to enable it as it is the only way we control |
-| membership.config.migration.annotations | object | `{}` | Membership job migration annotations |
+| membership.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | membership.config.migration.serviceAccount.annotations | object | `{}` |  |
 | membership.config.migration.serviceAccount.create | bool | `true` |  |
 | membership.config.migration.serviceAccount.name | string | `""` |  |
@@ -650,7 +661,7 @@ Dex:
 | membership.securityContext.runAsUser | int | `1000` | Membership security context run as user |
 | membership.service.annotations | object | `{}` | service annotations |
 | membership.service.clusterIP | string | `""` | service cluster IP |
-| membership.service.ports.grpc.port | int | `8082` |  |
+| membership.service.ports.grpc.port | int | `8082` | service grpc port |
 | membership.service.ports.http | object | `{"port":8080}` | service http port |
 | membership.service.type | string | `"ClusterIP"` | service type |
 | membership.serviceAccount.annotations | object | `{}` | Service account annotations |
@@ -684,7 +695,7 @@ Dex:
 | portal.ingress.annotations | object | `{}` | ingress annotations |
 | portal.ingress.className | string | `""` | ingress class name |
 | portal.ingress.enabled | bool | `true` | ingress enabled |
-| portal.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.portal.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| portal.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.portal.host $ }}"` | ingress host |
 | portal.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | portal.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | portal.ingress.tls | list | `[]` | ingress tls |
@@ -706,5 +717,5 @@ Dex:
 | portal.serviceAccount.create | bool | `true` | Service account creation |
 | portal.serviceAccount.name | string | `""` | Service account name |
 | portal.tolerations | list | `[]` | Portal tolerations |
-| portal.volumeMounts | list | `[]` |  |
+| portal.volumeMounts | list | `[]` | Portal volume mounts |
 | portal.volumes | list | `[]` | Portal volumes |
