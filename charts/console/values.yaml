@@ -54,7 +54,7 @@ global:
         client:
           # -- is the id of the client
           # @section -- Global configuration
-          id: "platform"
+          id: "portal"
           # -- is the secret of the client
           # @section -- Global configuration
           secret: "changeMe1"

@@ -51,7 +51,7 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.oauth.client.existingSecret | string | `""` | is the name of the secret |
-| global.platform.portal.oauth.client.id | string | `"platform"` | is the id of the client |
+| global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.portal.oauth.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that store authentication between console-v2 and portal |

@@ -279,7 +279,7 @@ Before, permissions were managed dynamically on the organization and stack with 
 
 The fallback has been removed from the RBAC module and is only used when a new user joins the organization.
 
-## Cookies
+## OAuth clients and cookies
 
 Portal and Console v3 are no longer sharing Oauth clients and cookies. The cookie domain is now set on the app domain. Enabling `console` will set the domain on the parent domain. See #breaking-changes for config changes.
 
@@ -403,7 +403,7 @@ Dex:
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.oauth.client.existingSecret | string | `""` | is the name of the secret |
-| global.platform.portal.oauth.client.id | string | `"platform"` | is the id of the client |
+| global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
 | global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |

@@ -39,7 +39,7 @@
   valueFrom:
     secretKeyRef:
       name: {{ .Values.config.cookie.existingSecret }}
-      key: {{ .Values.config.cookie.secretKeysencryptionKey }}
+      key: {{ .Values.config.cookie.secretKeys.encryptionKey }}
   {{- else }}
   value: {{ .Values.config.cookie.encryptionKey }}
   {{- end }}

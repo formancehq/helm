@@ -14,7 +14,7 @@ data:
       {{- end }}
       {{- range $serviceName, $service := .Values.global.platform }}
       {{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled }}
-      - id: "{{  $service.oauth.client.id }}"
+      - id: "{{ $service.oauth.client.id }}"
         secrets:
           - "{{ printf "$%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}"
         redirectUris:
