@@ -35,7 +35,7 @@ version: 2.0.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "fd50377c162c62a1dc4485a41996bb4e4574cf3d"
+appVersion: "9bc0913c2e5eecf5713a68312e43e7a80b4c61e5"
 kubeVersion: ">=1.14.0-0"
 sources:
 - https://github.com/formancehq/console

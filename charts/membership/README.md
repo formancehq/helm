@@ -99,7 +99,7 @@ Kubernetes: `>=1.14.0-0`
 | dex.envVars | list | `[]` | Dex additional environment variables |
 | dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| dex.image.tag | string | `"v0.36.2"` | image tag |
+| dex.image.tag | string | `"v1.0.4"` | image tag |
 | dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |

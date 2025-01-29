@@ -449,7 +449,7 @@ Dex:
 | membership.dex.envVars | list | `[]` | Dex additional environment variables |
 | membership.dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | membership.dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| membership.dex.image.tag | string | `"v0.36.2"` | image tag |
+| membership.dex.image.tag | string | `"v1.0.4"` | image tag |
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
