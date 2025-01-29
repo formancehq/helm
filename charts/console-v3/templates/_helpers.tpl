@@ -44,7 +44,7 @@
   value: {{ .Values.config.cookie.encryptionKey }}
   {{- end }}
 - name: COOKIE_NAME
-  value: __session_platform
+  value: __session_console_v3
 - name: COOKIE_DOMAIN
   value: {{ tpl .Values.global.platform.consoleV3.host $ }}
 {{- end -}}
