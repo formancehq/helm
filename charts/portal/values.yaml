@@ -51,6 +51,7 @@ global:
       # @section -- Global configuration
       host: "portal.{{ .Values.global.serviceHost }}"
       oauth:
+        # Deprecated with console-v3
         cookie:
           # -- is used to encrypt a cookie that store authentication between console-v2 and portal
           # @section -- Global configuration

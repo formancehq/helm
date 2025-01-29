@@ -289,6 +289,9 @@ Portal and Console v3 are no longer sharing Oauth clients and cookies. The cooki
 
 - `.global.platform.cookie` has been moved to `.global.platform.portal.oauth.cookie`
 - `.global.platform.membership.oauthClient` has been moved to `.global.platform.portal.oauth.client` for console backward compatibility but can be different when using console-v3.
+- `.console.enabled` -> `.global.platform.console.enabled`
+- `.membership.enabled` -> `.global.platform.membership.enabled`
+- `.portal.enabled` -> `.global.platform.portal.enabled`
 
 ## Additions
 
@@ -422,7 +425,7 @@ Dex:
 | global.postgresql.host | string | `""` | Host for PostgreSQL (overrides included postgreql `host`) |
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
-| console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
+| console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
 | console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | membership.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
@@ -566,7 +569,7 @@ Dex:
 | console-v3.ingress.annotations | object | `{}` | ingress annotations |
 | console-v3.ingress.className | string | `""` | ingress class name |
 | console-v3.ingress.enabled | bool | `true` | ingress enabled |
-| console-v3.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.consoleV3.host $ }}"` | ingress host |
+| console-v3.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | console-v3.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | console-v3.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | console-v3.ingress.tls | list | `[]` | ingress tls |

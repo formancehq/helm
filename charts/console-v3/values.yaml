@@ -174,8 +174,8 @@ ingress:
   # -- ingress annotations
   annotations: {}
   hosts:
-  - # -- ingress host
-    host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"
+  # -- ingress host
+  - host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"
     paths:
     # -- ingress path
     - path: /
@@ -206,7 +206,7 @@ affinity: {}
 
 config:
   cookie:
-    # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
+    # -- is used to encrypt a cookie value
     # @section -- Global configuration
     encryptionKey: "changeMe00"
     # -- is the name of the secret

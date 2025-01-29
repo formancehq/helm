@@ -57,7 +57,7 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
-| config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId |
+| config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | config.cookie.existingSecret | string | `""` | is the name of the secret |
 | config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 
@@ -91,7 +91,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.annotations | object | `{}` | ingress annotations |
 | ingress.className | string | `""` | ingress class name |
 | ingress.enabled | bool | `true` | ingress enabled |
-| ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.consoleV3.host $ }}"` | ingress host |
+| ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.tls | list | `[]` | ingress tls |
