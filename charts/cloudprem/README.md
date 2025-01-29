@@ -388,12 +388,12 @@ Dex:
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"platform","secret":"changeMe1","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
+| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` | is the name of the secret |
-| global.platform.consoleV3.oauth.client.id | string | `"platform"` | is the id of the client |
+| global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
 | global.platform.consoleV3.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
-| global.platform.consoleV3.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
+| global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |

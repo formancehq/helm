@@ -57,10 +57,10 @@ global:
         client:
           # -- is the id of the client
           # @section -- Global configuration
-          id: "platform"
+          id: "console-v3"
           # -- is the secret of the client
           # @section -- Global configuration
-          secret: "changeMe1"
+          secret: "changeMe2"
           # -- is the name of the secret
           # @section -- Global configuration
           existingSecret: ""
