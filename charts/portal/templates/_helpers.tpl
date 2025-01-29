@@ -86,6 +86,7 @@
 - name: DEBUG
   value: {{ .Values.global.debug | quote }}
 {{- include "portal.cookie" . }}
+{{- include "portal.oauth.client" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
 {{ include "portal.additionalEnv" . }}
