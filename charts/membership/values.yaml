@@ -492,6 +492,17 @@ config:
       volumes: []
       volumeMounts: []
 
+    invitationGC:
+      suspend: false
+      concurrencyPolicy: Forbid
+      startingDeadlineSeconds: 200
+      restartPolicy: Never
+      schedule: "0/30 * * * *"
+      resources: {}
+      tolerations: []
+      volumes: []
+      volumeMounts: []
+
   migration:
     postgresql:
       auth:
@@ -549,9 +560,9 @@ dex:
     # @section -- Dex configuration
     annotations: {}
     hosts:
-    - # -- Dex ingress host
-      # @section -- Dex configuration
-      host: "{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"
+    # -- Dex ingress host
+    # @section -- Dex configuration
+    - host: "{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"
       paths:
       # -- Dex ingress path
       # @section -- Dex configuration
@@ -649,9 +660,9 @@ dex:
     enablePasswordDB: true
     # Generate password:  https://github.com/dexidp/dex/blob/576f990d257d9dd63e283cf379960e50506e8bcc/examples/config-dev.yaml#L145
     staticPasswords:
-    - # -- static passwords email
-      # @section -- Dex configuration
-      email: admin@formance.com
+    # -- static passwords email
+    # @section -- Dex configuration
+    - email: admin@formance.com
       # -- static passwords hash
       # @section -- Dex configuration
       hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password

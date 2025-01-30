@@ -161,6 +161,39 @@
                             },
                             "type": "object"
                         },
+                        "invitationGC": {
+                            "properties": {
+                                "concurrencyPolicy": {
+                                    "type": "string"
+                                },
+                                "resources": {
+                                    "properties": {},
+                                    "type": "object"
+                                },
+                                "restartPolicy": {
+                                    "type": "string"
+                                },
+                                "schedule": {
+                                    "type": "string"
+                                },
+                                "startingDeadlineSeconds": {
+                                    "type": "integer"
+                                },
+                                "suspend": {
+                                    "type": "boolean"
+                                },
+                                "tolerations": {
+                                    "type": "array"
+                                },
+                                "volumeMounts": {
+                                    "type": "array"
+                                },
+                                "volumes": {
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "stackLifeCycle": {
                             "properties": {
                                 "concurrencyPolicy": {

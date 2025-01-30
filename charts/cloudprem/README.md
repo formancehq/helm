@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.0.0-rc.1](https://img.shields.io/badge/Version-3.0.0--rc.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.4](https://img.shields.io/badge/AppVersion-v1.0.4-informational?style=flat-square)
+![Version: 3.0.0-rc.2](https://img.shields.io/badge/Version-3.0.0--rc.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -443,7 +443,7 @@ Dex:
 | membership.dex.configOverrides.enablePasswordDB | bool | `true` | enable password db |
 | membership.dex.configOverrides.oauth2.responseTypes | list | `["code","token","id_token"]` | oauth2 response types |
 | membership.dex.configOverrides.oauth2.skipApprovalScreen | bool | `true` | oauth2 skip approval screen |
-| membership.dex.configOverrides.staticPasswords[0].email | string | `"admin@formance.com"` | static passwords email |
+| membership.dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
 | membership.dex.configOverrides.staticPasswords[0].hash | string | `"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"` | static passwords hash |
 | membership.dex.configOverrides.staticPasswords[0].userID | string | `"08a8684b-db88-4b73-90a9-3cd1661f5466"` | static passwords user id |
 | membership.dex.configOverrides.staticPasswords[0].username | string | `"admin"` | static passwords username |
@@ -458,7 +458,7 @@ Dex:
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
-| membership.dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
+| membership.dex.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | Dex ingress host |
 | membership.dex.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | membership.dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | membership.dex.ingress.tls | list | `[]` | Dex ingress tls |
@@ -606,7 +606,7 @@ Dex:
 | membership.config.grpc.existingSecret | string | `""` |  |
 | membership.config.grpc.secretKeys.secret | string | `"TOKENS"` |  |
 | membership.config.grpc.tokens | list | `[]` | Membership agent grpc token |
-| membership.config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
+| membership.config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]},"invitationGC":{"concurrencyPolicy":"Forbid","resources":{},"restartPolicy":"Never","schedule":"0/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
 | membership.config.job.garbageCollector | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Clean expired tokens and refresh tokens after X time |
 | membership.config.job.stackLifeCycle | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Job create 2 jobs to eaither warn or prune a stacks This does not change the state of the stack WARN: Mark stack Disposable -> trigger a mail PRUNE: Mark stack Warned -> trigger a mail It blocks stack cycles if supendend It is highly recommended to enable it as it is the only way we control |
 | membership.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
