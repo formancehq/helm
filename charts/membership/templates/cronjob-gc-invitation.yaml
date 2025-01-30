@@ -1,4 +1,3 @@
-{{- if .Values.config.job.garbageCollector.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -7,17 +6,17 @@ metadata:
   labels:
     {{- include "core.labels" . | nindent 4 }}
 spec:
-  suspend: {{ .Values.config.job.garbageCollector.suspend }}
+  suspend: {{ .Values.config.job.invitationGC.suspend }}
   # timeZone: "europe/paris"    # Depending of kubernetes v1.27
-  schedule: {{ .Values.config.job.garbageCollector.schedule | quote }}
-  startingDeadlineSeconds: {{ .Values.config.job.garbageCollector.startingDeadlineSeconds }}
-  concurrencyPolicy: {{ .Values.config.job.garbageCollector.concurrencyPolicy }}
+  schedule: {{ .Values.config.job.invitationGC.schedule | quote }}
+  startingDeadlineSeconds: {{ .Values.config.job.invitationGC.startingDeadlineSeconds }}
+  concurrencyPolicy: {{ .Values.config.job.invitationGC.concurrencyPolicy }}
   jobTemplate:
     spec:
       template:
         spec:
           serviceAccountName:  {{ include "core.serviceAccountName" . }}
-          restartPolicy: {{ .Values.config.job.garbageCollector.restartPolicy }}
+          restartPolicy: {{ .Values.config.job.invitationGC.restartPolicy }}
           {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
             {{- toYaml . | nindent 12 }}
@@ -26,7 +25,7 @@ spec:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
             - name: {{ include "core.fullname" . }}
-              {{- with .Values.config.job.garbageCollector.volumeMounts }}
+              {{- with .Values.config.job.invitationGC.volumeMounts }}
               volumeMounts:
                 {{- toYaml . | nindent 16 }}
               {{- end }}
@@ -34,13 +33,13 @@ spec:
                 {{- toYaml .Values.securityContext | nindent 16 }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               args:
-                - gc auth-token
+                - gc invitation-expired
               env:
                 {{- include "core.env.common" . | nindent 16 }}
                 {{- include "core.postgres.uri" . | nindent 16 }}
                 {{- include "core.monitoring" . | nindent 16 }}
               resources:
-                {{- toYaml .Values.config.job.garbageCollector.resources | nindent 16 }}
+                {{- toYaml .Values.config.job.invitationGC.resources | nindent 16 }}
           {{- with .Values.nodeSelector }}
           nodeSelector:
             {{- toYaml . | nindent 12 }}
@@ -49,12 +48,11 @@ spec:
           affinity:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.config.job.garbageCollector.tolerations }}
+          {{- with .Values.config.job.invitationGC.tolerations }}
           tolerations:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{ with .Values.config.job.garbageCollector.volumes }}
+          {{ with .Values.config.job.invitationGC.volumes }}
           volumes:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-{{- end }}
