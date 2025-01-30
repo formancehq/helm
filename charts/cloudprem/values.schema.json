@@ -66,6 +66,9 @@
                     "properties": {
                         "console": {
                             "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "host": {
                                     "type": "string"
                                 },
@@ -89,35 +92,10 @@
                             },
                             "type": "object"
                         },
-                        "enabled": {
-                            "type": "boolean"
-                        },
                         "membership": {
                             "properties": {
                                 "host": {
                                     "type": "string"
-                                },
-                                "oauthClient": {
-                                    "properties": {
-                                        "existingSecret": {
-                                            "type": "string"
-                                        },
-                                        "id": {
-                                            "type": "string"
-                                        },
-                                        "secret": {
-                                            "type": "string"
-                                        },
-                                        "secretKeys": {
-                                            "properties": {
-                                                "secret": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
                                 },
                                 "oidc": {
                                     "properties": {
@@ -149,6 +127,9 @@
                         },
                         "portal": {
                             "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "host": {
                                     "type": "string"
                                 },

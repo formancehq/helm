@@ -35,42 +35,48 @@
 
 {{- define "console.v3.cookie" }}
 - name: COOKIE_SECRET
-  {{- if or .Values.global.platform.portal.cookie.existingSecret }}
+  {{- if or .Values.config.cookie.existingSecret }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.global.platform.portal.cookie.existingSecret }}
-      key: {{ .Values.global.platform.portal.cookie.secretKeys.encryptionKey }}
+      name: {{ .Values.config.cookie.existingSecret }}
+      key: {{ .Values.config.cookie.secretKeys.encryptionKey }}
   {{- else }}
-  value: {{ .Values.global.platform.portal.cookie.encryptionKey }}
+  value: {{ .Values.config.cookie.encryptionKey }}
   {{- end }}
 - name: COOKIE_NAME
-  value: __session_platform
+  value: __session_console_v3
 - name: COOKIE_DOMAIN
-  value: {{ .Values.global.serviceHost }}
+  value: {{ tpl .Values.global.platform.consoleV3.host $ }}
 {{- end -}}
+
+{{- define "console.v3.oauth.client" }}
+- name: REDIRECT_URI
+  value: {{ tpl (default (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) .Values.config.redirect_url) $ }}
+- name: MEMBERSHIP_CLIENT_ID
+  value: "{{ .Values.global.platform.consoleV3.oauth.client.id }}"
+- name: MEMBERSHIP_CLIENT_SECRET
+  {{- if gt (len .Values.global.platform.consoleV3.oauth.client.existingSecret) 0 }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.global.platform.consoleV3.oauth.client.existingSecret }}
+      key: {{ .Values.global.platform.consoleV3.oauth.client.secretKeys.secret }}
+  {{- else }}
+  value: {{ .Values.global.platform.consoleV3.oauth.client.secret | quote }}
+  {{- end }}
+- name: MEMBERSHIP_URL_API
+  value: {{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $}}
+{{- end }}
 
 
 {{- define "console.v3.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
-- name: MEMBERSHIP_CLIENT_ID
-  value: "{{ .Values.global.platform.membership.oauthClient.id }}"
-- name: MEMBERSHIP_CLIENT_SECRET
-  {{- if gt (len .Values.global.platform.membership.oauthClient.existingSecret) 0 }}
-  valueFrom:
-    secretKeyRef:
-      name: {{ .Values.global.platform.membership.oauthClient.existingSecret }}
-      key: {{ .Values.global.platform.membership.oauthClient.secretKeys.secret }}
-  {{- else }}
-  value: {{ .Values.global.platform.membership.oauthClient.secret | quote }}
-  {{- end }}
-- name: MEMBERSHIP_URL_API
-  value: {{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $}}
 - name: API_URL
   value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
 - name: PORTAL_UI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
 {{- include "console.v3.cookie" . }}
+{{- include "console.v3.oauth.client" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
 {{ with .Values.config.additionalEnv }}

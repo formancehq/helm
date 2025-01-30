@@ -12,27 +12,26 @@ data:
       - id: fctl
         public: true
       {{- end }}
-      {{- if .Values.global.platform.enabled }}
-      - id: "{{ .Values.global.platform.membership.oauthClient.id }}"
+      {{- range $serviceName, $service := .Values.global.platform }}
+      {{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled }}
+      - id: "{{ $service.oauth.client.id }}"
         secrets:
-          - "$PLATFORM_OAUTH_CLIENT_SECRET"
+          - "{{ printf "$%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}"
         redirectUris:
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login'
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login'
-          {{- if .Values.global.platform.consoleV3.enabled }}
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login'
+          - '{{ tpl (printf "%s://%s" $service.scheme $service.host) $ }}/auth/login'
+          {{- if and (eq "portal" $serviceName) $.Values.global.platform.console.enabled }}
+          - '{{ tpl (printf "%s://%s" $.Values.global.platform.console.scheme $.Values.global.platform.console.host) $ }}/auth/login'
           {{- end }}
         postLogoutRedirectUris:
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout'
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout'
-          {{- if .Values.global.platform.consoleV3.enabled }}
-          - '{{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout'
+          - '{{ tpl (printf "%s://%s" $service.scheme $service.host) $ }}/auth/logout'
+          {{- if and (eq "portal" $serviceName) $.Values.global.platform.console.enabled }}
+          - '{{ tpl (printf "%s://%s" $.Values.global.platform.console.scheme $.Values.global.platform.console.host) $ }}/auth/logout'
           {{- end }}
         scopes:
-          - supertoken
-          - accesses
-          - remember_me
-          - keep_refresh_token
+        {{- range $scope := $service.oauth.client.scopes }}
+        - {{ $scope }}
+        {{- end }}
+      {{- end }}
       {{- end }}
       {{- with .Values.config.auth.additionalOAuthClients }}
       {{- tpl (toYaml .) $ | nindent 6 }}

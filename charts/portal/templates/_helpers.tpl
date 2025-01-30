@@ -30,54 +30,63 @@
 
 {{- define "portal.cookie" }}
 - name: COOKIE_SECRET
-  {{- if or .Values.config.cookie.existingSecret .Values.global.platform.portal.cookie.existingSecret }}
+  {{- if or .Values.config.cookie.existingSecret }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.config.cookie.existingSecret | default .Values.global.platform.portal.cookie.existingSecret }}
-      key: {{ .Values.config.cookie.secretKeys.secret | default .Values.global.platform.portal.cookie.secretKeys.encryptionKey }}
+      name: {{ .Values.config.cookie.existingSecret }}
+      key: {{ .Values.config.cookie.secretKeys.secret  }}
   {{- else }}
-  value: {{ .Values.config.cookie.secret | default .Values.global.platform.portal.cookie.encryptionKey }}
+  value: {{ .Values.config.cookie.secret  }}
   {{- end }}
 - name: COOKIE_NAME
   value: __session_platform
+{{- if .Values.global.platform.console.enabled }}
 - name: COOKIE_DOMAIN
   value: {{ .Values.global.serviceHost }}
 - name: CONSOLE_COOKIE_SECRET
-  {{- if gt (len .Values.global.platform.cookie.existingSecret) 0 }}
+  {{- if gt (len .Values.global.platform.portal.oauth.cookie.existingSecret) 0 }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.global.platform.cookie.existingSecret }}
-      key: {{ .Values.global.platform.cookie.secretKeys.encryptionKey }}
+      name: {{ .Values.global.platform.portal.oauth.cookie.existingSecret }}
+      key: {{ .Values.global.platform.portal.oauth.cookie.secretKeys.encryptionKey }}
   {{- else }}
-  value: {{ .Values.global.platform.cookie.encryptionKey | quote }}
+  value: {{ .Values.global.platform.portal.oauth.cookie.encryptionKey | quote }}
   {{- end }}
+{{- else }}
+- name: COOKIE_DOMAIN
+  value: {{ tpl .Values.global.platform.portal.host $ }}
 {{- end -}}
+{{- end -}}
+
+{{- define "portal.oauth.client" }}
+- name: MEMBERSHIP_URL_API
+  value: {{ (printf "%s/api" (include "service.url" (dict "service" .Values.global.platform.membership "Context" .))) }}
+- name: MEMBERSHIP_CLIENT_ID
+  value: "{{ .Values.global.platform.portal.oauth.client.id }}"
+- name: MEMBERSHIP_CLIENT_SECRET
+  {{- if gt (len .Values.global.platform.portal.oauth.client.existingSecret) 0 }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.global.platform.portal.oauth.client.existingSecret }}
+      key: {{ .Values.global.platform.portal.oauth.client.secretKeys.secret }}
+  {{- else }}
+  value: {{ .Values.global.platform.portal.oauth.client.secret | quote }}
+  {{- end }}
+- name: REDIRECT_URI
+  value: {{ include "service.url" (dict "service" .Values.global.platform.portal "Context" .) }}
+{{- end }}
 
 {{- define "portal.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
-- name: MEMBERSHIP_URL_API
-  value: {{ (printf "%s/api" (include "service.url" (dict "service" .Values.global.platform.membership "Context" .))) }}
-- name: MEMBERSHIP_CLIENT_ID
-  value: "{{ .Values.global.platform.membership.oauthClient.id }}"
-- name: MEMBERSHIP_CLIENT_SECRET
-  {{- if gt (len .Values.global.platform.membership.oauthClient.existingSecret) 0 }}
-  valueFrom:
-    secretKeyRef:
-      name: {{ .Values.global.platform.membership.oauthClient.existingSecret }}
-      key: {{ .Values.global.platform.membership.oauthClient.secretKeys.secret }}
-  {{- else }}
-  value: {{ .Values.global.platform.membership.oauthClient.secret | quote }}
-  {{- end }}
 - name: FEATURES_DISABLED
   value: "{{ join "," .Values.config.featuresDisabled}}"
-- name: REDIRECT_URI
-  value: {{ include "service.url" (dict "service" .Values.global.platform.portal "Context" .) }}
 - name: APPS_CONSOLE
   value: {{ include "service.url" (dict "service" .Values.global.platform.console "Context" .) }}
 - name: DEBUG
   value: {{ .Values.global.debug | quote }}
 {{- include "portal.cookie" . }}
+{{- include "portal.oauth.client" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
 {{ include "portal.additionalEnv" . }}

@@ -5,8 +5,8 @@ description: Formance Console
 home: "https://formance.com"
 
 maintainers:
-  - name: "Formance Team"
-    email: "support@formance.com"
+- name: "Formance Team"
+  email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -22,18 +22,18 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.2.0
+version: 2.0.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "fccc26c5b568781b86fbd06c651399c0edd67bac"
+appVersion: "console-on.v1.0.2"
 kubeVersion: ">=1.14.0-0"
 sources:
-  - https://github.com/formancehq/console
+- https://github.com/formancehq/console
 
 dependencies:
-  - name: core
-    version: "1.X"
-    repository: file://../core
+- name: core
+  version: "1.X"
+  repository: file://../core

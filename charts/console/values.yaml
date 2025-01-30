@@ -50,20 +50,33 @@ global:
       # -- is the host for the portal
       # @section -- Global configuration
       host: "portal.{{ .Values.global.serviceHost }}"
-
-    # -- Console V2 Cookie
-    # Will be deprecated later
-    cookie:
-      # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
-      # @section -- Global configuration
-      encryptionKey: "changeMe00"
-      # -- is the name of the secret
-      # @section -- Global configuration
-      existingSecret: ""
-      # -- is the key contained within the secret
-      # @section -- Global configuration
-      secretKeys:
-        encryptionKey: ""
+      oauth:
+        client:
+          # -- is the id of the client
+          # @section -- Global configuration
+          id: "portal"
+          # -- is the secret of the client
+          # @section -- Global configuration
+          secret: "changeMe1"
+          # -- is the name of the secret
+          # @section -- Global configuration
+          existingSecret: ""
+          # -- is the key contained within the secret
+          # @section -- Global configuration
+          secretKeys:
+            secret: ""
+        cookie:
+          # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
+          # It is not shared with console-v3 and the domain is only limited to portal app
+          # @section -- Global configuration
+          encryptionKey: "changeMe00"
+          # -- is the name of the secret
+          # @section -- Global configuration
+          existingSecret: ""
+          # -- is the key contained within the secret
+          # @section -- Global configuration
+          secretKeys:
+            encryptionKey: ""
 
     membership:
       # -- is the scheme for the membership
@@ -72,21 +85,6 @@ global:
       # -- is the host for the membership
       # @section -- Global configuration
       host: "membership.{{ .Values.global.serviceHost }}"
-
-      oauthClient:
-        # -- is the id of the client
-        # @section -- Global configuration
-        id: "platform"
-        # -- is the secret of the client
-        # @section -- Global configuration
-        secret: "changeMe1"
-        # -- is the name of the secret
-        # @section -- Global configuration
-        existingSecret: ""
-        # -- is the key contained within the secret
-        # @section -- Global configuration
-        secretKeys:
-          secret: ""
 
 # -- Number of replicas
 replicas: 1
@@ -132,8 +130,7 @@ image:
 imagePullSecrets: []
 
 # -- Console resources
-resources:
-  {}
+resources: {}
   # requests:
   #   cpu: 250m
   #   memory: 512Mi
@@ -161,8 +158,8 @@ service:
       # -- service node port
       # nodePort:
 
-# -- AWS Console target groups
-# @section -- Global AWS configuration
+      # -- AWS Console target groups
+      # @section -- Global AWS configuration
 aws:
   targetGroups:
     http:
@@ -186,16 +183,15 @@ ingress:
   # -- ingress annotations
   annotations: {}
   hosts:
-    # -- ingress host
-    - host: "{{ tpl .Values.global.platform.console.host $ }}"
-      paths:
-        - # -- ingress path
-          path: /
-          # -- ingress path type
-          pathType: Prefix
+  - # -- ingress host
+    host: "{{ tpl .Values.global.platform.console.host $ }}"
+    paths:
+    # -- ingress path
+    - path: /
+      # -- ingress path type
+      pathType: Prefix
   # -- ingress tls
-  tls:
-    []
+  tls: []
     # -- ingress tls secret name
     # - secretName: YOUR_TLS_SECRET_NAME
 
@@ -221,8 +217,7 @@ config:
   # -- Console environment
   environment: production
   # -- Console additional environment variables
-  additionalEnv:
-    []
+  additionalEnv: []
     # -- Console additional environment variables HOST
     # - name: HOST
     #   value: "0.0.0.0"
@@ -245,7 +240,6 @@ config:
       existingSecret: ""
       secretKeys:
         value: ""
-
   # -- Override global configuration
   # monitoring:
   #   # -- Override otel service name

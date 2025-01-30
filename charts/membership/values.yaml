@@ -16,10 +16,8 @@ global:
     elb: false
 
   platform:
-    # -- Enable platform communication with membership, add specific oauth2 clients, and will rollout membership depending to .membership.oauthClient
-    # @section -- Global configuration
-    enabled: true
     console:
+      enabled: true
       # -- is the scheme for the console
       # @section -- Global configuration
       scheme: "https"
@@ -34,13 +32,54 @@ global:
       # -- is the host for the console
       # @section -- Global configuration
       host: "console.v3.{{ .Values.global.serviceHost }}"
+      oauth:
+        client:
+          # -- is the id of the client
+          # @section -- Global configuration
+          id: "console-v3"
+          # -- is the secret of the client
+          # @section -- Global configuration
+          secret: "changeMe2"
+          # -- is the name of the secret
+          # @section -- Global configuration
+          scopes:
+          - supertoken
+          - accesses
+          - remember_me
+          - keep_refresh_token
+          existingSecret: ""
+          # -- is the key contained within the secret
+          # @section -- Global configuration
+          secretKeys:
+            secret: ""
     portal:
+      enabled: true
       # -- is the scheme for the portal
       # @section -- Global configuration
       scheme: "https"
       # -- is the host for the portal
       # @section -- Global configuration
       host: "portal.{{ .Values.global.serviceHost }}"
+      oauth:
+        client:
+          # -- is the id of the client
+          # @section -- Global configuration
+          id: "portal"
+          # -- is the secret of the client
+          # @section -- Global configuration
+          secret: "changeMe1"
+          # -- is the name of the secret
+          # @section -- Global configuration
+          scopes:
+          - supertoken
+          - accesses
+          - remember_me
+          - keep_refresh_token
+          existingSecret: ""
+          # -- is the key contained within the secret
+          # @section -- Global configuration
+          secretKeys:
+            secret: ""
     membership:
       # -- is the scheme for the membership
       # @section -- Global configuration
@@ -62,20 +101,6 @@ global:
         # @section -- Global configuration
         path: ""
 
-      oauthClient:
-        # -- is the id of the client
-        # @section -- Global configuration
-        id: "platform"
-        # -- is the secret of the client
-        # @section -- Global configuration
-        secret: "changeMe1"
-        # -- is the name of the secret
-        # @section -- Global configuration
-        existingSecret: ""
-        # -- is the key contained within the secret
-        # @section -- Global configuration
-        secretKeys:
-          secret: ""
   nats:
     enabled: false
     # -- NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222
@@ -177,9 +202,8 @@ serviceAccount:
   # -- Service account name
   name: ""
   # -- Service account annotations
-  annotations:
-    {}
-    # eks.amazonaws.com/role-arn: ""
+  annotations: {}
+  # eks.amazonaws.com/role-arn: ""
 
 image:
   # -- Membership image repository
@@ -205,7 +229,7 @@ securityContext:
   # -- Membership security context capabilities drop
   capabilities:
     drop:
-      - ALL
+    - ALL
   # -- Membership security context read only root filesystem
   readOnlyRootFilesystem: true
   # -- Membership security context run as non root
@@ -214,8 +238,7 @@ securityContext:
   runAsUser: 1000
 
 # -- Membership resources
-resources:
-  {}
+resources: {}
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -224,8 +247,7 @@ resources:
   #   memory: 128Mi
 
 # -- Membership autoscaling
-autoscaling:
-  {}
+autoscaling: {}
   # enabled: false
   # minReplicas: 1
   # maxReplicas: 10
@@ -276,8 +298,8 @@ service:
       port: 8080
       # -- service node port
       # nodePort:
-    # -- service grpc port
     grpc:
+      # -- service grpc port
       port: 8082
       # -- Membership service node port
       # nodePort:
@@ -290,16 +312,15 @@ ingress:
   # -- Membership ingress annotations
   annotations: {}
   hosts:
-    # -- Membership ingress host
-    - host: "{{ tpl .Values.global.platform.membership.host $ }}"
-      paths:
-        - # -- Membership ingress path
-          path: /api
-          # -- Membership ingress path type
-          pathType: Prefix
+  # -- Membership ingress host
+  - host: "{{ tpl .Values.global.platform.membership.host $ }}"
+    paths:
+    # -- Membership ingress path
+    - path: /api
+      # -- Membership ingress path type
+      pathType: Prefix
   # -- Membership ingress tls
-  tls:
-    []
+  tls: []
     # -- Membership ingress tls secret name
     # - secretName: YOUR_TLS_SECRET_NAME
 
@@ -358,10 +379,10 @@ config:
     clientSecret: "changeMe"
     # -- Membership oidc redirect uri
     scopes:
-      - openid
-      - email
-      # -- Membership Dex federated id scope
-      - federated:id
+    - openid
+    - email
+    # -- Membership Dex federated id scope
+    - federated:id
     # -- Membership oidc existing secret
     existingSecret: ""
     # -- Membership oidc secret key
@@ -398,10 +419,10 @@ config:
 
     # Modules created by default on a stack
     minimalStackModules:
-      - Auth
-      - Ledger
-      - Payments
-      - Gateway
+    - Auth
+    - Ledger
+    - Payments
+    - Gateway
 
     cycle:
       dryRun: true
@@ -494,9 +515,8 @@ config:
       annotations: {}
 
     # -- Membership job migration annotations
-    annotations:
-      {}
-      # Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync
+    # Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync
+    annotations: {}
 
     ttlSecondsAfterFinished: ""
     volumes: []
@@ -516,7 +536,7 @@ dex:
     pullPolicy: IfNotPresent
     # -- image tag
     # @section -- Dex configuration
-    tag: v0.36.2
+    tag: v1.0.4
 
   ingress:
     # -- Dex ingress enabled
@@ -529,21 +549,20 @@ dex:
     # @section -- Dex configuration
     annotations: {}
     hosts:
-      - # -- Dex ingress host
+    - # -- Dex ingress host
+      # @section -- Dex configuration
+      host: "{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"
+      paths:
+      # -- Dex ingress path
+      # @section -- Dex configuration
+      # refer to .Values.global.platform.membership.relyingParty.host.path
+      - path: "/"
+        # -- Dex ingress path type
         # @section -- Dex configuration
-        host: "{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"
-        paths:
-          - # -- Dex ingress path
-            # @section -- Dex configuration
-            # refer to .Values.global.platform.membership.relyingParty.host.path
-            path: "/"
-            # -- Dex ingress path type
-            # @section -- Dex configuration
-            pathType: Prefix
+        pathType: Prefix
     # -- Dex ingress tls
     # @section -- Dex configuration
-    tls:
-      []
+    tls: []
       # -- Dex ingress tls secret name
       # @section -- Dex configuration
       # - secretName: YOUR_TLS_SECRET_NAME
@@ -562,8 +581,7 @@ dex:
 
   # -- Dex resources
   # @section -- Dex configuration
-  resources:
-    {}
+  resources: {}
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
@@ -622,27 +640,27 @@ dex:
       # -- oauth2 response types
       # @section -- Dex configuration
       responseTypes:
-        - code
-        - token
-        - id_token
+      - code
+      - token
+      - id_token
 
     # -- enable password db
     # @section -- Dex configuration
     enablePasswordDB: true
     # Generate password:  https://github.com/dexidp/dex/blob/576f990d257d9dd63e283cf379960e50506e8bcc/examples/config-dev.yaml#L145
     staticPasswords:
-      - # -- static passwords email
-        # @section -- Dex configuration
-        email: admin@formance.com
-        # -- static passwords hash
-        # @section -- Dex configuration
-        hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
-        # -- static passwords username
-        # @section -- Dex configuration
-        username: admin
-        # -- static passwords user id
-        # @section -- Dex configuration
-        userID: 08a8684b-db88-4b73-90a9-3cd1661f5466
+    - # -- static passwords email
+      # @section -- Dex configuration
+      email: admin@formance.com
+      # -- static passwords hash
+      # @section -- Dex configuration
+      hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
+      # -- static passwords username
+      # @section -- Dex configuration
+      username: admin
+      # -- static passwords user id
+      # @section -- Dex configuration
+      userID: 08a8684b-db88-4b73-90a9-3cd1661f5466
 
 postgresql:
   # -- Enable postgresql

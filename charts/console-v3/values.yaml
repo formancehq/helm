@@ -44,20 +44,6 @@ global:
       # @section -- Global configuration
       host: "portal.{{ .Values.global.serviceHost }}"
 
-      # -- Console V3 Cookie
-      # -- EXPERIMENTAL
-      cookie:
-        # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
-        # @section -- Global configuration
-        encryptionKey: "changeMe00"
-        # -- is the name of the secret
-        # @section -- Global configuration
-        existingSecret: ""
-        # -- is the key contained within the secret
-        # @section -- Global configuration
-        secretKeys:
-          encryptionKey: ""
-
     # -- Console V3: EXPERIMENTAL
     # @section -- Global configuration
     consoleV3:
@@ -67,6 +53,21 @@ global:
       # -- is the host for the console
       # @section -- Global configuration
       host: "console.v3.{{ .Values.global.serviceHost }}"
+      oauth:
+        client:
+          # -- is the id of the client
+          # @section -- Global configuration
+          id: "console-v3"
+          # -- is the secret of the client
+          # @section -- Global configuration
+          secret: "changeMe2"
+          # -- is the name of the secret
+          # @section -- Global configuration
+          existingSecret: ""
+          # -- is the key contained within the secret
+          # @section -- Global configuration
+          secretKeys:
+            secret: ""
 
     membership:
       # -- is the scheme for the membership
@@ -75,21 +76,6 @@ global:
       # -- is the host for the membership
       # @section -- Global configuration
       host: "membership.{{ .Values.global.serviceHost }}"
-
-      oauthClient:
-        # -- is the id of the client
-        # @section -- Global configuration
-        id: "platform"
-        # -- is the secret of the client
-        # @section -- Global configuration
-        secret: "changeMe1"
-        # -- is the name of the secret
-        # @section -- Global configuration
-        existingSecret: ""
-        # -- is the key contained within the secret
-        # @section -- Global configuration
-        secretKeys:
-          secret: ""
 
 # -- Number of replicas
 replicas: 1
@@ -135,8 +121,7 @@ image:
 imagePullSecrets: []
 
 # -- Console resources
-resources:
-  {}
+resources: {}
   # requests:
   #   cpu: 250m
   #   memory: 512Mi
@@ -189,16 +174,15 @@ ingress:
   # -- ingress annotations
   annotations: {}
   hosts:
-    # -- ingress host
-    - host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"
-      paths:
-        - # -- ingress path
-          path: /
-          # -- ingress path type
-          pathType: Prefix
+  # -- ingress host
+  - host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"
+    paths:
+    # -- ingress path
+    - path: /
+      # -- ingress path type
+      pathType: Prefix
   # -- ingress tls
-  tls:
-    []
+  tls: []
     # -- ingress tls secret name
     # - secretName: YOUR_TLS_SECRET_NAME
 
@@ -221,11 +205,21 @@ tolerations: []
 affinity: {}
 
 config:
+  cookie:
+    # -- is used to encrypt a cookie value
+    # @section -- Global configuration
+    encryptionKey: "changeMe00"
+    # -- is the name of the secret
+    # @section -- Global configuration
+    existingSecret: ""
+    # -- is the key contained within the secret
+    # @section -- Global configuration
+    secretKeys:
+      encryptionKey: ""
   # -- Console environment
   environment: production
   # -- Console additional environment variables
-  additionalEnv:
-    []
+  additionalEnv: []
     # -- Console additional environment variables HOST
     # - name: HOST
     #   value: "0.0.0.0"

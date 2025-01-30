@@ -1,6 +1,6 @@
 # membership
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.36.2](https://img.shields.io/badge/AppVersion-v0.36.2-informational?style=flat-square)
+![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.4](https://img.shields.io/badge/AppVersion-v1.0.4-informational?style=flat-square)
 
 Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
@@ -48,18 +48,21 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
+| global.platform.consoleV3.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
+| global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
+| global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.enabled | bool | `true` | Enable platform communication with membership, add specific oauth2 clients, and will rollout membership depending to .membership.oauthClient |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
-| global.platform.membership.oauthClient.existingSecret | string | `""` | is the name of the secret |
-| global.platform.membership.oauthClient.id | string | `"platform"` | is the id of the client |
-| global.platform.membership.oauthClient.secret | string | `"changeMe1"` | is the secret of the client |
-| global.platform.membership.oauthClient.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the relying party issuer |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
 | global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme the relying party |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
+| global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
+| global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
+| global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
+| global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.postgresql.additionalArgs | string | `"sslmode=disable"` | Additional arguments for PostgreSQL Connection URI |
 | global.postgresql.auth.database | string | `"formance"` | Name for a custom database to create (overrides `auth.database`) |
@@ -96,12 +99,12 @@ Kubernetes: `>=1.14.0-0`
 | dex.envVars | list | `[]` | Dex additional environment variables |
 | dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| dex.image.tag | string | `"v0.36.2"` | image tag |
+| dex.image.tag | string | `"v1.0.4"` | image tag |
 | dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |
 | dex.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"` | Dex ingress host |
-| dex.ingress.hosts[0].paths[0].path | string | `"/"` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
+| dex.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | Dex ingress path refer to .Values.global.platform.membership.relyingParty.host.path |
 | dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | dex.ingress.tls | list | `[]` | Dex ingress tls |
 | dex.resources | object | `{}` | Dex resources |
@@ -133,7 +136,11 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
+| global.platform.console.enabled | bool | `true` |  |
 | global.platform.consoleV3.enabled | bool | `false` |  |
+| global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
+| global.platform.portal.enabled | bool | `true` |  |
+| global.platform.portal.oauth.client.existingSecret | string | `""` |  |
 | affinity | object | `{}` | Membership affinity |
 | annotations | object | `{}` | Membership annotations  |
 | autoscaling | object | `{}` | Membership autoscaling |
@@ -148,7 +155,7 @@ Kubernetes: `>=1.14.0-0`
 | config.job | object | `{"garbageCollector":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]},"stackLifeCycle":{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}}` | CronJob to manage the stack life cycle and the garbage collector |
 | config.job.garbageCollector | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"0 0 * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Clean expired tokens and refresh tokens after X time |
 | config.job.stackLifeCycle | object | `{"concurrencyPolicy":"Forbid","enabled":false,"resources":{},"restartPolicy":"Never","schedule":"*/30 * * * *","startingDeadlineSeconds":200,"suspend":false,"tolerations":[],"volumeMounts":[],"volumes":[]}` | Job create 2 jobs to eaither warn or prune a stacks This does not change the state of the stack WARN: Mark stack Disposable -> trigger a mail PRUNE: Mark stack Warned -> trigger a mail It blocks stack cycles if supendend It is highly recommended to enable it as it is the only way we control |
-| config.migration.annotations | object | `{}` | Membership job migration annotations |
+| config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | config.migration.serviceAccount.annotations | object | `{}` |  |
 | config.migration.serviceAccount.create | bool | `true` |  |
 | config.migration.serviceAccount.name | string | `""` |  |
@@ -187,7 +194,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.className | string | `""` | Membership ingress class name |
 | ingress.enabled | bool | `true` | Membership ingress enabled |
 | ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.host $ }}","paths":[{"path":"/api","pathType":"Prefix"}]}` | Membership ingress host |
-| ingress.hosts[0].paths[0].path | string | `"/api"` | Membership ingress path |
+| ingress.hosts[0].paths[0] | object | `{"path":"/api","pathType":"Prefix"}` | Membership ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Membership ingress path type |
 | ingress.tls | list | `[]` | Membership ingress tls |
 | initContainers | list | `[]` | Membership init containers |
@@ -205,7 +212,7 @@ Kubernetes: `>=1.14.0-0`
 | securityContext.runAsUser | int | `1000` | Membership security context run as user |
 | service.annotations | object | `{}` | service annotations |
 | service.clusterIP | string | `""` | service cluster IP |
-| service.ports.grpc | object | `{"port":8082}` | service grpc port |
+| service.ports.grpc.port | int | `8082` | service grpc port |
 | service.ports.http | object | `{"port":8080}` | service http port |
 | service.type | string | `"ClusterIP"` | service type |
 | serviceAccount.annotations | object | `{}` | Service account annotations |

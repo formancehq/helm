@@ -271,6 +271,36 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### From v2.X.X To v3.0.0
+
+## RBAC
+
+Membership service contains a behavior-breaking change within the RBAC module.
+
+Before, permissions were managed dynamically on the organization and stack with a *fallback* on the organization resource. (default organization accesses and default stack accesses). Which led to a lot of confusion and inconsistency regarding the user's permissions
+
+The fallback has been removed from the RBAC module and is only used when a new user joins the organization.
+
+## OAuth clients and cookies
+
+Portal and Console v3 are no longer sharing Oauth clients and cookies. The cookie domain is now set on the app domain. Enabling `console` will set the domain on the parent domain. See #breaking-changes for config changes.
+
+## Breaking changes
+
+> The structure does not change
+
+- `.global.platform.cookie` has been moved to `.global.platform.portal.oauth.cookie`
+- `.global.platform.membership.oauthClient` has been moved to `.global.platform.portal.oauth.client` for console backward compatibility but can be different when using console-v3.
+- `.console.enabled` -> `.global.platform.console.enabled`
+- `.membership.enabled` -> `.global.platform.membership.enabled`
+- `.portal.enabled` -> `.global.platform.portal.enabled`
+
+## Additions
+
+- `global.platform.consoleV3.oauth.client` has been added to manage the new console-v3 oauth client.
+- `console-v3.config.cookie` has been added to manage the new console-v3 cookie.
+
+
 ### From v1.0.X To v2.0.X
 
 A global configuration has been introduced to manage values accross different services. To see the detail of the default values, please refer to the [Global Parameters](#global-configuration) section.
