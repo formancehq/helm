@@ -13,7 +13,7 @@ data:
         public: true
       {{- end }}
       {{- range $serviceName, $service := .Values.global.platform }}
-      {{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled }}
+      {{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled (not (eq $serviceName "console")) }}
       - id: "{{ $service.oauth.client.id }}"
         secrets:
           - "{{ printf "$%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}"

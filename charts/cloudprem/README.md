@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.0.0-rc.0](https://img.shields.io/badge/Version-3.0.0--rc.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.4](https://img.shields.io/badge/AppVersion-v1.0.4-informational?style=flat-square)
+![Version: 3.0.0-rc.1](https://img.shields.io/badge/Version-3.0.0--rc.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.4](https://img.shields.io/badge/AppVersion-v1.0.4-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -287,7 +287,9 @@ Portal and Console v3 are no longer sharing Oauth clients and cookies. The cooki
 
 > The structure does not change
 
-- `.global.platform.cookie` has been moved to `.global.platform.portal.oauth.cookie`
+- `.global.platform.portal.cookie` has been removed in favor of `.portal.config.cookie`
+  - `.global.platform.portal.cookie.secretKeys.encryptionKey` -> `.portal.config.cookie.secretKeys.secret`
+  - `.global.platform.portal.cookie.encryptionKey` -> `.portal.config.cookie.secret`
 - `.global.platform.membership.oauthClient` has been moved to `.global.platform.portal.oauth.client` for console backward compatibility but can be different when using console-v3.
 - `.console.enabled` -> `.global.platform.console.enabled`
 - `.membership.enabled` -> `.global.platform.membership.enabled`
