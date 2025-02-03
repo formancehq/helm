@@ -38,9 +38,9 @@
   {{- else }}
   value: {{ .Values.config.cookie.secret  }}
   {{- end }}
-{{- if .Values.global.platform.console.enabled }}
 - name: COOKIE_NAME
-  value: __session_platform
+  value: {{ .Values.config.cookie.name | default "__session_portal" }}
+{{- if .Values.global.platform.console.enabled }}
 - name: COOKIE_DOMAIN
   value: {{ .Values.global.serviceHost }}
 - name: CONSOLE_COOKIE_SECRET
@@ -53,8 +53,6 @@
   value: {{ .Values.global.platform.portal.oauth.cookie.encryptionKey | quote }}
   {{- end }}
 {{- else }}
-- name: COOKIE_NAME
-  value: {{ .Values.config.cookie.name | default "__session_portal" }}
 - name: COOKIE_DOMAIN
   value: {{ tpl .Values.global.platform.portal.host $ }}
 {{- end -}}
