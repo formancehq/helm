@@ -1,6 +1,6 @@
 # portal
 
-![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9bc0913c2e5eecf5713a68312e43e7a80b4c61e5](https://img.shields.io/badge/AppVersion-9bc0913c2e5eecf5713a68312e43e7a80b4c61e5-informational?style=flat-square)
+![Version: 2.0.1](https://img.shields.io/badge/Version-2.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9bc0913c2e5eecf5713a68312e43e7a80b4c61e5](https://img.shields.io/badge/AppVersion-9bc0913c2e5eecf5713a68312e43e7a80b4c61e5-informational?style=flat-square)
 
 Formance Portal
 
@@ -72,8 +72,8 @@ Kubernetes: `>=1.14.0-0`
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | config.additionalEnv | list | `[]` | Additional environment variables |
-| config.cookie | object | `{"existingSecret":"","secret":"changeMe2","secretKeys":{"secret":""}}` | EXPERIMENTAL: Console V3 also use this cookie DO not configure this if using .global.platform.portal.cookie |
 | config.cookie.existingSecret | string | `""` | Cookie existing secret |
+| config.cookie.name | string | `""` | if console-v2 the name is not configurable. if using console-v3 the name is configurable, it is intended to be used when having multiple console-v3 instances. |
 | config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | config.environment | string | `"production"` | Portal environment |

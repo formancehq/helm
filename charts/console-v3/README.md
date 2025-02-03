@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9bc0913c2e5eecf5713a68312e43e7a80b4c61e5](https://img.shields.io/badge/AppVersion-9bc0913c2e5eecf5713a68312e43e7a80b4c61e5-informational?style=flat-square)
+![Version: 2.0.1](https://img.shields.io/badge/Version-2.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9bc0913c2e5eecf5713a68312e43e7a80b4c61e5](https://img.shields.io/badge/AppVersion-9bc0913c2e5eecf5713a68312e43e7a80b4c61e5-informational?style=flat-square)
 
 Formance Console
 
@@ -59,6 +59,7 @@ Kubernetes: `>=1.14.0-0`
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 | config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | config.cookie.existingSecret | string | `""` | is the name of the secret |
+| config.cookie.name | string | `""` | is the name of the cookie. It is intended to be unique when having multiple console-v3 instances. |
 | config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 
 ### Other Values

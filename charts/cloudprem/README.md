@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.0.0-rc.4](https://img.shields.io/badge/Version-3.0.0--rc.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
+![Version: 3.0.0-rc.5](https://img.shields.io/badge/Version-3.0.0--rc.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -429,6 +429,7 @@ Dex:
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 | console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
+| console-v3.config.cookie.name | string | `""` | is the name of the cookie. It is intended to be unique when having multiple console-v3 instances. |
 | console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | membership.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
 | membership.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
@@ -682,8 +683,8 @@ Dex:
 | portal.autoscaling.minReplicas | int | `1` |  |
 | portal.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | portal.config.additionalEnv | list | `[]` | Additional environment variables |
-| portal.config.cookie | object | `{"existingSecret":"","secret":"changeMe2","secretKeys":{"secret":""}}` | EXPERIMENTAL: Console V3 also use this cookie DO not configure this if using .global.platform.portal.cookie |
 | portal.config.cookie.existingSecret | string | `""` | Cookie existing secret |
+| portal.config.cookie.name | string | `""` | if console-v2 the name is not configurable. if using console-v3 the name is configurable, it is intended to be used when having multiple console-v3 instances. |
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
