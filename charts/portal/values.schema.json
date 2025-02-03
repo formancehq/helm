@@ -71,6 +71,9 @@
                         "existingSecret": {
                             "type": "string"
                         },
+                        "name": {
+                            "type": "string"
+                        },
                         "secret": {
                             "type": "string"
                         },

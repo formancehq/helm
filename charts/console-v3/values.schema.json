@@ -74,6 +74,9 @@
                         "existingSecret": {
                             "type": "string"
                         },
+                        "name": {
+                            "type": "string"
+                        },
                         "secretKeys": {
                             "properties": {
                                 "encryptionKey": {

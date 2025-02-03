@@ -206,6 +206,10 @@ affinity: {}
 
 config:
   cookie:
+    # -- is the name of the cookie.
+    # It is intended to be unique when having multiple console-v3 instances.
+    # @section -- Global configuration
+    name: ""
     # -- is used to encrypt a cookie value
     # @section -- Global configuration
     encryptionKey: "changeMe00"
