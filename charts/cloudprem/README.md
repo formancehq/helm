@@ -1,5 +1,5 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.0.0-rc.6](https://img.shields.io/badge/Version-3.0.0--rc.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
+![Version: 3.0.0-rc.7](https://img.shields.io/badge/Version-3.0.0--rc.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
 
 # Formance Cloudprem Helm Chart
 
@@ -431,6 +431,7 @@ Dex:
 | console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
 | console-v3.config.cookie.name | string | `""` | is the name of the cookie. It is intended to be unique when having multiple console-v3 instances. |
 | console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+| membership.config.migration.enabled | bool | `true` | Enable migration job |
 | membership.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
 | membership.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
 | membership.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
