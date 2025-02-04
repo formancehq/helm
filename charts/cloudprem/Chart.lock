@@ -4,12 +4,12 @@ dependencies:
   version: 2.2.0
 - name: portal
   repository: file://../portal
-  version: 2.0.2
+  version: 2.0.3
 - name: console
   repository: file://../console
   version: 2.0.0
 - name: console-v3
   repository: file://../console-v3
   version: 2.0.1
-digest: sha256:1a644f4efbed33a6aa3e29d378e506498a5f901b7a0d049b165ac39cb1acf2f2
-generated: "2025-02-04T09:34:56.007027+01:00"
+digest: sha256:93409720bb80442b05ee10dc1b8f6ea4ddb7b3b8301bd782d20875e17db58f88
+generated: "2025-02-04T17:42:48.012869+01:00"
