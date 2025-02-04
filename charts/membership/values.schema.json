@@ -239,6 +239,9 @@
                             "properties": {},
                             "type": "object"
                         },
+                        "enabled": {
+                            "type": "boolean"
+                        },
                         "postgresql": {
                             "properties": {
                                 "auth": {
