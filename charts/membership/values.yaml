@@ -504,6 +504,9 @@ config:
       volumeMounts: []
 
   migration:
+    # -- Enable migration job
+    # @section -- Global configuration
+    enabled: true
     postgresql:
       auth:
         # -- Name for a custom user to create (overrides `auth.username`)
