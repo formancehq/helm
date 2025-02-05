@@ -25,9 +25,9 @@
 - name: SENTRY_DSN
   value: {{ .Values.config.sentry.dsn }}
 - name: SENTRY_ENVIRONMENT
-  value: {{ .Values.config.sentry.environment }}
+  value: {{ tpl .Values.config.sentry.environment $ }}
 - name: SENTRY_RELEASE
-  value: {{ .Chart.AppVersion | default .Values.config.sentry.release }}
+  value: {{ tpl .Values.config.sentry.release $ | default .Chart.AppVersion }}
 - name: SENTRY_AUTH_TOKEN
   {{- if gt (len .Values.config.sentry.authToken.existingSecret) 0 }}
   valueFrom:

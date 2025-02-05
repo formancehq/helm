@@ -4,13 +4,13 @@ description: Formance Core Library
 home: "https://formance.com"
 
 keywords:
-  - core
+- core
 
 maintainers:
-  - name: "Formance Team"
-    email: "support@formance.com"
+- name: "Formance Team"
+  email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: library
-version: 1.1.0
+version: 1.1.1
 appVersion: "latest"
