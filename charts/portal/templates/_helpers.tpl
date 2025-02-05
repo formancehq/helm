@@ -52,6 +52,8 @@
   {{- else }}
   value: {{ .Values.global.platform.portal.oauth.cookie.encryptionKey | quote }}
   {{- end }}
+- name: CONSOLE_COOKIE_DOMAIN
+  value: {{ .Values.global.serviceHost }}
 {{- end -}}
 {{- end -}}
 
