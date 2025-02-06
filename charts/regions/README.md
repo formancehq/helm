@@ -1,6 +1,6 @@
 # regions
 
-![Version: 2.8.4](https://img.shields.io/badge/Version-2.8.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.9.4](https://img.shields.io/badge/Version-2.9.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -21,7 +21,7 @@ Formance Private Regions Helm Chart
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../agent | agent | 2.X |
+| file://../agent | agent | 2.5.0 |
 | oci://ghcr.io/formancehq/helm | operator | v2.6.0 |
 
 ## Values
@@ -121,8 +121,10 @@ Formance Private Regions Helm Chart
 | agent.affinity | object | `{}` |  |
 | agent.agent.authentication.clientID | string | `""` |  |
 | agent.agent.authentication.clientSecret | string | `""` |  |
+| agent.agent.authentication.existingSecret | string | `""` |  |
 | agent.agent.authentication.issuer | string | `"https://app.formance.cloud/api"` |  |
 | agent.agent.authentication.mode | string | `"bearer"` |  |
+| agent.agent.authentication.secretKeys.secret | string | `""` |  |
 | agent.agent.baseUrl | string | `""` |  |
 | agent.agent.id | string | `"b7549a16-f74a-4815-ab1e-bb8ef1c3833b"` |  |
 | agent.agent.outdated | bool | `false` | Any region: - this flag is sync by the server - it will mark the associated region as outdated and will block any new Creation/Enable/Restore |
