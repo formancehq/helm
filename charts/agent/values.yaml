@@ -109,6 +109,10 @@ agent:
     issuer: https://app.formance.cloud/api
     clientID: ""
     clientSecret: ""
+    existingSecret: ""
+    secretKeys:
+      secret: ""
+
 
     # -- Public Region
     # mode: token

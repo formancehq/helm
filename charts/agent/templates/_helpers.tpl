@@ -26,7 +26,14 @@ app.kubernetes.io/instance: {{ .Release.Name }}
   value: "{{ .Values.agent.authentication.mode }}"
 {{- if eq .Values.agent.authentication.mode "token" }}
 - name: AUTHENTICATION_TOKEN
-  value: "{{ .Values.agent.authentication.token }}"
+  {{- if gt (len .Values.agent.authentication.existingSecretToken) 0 }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.agent.authentication.existingSecret }}
+      key: {{ .Values.agent.authentication.secretKeys.secret | default "token"  }}
+  {{- else }}
+  value: {{ .Values.agent.authentication.token }}
+  {{- end }}
 {{- end }}
 {{- if eq .Values.agent.authentication.mode "bearer" }}
 - name: AUTHENTICATION_ISSUER
