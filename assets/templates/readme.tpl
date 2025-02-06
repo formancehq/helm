@@ -4,7 +4,7 @@
 
 | Readme | Chart Version | App Version | Description | Hub |
 |--------|---------------|-------------|-------------|-----|
-{{- range (listCharts "charts") }}
+{{- range (listCharts "../../charts") }}
 | [{{ .Name | title }}](./charts/{{ .Name }}/README.md) | {{ .Version }} | {{ .AppVersion }} | {{ .Description }} | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/{{ .Name }})](https://artifacthub.io/packages/search?repo={{ .Name }}) |
 {{- end }}
 

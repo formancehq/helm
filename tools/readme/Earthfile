@@ -6,20 +6,21 @@ IMPORT ../.. AS root
 sources:
   FROM core+base-image
   RUN apk add go
-  WORKDIR /src
+  WORKDIR /src/tools/readme
   COPY go.* . 
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
       go mod download
   COPY *.go .
-  SAVE ARTIFACT /src
+  SAVE ARTIFACT /src/tools/readme
   
 # template something
 template:
   FROM +sources  
   WORKDIR /src
-  COPY --dir (root+sources/*/* --PATH=assets) assets
   COPY --dir (root+validate/*) .
+  WORKDIR /src/tools/readme
+  COPY --dir (root+sources/*/* --PATH=assets) assets
 
   DO --pass-args +GENERATE
 
@@ -29,5 +30,5 @@ GENERATE:
   ARG OUTPUT_FILE=README.md
   RUN --mount=type=cache,id=gomod,target=${GOPATH}/pkg/mod \
       --mount=type=cache,id=gobuild,target=/root/.cache/go-build \ 
-    go run ./ readme --template-file $TEMPLATE_FILE >> ${OUTPUT_FILE}
+    go run ./ readme --template-file $TEMPLATE_FILE --assets-dir "assets/templates/*.tpl" >> ${OUTPUT_FILE}
   SAVE ARTIFACT $OUTPUT_FILE AS LOCAL $OUTPUT_FILE
