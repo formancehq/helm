@@ -41,5 +41,6 @@ done
 
 echo "\nTraitement terminé. Tous les charts ont été mis à jour."
 
-earthly +template --TEMPLATE_FILE=contributing.tpl --OUTPUT_FILE=CONTRIBUTING.md
-earthly +template --TEMPLATE_FILE=readme.tpl --OUTPUT_FILE=README.md
+cd tools/readme
+go run main.go --assets-dir "../../assets/templates/*.tpl"  --template-file readme.tpl > ../../README.md
+go run main.go --assets-dir "../../assets/templates/*.tpl" --template-file contributing.tpl > ../../CONTRIBUTING.md
