@@ -103,3 +103,15 @@ versions:
       orchestration: v2.0.24
       reconciliation: v2.0.24
       operator-utils: v2.0.24
+    v3.0:
+      payments: v3.0.0
+      ledger: v2.2.0
+      search: v2.1.0
+      stargate: v2.1.0
+      auth: v2.1.1
+      wallets: v2.1.1
+      webhooks: v2.1.0
+      gateway: v2.1.0
+      orchestration: v2.1.0
+      reconciliation: v2.1.0
+      operator-utils: v2.0.24
