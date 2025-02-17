@@ -1,6 +1,6 @@
 # regions
 
-![Version: 2.11.0](https://img.shields.io/badge/Version-2.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.11.1](https://img.shields.io/badge/Version-2.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -107,9 +107,20 @@ Formance Private Regions Helm Chart
 | versions.files."v2.1".stargate | string | `"v2.0.24"` |  |
 | versions.files."v2.1".wallets | string | `"v2.1.1"` |  |
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
+| versions.files."v2.2".auth | string | `"v2.0.24"` |  |
+| versions.files."v2.2".gateway | string | `"v2.0.24"` |  |
+| versions.files."v2.2".ledger | string | `"v2.2.2"` |  |
+| versions.files."v2.2".operator-utils | string | `"v2.0.24"` |  |
+| versions.files."v2.2".orchestration | string | `"v2.0.24"` |  |
+| versions.files."v2.2".payments | string | `"v2.0.25"` |  |
+| versions.files."v2.2".reconciliation | string | `"v2.0.24"` |  |
+| versions.files."v2.2".search | string | `"v2.0.24"` |  |
+| versions.files."v2.2".stargate | string | `"v2.0.24"` |  |
+| versions.files."v2.2".wallets | string | `"v2.1.1"` |  |
+| versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.1.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.0".ledger | string | `"v2.2.1"` |  |
+| versions.files."v3.0".ledger | string | `"v2.2.2"` |  |
 | versions.files."v3.0".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.0"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.0"` |  |

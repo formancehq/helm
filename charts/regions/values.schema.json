@@ -296,6 +296,44 @@
                             },
                             "type": "object"
                         },
+                        "v2.2": {
+                            "properties": {
+                                "auth": {
+                                    "type": "string"
+                                },
+                                "gateway": {
+                                    "type": "string"
+                                },
+                                "ledger": {
+                                    "type": "string"
+                                },
+                                "operator-utils": {
+                                    "type": "string"
+                                },
+                                "orchestration": {
+                                    "type": "string"
+                                },
+                                "payments": {
+                                    "type": "string"
+                                },
+                                "reconciliation": {
+                                    "type": "string"
+                                },
+                                "search": {
+                                    "type": "string"
+                                },
+                                "stargate": {
+                                    "type": "string"
+                                },
+                                "wallets": {
+                                    "type": "string"
+                                },
+                                "webhooks": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "v3.0": {
                             "properties": {
                                 "auth": {
