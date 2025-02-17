@@ -15,11 +15,22 @@
                         "clientSecret": {
                             "type": "string"
                         },
+                        "existingSecret": {
+                            "type": "string"
+                        },
                         "issuer": {
                             "type": "string"
                         },
                         "mode": {
                             "type": "string"
+                        },
+                        "secretKeys": {
+                            "properties": {
+                                "secret": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
                         }
                     },
                     "type": "object"

@@ -1,6 +1,6 @@
 # agent
 
-![Version: 2.4.2](https://img.shields.io/badge/Version-2.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.1](https://img.shields.io/badge/AppVersion-v2.2.1-informational?style=flat-square)
+![Version: 2.5.0](https://img.shields.io/badge/Version-2.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.1](https://img.shields.io/badge/AppVersion-v2.2.1-informational?style=flat-square)
 
 Formance Membership Agent Helm Chart
 
@@ -47,8 +47,10 @@ Formance Membership Agent Helm Chart
 | affinity | object | `{}` |  |
 | agent.authentication.clientID | string | `""` |  |
 | agent.authentication.clientSecret | string | `""` |  |
+| agent.authentication.existingSecret | string | `""` |  |
 | agent.authentication.issuer | string | `"https://app.formance.cloud/api"` |  |
 | agent.authentication.mode | string | `"bearer"` |  |
+| agent.authentication.secretKeys.secret | string | `""` |  |
 | agent.baseUrl | string | `""` |  |
 | agent.id | string | `"b7549a16-f74a-4815-ab1e-bb8ef1c3833b"` |  |
 | agent.outdated | bool | `false` | Any region: - this flag is sync by the server - it will mark the associated region as outdated and will block any new Creation/Enable/Restore |
