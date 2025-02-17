@@ -39,6 +39,7 @@ spec:
                 {{- include "core.env.common" . | nindent 16 }}
                 {{- include "core.postgres.uri" . | nindent 16 }}
                 {{- include "core.monitoring" . | nindent 16 }}
+                {{- include "core.licence.env" . | nindent 16 }}
               resources:
                 {{- toYaml .Values.config.job.invitationGC.resources | nindent 16 }}
           {{- with .Values.nodeSelector }}

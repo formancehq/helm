@@ -39,8 +39,10 @@ for chart in "$CHARTS_DIR"/*; do
   fi
 done
 
-echo "\nTraitement terminé. Tous les charts ont été mis à jour."
+echo "Traitement terminé. Tous les charts ont été mis à jour."
 
 cd tools/readme
 go run main.go --assets-dir "../../assets/templates/*.tpl"  --template-file readme.tpl > ../../README.md
 go run main.go --assets-dir "../../assets/templates/*.tpl" --template-file contributing.tpl > ../../CONTRIBUTING.md
+
+echo "templating readme and contributing files done"

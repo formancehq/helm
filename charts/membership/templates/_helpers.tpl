@@ -87,6 +87,7 @@
   {{- end }}
 {{- end -}}
 {{- end -}}
+{{- include "core.licence.env" . }}
 {{- include "core.postgres.uri" . }}
 {{- include "core.monitoring" . }}
 {{- include "membership.grpc.env" . }}
