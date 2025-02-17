@@ -18,7 +18,8 @@ readme:
 # schema target to generate the schema files
 template:
   FROM core+base-image
-  COPY --pass-args (./tools/readme+template/*.md) /src/
+  WORKDIR /src
+  COPY --pass-args (./tools/readme+template/*.md) ./
   SAVE ARTIFACT /src/*.md AS LOCAL ./
 
 # validate target to run the helm lint

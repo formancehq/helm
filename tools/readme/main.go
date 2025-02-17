@@ -132,7 +132,7 @@ func NewRootCommand() *cobra.Command {
 		RunE: runE,
 	}
 
-	root.Flags().String(assetsPatternFlag, "assets/templates/*.tpl", "assets pattern")
+	root.Flags().String(assetsPatternFlag, "../../assets/templates/*.tpl", "assets pattern")
 	root.Flags().String(templateFileNameFlag, "readme.tpl", "template file name")
 
 	return root
