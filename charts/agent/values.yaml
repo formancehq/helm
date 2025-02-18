@@ -117,3 +117,6 @@ agent:
     # -- Public Region
     # mode: token
     # token: abcd
+    # existingSecret: ""
+    # secretKeys:
+    #   secret: ""

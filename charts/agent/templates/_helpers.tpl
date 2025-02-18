@@ -26,7 +26,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
   value: "{{ .Values.agent.authentication.mode }}"
 {{- if eq .Values.agent.authentication.mode "token" }}
 - name: AUTHENTICATION_TOKEN
-  {{- if gt (len .Values.agent.authentication.existingSecretToken) 0 }}
+  {{- if gt (len .Values.agent.authentication.existingSecret) 0 }}
   valueFrom:
     secretKeyRef:
       name: {{ .Values.agent.authentication.existingSecret }}
