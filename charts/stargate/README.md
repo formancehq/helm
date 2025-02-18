@@ -1,8 +1,7 @@
-# stargate
+# Formance stargate Helm chart
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
-
-Formance Stargate gRPC Gateway
+![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+Formance EE Stargate gRPC Gateway
 
 ## Requirements
 
@@ -10,6 +9,18 @@ Formance Stargate gRPC Gateway
 |------------|------|---------|
 | file://../core | core | 1.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
+
+> [!IMPORTANT]
+> You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
+
+## Migration
+
+### From v0.38 To v1.0.0
+
+#### EE Licence
+
+Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
+Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
 
 ## Values
 
@@ -20,6 +31,16 @@ Formance Stargate gRPC Gateway
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set |
 | aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port | default 3068 }}"},"targetGroupARN":"","targetType":"ip"}}}` | Aws Stargate target groups |
+
+### Licence configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.licence.clusterID | string | `""` | Obtain you licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
+| global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
+| global.licence.issuer | string | `"https://licence.formance.cloud"` | Licence Environment  |
+| global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
+| global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
 ### Global configuration
 

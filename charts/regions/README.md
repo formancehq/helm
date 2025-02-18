@@ -1,6 +1,6 @@
 # regions
 
-![Version: 2.11.2](https://img.shields.io/badge/Version-2.11.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.11.3](https://img.shields.io/badge/Version-2.11.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -16,6 +16,7 @@ Formance Private Regions Helm Chart
 
 * <https://github.com/formancehq/operator>
 * <https://github.com/formancehq/agent>
+* <https://github.com/formancehq/helm/charts/regions>
 
 ## Requirements
 

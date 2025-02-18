@@ -598,6 +598,31 @@
                 "debug": {
                     "type": "boolean"
                 },
+                "licence": {
+                    "properties": {
+                        "clusterID": {
+                            "type": "string"
+                        },
+                        "existingSecret": {
+                            "type": "string"
+                        },
+                        "issuer": {
+                            "type": "string"
+                        },
+                        "secretKeys": {
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "token": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
                 "monitoring": {
                     "properties": {
                         "batch": {

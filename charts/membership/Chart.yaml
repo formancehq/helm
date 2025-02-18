@@ -1,7 +1,7 @@
 apiVersion: v2
 name: membership
 description: |-
-  Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
+  Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -26,6 +26,7 @@ appVersion: "v1.1.1"
 kubeVersion: ">=1.14.0-0"
 sources:
 - https://github.com/formancehq/membership-api
+- "https://github.com/formancehq/helm/charts/membership"
 
 dependencies:
 - name: postgresql

@@ -1,0 +1,43 @@
+# Formance {{ template "chart.name" . }} Helm chart
+
+{{ template "chart.badgesSection" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+> [!IMPORTANT]
+> You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
+
+- SSL Certificate (Let's Encrypt or another)
+- Public domain according to the certificate authority
+
+{{ template "chart.sourcesSection" . }}
+
+## Migration
+
+### From v0.38 To v1.0.0
+
+#### EE Licence
+
+Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
+Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
+
+#### RBAC
+
+Membership service contains a behavior-breaking change within the RBAC module.
+
+Before, permissions were managed dynamically on the organization and stack with a *fallback* on the organization resource. (default organization accesses and default stack accesses). Which led to a lot of confusion and inconsistency regarding the user's permissions
+
+The fallback has been removed from the RBAC module and is only used when a new user joins the organization.
+
+#### Breaking changes
+
+Membership chart now use `.global.platform.<service>.oauth.client` to generate a client and allow the ability to integrate with another chart. specific configuration can added through `.config.auth.additionalOAuthClients` value.
+
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.valuesSection" . }}
