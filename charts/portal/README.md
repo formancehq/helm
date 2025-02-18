@@ -1,6 +1,6 @@
 # portal
 
-![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5e7b404a3a208b1f38603719e02a8b1883c10acf](https://img.shields.io/badge/AppVersion-5e7b404a3a208b1f38603719e02a8b1883c10acf-informational?style=flat-square)
+![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5e7b404a3a208b1f38603719e02a8b1883c10acf](https://img.shields.io/badge/AppVersion-5e7b404a3a208b1f38603719e02a8b1883c10acf-informational?style=flat-square)
 
 Formance Portal
 
