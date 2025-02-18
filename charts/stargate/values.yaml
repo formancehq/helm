@@ -3,6 +3,26 @@ global:
   debug: false
   # -- is the base domain for portal and console
   serviceHost: ""
+
+  # Add your license information 
+  licence:
+    # -- Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
+    # @section -- Licence configuration
+    clusterID: ""
+    # -- Licence Environment 
+    # @section -- Licence configuration
+    issuer: "https://licence.formance.cloud"
+    # -- Licence Client Token delivered by contacting [Formance](https://formance.com)
+    # @section -- Licence configuration
+    token: ""
+    # -- Licence Client Token as a secret
+    # @section -- Licence configuration
+    existingSecret: ""
+    secretKeys:
+      # -- Key in existing secret to use for Licence Client Token
+      # @section -- Licence configuration
+      token: ""
+
   aws:
     # -- Enable AWS IAM across all services, appropriate <service>.serviceAccount.annotations must be set
     # @section -- Global AWS configuration
@@ -124,8 +144,7 @@ podDisruptionBudget:
   maxUnavailable: 0
 
 # -- Topology spread constraints
-topologySpreadConstraints:
-  []
+topologySpreadConstraints: []
   #   - maxSkew: 1
   #     topologyKey: kubernetes.io/hostname
   #     whenUnsatisfiable: DoNotSchedule
@@ -147,13 +166,11 @@ serviceAccount:
 podAnnotations: {}
 
 # -- Security context for the pod
-podSecurityContext:
-  {}
-  # fsGroup: 2000
+podSecurityContext: {}
+# fsGroup: 2000
 
 # -- Security context for the container
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -172,23 +189,22 @@ service:
 ingress:
   enabled: false
   className: ""
-  annotations:
-    {}
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: "stargate.{{ .Values.global.serviceHost }}"
-      paths:
-        - path: /
-          pathType: Prefix
+  - host: "stargate.{{ .Values.global.serviceHost }}"
+    paths:
+    - path: /
+      pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
-# -- Resource limits and requests
-resources:
-  {}
+
+  # -- Resource limits and requests
+resources: {}
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -203,7 +219,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-# -- Node labels for pod assignment
+
+  # -- Node labels for pod assignment
 nodeSelector: {}
 
 # -- Tolerations for pod assignment

@@ -1,12 +1,7 @@
-# membership
+# Formance membership Helm chart
 
-![Version: 2.3.0](https://img.shields.io/badge/Version-2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.1](https://img.shields.io/badge/AppVersion-v1.1.1-informational?style=flat-square)
-
-Formance Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
-
-## Source Code
-
-* <https://github.com/formancehq/membership-api>
+![Version: 2.3.1](https://img.shields.io/badge/Version-2.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.1](https://img.shields.io/badge/AppVersion-v1.1.1-informational?style=flat-square)
+Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
 
@@ -17,6 +12,38 @@ Kubernetes: `>=1.14.0-0`
 | file://../core | core | 1.X |
 | https://charts.dexidp.io | dex | 0.17.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
+
+> [!IMPORTANT]
+> You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
+
+- SSL Certificate (Let's Encrypt or another)
+- Public domain according to the certificate authority
+
+## Source Code
+
+* <https://github.com/formancehq/membership-api>
+* <https://github.com/formancehq/helm/charts/membership>
+
+## Migration
+
+### From v0.38 To v1.0.0
+
+#### EE Licence
+
+Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
+Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
+
+#### RBAC
+
+Membership service contains a behavior-breaking change within the RBAC module.
+
+Before, permissions were managed dynamically on the organization and stack with a *fallback* on the organization resource. (default organization accesses and default stack accesses). Which led to a lot of confusion and inconsistency regarding the user's permissions
+
+The fallback has been removed from the RBAC module and is only used when a new user joins the organization.
+
+#### Breaking changes
+
+Membership chart now use `.global.platform.<service>.oauth.client` to generate a client and allow the ability to integrate with another chart. specific configuration can added through `.config.auth.additionalOAuthClients` value.
 
 ## Values
 
@@ -80,6 +107,16 @@ Kubernetes: `>=1.14.0-0`
 | config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
 | config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
 | config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
+
+### Licence configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
+| global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
+| global.licence.issuer | string | `"https://licence.formance.cloud"` | Licence Environment  |
+| global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
+| global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
 ### Dex configuration
 
@@ -185,7 +222,7 @@ Kubernetes: `>=1.14.0-0`
 | config.stack.minimalStackModules[2] | string | `"Payments"` |  |
 | config.stack.minimalStackModules[3] | string | `"Gateway"` |  |
 | debug | bool | `false` | Membership debug |
-| dev | bool | `false` | Membership dev |
+| dev | bool | `false` | Membership dev, disable ssl verification |
 | fullnameOverride | string | `""` | Membership fullname override |
 | image.pullPolicy | string | `"IfNotPresent"` | Membership image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/membership"` | Membership image repository |

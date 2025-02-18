@@ -1,37 +1,47 @@
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.0.0-rc.12](https://img.shields.io/badge/Version-3.0.0--rc.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
+# Formance cloudprem Helm chart
 
-# Formance Cloudprem Helm Chart
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
+![Version: 3.0.0-rc.13](https://img.shields.io/badge/Version-3.0.0--rc.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
 
 Formance control-plane
 
 [Formance Cloudprem](https://docs.formance.com/deployment/cloudprem2/intro) is a platform that allows you to manage your users, organizations and your data plane.
 
+## Requirements
+
+Kubernetes: `>=1.14.0-0`
+
+| Repository | Name | Version |
+|------------|------|---------|
+| file://../console-v3 | console-v3 | 2.X |
+| file://../console | console | 2.X |
+| file://../membership | membership | 2.X |
+| file://../portal | portal | 2.X |
+
+> [!IMPORTANT]
+> You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
+
+- SSL Certificate (Let's Encrypt or another)
+- Public domain according to the certificate authority
+
 ## TL;DR
 
 ```bash
+
+export YOUR_LICENCE=$YOUR_LICENCE_KEY
+export YOUR_CLUSTER_ID=$YOUR_CLUSTER_ID
 export BASE_DOMAIN=example.com
 export BASE_DOMAIN_WILDCARD_CERTIFICATE=example-com-wildcard-certificate-tls
 
 helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
+  --set global.licence.token=$YOUR_LICENCE_KEY
+  --set global.licence.clusterID=$YOUR_CLUSTER_ID
   --set global.serviceHost=$BASE_DOMAIN \
   --set membership.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set portal.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set console.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set dex.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE
 ```
-
-## Requirements
-
-- SSL Certificate (Let's Encrypt or another)
-- Public domain according to the certificate authority
-
-## Control plane components
-
-- Portal > 0.0.1
-- Console > 2.2.1
-- Membership > 0.28.0
-- Dex > 0.28.0
 
 ## Introduction
 
@@ -271,7 +281,12 @@ See [profiles](./profiles) for more examples.
 
 ### From v2.X.X To v3.0.0
 
-## RBAC
+#### EE Licence
+
+Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
+Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
+
+#### RBAC
 
 Membership service contains a behavior-breaking change within the RBAC module.
 
@@ -279,11 +294,11 @@ Before, permissions were managed dynamically on the organization and stack with 
 
 The fallback has been removed from the RBAC module and is only used when a new user joins the organization.
 
-## OAuth clients and cookies
+#### OAuth clients and cookies
 
 Portal and Console v3 are no longer sharing Oauth clients and cookies. The cookie domain is now set on the app domain. Enabling `console` will set the domain on the parent domain. See #breaking-changes for config changes.
 
-## Breaking changes
+#### Breaking changes
 
 > The structure does not change
 
@@ -295,7 +310,7 @@ Portal and Console v3 are no longer sharing Oauth clients and cookies. The cooki
 - `.membership.enabled` -> `.global.platform.membership.enabled`
 - `.portal.enabled` -> `.global.platform.portal.enabled`
 
-## Additions
+#### Additions
 
 - `global.platform.consoleV3.oauth.client` has been added to manage the new console-v3 oauth client.
 - `console-v3.config.cookie` has been added to manage the new console-v3 cookie.
@@ -361,6 +376,10 @@ Dex:
 | Name | Email | Url |
 | ---- | ------ | --- |
 | Formance Team | <support@formance.com> |  |
+
+## Source Code
+
+* <https://github.com/formancehq/helm/charts/cloudprem>
 
 ## Values
 
@@ -436,6 +455,16 @@ Dex:
 | membership.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
 | membership.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
 | membership.config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
+
+### Licence configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
+| global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
+| global.licence.issuer | string | `"https://licence.formance.cloud"` | Licence Environment  |
+| global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
+| global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
 ### Dex configuration
 
@@ -640,7 +669,7 @@ Dex:
 | membership.config.stack.minimalStackModules[2] | string | `"Payments"` |  |
 | membership.config.stack.minimalStackModules[3] | string | `"Gateway"` |  |
 | membership.debug | bool | `false` | Membership debug |
-| membership.dev | bool | `false` | Membership dev |
+| membership.dev | bool | `false` | Membership dev, disable ssl verification |
 | membership.fullnameOverride | string | `""` | Membership fullname override |
 | membership.image.pullPolicy | string | `"IfNotPresent"` | Membership image pull policy |
 | membership.image.repository | string | `"ghcr.io/formancehq/membership"` | Membership image repository |

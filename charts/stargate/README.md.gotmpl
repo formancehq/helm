@@ -1,0 +1,26 @@
+# Formance {{ template "chart.name" . }} Helm chart
+
+{{ template "chart.badgesSection" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+> [!IMPORTANT]
+> You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
+
+## Migration
+
+### From v0.38 To v1.0.0
+
+#### EE Licence
+
+Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
+Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
+
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.valuesSection" . }}

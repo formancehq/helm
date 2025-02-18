@@ -11,6 +11,7 @@ readme:
   FROM charts+readme-base
   WORKDIR /src/core
   COPY --dir (+sources/*) .
+  COPY *.gotmpl .
   DO --pass-args charts+README_GENERATOR
 
 sources:

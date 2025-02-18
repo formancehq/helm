@@ -4,13 +4,15 @@ description: Formance Membership Agent Helm Chart
 home: "https://formance.com"
 sources:
 - "https://github.com/formancehq/agent"
+- "https://github.com/formancehq/helm/charts/agent"
+
 maintainers:
 - name: "Formance Team"
   email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: 2.6.1
+version: 2.6.2
 
 appVersion: "v2.2.1"
 
