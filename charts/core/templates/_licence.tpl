@@ -2,7 +2,7 @@
   global:
     # Add your license information 
     licence:
-      # -- Obtain you licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
+      # -- Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
       # @section -- Licence configuration
       clusterID: ""
       # -- Licence Environment 

@@ -112,7 +112,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.licence.clusterID | string | `""` | Obtain you licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
+| global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
 | global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
 | global.licence.issuer | string | `"https://licence.formance.cloud"` | Licence Environment  |
 | global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |

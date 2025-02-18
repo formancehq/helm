@@ -6,7 +6,7 @@ global:
 
   # Add your license information 
   licence:
-    # -- Obtain you licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
+    # -- Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
     # @section -- Licence configuration
     clusterID: ""
     # -- Licence Environment 
@@ -203,7 +203,7 @@ ingress:
   #      - chart-example.local
 
 
-# -- Resource limits and requests
+  # -- Resource limits and requests
 resources: {}
   # limits:
   #   cpu: 100m
@@ -220,7 +220,7 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 
-# -- Node labels for pod assignment
+  # -- Node labels for pod assignment
 nodeSelector: {}
 
 # -- Tolerations for pod assignment

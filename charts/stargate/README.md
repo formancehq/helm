@@ -36,7 +36,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.licence.clusterID | string | `""` | Obtain you licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
+| global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
 | global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
 | global.licence.issuer | string | `"https://licence.formance.cloud"` | Licence Environment  |
 | global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
@@ -111,14 +111,14 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` | String to partially override stargate.fullname template with a string (will append the release name) |
-| nodeSelector | object | `{}` | Node labels for pod assignment |
+| nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` | Annotations to add to the pod |
 | podDisruptionBudget.enabled | bool | `false` | Enable a [pod distruption budget](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) to help dealing with [disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/). It is **highly recommended** for webhooks as disruptions can prevent launching new pods. |
 | podDisruptionBudget.maxUnavailable | int | `0` |  |
 | podDisruptionBudget.minAvailable | int | `1` |  |
 | podSecurityContext | object | `{}` | Security context for the pod |
 | replicaCount | int | `1` | Number of replicas |
-| resources | object | `{}` | Resource limits and requests |
+| resources | object | `{}` |  |
 | securityContext | object | `{}` | Security context for the container |
 | service.ports.grpc.port | int | `3068` |  |
 | service.ports.http.port | int | `8080` |  |
