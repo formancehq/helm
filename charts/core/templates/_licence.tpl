@@ -29,6 +29,8 @@
         token: ""
 **/}}
 {{- define "core.licence.env" }}
+{{- $enabled := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "licence.enabled" "Default" "true") -}}
+{{- if eq $enabled "true" }}
 - name: LICENCE_TOKEN
   {{- $value := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "licence.existingSecret" "Default" "") -}}
   {{- if $value }}
@@ -43,4 +45,5 @@
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "licence.clusterID" "Default" "") | quote}}
 - name: LICENCE_ISSUER
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "licence.issuer" "Default" "") | quote}}
+{{- end }}
 {{- end }}
