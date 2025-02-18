@@ -1,31 +1,32 @@
 {{/** 
-  # Add your license information 
-  licence:
-    # -- Obtain you licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
-    # @section -- Licence configuration
-    clusterID: ""
-    # -- Licence Environment 
-    # @section -- Licence configuration
-    issuer: "https://licence.formance.cloud"
-    # -- Licence Client Token delivered by contacting [Formance](https://formance.com)
-    # @section -- Licence configuration
-    token: ""
-    # -- Licence Client Token as a secret
-    # @section -- Licence configuration
-    existingSecret: ""
-    secretKeys:
-      # -- Key in existing secret to use for Licence Client Token
+  global:
+    # Add your license information 
+    licence:
+      # -- Obtain you licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
+      # @section -- Licence configuration
+      clusterID: ""
+      # -- Licence Environment 
+      # @section -- Licence configuration
+      issuer: "https://licence.formance.cloud"
+      # -- Licence Client Token delivered by contacting [Formance](https://formance.com)
       # @section -- Licence configuration
       token: ""
-    
-    config:
-      licence:
-        clusterID: ""
-        issuer: ""
+      # -- Licence Client Token as a secret
+      # @section -- Licence configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Key in existing secret to use for Licence Client Token
+        # @section -- Licence configuration
         token: ""
-        existingSecret: ""
-        secretKeys:
-          token: ""
+    
+  config:
+    licence:
+      clusterID: ""
+      issuer: ""
+      token: ""
+      existingSecret: ""
+      secretKeys:
+        token: ""
 **/}}
 {{- define "core.licence.env" }}
 - name: LICENCE_TOKEN
