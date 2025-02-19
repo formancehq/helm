@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 2.3.2](https://img.shields.io/badge/Version-2.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.1](https://img.shields.io/badge/AppVersion-v1.1.1-informational?style=flat-square)
+![Version: 2.3.3](https://img.shields.io/badge/Version-2.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.1](https://img.shields.io/badge/AppVersion-v1.1.1-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -114,7 +114,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 |-----|------|---------|-------------|
 | global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
 | global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
-| global.licence.issuer | string | `"https://licence.formance.cloud"` | Licence Environment  |
+| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment  |
 | global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
 | global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 

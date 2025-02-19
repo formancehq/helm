@@ -11,7 +11,7 @@ global:
     clusterID: ""
     # -- Licence Environment 
     # @section -- Licence configuration
-    issuer: "https://licence.formance.cloud"
+    issuer: "https://license.formance.cloud/keys"
     # -- Licence Client Token delivered by contacting [Formance](https://formance.com)
     # @section -- Licence configuration
     token: ""
