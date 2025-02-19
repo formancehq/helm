@@ -1,6 +1,6 @@
 # regions
 
-![Version: 2.11.4](https://img.shields.io/badge/Version-2.11.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.11.5](https://img.shields.io/badge/Version-2.11.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -16,7 +16,6 @@ Formance Private Regions Helm Chart
 
 * <https://github.com/formancehq/operator>
 * <https://github.com/formancehq/agent>
-* <https://github.com/formancehq/helm/charts/regions>
 
 ## Requirements
 
@@ -123,7 +122,7 @@ Formance Private Regions Helm Chart
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
 | versions.files."v3.0".ledger | string | `"v2.2.2"` |  |
 | versions.files."v3.0".operator-utils | string | `"v2.0.24"` |  |
-| versions.files."v3.0".orchestration | string | `"v2.1.0"` |  |
+| versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.0"` |  |
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
 | versions.files."v3.0".search | string | `"v2.1.0"` |  |

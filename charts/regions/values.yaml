@@ -124,6 +124,6 @@ versions:
       wallets: v2.1.1
       webhooks: v2.1.0
       gateway: v2.1.0
-      orchestration: v2.1.0
+      orchestration: v2.1.1
       reconciliation: v2.1.0
       operator-utils: v2.0.24
