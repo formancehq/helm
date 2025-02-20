@@ -55,12 +55,12 @@ func (s *TemplateConsole) TestCookieEncryptionKey() {
 			var values map[string]string
 			if withEncryptioNKey {
 				values = map[string]string{
-					"global.platform.portal.oauth.cookie.existingSecret":           uuid.NewString(),
-					"global.platform.portal.oauth.cookie.secretKeys.encryptionKey": uuid.NewString(),
+					"global.platform.console.cookie.existingSecret":           uuid.NewString(),
+					"global.platform.console.cookie.secretKeys.encryptionKey": uuid.NewString(),
 				}
 			} else {
 				values = map[string]string{
-					"global.platform.portal.oauth.cookie.encryptionKey": uuid.NewString(),
+					"global.platform.console.cookie.encryptionKey": uuid.NewString(),
 				}
 			}
 			options := s.Options(
@@ -73,7 +73,7 @@ func (s *TemplateConsole) TestCookieEncryptionKey() {
 			if !withEncryptioNKey {
 				require.Contains(t, r.Spec.Template.Spec.Containers[0].Env, coreV1.EnvVar{
 					Name:  "ENCRYPTION_KEY",
-					Value: values["global.platform.portal.oauth.cookie.encryptionKey"],
+					Value: values["global.platform.console.cookie.encryptionKey"],
 				})
 
 				return
@@ -83,9 +83,9 @@ func (s *TemplateConsole) TestCookieEncryptionKey() {
 				ValueFrom: &coreV1.EnvVarSource{
 					SecretKeyRef: &coreV1.SecretKeySelector{
 						LocalObjectReference: coreV1.LocalObjectReference{
-							Name: values["global.platform.portal.oauth.cookie.existingSecret"],
+							Name: values["global.platform.console.cookie.existingSecret"],
 						},
-						Key: values["global.platform.portal.oauth.cookie.secretKeys.encryptionKey"],
+						Key: values["global.platform.console.cookie.secretKeys.encryptionKey"],
 					},
 				},
 			})
