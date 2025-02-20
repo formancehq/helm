@@ -1,6 +1,6 @@
 # console
 
-![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: console-on.v1.0.2](https://img.shields.io/badge/AppVersion-console--on.v1.0.2-informational?style=flat-square)
+![Version: 2.1.3](https://img.shields.io/badge/Version-2.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: console-on.v1.0.2](https://img.shields.io/badge/AppVersion-console--on.v1.0.2-informational?style=flat-square)
 
 Formance Console
 
@@ -44,6 +44,9 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
+| global.platform.console.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId It is not shared with console-v3 and the domain is only limited to portal app |
+| global.platform.console.cookie.existingSecret | string | `""` | is the name of the secret |
+| global.platform.console.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
@@ -53,9 +56,6 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
-| global.platform.portal.oauth.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId It is not shared with console-v3 and the domain is only limited to portal app |
-| global.platform.portal.oauth.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.portal.oauth.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 
