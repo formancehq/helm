@@ -57,13 +57,13 @@
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
 - name: ENCRYPTION_KEY
-  {{- if .Values.global.platform.portal.oauth.cookie.existingSecret }}
+  {{- if .Values.global.platform.console.cookie.existingSecret }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.global.platform.portal.oauth.cookie.existingSecret }}
-      key: {{ .Values.global.platform.portal.oauth.cookie.secretKeys.encryptionKey }}
+      name: {{ .Values.global.platform.console.cookie.existingSecret }}
+      key: {{ .Values.global.platform.console.cookie.secretKeys.encryptionKey }}
   {{- else }}
-  value: {{ .Values.global.platform.portal.oauth.cookie.encryptionKey | default .Values.config.encryption_key | quote }}
+  value: {{ .Values.global.platform.console.cookie.encryptionKey | default .Values.config.encryption_key | quote }}
   {{- end }}
 - name: PLATFORM_URL
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}

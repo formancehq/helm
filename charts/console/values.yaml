@@ -43,6 +43,18 @@ global:
       # -- is the host for the console
       # @section -- Global configuration
       host: "console.{{ .Values.global.serviceHost }}"
+      cookie:
+        # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
+        # It is not shared with console-v3 and the domain is only limited to portal app
+        # @section -- Global configuration
+        encryptionKey: "changeMe00"
+        # -- is the name of the secret
+        # @section -- Global configuration
+        existingSecret: ""
+        # -- is the key contained within the secret
+        # @section -- Global configuration
+        secretKeys:
+          encryptionKey: ""
     portal:
       # -- is the scheme for the portal
       # @section -- Global configuration
@@ -65,18 +77,6 @@ global:
           # @section -- Global configuration
           secretKeys:
             secret: ""
-        cookie:
-          # -- is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId
-          # It is not shared with console-v3 and the domain is only limited to portal app
-          # @section -- Global configuration
-          encryptionKey: "changeMe00"
-          # -- is the name of the secret
-          # @section -- Global configuration
-          existingSecret: ""
-          # -- is the key contained within the secret
-          # @section -- Global configuration
-          secretKeys:
-            encryptionKey: ""
 
     membership:
       # -- is the scheme for the membership

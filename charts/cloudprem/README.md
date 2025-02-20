@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.0.0-rc.15](https://img.shields.io/badge/Version-3.0.0--rc.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
+![Version: 3.0.0-rc.16](https://img.shields.io/badge/Version-3.0.0--rc.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
 
 Formance control-plane
 
@@ -302,6 +302,7 @@ Portal and Console v3 are no longer sharing Oauth clients and cookies. The cooki
 
 > The structure does not change
 
+- `.global.platform.cookie` has been moved to `.global.platform.console.cookie`
 - `.global.platform.portal.cookie` has been removed in favor of `.portal.config.cookie`
   - `.global.platform.portal.cookie.secretKeys.encryptionKey` -> `.portal.config.cookie.secretKeys.secret`
   - `.global.platform.portal.cookie.encryptionKey` -> `.portal.config.cookie.secret`
@@ -410,6 +411,9 @@ Dex:
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
+| global.platform.console.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId It is not shared with console-v3 and the domain is only limited to portal app |
+| global.platform.console.cookie.existingSecret | string | `""` | is the name of the secret |
+| global.platform.console.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
@@ -431,9 +435,6 @@ Dex:
 | global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token"]` | is the name of the secret |
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
-| global.platform.portal.oauth.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId It is not shared with console-v3 and the domain is only limited to portal app |
-| global.platform.portal.oauth.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.portal.oauth.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.postgresql.additionalArgs | string | `"sslmode=disable"` | Additional arguments for PostgreSQL Connection URI |
 | global.postgresql.auth.database | string | `"formance"` | Name for a custom database to create (overrides `auth.database`) |
