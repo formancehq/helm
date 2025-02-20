@@ -44,13 +44,13 @@
   value: {{ tpl .Values.global.platform.portal.host $ }}
 {{- if .Values.global.platform.console.enabled }}
 - name: CONSOLE_COOKIE_SECRET
-  {{- if gt (len .Values.global.platform.portal.oauth.cookie.existingSecret) 0 }}
+  {{- if gt (len .Values.global.platform.console.cookie.existingSecret) 0 }}
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.global.platform.portal.oauth.cookie.existingSecret }}
-      key: {{ .Values.global.platform.portal.oauth.cookie.secretKeys.encryptionKey }}
+      name: {{ .Values.global.platform.console.cookie.existingSecret }}
+      key: {{ .Values.global.platform.console.cookie.secretKeys.encryptionKey }}
   {{- else }}
-  value: {{ .Values.global.platform.portal.oauth.cookie.encryptionKey | quote }}
+  value: {{ .Values.global.platform.console.cookie.encryptionKey | quote }}
   {{- end }}
 - name: CONSOLE_COOKIE_DOMAIN
   value: {{ .Values.global.serviceHost }}

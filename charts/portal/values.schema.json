@@ -184,6 +184,25 @@
                     "properties": {
                         "console": {
                             "properties": {
+                                "cookie": {
+                                    "properties": {
+                                        "encryptionKey": {
+                                            "type": "string"
+                                        },
+                                        "existingSecret": {
+                                            "type": "string"
+                                        },
+                                        "secretKeys": {
+                                            "properties": {
+                                                "encryptionKey": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
                                 "enabled": {
                                     "type": "boolean"
                                 },
@@ -228,25 +247,6 @@
                                                 "secretKeys": {
                                                     "properties": {
                                                         "secret": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "type": "object"
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "cookie": {
-                                            "properties": {
-                                                "encryptionKey": {
-                                                    "type": "string"
-                                                },
-                                                "existingSecret": {
-                                                    "type": "string"
-                                                },
-                                                "secretKeys": {
-                                                    "properties": {
-                                                        "encryptionKey": {
                                                             "type": "string"
                                                         }
                                                     },
