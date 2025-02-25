@@ -1,6 +1,6 @@
 # regions
 
-![Version: 2.12.0](https://img.shields.io/badge/Version-2.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.12.1](https://img.shields.io/badge/Version-2.12.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -22,7 +22,7 @@ Formance Private Regions Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../agent | agent | 2.X |
-| oci://ghcr.io/formancehq/helm | operator | v2.8.0 |
+| oci://ghcr.io/formancehq/helm | operator | v2.8.2 |
 
 ## Values
 
@@ -105,7 +105,7 @@ Formance Private Regions Helm Chart
 | versions.files."v2.1".reconciliation | string | `"v2.0.24"` |  |
 | versions.files."v2.1".search | string | `"v2.0.24"` |  |
 | versions.files."v2.1".stargate | string | `"v2.0.24"` |  |
-| versions.files."v2.1".wallets | string | `"v2.1.1"` |  |
+| versions.files."v2.1".wallets | string | `"v2.1.2"` |  |
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v2.2".auth | string | `"v2.0.24"` |  |
 | versions.files."v2.2".gateway | string | `"v2.0.24"` |  |
@@ -116,7 +116,7 @@ Formance Private Regions Helm Chart
 | versions.files."v2.2".reconciliation | string | `"v2.0.24"` |  |
 | versions.files."v2.2".search | string | `"v2.0.24"` |  |
 | versions.files."v2.2".stargate | string | `"v2.0.24"` |  |
-| versions.files."v2.2".wallets | string | `"v2.1.1"` |  |
+| versions.files."v2.2".wallets | string | `"v2.1.2"` |  |
 | versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.1.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
@@ -127,7 +127,7 @@ Formance Private Regions Helm Chart
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
 | versions.files."v3.0".search | string | `"v2.1.0"` |  |
 | versions.files."v3.0".stargate | string | `"v2.1.0"` |  |
-| versions.files."v3.0".wallets | string | `"v2.1.1"` |  |
+| versions.files."v3.0".wallets | string | `"v2.1.2"` |  |
 | versions.files."v3.0".webhooks | string | `"v2.1.0"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
 | versions.files.default.gateway | string | `"v2.0.18"` |  |
