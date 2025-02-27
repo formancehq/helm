@@ -1,6 +1,6 @@
 # regions
 
-![Version: 2.12.2](https://img.shields.io/badge/Version-2.12.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.12.3](https://img.shields.io/badge/Version-2.12.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Helm Chart
 
@@ -109,7 +109,7 @@ Formance Private Regions Helm Chart
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v2.2".auth | string | `"v2.0.24"` |  |
 | versions.files."v2.2".gateway | string | `"v2.0.24"` |  |
-| versions.files."v2.2".ledger | string | `"v2.2.3"` |  |
+| versions.files."v2.2".ledger | string | `"v2.2.5"` |  |
 | versions.files."v2.2".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v2.2".orchestration | string | `"v2.0.24"` |  |
 | versions.files."v2.2".payments | string | `"v2.0.25"` |  |
@@ -120,7 +120,7 @@ Formance Private Regions Helm Chart
 | versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.1.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.0".ledger | string | `"v2.2.3"` |  |
+| versions.files."v3.0".ledger | string | `"v2.2.5"` |  |
 | versions.files."v3.0".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.0"` |  |
