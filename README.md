@@ -4,7 +4,7 @@
 
 | Readme | Chart Version | App Version | Description | Hub |
 |--------|---------------|-------------|-------------|-----|
-| [Agent](./charts/agent/README.md) | 2.6.3 | v2.2.1 | Formance Membership Agent Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/agent)](https://artifacthub.io/packages/search?repo=agent) |
+| [Agent](./charts/agent/README.md) | 2.7.0 | v2.3.0 | Formance Membership Agent Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/agent)](https://artifacthub.io/packages/search?repo=agent) |
 | [Cloudprem](./charts/cloudprem/README.md) | 3.0.0-rc.16 | v1.1.0 | Formance control-plane | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem) |
 | [Console](./charts/console/README.md) | 2.1.3 | console-on.v1.0.2 | Formance Console | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/console)](https://artifacthub.io/packages/search?repo=console) |
 | [Console-V3](./charts/console-v3/README.md) | 2.1.2 | 5e7b404a3a208b1f38603719e02a8b1883c10acf | Formance Console | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/console-v3)](https://artifacthub.io/packages/search?repo=console-v3) |
@@ -12,7 +12,7 @@
 | [Demo](./charts/demo/README.md) | 2.1.0 | latest | Formance Private Regions Demo | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/demo)](https://artifacthub.io/packages/search?repo=demo) |
 | [Membership](./charts/membership/README.md) | 2.3.3 | v1.1.1 | Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions. | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/membership)](https://artifacthub.io/packages/search?repo=membership) |
 | [Portal](./charts/portal/README.md) | 2.1.3 | 5e7b404a3a208b1f38603719e02a8b1883c10acf | Formance Portal | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/portal)](https://artifacthub.io/packages/search?repo=portal) |
-| [Regions](./charts/regions/README.md) | 2.12.4 | latest | Formance Private Regions Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/regions)](https://artifacthub.io/packages/search?repo=regions) |
+| [Regions](./charts/regions/README.md) | 2.13.0 | latest | Formance Private Regions Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/regions)](https://artifacthub.io/packages/search?repo=regions) |
 | [Stargate](./charts/stargate/README.md) | 0.7.3 | latest | Formance EE Stargate gRPC Gateway | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/stargate)](https://artifacthub.io/packages/search?repo=stargate) |
 
 ## How to contribute
