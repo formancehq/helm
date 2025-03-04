@@ -14,6 +14,7 @@ readme:
   COPY --dir (agent+dependencies/*) .
   WORKDIR /src/regions
   COPY --dir (+sources/*) .
+  COPY *.gotmpl .
   DO --pass-args charts+README_GENERATOR
 
 sources:

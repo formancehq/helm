@@ -1,10 +1,14 @@
-# regions
+# Formance regions Helm chart
 
-![Version: 2.13.1](https://img.shields.io/badge/Version-2.13.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
-
+![Version: 2.13.2](https://img.shields.io/badge/Version-2.13.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
-**Homepage:** <https://formance.com>
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| file://../agent | agent | 2.X |
+| oci://ghcr.io/formancehq/helm | operator | v2.8.3 |
 
 ## Maintainers
 
@@ -17,14 +21,27 @@ Formance Private Regions Helm Chart
 * <https://github.com/formancehq/operator>
 * <https://github.com/formancehq/agent>
 
-## Requirements
+## Migration
 
-| Repository | Name | Version |
-|------------|------|---------|
-| file://../agent | agent | 2.X |
-| oci://ghcr.io/formancehq/helm | operator | v2.8.2 |
+#### EE Licence
+
+Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
+Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
+
+**Homepage:** <https://formance.com>
 
 ## Values
+
+### Licence configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
+| global.licence.createSecret | bool | `true` | Licence Secret with label `formance.com/stack: any` |
+| global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
+| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment  |
+| global.licence.secretKeys.token | string | `"token"` | Hardcoded in the operator |
+| global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
 ### Global configuration
 
@@ -66,10 +83,6 @@ Formance Private Regions Helm Chart
 | operator.operator.disableWebhooks | bool | `false` |  |
 | operator.operator.enableLeaderElection | bool | `true` |  |
 | operator.operator.env | string | `"private"` |  |
-| operator.operator.licence.create | bool | `true` |  |
-| operator.operator.licence.issuer | string | `""` |  |
-| operator.operator.licence.secretName | string | `""` |  |
-| operator.operator.licence.token | string | `""` |  |
 | operator.operator.metricsAddr | string | `":8080"` |  |
 | operator.operator.probeAddr | string | `":8081"` |  |
 | operator.operator.region | string | `"private"` |  |
