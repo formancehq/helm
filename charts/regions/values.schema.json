@@ -64,6 +64,39 @@
             },
             "type": "object"
         },
+        "global": {
+            "properties": {
+                "licence": {
+                    "properties": {
+                        "clusterID": {
+                            "type": "string"
+                        },
+                        "createSecret": {
+                            "type": "boolean"
+                        },
+                        "existingSecret": {
+                            "type": "string"
+                        },
+                        "issuer": {
+                            "type": "string"
+                        },
+                        "secretKeys": {
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "token": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
         "operator": {
             "properties": {
                 "enabled": {
@@ -96,23 +129,6 @@
                         },
                         "env": {
                             "type": "string"
-                        },
-                        "licence": {
-                            "properties": {
-                                "create": {
-                                    "type": "boolean"
-                                },
-                                "issuer": {
-                                    "type": "string"
-                                },
-                                "secretName": {
-                                    "type": "string"
-                                },
-                                "token": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
                         },
                         "metricsAddr": {
                             "type": "string"

@@ -1,3 +1,26 @@
+global:
+  # Add your license information 
+  licence:
+    # -- Licence Secret with label `formance.com/stack: any`
+    # @section -- Licence configuration
+    createSecret: true
+    # -- Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
+    # @section -- Licence configuration
+    clusterID: ""
+    # -- Licence Environment 
+    # @section -- Licence configuration
+    issuer: "https://license.formance.cloud/keys"
+    # -- Licence Client Token delivered by contacting [Formance](https://formance.com)
+    # @section -- Licence configuration
+    token: ""
+    # -- Licence Client Token as a secret
+    # @section -- Licence configuration
+    existingSecret: ""
+    secretKeys:
+      # -- Hardcoded in the operator
+      # @section -- Licence configuration
+      token: "token"
+
 operator:
   enabled: true
 
@@ -14,13 +37,6 @@ operator:
     metricsAddr: ":8080"
     probeAddr: ":8081"
     enableLeaderElection: true
-    # Licence secret must have the label formance.com/stack: any to be selected by the operator
-    # Have a `token` and `issuer` key
-    licence:
-      create: true
-      secretName: ""
-      token: ""
-      issuer: ""
 
   # Only Helm Release are impacted on first install.
   # Use `components/operator/helm/crds` to install crds separately
@@ -45,7 +61,7 @@ agent:
   agent:
     id: "aws-eu-west-1-sandbox"
     baseUrl: https://sandbox.formance.cloud
-    
+
     authentication:
       mode: bearer
       issuer: https://app.formance.cloud/api
