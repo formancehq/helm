@@ -8,7 +8,7 @@ Formance Private Regions Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../agent | agent | 2.X |
-| oci://ghcr.io/formancehq/helm | operator | v2.10.X |
+| oci://ghcr.io/formancehq/helm | operator | v2.10.0 |
 
 ## Maintainers
 
