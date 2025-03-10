@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 2.13.4](https://img.shields.io/badge/Version-2.13.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.14.0](https://img.shields.io/badge/Version-2.14.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -8,7 +8,7 @@ Formance Private Regions Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../agent | agent | 2.X |
-| oci://ghcr.io/formancehq/helm | operator | v2.8.3 |
+| oci://ghcr.io/formancehq/helm | operator | v2.10.X |
 
 ## Maintainers
 
@@ -136,7 +136,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".ledger | string | `"v2.2.9"` |  |
 | versions.files."v3.0".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
-| versions.files."v3.0".payments | string | `"v3.0.1"` |  |
+| versions.files."v3.0".payments | string | `"v3.0.2"` |  |
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
 | versions.files."v3.0".search | string | `"v2.1.0"` |  |
 | versions.files."v3.0".stargate | string | `"v2.1.0"` |  |
