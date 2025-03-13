@@ -42,6 +42,8 @@ global:
       # @section -- Global configuration
       host: "console.{{ .Values.global.serviceHost }}"
     consoleV3:
+      # -- Enable console-v3
+      # @section -- Global configuration
       enabled: false
       # -- is the scheme for the console
       # @section -- Global configuration

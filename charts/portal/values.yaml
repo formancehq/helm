@@ -57,6 +57,16 @@ global:
         # @section -- Global configuration
         secretKeys:
           encryptionKey: ""
+    consoleV3:
+      # -- Enable console-v3 
+      # @section -- Global configuration
+      enabled: false
+      # -- is the scheme for the console
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the console
+      # @section -- Global configuration
+      host: "console.v3.{{ .Values.global.serviceHost }}"
     portal:
       # -- is the scheme for the portal
       # @section -- Global configuration
