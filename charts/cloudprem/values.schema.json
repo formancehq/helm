@@ -163,6 +163,17 @@
                                 }
                             },
                             "type": "object"
+                        },
+                        "stargate": {
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "stackApiUrl": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
                         }
                     },
                     "type": "object"

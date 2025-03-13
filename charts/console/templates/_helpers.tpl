@@ -72,7 +72,11 @@
 - name: COOKIE_DOMAIN
   value: {{ .Values.global.serviceHost }}
 - name: API_URL
-  value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
+{{- if .Values.global.platform.stargate.enabled  }}
+  value: {{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}
+{{- else }}
+  value: {{ default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" (default .Values.global.platform.stargate.stackApiUrl .Values.config.stargate_url) }}
+{{- end }}
 {{ include "console.oauth.client" . }}
 {{ include "core.sentry" . }}
 {{ include "core.monitoring" . }}
