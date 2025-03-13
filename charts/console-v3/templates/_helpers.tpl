@@ -72,7 +72,11 @@
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
 - name: API_URL
-  value: {{ (default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.config.stargate_url) }}
+{{- if .Values.global.platform.stargate.enabled  }}
+  value: {{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}
+{{- else }}
+  value: {{ default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" (default .Values.global.platform.stargate.stackApiUrl .Values.config.stargate_url) }}
+{{- end }}
 - name: PORTAL_UI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
 {{- include "console.v3.cookie" . }}

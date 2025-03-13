@@ -68,6 +68,15 @@ global:
           # @section -- Global configuration
           secretKeys:
             secret: ""
+    stargate:
+      # -- if enabled, the stackApiUrl is not required
+      # It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}`
+      # @section -- Stargate configuration
+      enabled: false
+      # -- if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api`
+      # To allow external access sets the stackApiUrl to an external url
+      # @section -- Stargate configuration
+      stackApiUrl: ""
 
     membership:
       # -- is the scheme for the membership
@@ -205,21 +214,20 @@ tolerations: []
 affinity: {}
 
 config:
+  # -- Deprecated
+  stargate_url: ""
   cookie:
     # -- is the name of the cookie.
     # It is intended to be unique when having multiple console-v3 instances.
-    # @section -- Global configuration
     name: ""
     # -- is used to encrypt a cookie value
-    # @section -- Global configuration
     encryptionKey: "changeMe00"
     # -- is the name of the secret
-    # @section -- Global configuration
     existingSecret: ""
     # -- is the key contained within the secret
-    # @section -- Global configuration
     secretKeys:
       encryptionKey: ""
+
   # -- Console environment
   environment: production
   # -- Console additional environment variables

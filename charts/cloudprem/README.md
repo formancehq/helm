@@ -447,10 +447,6 @@ Dex:
 | global.postgresql.host | string | `""` | Host for PostgreSQL (overrides included postgreql `host`) |
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
-| console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
-| console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
-| console-v3.config.cookie.name | string | `""` | is the name of the cookie. It is intended to be unique when having multiple console-v3 instances. |
-| console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | membership.config.migration.enabled | bool | `true` | Enable migration job |
 | membership.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
 | membership.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
@@ -553,6 +549,7 @@ Dex:
 | console.config.sentry.enabled | bool | `false` | Sentry enabled |
 | console.config.sentry.environment | string | `""` | Sentry environment |
 | console.config.sentry.release | string | `""` | Sentry release |
+| console.config.stargate_url | string | `""` | Deprecated |
 | console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
 | console.image.tag | string | `""` | image tag |
@@ -596,6 +593,10 @@ Dex:
 | console-v3.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | console-v3.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | console-v3.config.additionalEnv | list | `[]` | Console additional environment variables |
+| console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
+| console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
+| console-v3.config.cookie.name | string | `""` | is the name of the cookie. It is intended to be unique when having multiple console-v3 instances. |
+| console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | console-v3.config.environment | string | `"production"` | Console environment |
 | console-v3.config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | console-v3.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
@@ -603,6 +604,7 @@ Dex:
 | console-v3.config.sentry.enabled | bool | `false` | Sentry enabled |
 | console-v3.config.sentry.environment | string | `""` | Sentry environment |
 | console-v3.config.sentry.release | string | `""` | Sentry release |
+| console-v3.config.stargate_url | string | `""` | Deprecated |
 | console-v3.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | console-v3.image.repository | string | `"ghcr.io/formancehq/console-v3"` | image repository |
 | console-v3.image.tag | string | `""` | image tag |

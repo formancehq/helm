@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5e7b404a3a208b1f38603719e02a8b1883c10acf](https://img.shields.io/badge/AppVersion-5e7b404a3a208b1f38603719e02a8b1883c10acf-informational?style=flat-square)
+![Version: 2.1.3](https://img.shields.io/badge/Version-2.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5e7b404a3a208b1f38603719e02a8b1883c10acf](https://img.shields.io/badge/AppVersion-5e7b404a3a208b1f38603719e02a8b1883c10acf-informational?style=flat-square)
 
 Formance Console
 
@@ -57,10 +57,13 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
-| config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
-| config.cookie.existingSecret | string | `""` | is the name of the secret |
-| config.cookie.name | string | `""` | is the name of the cookie. It is intended to be unique when having multiple console-v3 instances. |
-| config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+
+### Stargate configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
+| global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
 
 ### Other Values
 
@@ -78,6 +81,10 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | config.additionalEnv | list | `[]` | Console additional environment variables |
+| config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
+| config.cookie.existingSecret | string | `""` | is the name of the secret |
+| config.cookie.name | string | `""` | is the name of the cookie. It is intended to be unique when having multiple console-v3 instances. |
+| config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | config.environment | string | `"production"` | Console environment |
 | config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
@@ -85,6 +92,7 @@ Kubernetes: `>=1.14.0-0`
 | config.sentry.enabled | bool | `false` | Sentry enabled |
 | config.sentry.environment | string | `""` | Sentry environment |
 | config.sentry.release | string | `""` | Sentry release |
+| config.stargate_url | string | `""` | Deprecated |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | image.repository | string | `"ghcr.io/formancehq/console-v3"` | image repository |
 | image.tag | string | `""` | image tag |
