@@ -1,6 +1,6 @@
 # portal
 
-![Version: 2.1.4](https://img.shields.io/badge/Version-2.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5e7b404a3a208b1f38603719e02a8b1883c10acf](https://img.shields.io/badge/AppVersion-5e7b404a3a208b1f38603719e02a8b1883c10acf-informational?style=flat-square)
+![Version: 2.1.5](https://img.shields.io/badge/Version-2.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5e7b404a3a208b1f38603719e02a8b1883c10acf](https://img.shields.io/badge/AppVersion-5e7b404a3a208b1f38603719e02a8b1883c10acf-informational?style=flat-square)
 
 Formance Portal
 
@@ -50,6 +50,9 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.console.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.consoleV3.enabled | bool | `false` | Enable console-v3  |
+| global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |

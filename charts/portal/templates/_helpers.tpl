@@ -82,6 +82,10 @@
   value: "{{ join "," .Values.config.featuresDisabled}}"
 - name: APPS_CONSOLE
   value: {{ include "service.url" (dict "service" .Values.global.platform.console "Context" .) }}
+{{- if .Values.global.platform.consoleV3.enabled }}
+- name: APPS_CONSOLE_V3
+  value: "{{ .Values.global.platform.consoleV3.scheme }}://{{ tpl .Values.global.platform.consoleV3.host . }}"
+{{- end }}
 - name: DEBUG
   value: {{ .Values.global.debug | quote }}
 - name: API_STACK_URL
