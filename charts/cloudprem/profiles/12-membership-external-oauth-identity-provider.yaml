@@ -1,0 +1,17 @@
+global:
+  platform:
+    membership:
+      relyingParty:
+        scheme: "https"
+        host: "keycloak.external.formance.cloud"
+        path: "/realms/master"
+membership:
+  dex:
+    enabled: false
+  config:
+    oidc:
+      clientId: "membership"
+      clientSecret: "changeMe"
+      scopes:
+      - openid
+      - email
