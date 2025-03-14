@@ -217,9 +217,6 @@ config:
   # -- Deprecated
   stargate_url: ""
   cookie:
-    # -- is the name of the cookie.
-    # It is intended to be unique when having multiple console-v3 instances.
-    name: ""
     # -- is used to encrypt a cookie value
     encryptionKey: "changeMe00"
     # -- is the name of the secret

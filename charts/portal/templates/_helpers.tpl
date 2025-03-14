@@ -38,8 +38,6 @@
   {{- else }}
   value: {{ .Values.config.cookie.secret  }}
   {{- end }}
-- name: COOKIE_NAME
-  value: {{ .Values.config.cookie.name | default "__session_portal" }}
 - name: COOKIE_DOMAIN
   value: {{ tpl .Values.global.platform.portal.host $ }}
 {{- if .Values.global.platform.console.enabled }}
