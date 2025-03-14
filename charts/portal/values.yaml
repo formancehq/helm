@@ -190,9 +190,6 @@ config:
   - console_v3_beta
 
   cookie:
-    # -- if console-v2 the name is not configurable.
-    # if using console-v3 the name is configurable, it is intended to be used when having multiple console-v3 instances.
-    name: ""
     # -- Cookie secret
     secret: "changeMe2"
     # -- Cookie existing secret
