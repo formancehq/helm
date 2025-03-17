@@ -132,7 +132,7 @@ versions:
       reconciliation: v2.0.24
       operator-utils: v2.0.24
     v3.0:
-      payments: v3.0.4
+      payments: v3.0.5
       ledger: v2.2.16
       search: v2.1.0
       stargate: v2.1.0
