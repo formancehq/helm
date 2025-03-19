@@ -8,7 +8,7 @@ Formance Private Regions Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../agent | agent | 2.X |
-| oci://ghcr.io/formancehq/helm | operator | v2.10.3 |
+| oci://ghcr.io/formancehq/helm | operator | v2.10.4 |
 
 ## Maintainers
 
@@ -136,7 +136,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".ledger | string | `"v2.2.19"` |  |
 | versions.files."v3.0".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
-| versions.files."v3.0".payments | string | `"v3.0.5"` |  |
+| versions.files."v3.0".payments | string | `"v3.0.6"` |  |
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
 | versions.files."v3.0".search | string | `"v2.1.0"` |  |
 | versions.files."v3.0".stargate | string | `"v2.1.0"` |  |

@@ -20,6 +20,6 @@ dependencies:
   repository: "file://../agent"
   condition: agent.enabled
 - name: operator
-  version: v2.10.3
+  version: v2.10.4
   repository: "oci://ghcr.io/formancehq/helm"
   condition: operator.enabled
