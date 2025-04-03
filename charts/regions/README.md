@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 2.15.15](https://img.shields.io/badge/Version-2.15.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.15.16](https://img.shields.io/badge/Version-2.15.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -8,7 +8,7 @@ Formance Private Regions Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../agent | agent | 2.X |
-| oci://ghcr.io/formancehq/helm | operator | v2.10.7 |
+| oci://ghcr.io/formancehq/helm | operator | 2.X |
 
 ## Maintainers
 
