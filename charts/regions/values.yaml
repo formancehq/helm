@@ -115,7 +115,7 @@ versions:
       wallets: v2.1.4
       webhooks: v2.1.0
       gateway: v2.0.24
-      payments: v2.0.25
+      payments: v2.0.27
       orchestration: v2.0.24
       reconciliation: v2.0.24
       operator-utils: v2.0.24
@@ -127,7 +127,7 @@ versions:
       wallets: v2.1.4
       webhooks: v2.1.0
       gateway: v2.0.24
-      payments: v2.0.25
+      payments: v2.0.27
       orchestration: v2.0.24
       reconciliation: v2.0.24
       operator-utils: v2.0.24
