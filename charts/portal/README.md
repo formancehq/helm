@@ -1,6 +1,6 @@
 # portal
 
-![Version: 2.1.6](https://img.shields.io/badge/Version-2.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.0](https://img.shields.io/badge/AppVersion-v1.0.0-informational?style=flat-square)
+![Version: 2.2.0](https://img.shields.io/badge/Version-2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.0.0](https://img.shields.io/badge/AppVersion-v1.0.0-informational?style=flat-square)
 
 Formance Portal
 
@@ -105,6 +105,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.tls | list | `[]` | ingress tls |
 | livenessProbe | object | `{}` | Portal liveness probe |
 | nodeSelector | object | `{}` | Portal node selector |
+| podAnnotations | object | `{}` | pod annotations |
 | podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |

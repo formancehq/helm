@@ -13,7 +13,7 @@ spec:
       {{- include "core.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with merge .Values.podAnnotations (include "core.podAnnotations" . | fromYaml) }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}

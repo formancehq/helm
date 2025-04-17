@@ -1,6 +1,6 @@
 # Formance stargate Helm chart
 
-![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance EE Stargate gRPC Gateway
 
 ## Requirements
@@ -112,6 +112,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` | String to partially override stargate.fullname template with a string (will append the release name) |
 | nodeSelector | object | `{}` |  |
+| podAnnotations | object | `{}` | pod annotations |
 | podAnnotations | object | `{}` | Annotations to add to the pod |
 | podDisruptionBudget.enabled | bool | `false` | Enable a [pod distruption budget](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) to help dealing with [disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/). It is **highly recommended** for webhooks as disruptions can prevent launching new pods. |
 | podDisruptionBudget.maxUnavailable | int | `0` |  |

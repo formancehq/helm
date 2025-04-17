@@ -18,6 +18,11 @@ spec:
         {{- include "core.selectorLabels" . | nindent 8 }}
     spec:
       template:
+        metadata:
+          labels:
+            {{- include "core.selectorLabels" . | nindent 12 }}
+          annotations:
+            {{- include "core.podAnnotations" . | nindent 12 }}
         spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}

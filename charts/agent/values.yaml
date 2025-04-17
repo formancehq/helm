@@ -50,6 +50,7 @@ serviceAccount:
   # Annotations to add to the service account
   annotations: {}
 
+# -- pod annotations
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -112,8 +113,6 @@ agent:
     existingSecret: ""
     secretKeys:
       secret: ""
-
-
     # -- Public Region
     # mode: token
     # token: abcd

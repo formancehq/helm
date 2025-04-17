@@ -12,7 +12,7 @@ spec:
     type: Recreate
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with merge .Values.podAnnotations (include "core.podAnnotations" . | fromYaml) }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}

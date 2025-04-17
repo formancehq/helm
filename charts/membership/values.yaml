@@ -207,6 +207,9 @@ global:
 # -- Count of replicas
 replicaCount: 1
 
+# -- pod annotations
+podAnnotations: {}
+
 podDisruptionBudget:
   # -- Enable pod disruption budget
   enabled: false

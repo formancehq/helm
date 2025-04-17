@@ -18,10 +18,11 @@ spec:
       {{- include "core.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         {{- include "core.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- include "core.podAnnotations" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "core.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
