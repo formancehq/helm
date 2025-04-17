@@ -136,9 +136,6 @@ global:
         # @section -- Global configuration
         postgresql: 5432
 
-# -- pod annotations
-podAnnotations: {}
-
 podDisruptionBudget:
   # -- Enable a [pod distruption budget](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) to help dealing with [disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/).
   # It is **highly recommended** for webhooks as disruptions can prevent launching new pods.

@@ -112,7 +112,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` | String to partially override stargate.fullname template with a string (will append the release name) |
 | nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` | pod annotations |
 | podAnnotations | object | `{}` | Annotations to add to the pod |
 | podDisruptionBudget.enabled | bool | `false` | Enable a [pod distruption budget](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) to help dealing with [disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/). It is **highly recommended** for webhooks as disruptions can prevent launching new pods. |
 | podDisruptionBudget.maxUnavailable | int | `0` |  |
