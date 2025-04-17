@@ -16,6 +16,8 @@ spec:
     metadata:
       labels:
         {{- include "core.selectorLabels" . | nindent 8 }}
+      annotations:
+        {{- include "core.podAnnotations" . | nindent 8 }}
     spec:
       restartPolicy: OnFailure
       securityContext:

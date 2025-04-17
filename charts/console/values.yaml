@@ -106,6 +106,9 @@ podDisruptionBudget:
   # -- Maximum unavailable pods
   maxUnavailable: 0
 
+# -- pod annotations
+podAnnotations: {}
+
 # -- Pod Security Context
 podSecurityContext: {}
 

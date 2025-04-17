@@ -363,6 +363,10 @@
             "properties": {},
             "type": "object"
         },
+        "podAnnotations": {
+            "properties": {},
+            "type": "object"
+        },
         "podDisruptionBudget": {
             "properties": {
                 "enabled": {

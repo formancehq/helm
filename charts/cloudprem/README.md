@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.0.3](https://img.shields.io/badge/Version-3.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
+![Version: 3.1.0](https://img.shields.io/badge/Version-3.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.1.0](https://img.shields.io/badge/AppVersion-v1.1.0-informational?style=flat-square)
 
 Formance control-plane
 
@@ -563,6 +563,7 @@ Dex:
 | console.ingress.tls | list | `[]` | ingress tls |
 | console.livenessProbe | object | `{}` | Console liveness probe |
 | console.nodeSelector | object | `{}` | Console node selector |
+| console.podAnnotations | object | `{}` | pod annotations |
 | console.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | console.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | console.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
@@ -617,6 +618,7 @@ Dex:
 | console-v3.ingress.tls | list | `[]` | ingress tls |
 | console-v3.livenessProbe | object | `{}` | Console liveness probe |
 | console-v3.nodeSelector | object | `{}` | Console node selector |
+| console-v3.podAnnotations | object | `{}` | pod annotations |
 | console-v3.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | console-v3.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | console-v3.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
@@ -694,6 +696,7 @@ Dex:
 | membership.initContainers | list | `[]` | Membership init containers |
 | membership.nameOverride | string | `""` | Membership name override |
 | membership.nodeSelector | object | `{}` | Membership node selector |
+| membership.podAnnotations | object | `{}` | pod annotations |
 | membership.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | membership.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | membership.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
@@ -745,6 +748,7 @@ Dex:
 | portal.ingress.tls | list | `[]` | ingress tls |
 | portal.livenessProbe | object | `{}` | Portal liveness probe |
 | portal.nodeSelector | object | `{}` | Portal node selector |
+| portal.podAnnotations | object | `{}` | pod annotations |
 | portal.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | portal.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | portal.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |

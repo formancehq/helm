@@ -14,6 +14,11 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            {{- include "core.selectorLabels" . | nindent 12 }}
+          annotations:
+            {{- include "core.podAnnotations" . | nindent 12 }}
         spec:
           serviceAccountName:  {{ include "core.serviceAccountName" . }}
           restartPolicy: {{ .Values.config.job.invitationGC.restartPolicy }}
