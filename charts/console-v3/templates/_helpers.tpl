@@ -77,6 +77,7 @@
 {{- end }}
 - name: PORTAL_UI
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) .Values.config.platform_url) $ }}
+{{ include "core.env.common" . }}
 {{- include "console.v3.cookie" . }}
 {{- include "console.v3.oauth.client" . }}
 {{- include "core.sentry" . }}

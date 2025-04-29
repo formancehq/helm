@@ -88,10 +88,11 @@
   value: {{ .Values.global.debug | quote }}
 - name: API_STACK_URL
 {{- if .Values.global.platform.stargate.enabled  }}
-  value: {{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}
+  value: {{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" }}
 {{- else }}
   value: {{ default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" .Values.global.platform.stargate.stackApiUrl }}
 {{- end }}
+{{ include "core.env.common" . }}
 {{- include "portal.cookie" . }}
 {{- include "portal.oauth.client" . }}
 {{- include "core.sentry" . }}

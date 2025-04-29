@@ -77,6 +77,7 @@
 {{- else }}
   value: {{ default "http://gateway.#{organizationId}-#{stackId}.svc:8080/api" (default .Values.global.platform.stargate.stackApiUrl .Values.config.stargate_url) }}
 {{- end }}
+{{ include "core.env.common" . }}
 {{ include "console.oauth.client" . }}
 {{ include "core.sentry" . }}
 {{ include "core.monitoring" . }}

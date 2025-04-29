@@ -1,6 +1,6 @@
 # agent
 
-![Version: 2.7.1](https://img.shields.io/badge/Version-2.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.3.1](https://img.shields.io/badge/AppVersion-v2.3.1-informational?style=flat-square)
+![Version: 2.7.2](https://img.shields.io/badge/Version-2.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.3.1](https://img.shields.io/badge/AppVersion-v2.3.1-informational?style=flat-square)
 
 Formance Membership Agent Helm Chart
 
@@ -29,6 +29,7 @@ Formance Membership Agent Helm Chart
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.debug | bool | `false` | Enable global debug |
 | global.monitoring.batch | bool | `false` | Enable otel batching |
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |

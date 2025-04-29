@@ -2,6 +2,9 @@ global:
   # -- TORework
   serviceName: agent
 
+  # -- Enable global debug
+  # @section -- Global configuration
+  debug: false
   monitoring:
     # -- Enable otel batching
     # @section -- Global configuration
@@ -55,8 +58,7 @@ podAnnotations: {}
 podSecurityContext: {}
 # fsGroup: 2000
 
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -112,8 +114,6 @@ agent:
     existingSecret: ""
     secretKeys:
       secret: ""
-
-
     # -- Public Region
     # mode: token
     # token: abcd

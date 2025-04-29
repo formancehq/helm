@@ -71,6 +71,9 @@
         },
         "global": {
             "properties": {
+                "debug": {
+                    "type": "boolean"
+                },
                 "monitoring": {
                     "properties": {
                         "batch": {
