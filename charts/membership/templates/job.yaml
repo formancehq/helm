@@ -35,10 +35,10 @@ spec:
             - migrations
             - up
           env:
-            - name: DEBUG
-              value: "{{.Values.debug}}"
             - name: DEV
               value: "{{.Values.dev}}"
+            {{- include "core.env.common" . | nindent 12 }}
+            {{- include "core.monitoring" . | nindent 12 }}
             {{- include "job.postgres.uri" . | nindent 12 }}
             {{- include "core.licence.env" . | nindent 12 }}
         {{- if .Values.global.nats.enabled }}

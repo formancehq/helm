@@ -43,8 +43,6 @@
 {{- end }}
 
 {{- define "membership.env" -}}
-- name: DEBUG
-  value: "{{.Values.debug}}"
 - name: DEV
   value: "{{.Values.dev}}"
 - name: CONFIG
@@ -86,7 +84,8 @@
   value: {{ $service.oauth.client.secret | quote }}
   {{- end }}
 {{- end -}}
-{{- end -}}
+{{- end }}
+{{ include "core.env.common" . }}
 {{- include "core.licence.env" . }}
 {{- include "core.postgres.uri" . }}
 {{- include "core.monitoring" . }}
@@ -99,7 +98,7 @@
 {{ with .Values.config.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
-{{- end }}
+{{- end -}}
 
 {{- define "dex-values" }}
 issuer: "{{ tpl (printf "%s://%s%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host .Values.global.platform.membership.relyingParty.path) $ }}"

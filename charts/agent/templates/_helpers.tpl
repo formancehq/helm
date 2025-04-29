@@ -8,8 +8,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 
 {{- define "agent.env" -}}
-- name: DEBUG
-  value: "{{.Values.debug}}"
 - name: SERVER_ADDRESS
   value: "{{.Values.server.address}}"
 - name: TLS_ENABLED
@@ -49,5 +47,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
   value: "{{ .Values.agent.production }}"
 - name: OUTDATED
   value: "{{ .Values.agent.outdated }}"
+{{ include "core.env.common" . }}
 {{- include "core.monitoring" . }}
 {{- end }}

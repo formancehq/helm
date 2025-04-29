@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 2.17.3](https://img.shields.io/badge/Version-2.17.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.17.4](https://img.shields.io/badge/Version-2.17.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -32,21 +32,11 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 
 ## Values
 
-### Licence configuration
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
-| global.licence.createSecret | bool | `true` | Licence Secret with label `formance.com/stack: any` |
-| global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
-| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment  |
-| global.licence.secretKeys.token | string | `"token"` | Hardcoded in the operator |
-| global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
-
 ### Global configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.debug | bool | `false` | Enable global debug |
 | global.monitoring.batch | bool | `false` | Enable otel batching |
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
@@ -57,6 +47,17 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
+
+### Licence configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
+| global.licence.createSecret | bool | `true` | Licence Secret with label `formance.com/stack: any` |
+| global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
+| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment  |
+| global.licence.secretKeys.token | string | `"token"` | Hardcoded in the operator |
+| global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
 ### Other Values
 
