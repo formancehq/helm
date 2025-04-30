@@ -27,15 +27,19 @@ helm-docs:
 helm-all package="false": helm-docs helm-schema-install
   #!/bin/bash
   set -euo pipefail
+
   for chart in $(find ./charts -name Chart.yaml | xargs -n1 dirname); do
-    echo "---------- $chart ----------"
-    just helm-schema $chart
-    if [ "{{package}}" = "true" ]; then
-      just helm-package $chart
-    else
-      just helm-template $chart
-    fi
+    (
+      echo "---------- $chart ----------"
+      just helm-schema "$chart"
+      if [ "{{package}}" = "true" ]; then
+        just helm-package "$chart"
+      else
+        just helm-template "$chart"
+      fi
+    ) &
   done
+  wait 
 
 template-readme: tidy
   #!/bin/bash
