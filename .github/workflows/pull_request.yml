@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: shipfox-2vcpu-ubuntu-2404
     steps:
       - uses: 'actions/checkout@v4'
         with:
@@ -54,28 +54,27 @@ jobs:
   pr_name:
     if: github.event_name == 'pull_request'
     name: Check PR Title
-    runs-on: ubuntu-latest
+    runs-on: shipfox-2vcpu-ubuntu-2404
     permissions:
       statuses: write
     steps:
       - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  tests:
-    name: Tests
-    runs-on: ubuntu-latest
+  Dirty:
+    runs-on: shipfox-2vcpu-ubuntu-2404
     steps:
-      - name: Install earthly
-        uses: earthly/actions-setup@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: 'actions/checkout@v4'
+      - uses: "actions/checkout@v4"
         with:
           fetch-depth: 0
-      - name: Tests
-        run: earthly +pre-commit
+      - name: Setup Nix
+        uses: ./.github/actions/default
+        with:
+          token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
+      - name: Pre-commit
         env:
-          EARTHLY_SECRETS: "GITHUB_TOKEN=${{ secrets.NUMARY_GITHUB_TOKEN }}"
+          GITHUB_TOKEN: ${{ secrets.NUMARY_GITHUB_TOKEN }}
+        run: nix develop --impure --command just pc
       - name: Get changed files
         id: changed-files
         shell: bash
@@ -86,9 +85,39 @@ jobs:
             echo "There are changes in the repository"
             exit 1
           fi
+
+  
+  Artifacts:
+    runs-on: shipfox-2vcpu-ubuntu-2404
+    steps:
+      - uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+      - name: Setup Nix
+        uses: ./.github/actions/default
+        with:
+          token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
+      - name: Package
+        run: nix develop --impure --command just helm-all true
+        env:
+          GITHUB_TOKEN: ${{ secrets.NUMARY_GITHUB_TOKEN }}
       - name: Archive chart
         uses: actions/upload-artifact@v4
         with:
           name: charts_${{ github.ref_type == 'branch' && github.sha }}.tgz
-          path: charts/**/*.tgz
+          path: build/*.tgz
           retention-days: 3
+
+  Tests:
+    runs-on: shipfox-2vcpu-ubuntu-2404
+    needs: [Dirty]
+    steps:
+    - uses: "actions/checkout@v4"
+      with:
+        fetch-depth: 0
+    - name: Setup Nix
+      uses: ./.github/actions/default
+      with:
+        token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
+    - name: Pre-commit
+      run: nix develop --impure --command just tests

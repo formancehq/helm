@@ -1,21 +1,19 @@
 name: Publish
-
-on: 
+on:
   release:
     types: [published]
-
 jobs:
   push:
-    runs-on: ubuntu-latest
+    runs-on: shipfox-2vcpu-ubuntu-2404
     steps:
-      - name: Install earthly
-        uses: earthly/actions-setup@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Setup Nix
+        uses: ./.github/actions/default
+        with:
+          token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
       - id: download-release-asset
         name: Download release asset
         uses: dsaltares/fetch-gh-release-asset@master
@@ -25,6 +23,6 @@ jobs:
           target: ${{github.ref_name}}.tgz
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Push
-        run: earthly -P +publish --path=${{github.ref_name}}.tgz
         env:
-          EARTHLY_SECRETS: GITHUB_TOKEN=${{ secrets.NUMARY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NUMARY_GITHUB_TOKEN }}
+        run: nix develop --impure --command just helm-publish ${{github.ref_name}}.tgz

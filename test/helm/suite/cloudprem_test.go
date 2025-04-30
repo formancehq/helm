@@ -52,11 +52,11 @@ func TestCloudprem(t *testing.T) {
 				setValues: map[string]string{},
 			},
 		}
-		chart.setupSuite(t)
+		require.NoError(t, chart.setupSuite(t))
 	}
 
 	// Then update the main chart deps
-	chartTest.setupSuite(t)
+	require.NoError(t, chartTest.setupSuite(t))
 	suite.Run(t, chartTest)
 }
 func (s *TemplatePlatfromTest) TestAppEnabled() {
