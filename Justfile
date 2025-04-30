@@ -8,15 +8,21 @@ pre-commit: helm-all template-readme
 pc: pre-commit
 
 lint:
-  cd ./tools/readme && golangci-lint run --fix --timeout 5m
-  cd ./test/helm && golangci-lint run --fix --timeout 5m
+  #!/bin/bash
+  set -euo pipefail
+  cd ./tools/readme && golangci-lint run --fix --timeout 5m &
+  cd ./test/helm && golangci-lint run --fix --timeout 5m &
+  wait
 
 tidy: lint
-  cd ./tools/readme && go mod tidy
-  cd ./test/helm && go mod tidy
+  #!/bin/bash
+  set -euo pipefail
+  cd ./tools/readme && go mod tidy &
+  cd ./test/helm && go mod tidy &
+  wait
 
 helm-schema-install:
-  helm plugin install https://github.com/losisin/helm-values-schema-json.git || true
+  helm plugin install https://github.com/losisin/helm-values-schema-json.git
 
 helm-schema path='':
   helm schema -input {{path}}/values.yaml -output {{path}}/values.schema.json 
@@ -30,7 +36,6 @@ helm-all package="false": helm-docs helm-schema-install
 
   for chart in $(find ./charts -name Chart.yaml | xargs -n1 dirname); do
     (
-      echo "---------- $chart ----------"
       just helm-schema "$chart"
       if [ "{{package}}" = "true" ]; then
         just helm-package "$chart"
@@ -116,7 +121,7 @@ helm-publish path='': helm-login
   helm push {{path}} oci://ghcr.io/formancehq/helm
 
 helm-login:
-  echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin
+  echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin || true
 
 install-releaser:
   #!/bin/bash
