@@ -110,7 +110,6 @@ jobs:
 
   Tests:
     runs-on: shipfox-2vcpu-ubuntu-2404
-    needs: [Dirty]
     steps:
     - uses: "actions/checkout@v4"
       with:

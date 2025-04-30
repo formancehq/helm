@@ -90,7 +90,7 @@ helm-lint path='' args="":
   echo "📝 Linting chart {{path}}"
   helm lint {{path}} --strict
 
-helm-template path='' args='':
+helm-template path='' args='' output='/dev/null':
   #!/bin/bash
   set -euo pipefail
   just helm-lint {{path}}
@@ -100,8 +100,8 @@ helm-template path='' args='':
   if [ "$isLibrary" = "library" ]; then
     echo "❌ Skipping template for library chart"
   else
-    echo "✨ Rendering chart {{path}}"
-    helm template {{path}} {{args}}
+    echo "✨ Rendering chart {{path}} on {{output}}"
+    helm template {{path}} {{args}} > {{output}}
   fi
 
 helm-package path='' args='':
