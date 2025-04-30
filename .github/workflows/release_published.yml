@@ -4,7 +4,7 @@ on:
     types: [published]
 jobs:
   push:
-    runs-on: shipfox-2vcpu-ubuntu-2404
+    runs-on: shipfox-1vcpu-ubuntu-2404
     steps:
       - name: Checkout
         uses: actions/checkout@v4

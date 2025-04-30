@@ -9,7 +9,7 @@ permissions:
 jobs:
   release:
     name: Release
-    runs-on: shipfox-2vcpu-ubuntu-2404
+    runs-on: shipfox-4vcpu-ubuntu-2404
     steps:
       - name: Checkout
         uses: actions/checkout@v4
