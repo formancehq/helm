@@ -26,10 +26,11 @@ helm-docs:
 
 helm-all package="false": helm-docs helm-schema-install
   #!/bin/bash
+  set -euo pipefail
   for chart in $(find ./charts -name Chart.yaml | xargs -n1 dirname); do
     echo "---------- $chart ----------"
     just helm-schema $chart
-    if [ "$package" = "true" ]; then
+    if [ "{{package}}" = "true" ]; then
       just helm-package $chart
     else
       just helm-template $chart
@@ -59,17 +60,14 @@ helm-update path='' args='': helm-login
 
     echo "🔍 Checking $chart_dir"
 
-    # Vérifie si le dossier est une chart Helm
     if [[ ! -f "$chart_dir/Chart.yaml" ]]; then
-      echo "❌ Pas de Chart.yaml dans $chart_dir, ignoré"
+      echo "❌ No Chart.yaml in $chart_dir"
       return
     fi
 
-    # Liste les dépendances locales
     local deps
     deps=$(helm dependency list "$chart_dir" 2>/dev/null | grep 'file://' | awk '{print $1, $2, $3}' || true)
 
-    # Recurse d'abord dans les dépendances locales
     while read -r name version repo; do
       if [[ "$repo" == file://* ]]; then
         local subchart_path
@@ -79,25 +77,30 @@ helm-update path='' args='': helm-login
       fi
     done <<< "$deps"
 
-    # Puis update les dépendances de cette chart
-    echo "🔁 helm dependency update $chart_dir {{args}}"
-    helm dependency update "$chart_dir" {{args}}
+    echo "🔗 helm dependency update $chart_dir {{args}}"
+    helm dependency update "$chart_dir" {{args}} > /dev/null
   }
 
   update_chart {{path}}
 
 helm-lint path='' args="":
+  #!/bin/bash
+  set -euo pipefail
   just helm-update {{path}}
-  helm lint {{path}} --strict; \
+  echo "📝 Linting chart {{path}}"
+  helm lint {{path}} --strict
 
 helm-template path='' args='':
   #!/bin/bash
+  set -euo pipefail
   just helm-lint {{path}}
+
   isLibrary=$(yq -r '.type' {{path}}/Chart.yaml)
+  echo "Chart type: $isLibrary"
   if [ "$isLibrary" = "library" ]; then
-    echo "Skipping template for library chart"
+    echo "❌ Skipping template for library chart"
   else
-    echo "Rendering chart $path"
+    echo "✨ Rendering chart {{path}}"
     helm template {{path}} {{args}}
   fi
 
