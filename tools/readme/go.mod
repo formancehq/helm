@@ -1,6 +1,6 @@
-module github.com/formancehq/helm/readme
+module github.com/formancehq/helm/tools/readme
 
-go 1.22
+go 1.23
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0

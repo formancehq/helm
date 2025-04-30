@@ -99,10 +99,10 @@ EARTHLY_DOCS:
 
 # HELM_PUBLISH target to publish the helm chart to the ghcr.io registry
 HELM_PUBLISH:
-    FUNCTION
-    FROM core+helm-base
-    ARG --required path
-    COPY $path /src/
-    RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin
-    RUN helm push /src/${path} oci://ghcr.io/formancehq/helm
-    
+  FUNCTION
+  FROM core+helm-base
+  ARG --required path
+  COPY $path /src/
+  RUN --secret GITHUB_TOKEN echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin
+  RUN helm push /src/${path} oci://ghcr.io/formancehq/helm
+  
