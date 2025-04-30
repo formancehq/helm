@@ -50,13 +50,45 @@ tests args='': tidy
   pushd ./test/helm
   go test ./... -race
 
-helm-update path='' args='': helm-login 
-  helm dependency update {{path}} {{args}}
+helm-update path='' args='': helm-login
+  #!/bin/bash
+  set -e
+
+    update_chart() {
+    local chart_dir="$1"
+
+    echo "🔍 Checking $chart_dir"
+
+    # Vérifie si le dossier est une chart Helm
+    if [[ ! -f "$chart_dir/Chart.yaml" ]]; then
+      echo "❌ Pas de Chart.yaml dans $chart_dir, ignoré"
+      return
+    fi
+
+    # Liste les dépendances locales
+    local deps
+    deps=$(helm dependency list "$chart_dir" 2>/dev/null | grep 'file://' | awk '{print $1, $2, $3}' || true)
+
+    # Recurse d'abord dans les dépendances locales
+    while read -r name version repo; do
+      if [[ "$repo" == file://* ]]; then
+        local subchart_path
+        subchart_path=$(echo "$repo" | sed 's|file://||')
+        local full_path="$chart_dir/$subchart_path"
+        update_chart "$full_path"
+      fi
+    done <<< "$deps"
+
+    # Puis update les dépendances de cette chart
+    echo "🔁 helm dependency update $chart_dir {{args}}"
+    helm dependency update "$chart_dir" {{args}}
+  }
+
+  update_chart {{path}}
 
 helm-lint path='' args="":
   just helm-update {{path}}
   helm lint {{path}} --strict; \
-
 
 helm-template path='' args='':
   #!/bin/bash
