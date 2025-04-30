@@ -44,7 +44,7 @@ func TestMembership(t *testing.T) {
 		},
 	}
 
-	chartTest.setupSuite(t)
+	require.NoError(t, chartTest.setupSuite(t))
 	suite.Run(t, chartTest)
 }
 
