@@ -22,7 +22,7 @@ tidy: lint
   wait
 
 helm-schema-install:
-  helm plugin install https://github.com/losisin/helm-values-schema-json.git
+  helm plugin install https://github.com/losisin/helm-values-schema-json.git || true
 
 helm-schema path='':
   helm schema -input {{path}}/values.yaml -output {{path}}/values.schema.json 
