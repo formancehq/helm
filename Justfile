@@ -123,15 +123,19 @@ helm-publish path='': helm-login
 helm-login:
   echo $GITHUB_TOKEN | helm registry login ghcr.io -u NumaryBot --password-stdin || true
 
-install-releaser:
+release:
   #!/bin/bash
+  set -euo pipefail
+  just helm-all "true"
+
   rm -rf /tmp/chart-releaser
   git clone --branch=v1.7.0 https://github.com/helm/chart-releaser.git /tmp/chart-releaser
+  pushd /tmp/chart-releaser
+  go build -o cr ./... 
+  popd
 
-release: install-releaser 
-  just helm-all "true"
-  cd /tmp/chart-releaser && go run ./cr/main.go upload \
-    --config cr.yaml \
+  /tmp/chart-releaser/cr/cr upload \
+    --config {{justfile_directory()}}/cr.yaml \
     --token ${GITHUB_TOKEN} \
     --skip-existing \
-    --package-path /build
+    --package-path {{justfile_directory()}}/build
