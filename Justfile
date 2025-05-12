@@ -126,7 +126,7 @@ helm-login:
 install-releaser:
   #!/bin/bash
   rm -rf /tmp/chart-releaser
-  git clone --branch=v1.7.0 git@github.com:helm/chart-releaser.git /tmp/chart-releaser
+  git clone --branch=v1.7.0 https://github.com/helm/chart-releaser.git /tmp/chart-releaser
   pushd /tmp/chart-releaser
   go install ./...
   popd
