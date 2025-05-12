@@ -10,16 +10,22 @@ pc: pre-commit
 lint:
   #!/bin/bash
   set -euo pipefail
-  cd ./tools/readme && golangci-lint run --fix --timeout 5m &
-  cd ./test/helm && golangci-lint run --fix --timeout 5m &
-  wait
+  pushd ./tools/readme
+  golangci-lint run --fix --timeout 5m
+  popd
+  pushd ./test/helm
+  golangci-lint run --fix --timeout 5m
+  popd
 
 tidy: lint
   #!/bin/bash
   set -euo pipefail
-  cd ./tools/readme && go mod tidy &
-  cd ./test/helm && go mod tidy &
-  wait
+  pushd ./tools/readme
+  go mod tidy
+  popd
+  pushd ./test/helm
+  go mod tidy
+  popd
 
 helm-schema-install:
   helm plugin install https://github.com/losisin/helm-values-schema-json.git || true
