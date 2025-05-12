@@ -130,7 +130,7 @@ install-releaser:
 
 release: install-releaser 
   just helm-all "true"
-  go run /tmp/chart-releaser/cr/main.go upload \
+  cd /tmp/chart-releaser && go run ./cr/main.go upload \
     --config cr.yaml \
     --token ${GITHUB_TOKEN} \
     --skip-existing \
