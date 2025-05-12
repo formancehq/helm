@@ -127,13 +127,10 @@ install-releaser:
   #!/bin/bash
   rm -rf /tmp/chart-releaser
   git clone --branch=v1.7.0 https://github.com/helm/chart-releaser.git /tmp/chart-releaser
-  pushd /tmp/chart-releaser
-  go install ./...
-  popd
 
 release: install-releaser 
   just helm-all "true"
-  cr upload \
+  go run /tmp/chart-releaser/cr/main.go upload \
     --config cr.yaml \
     --token ${GITHUB_TOKEN} \
     --skip-existing \
