@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 2.4.1](https://img.shields.io/badge/Version-2.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.3.2](https://img.shields.io/badge/AppVersion-v1.3.2-informational?style=flat-square)
+![Version: 2.5.0](https://img.shields.io/badge/Version-2.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.7.2](https://img.shields.io/badge/AppVersion-v1.7.2-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -65,6 +65,12 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
 | global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
+| global.monitoring.metrics.enabled | bool | `false` | Enable otel metrics |
+| global.monitoring.metrics.endpoint | string | `""` | Endpoint |
+| global.monitoring.metrics.exporter | string | `"otlp"` | Exporter |
+| global.monitoring.metrics.insecure | bool | `true` | Insecure |
+| global.monitoring.metrics.mode | string | `"grpc"` | Mode |
+| global.monitoring.metrics.port | int | `4317` | Port |
 | global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
 | global.monitoring.traces.endpoint | string | `""` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |
