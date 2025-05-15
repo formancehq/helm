@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.1.2](https://img.shields.io/badge/Version-3.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.2.0](https://img.shields.io/badge/Version-3.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -404,6 +404,12 @@ Dex:
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
 | global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
+| global.monitoring.metrics.enabled | bool | `false` | Enable otel metrics |
+| global.monitoring.metrics.endpoint | string | `""` | Endpoint |
+| global.monitoring.metrics.exporter | string | `"otlp"` | Exporter |
+| global.monitoring.metrics.insecure | bool | `true` | Insecure |
+| global.monitoring.metrics.mode | string | `"grpc"` | Mode |
+| global.monitoring.metrics.port | int | `4317` | Port |
 | global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
 | global.monitoring.traces.endpoint | string | `"localhost"` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |

@@ -156,6 +156,7 @@ global:
       # -- Port
       # @section -- Global configuration
       port: 4317
+    
     logs:
       # -- Enable logging
       # @section -- Global configuration
@@ -166,6 +167,26 @@ global:
       # -- Format
       # @section -- Global configuration
       format: "json"
+
+    metrics:
+      # -- Enable otel metrics
+      # @section -- Global configuration
+      enabled: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: ""
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+      # -- Mode
+      # @section -- Global configuration
+      mode: grpc
 
   postgresql:
     # -- Host for PostgreSQL (overrides included postgreql `host`)
