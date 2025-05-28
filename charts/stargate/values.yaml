@@ -87,6 +87,7 @@ global:
     # -- Enable NATS
     # @section -- Global Nats configuration
     enabled: false
+    requestTimeout: "60s"
 
     # -- URL for NATS
     # @section -- Global Nats configuration

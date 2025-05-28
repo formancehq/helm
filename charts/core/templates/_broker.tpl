@@ -21,6 +21,11 @@
 - name: PUBLISHER_NATS_ENABLED
   value: '{{ .Values.global.nats.enabled }}'
 {{- if .Values.global.nats.enabled }}
+  {{- if .Values.global.nats.requestTimeout }}
+- name: PUBLISHER_NATS_REQUEST_TIMEOUT
+  value: {{ .Values.global.nats.requestTimeout | quote }}
+  {{- else }}
+  {{- end }}
   {{- if .Values.global.nats.auth.existingSecret }}
 - name: PUBLISHER_NATS_USERNAME
   valueFrom:
