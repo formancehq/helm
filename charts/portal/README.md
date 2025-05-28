@@ -1,6 +1,6 @@
 # portal
 
-![Version: 2.10.0](https://img.shields.io/badge/Version-2.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.13.0](https://img.shields.io/badge/AppVersion-v1.13.0-informational?style=flat-square)
+![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.7.4](https://img.shields.io/badge/AppVersion-v1.7.4-informational?style=flat-square)
 
 Formance Portal
 
@@ -50,7 +50,7 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.console.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
-| global.platform.consoleV3.enabled | bool | `true` | Enable console-v3  |
+| global.platform.consoleV3.enabled | bool | `false` | Enable console-v3  |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
@@ -86,7 +86,7 @@ Kubernetes: `>=1.14.0-0`
 | config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | config.environment | string | `"production"` | Portal environment |
-| config.featuresDisabled | list | `[]` |  |
+| config.featuresDisabled[0] | string | `"console_v3_beta"` |  |
 | config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | config.sentry.dsn | string | `""` | Sentry DSN |
 | config.sentry.enabled | bool | `false` | Sentry enabled |
