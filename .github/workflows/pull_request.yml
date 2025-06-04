@@ -79,6 +79,7 @@ jobs:
         id: changed-files
         shell: bash
         run: |
+          git diff;
           hasChanged=$(git status --porcelain) 
           if (( $(echo ${#hasChanged}) != 0 )); then
             git status

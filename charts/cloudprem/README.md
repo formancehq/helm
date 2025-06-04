@@ -662,9 +662,10 @@ Dex:
 | membership.config.migration.ttlSecondsAfterFinished | string | `""` |  |
 | membership.config.migration.volumeMounts | list | `[]` |  |
 | membership.config.migration.volumes | list | `[]` |  |
-| membership.config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","scopes":["openid","email","federated:id"],"secretKeys":{"secret":""}}` | Membership relying party connection url |
+| membership.config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","connectors":[],"existingSecret":"","scopes":["openid","email","federated:id"],"secretKeys":{"secret":""}}` | Membership relying party connection url (used with Dex only) |
 | membership.config.oidc.clientId | string | `"membership"` | Membership oidc client id |
 | membership.config.oidc.clientSecret | string | `"changeMe"` | Membership oidc client secret |
+| membership.config.oidc.connectors | list | `[]` | Add external connectors |
 | membership.config.oidc.existingSecret | string | `""` | Membership oidc existing secret |
 | membership.config.oidc.scopes | list | `["openid","email","federated:id"]` | Membership oidc redirect uri |
 | membership.config.oidc.scopes[2] | string | `"federated:id"` | Membership Dex federated id scope |

@@ -36,3 +36,11 @@ data:
       {{- with .Values.config.auth.additionalOAuthClients }}
       {{- tpl (toYaml .) $ | nindent 6 }}
       {{- end }}
+    {{ if gt (.Values.config.oidc.connectors | len ) 0 }}
+    connectors:
+    {{- with .Values.config.oidc.connectors }}
+    {{- tpl (toYaml .) $ | nindent 6 }}
+    {{- end }}
+    {{- end }}
+
+

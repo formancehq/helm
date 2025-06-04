@@ -47,6 +47,7 @@
   value: "{{.Values.dev}}"
 - name: CONFIG
   value: "/config/config.yaml"
+{{- if .Values.dex.enabled }}
 - name: RP_ISSUER
   value: "{{ tpl (printf "%s://%s%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host .Values.global.platform.membership.relyingParty.path) $ }}"
 - name: RP_CLIENT_ID
@@ -62,6 +63,7 @@
   {{- end }}
 - name: RP_SCOPES
   value: "{{ join " " .Values.config.oidc.scopes }}"
+{{- end }}
 - name: SERVICE_URL
   value: "{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}"
 - name: MANAGED_STACKS
