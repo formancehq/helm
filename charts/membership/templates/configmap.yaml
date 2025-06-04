@@ -1,3 +1,8 @@
+{{- if gt (.Values.config.oidc.connectors | len ) 0 }}
+{{- if .Values.dex.enabled }}
+{{- fail "value for .Values.config.oidc.connectors can not be used with .Values.dex.enabled" }}
+{{- end }}
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -36,3 +41,11 @@ data:
       {{- with .Values.config.auth.additionalOAuthClients }}
       {{- tpl (toYaml .) $ | nindent 6 }}
       {{- end }}
+    {{ if gt (.Values.config.oidc.connectors | len ) 0 }}
+    connectors:
+    {{- with .Values.config.oidc.connectors }}
+    {{- tpl (toYaml .) $ | nindent 6 }}
+    {{- end }}
+    {{- end }}
+
+

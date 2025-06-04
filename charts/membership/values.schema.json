@@ -304,6 +304,39 @@
                         "clientSecret": {
                             "type": "string"
                         },
+                        "connectors": {
+                            "items": {
+                                "properties": {
+                                    "config": {
+                                        "properties": {
+                                            "clientID": {
+                                                "type": "string"
+                                            },
+                                            "clientSecret": {
+                                                "type": "string"
+                                            },
+                                            "issuer": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "clientID",
+                                            "clientSecret",
+                                            "issuer"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
                         "existingSecret": {
                             "type": "string"
                         },
