@@ -307,29 +307,23 @@
                         "connectors": {
                             "items": {
                                 "properties": {
+                                    "clientID": {
+                                        "type": "string"
+                                    },
+                                    "clientSecret": {
+                                        "type": "string"
+                                    },
                                     "config": {
-                                        "properties": {
-                                            "clientID": {
-                                                "type": "string"
-                                            },
-                                            "clientSecret": {
-                                                "type": "string"
-                                            },
-                                            "issuer": {
-                                                "type": "string"
-                                            }
-                                        },
-                                        "required": [
-                                            "clientID",
-                                            "clientSecret",
-                                            "issuer"
-                                        ],
+                                        "additionalProperties": true,
                                         "type": "object"
                                     },
                                     "id": {
                                         "type": "string"
                                     },
                                     "name": {
+                                        "type": "string"
+                                    },
+                                    "type": {
                                         "type": "string"
                                     }
                                 },

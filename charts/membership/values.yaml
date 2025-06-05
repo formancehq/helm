@@ -430,13 +430,14 @@ config:
 
     # -- Add external connectors
     # Connectors can be used only if dex is disabled
-    connectors: [] # @schema item:object;itemProperties:{"name": {"type": "string"}, "id": {"type": "string"}, "config": {"type": "object", "required": ["clientID", "clientSecret", "issuer"], "properties": {"issuer": {"type": "string"}, "clientID": {"type": "string"}, "clientSecret": {"type": "string"}}}}
+    connectors: [] # @schema item:object;itemProperties:{"type": {"type": "string"}, "name": {"type": "string"}, "id": {"type": "string"}, "clientID": {"type": "string"}, "clientSecret": {"type": "string"}, "config": {"type": "object", "additionalProperties": true}}
       # - name: CONNECTOR_DISPLAY_NAME
       #   id: CONNECTOR_ID
+      #   clientID: CONNECTOR_CLIENT_ID
+      #   clientSecret: CONNECTOR_CLIENT_SECRET
+      #   type: generic
       #   config:
       #     issuer: CONNECTOR_ISSUER
-      #     clientID: CONNECTOR_CLIENT_ID
-      #     clientSecret: CONNECTOR_CLIENT_SECRET
 
   auth:
     # -- Membership additional oauth clients
