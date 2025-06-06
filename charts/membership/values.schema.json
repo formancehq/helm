@@ -304,6 +304,33 @@
                         "clientSecret": {
                             "type": "string"
                         },
+                        "connectors": {
+                            "items": {
+                                "properties": {
+                                    "clientID": {
+                                        "type": "string"
+                                    },
+                                    "clientSecret": {
+                                        "type": "string"
+                                    },
+                                    "config": {
+                                        "additionalProperties": true,
+                                        "type": "object"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
                         "existingSecret": {
                             "type": "string"
                         },
