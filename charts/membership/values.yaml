@@ -439,6 +439,8 @@ config:
       #     issuer: CONNECTOR_ISSUER
 
   auth:
+    # -- Enable login with sso (email selector on login page)
+    loginWithSSO: false
     # -- Membership additional oauth clients
     additionalOAuthClients: []
     # -- According to "nsuµmh"
