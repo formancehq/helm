@@ -312,6 +312,9 @@ debug: false
 # -- Membership dev, disable ssl verification
 dev: false
 
+# -- Enable login with sso (email selector on login page)
+loginWithSSO: false
+
 # -- Membership init containers
 initContainers: []
 
