@@ -2,12 +2,10 @@ name: Pull Request
 on:
   merge_group:
   pull_request:
-    types: [ assigned, opened, synchronize, reopened, labeled, unlabeled ]
-  
+    types: [assigned, opened, synchronize, reopened, labeled, unlabeled]
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
 jobs:
   labeler:
     name: Chart Diff Labeler
@@ -28,7 +26,6 @@ jobs:
           CHARTS=$(git diff ${{ github.base_ref }} --stat | grep -oE 'charts/[^/]+/' | sed 's|charts/||;s|/||' | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
           echo "Changed charts: $CHARTS"
           echo "::set-output name=changed_charts::$CHARTS"
-
       - name: Label PR based on chart changes
         if: steps.chart_changes.outputs.changed_charts != ''
         uses: actions/github-script@v7
@@ -50,7 +47,6 @@ jobs:
             } else {
               console.log('No charts changed, skipping labeling.');
             }
-
   pr_name:
     if: github.event_name == 'pull_request'
     name: Check PR Title
@@ -98,7 +94,7 @@ jobs:
         with:
           token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
       - name: Package
-        run: nix develop --impure --command just helm-all true
+        run: nix develop --impure --command just helm-all true true '--version=0.0.0-build.${{ github.sha }}'
         env:
           GITHUB_TOKEN: ${{ secrets.NUMARY_GITHUB_TOKEN }}
       - name: Archive chart
@@ -107,16 +103,15 @@ jobs:
           name: charts_${{ github.ref_type == 'branch' && github.sha }}.tgz
           path: build/*.tgz
           retention-days: 3
-
   Tests:
     runs-on: shipfox-4vcpu-ubuntu-2404
     steps:
-    - uses: "actions/checkout@v4"
-      with:
-        fetch-depth: 0
-    - name: Setup Nix
-      uses: ./.github/actions/default
-      with:
-        token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
-    - name: Pre-commit
-      run: nix develop --impure --command just tests
+      - uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+      - name: Setup Nix
+        uses: ./.github/actions/default
+        with:
+          token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
+      - name: Pre-commit
+        run: nix develop --impure --command just tests

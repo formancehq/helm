@@ -36,7 +36,7 @@ helm-schema path='':
 helm-docs:
   go run github.com/norwoodj/helm-docs/cmd/helm-docs@v1.14 --chart-search-root=charts --document-dependency-values --skip-version-footer
 
-helm-all package="false": helm-docs helm-schema-install
+helm-all package="false" publish='false' packageArgs="": helm-docs helm-schema-install
   #!/bin/bash
   set -euo pipefail
 
@@ -44,13 +44,20 @@ helm-all package="false": helm-docs helm-schema-install
     (
       just helm-schema "$chart"
       if [ "{{package}}" = "true" ]; then
-        just helm-package "$chart"
+        just helm-package "$chart" {{packageArgs}}
       else
         just helm-template "$chart"
       fi
     ) &
   done
-  wait 
+  wait
+  if [ "{{publish}}" = "true" ]; then
+    for chart in $(find ./build -name "*.tgz"); do
+      (
+        just helm-publish "$chart"
+      ) 
+    done
+  fi
 
 template-readme: tidy
   #!/bin/bash
@@ -70,7 +77,7 @@ helm-update path='' args='': helm-login
   #!/bin/bash
   set -e
 
-    update_chart() {
+  update_chart() {
     local chart_dir="$1"
 
     echo "🔍 Checking $chart_dir"
