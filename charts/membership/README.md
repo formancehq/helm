@@ -206,9 +206,10 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | config.migration.ttlSecondsAfterFinished | string | `""` |  |
 | config.migration.volumeMounts | list | `[]` |  |
 | config.migration.volumes | list | `[]` |  |
-| config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","existingSecret":"","scopes":["openid","email","federated:id"],"secretKeys":{"secret":""}}` | Membership relying party connection url |
+| config.oidc | object | `{"clientId":"membership","clientSecret":"changeMe","connectors":[],"existingSecret":"","scopes":["openid","email","federated:id"],"secretKeys":{"secret":""}}` | Membership relying party connection url (used with Dex only) |
 | config.oidc.clientId | string | `"membership"` | Membership oidc client id |
 | config.oidc.clientSecret | string | `"changeMe"` | Membership oidc client secret |
+| config.oidc.connectors | list | `[]` | Add external connectors |
 | config.oidc.existingSecret | string | `""` | Membership oidc existing secret |
 | config.oidc.scopes | list | `["openid","email","federated:id"]` | Membership oidc redirect uri |
 | config.oidc.scopes[2] | string | `"federated:id"` | Membership Dex federated id scope |

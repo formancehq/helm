@@ -410,7 +410,7 @@ config:
   # -- DEPRECATED Membership postgresql connection url
   # postgresqlUrl: "postgresql://formance:formance@postgresql.formance-control.svc:5432/formance?sslmode=disable"
 
-  # -- Membership relying party connection url
+  # -- Membership relying party connection url (used with Dex only)
   oidc:
     # -- Membership oidc client id
     clientId: "membership"
@@ -427,6 +427,16 @@ config:
     # -- Membership oidc secret key
     secretKeys:
       secret: ""
+
+    # -- Add external connectors
+    connectors: [] # @schema item:object;itemProperties:{"type": {"type": "string"}, "name": {"type": "string"}, "id": {"type": "string"}, "clientID": {"type": "string"}, "clientSecret": {"type": "string"}, "config": {"type": "object", "additionalProperties": true}}
+      # - name: CONNECTOR_DISPLAY_NAME
+      #   id: CONNECTOR_ID
+      #   clientID: CONNECTOR_CLIENT_ID
+      #   clientSecret: CONNECTOR_CLIENT_SECRET
+      #   type: generic
+      #   config:
+      #     issuer: CONNECTOR_ISSUER
 
   auth:
     # -- Membership additional oauth clients
