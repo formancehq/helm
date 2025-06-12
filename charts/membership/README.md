@@ -243,6 +243,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Membership ingress path type |
 | ingress.tls | list | `[]` | Membership ingress tls |
 | initContainers | list | `[]` | Membership init containers |
+| loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | nameOverride | string | `""` | Membership name override |
 | nodeSelector | object | `{}` | Membership node selector |
 | podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |

@@ -699,6 +699,7 @@ Dex:
 | membership.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Membership ingress path type |
 | membership.ingress.tls | list | `[]` | Membership ingress tls |
 | membership.initContainers | list | `[]` | Membership init containers |
+| membership.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | membership.nameOverride | string | `""` | Membership name override |
 | membership.nodeSelector | object | `{}` | Membership node selector |
 | membership.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
