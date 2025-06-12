@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 2.17.17](https://img.shields.io/badge/Version-2.17.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.17.18](https://img.shields.io/badge/Version-2.17.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -119,7 +119,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.1".reconciliation | string | `"v2.0.24"` |  |
 | versions.files."v2.1".search | string | `"v2.0.24"` |  |
 | versions.files."v2.1".stargate | string | `"v2.0.24"` |  |
-| versions.files."v2.1".wallets | string | `"v2.1.4"` |  |
+| versions.files."v2.1".wallets | string | `"v2.1.5"` |  |
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v2.2".auth | string | `"v2.0.24"` |  |
 | versions.files."v2.2".gateway | string | `"v2.0.24"` |  |
@@ -130,7 +130,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.2".reconciliation | string | `"v2.0.24"` |  |
 | versions.files."v2.2".search | string | `"v2.0.24"` |  |
 | versions.files."v2.2".stargate | string | `"v2.0.24"` |  |
-| versions.files."v2.2".wallets | string | `"v2.1.4"` |  |
+| versions.files."v2.2".wallets | string | `"v2.1.5"` |  |
 | versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.1.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
@@ -141,7 +141,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
 | versions.files."v3.0".search | string | `"v2.1.0"` |  |
 | versions.files."v3.0".stargate | string | `"v2.1.0"` |  |
-| versions.files."v3.0".wallets | string | `"v2.1.4"` |  |
+| versions.files."v3.0".wallets | string | `"v2.1.5"` |  |
 | versions.files."v3.0".webhooks | string | `"v2.1.0"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
 | versions.files.default.gateway | string | `"v2.0.18"` |  |
