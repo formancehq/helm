@@ -218,6 +218,9 @@
                         "enabled": {
                             "type": "boolean"
                         },
+                        "requestTimeout": {
+                            "type": "string"
+                        },
                         "url": {
                             "type": "string"
                         }
