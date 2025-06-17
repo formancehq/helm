@@ -87,6 +87,9 @@
                         "additionalOAuthClients": {
                             "type": "array"
                         },
+                        "loginWithSSO": {
+                            "type": "boolean"
+                        },
                         "tokenValidity": {
                             "properties": {
                                 "accessToken": {

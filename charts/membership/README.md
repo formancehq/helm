@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 2.6.0](https://img.shields.io/badge/Version-2.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.7.2](https://img.shields.io/badge/AppVersion-v1.7.2-informational?style=flat-square)
+![Version: 2.7.0](https://img.shields.io/badge/Version-2.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.7.2](https://img.shields.io/badge/AppVersion-v1.7.2-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -191,6 +191,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | commonLabels | object | `{}` | DEPRECATED Membership service |
 | config.additionalEnv | list | `[]` | Additional Environment variables on the main deployment |
 | config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
+| config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | config.fctl | bool | `true` | Enable Fctl |
 | config.grpc.existingSecret | string | `""` |  |

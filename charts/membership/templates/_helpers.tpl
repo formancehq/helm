@@ -47,6 +47,8 @@
   value: "{{.Values.dev}}"
 - name: CONFIG
   value: "/config/config.yaml"
+- name: LOGIN_WITH_SSO
+  value: "{{.Values.config.auth.loginWithSSO}}"
 {{- if .Values.dex.enabled }}
 - name: RP_ISSUER
   value: "{{ tpl (printf "%s://%s%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host .Values.global.platform.membership.relyingParty.path) $ }}"
