@@ -49,6 +49,10 @@
   value: "/config/config.yaml"
 - name: LOGIN_WITH_SSO
   value: "{{.Values.config.auth.loginWithSSO}}"
+- name: STARGATE_SERVER_URL
+  value: "{{ tpl (printf "%s" .Values.global.platform.stargate.serverURL) $ }}"
+- name: STARGATE_SERVER_DISABLE_TLS
+  value: "{{ .Values.global.platform.stargate.tls.disable }}"
 {{- if .Values.dex.enabled }}
 - name: RP_ISSUER
   value: "{{ tpl (printf "%s://%s%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host .Values.global.platform.membership.relyingParty.path) $ }}"
