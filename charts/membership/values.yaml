@@ -119,6 +119,10 @@ global:
         # -- is the path for the relying party issuer
         # @section -- Global configuration
         path: ""
+    stargate:
+      serverURL: ""
+      tls:
+        disable: false
 
   nats:
     enabled: false
@@ -463,11 +467,6 @@ config:
       replicas: 1
 
   stack:
-    # # -- Only need for external use
-    # # It inform stack client to reach the following server
-    # # It might change depending on you stargate ingress configuration
-    # stargateServerURL: "stargate.{{ .Values.global.serviceHost }}:443"
-
     # Modules created by default on a stack
     minimalStackModules:
     - Auth

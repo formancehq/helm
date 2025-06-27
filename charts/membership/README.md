@@ -185,6 +185,8 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
 | global.platform.portal.enabled | bool | `true` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |
+| global.platform.stargate.serverURL | string | `""` |  |
+| global.platform.stargate.tls.disable | bool | `false` |  |
 | affinity | object | `{}` | Membership affinity |
 | annotations | object | `{}` | Membership annotations  |
 | autoscaling | object | `{}` | Membership autoscaling |

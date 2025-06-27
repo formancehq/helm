@@ -537,6 +537,8 @@ Dex:
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | global.platform.portal.enabled | bool | `true` |  |
+| global.platform.stargate.serverURL | string | `""` |  |
+| global.platform.stargate.tls.disable | bool | `false` |  |
 | console.affinity | object | `{}` | Console affinity |
 | console.annotations | object | `{}` | Console annotations  |
 | console.autoscaling.enabled | bool | `false` |  |

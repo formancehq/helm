@@ -891,6 +891,22 @@
                                 }
                             },
                             "type": "object"
+                        },
+                        "stargate": {
+                            "properties": {
+                                "serverURL": {
+                                    "type": "string"
+                                },
+                                "tls": {
+                                    "properties": {
+                                        "disable": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
                         }
                     },
                     "type": "object"
