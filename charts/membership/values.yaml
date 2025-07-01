@@ -66,6 +66,7 @@ global:
           - accesses
           - remember_me
           - keep_refresh_token
+          - organization_features
           existingSecret: ""
           # -- is the key contained within the secret
           # @section -- Global configuration
@@ -94,6 +95,7 @@ global:
           - accesses
           - remember_me
           - keep_refresh_token
+          - organization_features
           existingSecret: ""
           # -- is the key contained within the secret
           # @section -- Global configuration
@@ -160,7 +162,7 @@ global:
       # -- Port
       # @section -- Global configuration
       port: 4317
-    
+
     logs:
       # -- Enable logging
       # @section -- Global configuration
