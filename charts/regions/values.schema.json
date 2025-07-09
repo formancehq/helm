@@ -1,11 +1,15 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
     "properties": {
         "agent": {
+            "type": "object",
             "properties": {
                 "agent": {
+                    "type": "object",
                     "properties": {
                         "authentication": {
+                            "type": "object",
                             "properties": {
                                 "clientID": {
                                     "type": "string"
@@ -19,8 +23,7 @@
                                 "mode": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "baseUrl": {
                             "type": "string"
@@ -28,26 +31,27 @@
                         "id": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "enabled": {
                     "type": "boolean"
                 },
                 "image": {
+                    "type": "object",
                     "properties": {
                         "tag": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "server": {
+                    "type": "object",
                     "properties": {
                         "address": {
                             "type": "string"
                         },
                         "tls": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -55,18 +59,17 @@
                                 "insecureSkipVerify": {
                                     "type": "boolean"
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "global": {
+            "type": "object",
             "properties": {
                 "licence": {
+                    "type": "object",
                     "properties": {
                         "clusterID": {
                             "type": "string"
@@ -81,23 +84,22 @@
                             "type": "string"
                         },
                         "secretKeys": {
+                            "type": "object",
                             "properties": {
                                 "token": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "token": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "operator": {
+            "type": "object",
             "properties": {
                 "enabled": {
                     "type": "boolean"
@@ -106,6 +108,7 @@
                     "type": "string"
                 },
                 "image": {
+                    "type": "object",
                     "properties": {
                         "repository": {
                             "type": "string"
@@ -113,13 +116,13 @@
                         "tag": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "nameOverride": {
                     "type": "string"
                 },
                 "operator": {
+                    "type": "object",
                     "properties": {
                         "disableWebhooks": {
                             "type": "boolean"
@@ -139,28 +142,29 @@
                         "region": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "operator-crds": {
+                    "type": "object",
                     "properties": {
                         "create": {
                             "type": "boolean"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "versions": {
+            "type": "object",
             "properties": {
                 "create": {
                     "type": "boolean"
                 },
                 "files": {
+                    "type": "object",
                     "properties": {
                         "default": {
+                            "type": "object",
                             "properties": {
                                 "auth": {
                                     "type": "string"
@@ -195,10 +199,10 @@
                                 "webhooks": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "v1.0": {
+                            "type": "object",
                             "properties": {
                                 "auth": {
                                     "type": "string"
@@ -233,10 +237,10 @@
                                 "webhooks": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "v2.0": {
+                            "type": "object",
                             "properties": {
                                 "auth": {
                                     "type": "string"
@@ -271,10 +275,10 @@
                                 "webhooks": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "v2.1": {
+                            "type": "object",
                             "properties": {
                                 "auth": {
                                     "type": "string"
@@ -309,10 +313,10 @@
                                 "webhooks": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "v2.2": {
+                            "type": "object",
                             "properties": {
                                 "auth": {
                                     "type": "string"
@@ -347,10 +351,10 @@
                                 "webhooks": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "v3.0": {
+                            "type": "object",
                             "properties": {
                                 "auth": {
                                     "type": "string"
@@ -385,15 +389,11 @@
                                 "webhooks": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         }
-    },
-    "type": "object"
+    }
 }
