@@ -28,7 +28,8 @@ tidy: lint
   popd
 
 helm-schema-install:
-  helm plugin install https://github.com/losisin/helm-values-schema-json.git || true
+  helm plugin uninstall schema || true
+  helm plugin install https://github.com/losisin/helm-values-schema-json.git --version v1.9.2 || true
 
 helm-schema path='':
   helm schema -input {{path}}/values.yaml -output {{path}}/values.schema.json

@@ -1,13 +1,15 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
     "properties": {
         "affinity": {
-            "properties": {},
             "type": "object"
         },
         "agent": {
+            "type": "object",
             "properties": {
                 "authentication": {
+                    "type": "object",
                     "properties": {
                         "clientID": {
                             "type": "string"
@@ -25,15 +27,14 @@
                             "type": "string"
                         },
                         "secretKeys": {
+                            "type": "object",
                             "properties": {
                                 "secret": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "baseUrl": {
                     "type": "string"
@@ -47,21 +48,20 @@
                 "production": {
                     "type": "boolean"
                 }
-            },
-            "type": "object"
+            }
         },
         "config": {
+            "type": "object",
             "properties": {
                 "monitoring": {
+                    "type": "object",
                     "properties": {
                         "serviceName": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "debug": {
             "type": "boolean"
@@ -70,16 +70,19 @@
             "type": "string"
         },
         "global": {
+            "type": "object",
             "properties": {
                 "debug": {
                     "type": "boolean"
                 },
                 "monitoring": {
+                    "type": "object",
                     "properties": {
                         "batch": {
                             "type": "boolean"
                         },
                         "logs": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -90,10 +93,10 @@
                                 "level": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "traces": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -113,19 +116,17 @@
                                 "port": {
                                     "type": "integer"
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "serviceName": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         },
         "image": {
+            "type": "object",
             "properties": {
                 "pullPolicy": {
                     "type": "string"
@@ -136,8 +137,7 @@
                 "tag": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         },
         "imagePullSecrets": {
             "type": "array"
@@ -146,20 +146,19 @@
             "type": "string"
         },
         "nodeSelector": {
-            "properties": {},
             "type": "object"
         },
         "podAnnotations": {
-            "properties": {},
             "type": "object"
         },
         "podSecurityContext": {
-            "properties": {},
             "type": "object"
         },
         "resources": {
+            "type": "object",
             "properties": {
                 "limits": {
+                    "type": "object",
                     "properties": {
                         "cpu": {
                             "type": "string"
@@ -167,10 +166,10 @@
                         "memory": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "requests": {
+                    "type": "object",
                     "properties": {
                         "cpu": {
                             "type": "string"
@@ -178,22 +177,21 @@
                         "memory": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "securityContext": {
-            "properties": {},
             "type": "object"
         },
         "server": {
+            "type": "object",
             "properties": {
                 "address": {
                     "type": "string"
                 },
                 "tls": {
+                    "type": "object",
                     "properties": {
                         "enabled": {
                             "type": "boolean"
@@ -201,24 +199,20 @@
                         "insecureSkipVerify": {
                             "type": "boolean"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "serviceAccount": {
+            "type": "object",
             "properties": {
                 "annotations": {
-                    "properties": {},
                     "type": "object"
                 }
-            },
-            "type": "object"
+            }
         },
         "tolerations": {
             "type": "array"
         }
-    },
-    "type": "object"
+    }
 }

@@ -1,11 +1,15 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
     "properties": {
         "nats": {
+            "type": "object",
             "properties": {
                 "config": {
+                    "type": "object",
                     "properties": {
                         "cluster": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -13,15 +17,16 @@
                                 "replicas": {
                                     "type": "integer"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "jetstream": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
                                 },
                                 "fileStore": {
+                                    "type": "object",
                                     "properties": {
                                         "dir": {
                                             "type": "string"
@@ -30,6 +35,7 @@
                                             "type": "boolean"
                                         },
                                         "pvc": {
+                                            "type": "object",
                                             "properties": {
                                                 "enabled": {
                                                     "type": "boolean"
@@ -37,17 +43,13 @@
                                                 "size": {
                                                     "type": "string"
                                                 }
-                                            },
-                                            "type": "object"
+                                            }
                                         }
-                                    },
-                                    "type": "object"
+                                    }
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "enabled": {
                     "type": "boolean"
@@ -55,42 +57,42 @@
                 "fullnameOverride": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         },
         "opensearch": {
+            "type": "object",
             "properties": {
                 "coordinating": {
+                    "type": "object",
                     "properties": {
                         "replicaCount": {
                             "type": "integer"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "dashboards": {
+                    "type": "object",
                     "properties": {
                         "enabled": {
                             "type": "boolean"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "data": {
+                    "type": "object",
                     "properties": {
                         "persistence": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "replicaCount": {
                             "type": "integer"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "enabled": {
                     "type": "boolean"
@@ -99,6 +101,7 @@
                     "type": "string"
                 },
                 "ingest": {
+                    "type": "object",
                     "properties": {
                         "enabled": {
                             "type": "boolean"
@@ -106,37 +109,36 @@
                         "replicaCount": {
                             "type": "integer"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "master": {
+                    "type": "object",
                     "properties": {
                         "persistence": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "replicaCount": {
                             "type": "integer"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "security": {
+                    "type": "object",
                     "properties": {
                         "enabled": {
                             "type": "boolean"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "postgresql": {
+            "type": "object",
             "properties": {
                 "architecture": {
                     "type": "string"
@@ -148,10 +150,13 @@
                     "type": "string"
                 },
                 "global": {
+                    "type": "object",
                     "properties": {
                         "postgresql": {
+                            "type": "object",
                             "properties": {
                                 "auth": {
+                                    "type": "object",
                                     "properties": {
                                         "database": {
                                             "type": "string"
@@ -165,31 +170,26 @@
                                         "username": {
                                             "type": "string"
                                         }
-                                    },
-                                    "type": "object"
+                                    }
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "primary": {
+                    "type": "object",
                     "properties": {
                         "persistence": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         }
-    },
-    "type": "object"
+    }
 }

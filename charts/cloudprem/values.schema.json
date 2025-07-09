@@ -1,9 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
     "properties": {
         "global": {
+            "type": "object",
             "properties": {
                 "aws": {
+                    "type": "object",
                     "properties": {
                         "elb": {
                             "type": "boolean"
@@ -11,13 +14,13 @@
                         "iam": {
                             "type": "boolean"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "debug": {
                     "type": "boolean"
                 },
                 "licence": {
+                    "type": "object",
                     "properties": {
                         "clusterID": {
                             "type": "string"
@@ -29,25 +32,26 @@
                             "type": "string"
                         },
                         "secretKeys": {
+                            "type": "object",
                             "properties": {
                                 "token": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "token": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "monitoring": {
+                    "type": "object",
                     "properties": {
                         "batch": {
                             "type": "boolean"
                         },
                         "logs": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -58,10 +62,10 @@
                                 "level": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "metrics": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -81,10 +85,10 @@
                                 "port": {
                                     "type": "integer"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "traces": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -104,15 +108,15 @@
                                 "port": {
                                     "type": "integer"
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "platform": {
+                    "type": "object",
                     "properties": {
                         "console": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -123,10 +127,10 @@
                                 "scheme": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "consoleV3": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -137,15 +141,16 @@
                                 "scheme": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "membership": {
+                            "type": "object",
                             "properties": {
                                 "host": {
                                     "type": "string"
                                 },
                                 "oidc": {
+                                    "type": "object",
                                     "properties": {
                                         "host": {
                                             "type": "string"
@@ -153,10 +158,10 @@
                                         "scheme": {
                                             "type": "string"
                                         }
-                                    },
-                                    "type": "object"
+                                    }
                                 },
                                 "relyingParty": {
+                                    "type": "object",
                                     "properties": {
                                         "host": {
                                             "type": "string"
@@ -164,16 +169,15 @@
                                         "scheme": {
                                             "type": "string"
                                         }
-                                    },
-                                    "type": "object"
+                                    }
                                 },
                                 "scheme": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "portal": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -184,10 +188,10 @@
                                 "scheme": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "stargate": {
+                            "type": "object",
                             "properties": {
                                 "enabled": {
                                     "type": "boolean"
@@ -195,18 +199,18 @@
                                 "stackApiUrl": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "postgresql": {
+                    "type": "object",
                     "properties": {
                         "additionalArgs": {
                             "type": "string"
                         },
                         "auth": {
+                            "type": "object",
                             "properties": {
                                 "database": {
                                     "type": "string"
@@ -221,6 +225,7 @@
                                     "type": "string"
                                 },
                                 "secretKeys": {
+                                    "type": "object",
                                     "properties": {
                                         "adminPasswordKey": {
                                             "type": "string"
@@ -228,40 +233,35 @@
                                         "userPasswordKey": {
                                             "type": "string"
                                         }
-                                    },
-                                    "type": "object"
+                                    }
                                 },
                                 "username": {
                                     "type": "string"
                                 }
-                            },
-                            "type": "object"
+                            }
                         },
                         "host": {
                             "type": "string"
                         },
                         "service": {
+                            "type": "object",
                             "properties": {
                                 "ports": {
+                                    "type": "object",
                                     "properties": {
                                         "postgresql": {
                                             "type": "integer"
                                         }
-                                    },
-                                    "type": "object"
+                                    }
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "serviceHost": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         }
-    },
-    "type": "object"
+    }
 }
