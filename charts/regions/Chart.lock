@@ -1,9 +1,9 @@
 dependencies:
 - name: agent
   repository: file://../agent
-  version: 2.7.2
+  version: 2.8.0
 - name: operator
   repository: oci://ghcr.io/formancehq/helm
   version: 2.13.0
-digest: sha256:73ed6714a05411299a9c55d8197b906bd62995a444a11542ce1cebd4578f94b3
-generated: "2025-07-09T18:17:08.625144+02:00"
+digest: sha256:9dc4e5b5568f440be32a3404db52f05fd31a0ec0368b8f24667d970e14e7f82c
+generated: "2025-07-09T18:40:16.913986+02:00"
