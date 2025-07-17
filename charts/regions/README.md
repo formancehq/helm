@@ -123,7 +123,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v2.2".auth | string | `"v2.0.24"` |  |
 | versions.files."v2.2".gateway | string | `"v2.0.24"` |  |
-| versions.files."v2.2".ledger | string | `"v2.2.45"` |  |
+| versions.files."v2.2".ledger | string | `"v2.2.46"` |  |
 | versions.files."v2.2".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v2.2".orchestration | string | `"v2.0.24"` |  |
 | versions.files."v2.2".payments | string | `"v2.0.31"` |  |
@@ -134,7 +134,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.1.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.0".ledger | string | `"v2.2.45"` |  |
+| versions.files."v3.0".ledger | string | `"v2.2.46"` |  |
 | versions.files."v3.0".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.15"` |  |
