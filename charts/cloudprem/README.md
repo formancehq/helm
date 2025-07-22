@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.10.0](https://img.shields.io/badge/Version-3.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.11.0](https://img.shields.io/badge/Version-3.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -676,6 +676,8 @@ Dex:
 | membership.config.publisher.clientID | string | `"membership"` |  |
 | membership.config.publisher.jetstream.replicas | int | `1` |  |
 | membership.config.publisher.topicMapping | string | `"membership"` |  |
+| membership.config.stack.additionalModules[0] | string | `"Payments"` |  |
+| membership.config.stack.additionalModules[1] | string | `"Stargate"` |  |
 | membership.config.stack.cycle.delay.disable | string | `"72h"` |  |
 | membership.config.stack.cycle.delay.disablePollingDelay | string | `"1m"` |  |
 | membership.config.stack.cycle.delay.disposable | string | `"360h"` |  |
@@ -685,8 +687,7 @@ Dex:
 | membership.config.stack.cycle.dryRun | bool | `true` |  |
 | membership.config.stack.minimalStackModules[0] | string | `"Auth"` |  |
 | membership.config.stack.minimalStackModules[1] | string | `"Ledger"` |  |
-| membership.config.stack.minimalStackModules[2] | string | `"Payments"` |  |
-| membership.config.stack.minimalStackModules[3] | string | `"Gateway"` |  |
+| membership.config.stack.minimalStackModules[2] | string | `"Gateway"` |  |
 | membership.debug | bool | `false` | Membership debug |
 | membership.dev | bool | `false` | Membership dev, disable ssl verification |
 | membership.fullnameOverride | string | `""` | Membership fullname override |
