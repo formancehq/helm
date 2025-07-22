@@ -469,12 +469,16 @@ config:
       replicas: 1
 
   stack:
-    # Modules created by default on a stack
+    # Modules created by default on a stack and can't be disabled, enabled
     minimalStackModules:
     - Auth
     - Ledger
-    - Payments
     - Gateway
+
+    # Modules provided by default but can be disabled, enabled
+    additionalModules:
+    - Payments
+    - Stargate
 
     cycle:
       dryRun: true

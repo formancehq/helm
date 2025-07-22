@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 2.9.0](https://img.shields.io/badge/Version-2.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.9.1](https://img.shields.io/badge/AppVersion-v1.9.1-informational?style=flat-square)
+![Version: 2.9.0](https://img.shields.io/badge/Version-2.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.10.0](https://img.shields.io/badge/AppVersion-v1.10.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -220,6 +220,8 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | config.publisher.clientID | string | `"membership"` |  |
 | config.publisher.jetstream.replicas | int | `1` |  |
 | config.publisher.topicMapping | string | `"membership"` |  |
+| config.stack.additionalModules[0] | string | `"Payments"` |  |
+| config.stack.additionalModules[1] | string | `"Stargate"` |  |
 | config.stack.cycle.delay.disable | string | `"72h"` |  |
 | config.stack.cycle.delay.disablePollingDelay | string | `"1m"` |  |
 | config.stack.cycle.delay.disposable | string | `"360h"` |  |
@@ -229,8 +231,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | config.stack.cycle.dryRun | bool | `true` |  |
 | config.stack.minimalStackModules[0] | string | `"Auth"` |  |
 | config.stack.minimalStackModules[1] | string | `"Ledger"` |  |
-| config.stack.minimalStackModules[2] | string | `"Payments"` |  |
-| config.stack.minimalStackModules[3] | string | `"Gateway"` |  |
+| config.stack.minimalStackModules[2] | string | `"Gateway"` |  |
 | debug | bool | `false` | Membership debug |
 | dev | bool | `false` | Membership dev, disable ssl verification |
 | fullnameOverride | string | `""` | Membership fullname override |

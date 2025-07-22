@@ -369,6 +369,12 @@
                 "stack": {
                     "type": "object",
                     "properties": {
+                        "additionalModules": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
                         "cycle": {
                             "type": "object",
                             "properties": {

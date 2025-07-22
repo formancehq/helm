@@ -22,6 +22,8 @@
 {{- include "membership.stack.cycle" . }}
 - name: STACK_MINIMAL_MODULES
   value: "{{ join " " .Values.config.stack.minimalStackModules}}"
+- name: STACK_ADDITIONAL_DEFAULT_MODULES
+  value: "{{ join " " .Values.config.stack.additionalModules }}"
 {{- end }}
 
 {{- define "membership.grpc.env" }}
