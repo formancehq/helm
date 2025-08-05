@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 2.19.2](https://img.shields.io/badge/Version-2.19.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.20.0](https://img.shields.io/badge/Version-2.20.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -155,12 +155,13 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files.default.wallets | string | `"v0.4.6"` |  |
 | versions.files.default.webhooks | string | `"v2.0.18"` |  |
 | agent.affinity | object | `{}` |  |
-| agent.agent.authentication.clientID | string | `""` |  |
-| agent.agent.authentication.clientSecret | string | `""` |  |
-| agent.agent.authentication.existingSecret | string | `""` |  |
+| agent.agent.authentication.clientID | string | `""` | Mode: Bearer |
+| agent.agent.authentication.clientSecret | string | `""` | Mode: Beare |
+| agent.agent.authentication.existingSecret | string | `""` | Existing Secret |
 | agent.agent.authentication.issuer | string | `"https://app.formance.cloud/api"` |  |
-| agent.agent.authentication.mode | string | `"bearer"` |  |
+| agent.agent.authentication.mode | string | `"bearer"` | mode: token|bearer |
 | agent.agent.authentication.secretKeys.secret | string | `""` |  |
+| agent.agent.authentication.token | string | `""` | Mode: Token |
 | agent.agent.baseUrl | string | `""` |  |
 | agent.agent.id | string | `"b7549a16-f74a-4815-ab1e-bb8ef1c3833b"` |  |
 | agent.agent.outdated | bool | `false` | Any region: - this flag is sync by the server - it will mark the associated region as outdated and will block any new Creation/Enable/Restore |

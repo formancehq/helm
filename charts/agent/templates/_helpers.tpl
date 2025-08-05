@@ -39,7 +39,14 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 - name: AUTHENTICATION_CLIENT_ID
   value: "{{ .Values.agent.authentication.clientID }}"
 - name: AUTHENTICATION_CLIENT_SECRET
-  value: "{{ .Values.agent.authentication.clientSecret }}"
+  {{- if gt (len .Values.agent.authentication.existingSecret) 0 }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.agent.authentication.existingSecret }}
+      key: {{ .Values.agent.authentication.secretKeys.secret | default "client-secret"  }}
+  {{- else }}
+  value: {{ .Values.agent.authentication.clientSecret }}
+  {{- end }}
 {{- end }}
 - name: BASE_URL
   value: "{{ .Values.agent.baseUrl }}"
