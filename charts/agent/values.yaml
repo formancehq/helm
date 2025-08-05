@@ -107,16 +107,19 @@ agent:
 
   # Private Region Authentification
   authentication:
+    # -- mode: token|bearer
     mode: bearer
     issuer: https://app.formance.cloud/api
+
+    # -- Mode: Token
+    token: ""
+
+    # -- Mode: Bearer
     clientID: ""
+    # -- Mode: Beare
     clientSecret: ""
+
+    # -- Existing Secret
     existingSecret: ""
     secretKeys:
       secret: ""
-    # -- Public Region
-    # mode: token
-    # token: abcd
-    # existingSecret: ""
-    # secretKeys:
-    #   secret: ""
