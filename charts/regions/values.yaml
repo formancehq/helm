@@ -82,7 +82,6 @@ versions:
       stargate: v0.1.10
       gateway: v2.0.18
       ledger: v1.10.14
-      operator-utils: v2.0.18
     v1.0:
       orchestration: v0.2.1
       reconciliation: v0.1.0
@@ -94,7 +93,6 @@ versions:
       stargate: v0.1.10
       gateway: v2.0.18
       ledger: v1.10.14
-      operator-utils: v2.0.18
     v2.0:
       ledger: v2.0.24
       search: v2.0.24
@@ -106,7 +104,6 @@ versions:
       payments: v2.0.31
       orchestration: v2.0.24
       reconciliation: v2.0.24
-      operator-utils: v2.0.24
     v2.1:
       ledger: v2.1.7
       search: v2.0.24
@@ -118,7 +115,6 @@ versions:
       payments: v2.0.31
       orchestration: v2.0.24
       reconciliation: v2.0.24
-      operator-utils: v2.0.24
     v2.2:
       ledger: v2.2.46
       search: v2.0.24
@@ -130,7 +126,6 @@ versions:
       payments: v2.0.31
       orchestration: v2.0.24
       reconciliation: v2.0.24
-      operator-utils: v2.0.24
     v3.0:
       payments: v3.0.18
       ledger: v2.2.46
@@ -142,4 +137,3 @@ versions:
       gateway: v2.1.0
       orchestration: v2.1.1
       reconciliation: v2.1.0
-      operator-utils: v2.0.24

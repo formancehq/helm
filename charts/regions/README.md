@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 2.20.0](https://img.shields.io/badge/Version-2.20.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.20.1](https://img.shields.io/badge/Version-2.20.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -91,7 +91,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v1.0".auth | string | `"v0.4.4"` |  |
 | versions.files."v1.0".gateway | string | `"v2.0.18"` |  |
 | versions.files."v1.0".ledger | string | `"v1.10.14"` |  |
-| versions.files."v1.0".operator-utils | string | `"v2.0.18"` |  |
 | versions.files."v1.0".orchestration | string | `"v0.2.1"` |  |
 | versions.files."v1.0".payments | string | `"v1.0.0-rc.5"` |  |
 | versions.files."v1.0".reconciliation | string | `"v0.1.0"` |  |
@@ -102,7 +101,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.0".auth | string | `"v2.0.24"` |  |
 | versions.files."v2.0".gateway | string | `"v2.0.24"` |  |
 | versions.files."v2.0".ledger | string | `"v2.0.24"` |  |
-| versions.files."v2.0".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v2.0".orchestration | string | `"v2.0.24"` |  |
 | versions.files."v2.0".payments | string | `"v2.0.31"` |  |
 | versions.files."v2.0".reconciliation | string | `"v2.0.24"` |  |
@@ -113,7 +111,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.1".auth | string | `"v2.0.24"` |  |
 | versions.files."v2.1".gateway | string | `"v2.0.24"` |  |
 | versions.files."v2.1".ledger | string | `"v2.1.7"` |  |
-| versions.files."v2.1".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v2.1".orchestration | string | `"v2.0.24"` |  |
 | versions.files."v2.1".payments | string | `"v2.0.31"` |  |
 | versions.files."v2.1".reconciliation | string | `"v2.0.24"` |  |
@@ -124,7 +121,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.2".auth | string | `"v2.0.24"` |  |
 | versions.files."v2.2".gateway | string | `"v2.0.24"` |  |
 | versions.files."v2.2".ledger | string | `"v2.2.46"` |  |
-| versions.files."v2.2".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v2.2".orchestration | string | `"v2.0.24"` |  |
 | versions.files."v2.2".payments | string | `"v2.0.31"` |  |
 | versions.files."v2.2".reconciliation | string | `"v2.0.24"` |  |
@@ -135,7 +131,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".auth | string | `"v2.1.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
 | versions.files."v3.0".ledger | string | `"v2.2.46"` |  |
-| versions.files."v3.0".operator-utils | string | `"v2.0.24"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
@@ -146,7 +141,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files.default.auth | string | `"v0.4.4"` |  |
 | versions.files.default.gateway | string | `"v2.0.18"` |  |
 | versions.files.default.ledger | string | `"v1.10.14"` |  |
-| versions.files.default.operator-utils | string | `"v2.0.18"` |  |
 | versions.files.default.orchestration | string | `"v0.2.1"` |  |
 | versions.files.default.payments | string | `"v1.0.0-rc.5"` |  |
 | versions.files.default.reconciliation | string | `"v0.1.0"` |  |

@@ -175,9 +175,6 @@
                                 "ledger": {
                                     "type": "string"
                                 },
-                                "operator-utils": {
-                                    "type": "string"
-                                },
                                 "orchestration": {
                                     "type": "string"
                                 },
@@ -211,9 +208,6 @@
                                     "type": "string"
                                 },
                                 "ledger": {
-                                    "type": "string"
-                                },
-                                "operator-utils": {
                                     "type": "string"
                                 },
                                 "orchestration": {
@@ -251,9 +245,6 @@
                                 "ledger": {
                                     "type": "string"
                                 },
-                                "operator-utils": {
-                                    "type": "string"
-                                },
                                 "orchestration": {
                                     "type": "string"
                                 },
@@ -287,9 +278,6 @@
                                     "type": "string"
                                 },
                                 "ledger": {
-                                    "type": "string"
-                                },
-                                "operator-utils": {
                                     "type": "string"
                                 },
                                 "orchestration": {
@@ -327,9 +315,6 @@
                                 "ledger": {
                                     "type": "string"
                                 },
-                                "operator-utils": {
-                                    "type": "string"
-                                },
                                 "orchestration": {
                                     "type": "string"
                                 },
@@ -363,9 +348,6 @@
                                     "type": "string"
                                 },
                                 "ledger": {
-                                    "type": "string"
-                                },
-                                "operator-utils": {
                                     "type": "string"
                                 },
                                 "orchestration": {
