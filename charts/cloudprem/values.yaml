@@ -44,7 +44,7 @@ global:
     consoleV3:
       # -- Enable console-v3
       # @section -- Global configuration
-      enabled: false
+      enabled: true
       # -- is the scheme for the console
       # @section -- Global configuration
       scheme: "https"

@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.13.0](https://img.shields.io/badge/Version-3.13.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.14.0](https://img.shields.io/badge/Version-3.14.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -423,7 +423,7 @@ Dex:
 | global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
-| global.platform.consoleV3.enabled | bool | `false` | Enable console-v3 |
+| global.platform.consoleV3.enabled | bool | `true` | Enable console-v3 |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` | is the name of the secret |
 | global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
@@ -737,7 +737,7 @@ Dex:
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
-| portal.config.featuresDisabled[0] | string | `"console_v3_beta"` |  |
+| portal.config.featuresDisabled | list | `[]` |  |
 | portal.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | portal.config.sentry.dsn | string | `""` | Sentry DSN |
 | portal.config.sentry.enabled | bool | `false` | Sentry enabled |

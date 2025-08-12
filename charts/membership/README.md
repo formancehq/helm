@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 2.9.0](https://img.shields.io/badge/Version-2.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.10.0](https://img.shields.io/badge/AppVersion-v1.10.0-informational?style=flat-square)
+![Version: 2.10.0](https://img.shields.io/badge/Version-2.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.10.0](https://img.shields.io/badge/AppVersion-v1.10.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -181,7 +181,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
 | global.platform.console.enabled | bool | `true` |  |
-| global.platform.consoleV3.enabled | bool | `false` |  |
+| global.platform.consoleV3.enabled | bool | `true` |  |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
 | global.platform.portal.enabled | bool | `true` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |
