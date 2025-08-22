@@ -97,7 +97,7 @@ versions:
       ledger: v2.0.24
       search: v2.0.24
       stargate: v2.0.24
-      auth: v2.0.24
+      auth: v2.2.0
       wallets: v2.0.24
       webhooks: v2.0.24
       gateway: v2.0.24
@@ -108,7 +108,7 @@ versions:
       ledger: v2.1.7
       search: v2.0.24
       stargate: v2.0.24
-      auth: v2.0.24
+      auth: v2.2.0
       wallets: v2.1.5
       webhooks: v2.1.0
       gateway: v2.0.24
@@ -119,7 +119,7 @@ versions:
       ledger: v2.2.47
       search: v2.0.24
       stargate: v2.0.24
-      auth: v2.0.24
+      auth: v2.2.0
       wallets: v2.1.5
       webhooks: v2.1.0
       gateway: v2.0.24
@@ -131,7 +131,7 @@ versions:
       ledger: v2.2.47
       search: v2.1.0
       stargate: v2.1.0
-      auth: v2.1.1
+      auth: v2.2.0
       wallets: v2.1.5
       webhooks: v2.1.0
       gateway: v2.1.0
