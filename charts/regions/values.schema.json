@@ -372,6 +372,41 @@
                                     "type": "string"
                                 }
                             }
+                        },
+                        "v3.1-rc": {
+                            "type": "object",
+                            "properties": {
+                                "auth": {
+                                    "type": "string"
+                                },
+                                "gateway": {
+                                    "type": "string"
+                                },
+                                "ledger": {
+                                    "type": "string"
+                                },
+                                "orchestration": {
+                                    "type": "string"
+                                },
+                                "payments": {
+                                    "type": "string"
+                                },
+                                "reconciliation": {
+                                    "type": "string"
+                                },
+                                "search": {
+                                    "type": "string"
+                                },
+                                "stargate": {
+                                    "type": "string"
+                                },
+                                "wallets": {
+                                    "type": "string"
+                                },
+                                "webhooks": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 }
