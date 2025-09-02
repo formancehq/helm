@@ -1,6 +1,6 @@
 # Formance stargate Helm chart
 
-![Version: 0.7.4](https://img.shields.io/badge/Version-0.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance EE Stargate gRPC Gateway
 
 ## Requirements
@@ -90,6 +90,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | global.nats.auth.secretKeys.password | string | `"password"` |  |
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `nil` |  |
+| global.nats.requestTimeout | string | `"60s"` |  |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 | affinity | object | `{}` | Affinity for pod assignment |
 | autoscaling.enabled | bool | `false` |  |
