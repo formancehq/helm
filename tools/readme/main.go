@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Masterminds/sprig/v3"
-	"github.com/goccy/go-yaml"
+	sprig "github.com/Masterminds/sprig/v3"
+	yaml "github.com/goccy/go-yaml"
 	"github.com/spf13/cobra"
 )
 
