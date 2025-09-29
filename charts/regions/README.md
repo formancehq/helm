@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 2.25.1](https://img.shields.io/badge/Version-2.25.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.25.2](https://img.shields.io/badge/Version-2.25.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -105,7 +105,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.0".payments | string | `"v2.0.31"` |  |
 | versions.files."v2.0".reconciliation | string | `"v2.0.24"` |  |
 | versions.files."v2.0".search | string | `"v2.0.24"` |  |
-| versions.files."v2.0".stargate | string | `"v2.0.24"` |  |
+| versions.files."v2.0".stargate | string | `"v2.2.1"` |  |
 | versions.files."v2.0".wallets | string | `"v2.0.24"` |  |
 | versions.files."v2.0".webhooks | string | `"v2.0.24"` |  |
 | versions.files."v2.1".auth | string | `"v2.3.0"` |  |
@@ -115,7 +115,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.1".payments | string | `"v2.0.31"` |  |
 | versions.files."v2.1".reconciliation | string | `"v2.0.24"` |  |
 | versions.files."v2.1".search | string | `"v2.0.24"` |  |
-| versions.files."v2.1".stargate | string | `"v2.0.24"` |  |
+| versions.files."v2.1".stargate | string | `"v2.2.1"` |  |
 | versions.files."v2.1".wallets | string | `"v2.1.5"` |  |
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v2.2".auth | string | `"v2.3.0"` |  |
@@ -125,7 +125,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.2".payments | string | `"v2.0.31"` |  |
 | versions.files."v2.2".reconciliation | string | `"v2.0.24"` |  |
 | versions.files."v2.2".search | string | `"v2.0.24"` |  |
-| versions.files."v2.2".stargate | string | `"v2.0.24"` |  |
+| versions.files."v2.2".stargate | string | `"v2.2.1"` |  |
 | versions.files."v2.2".wallets | string | `"v2.1.5"` |  |
 | versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.3.0"` |  |
@@ -135,7 +135,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
 | versions.files."v3.0".search | string | `"v2.1.0"` |  |
-| versions.files."v3.0".stargate | string | `"v2.1.0"` |  |
+| versions.files."v3.0".stargate | string | `"v2.2.1"` |  |
 | versions.files."v3.0".wallets | string | `"v2.1.5"` |  |
 | versions.files."v3.0".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.1-rc".auth | string | `"v2.3.0"` |  |
@@ -145,7 +145,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1-rc".payments | string | `"v3.1.0-rc.1"` |  |
 | versions.files."v3.1-rc".reconciliation | string | `"v2.2.0"` |  |
 | versions.files."v3.1-rc".search | string | `"v2.1.0"` |  |
-| versions.files."v3.1-rc".stargate | string | `"v2.2.0"` |  |
+| versions.files."v3.1-rc".stargate | string | `"v2.2.1"` |  |
 | versions.files."v3.1-rc".wallets | string | `"v2.1.5"` |  |
 | versions.files."v3.1-rc".webhooks | string | `"v2.2.0"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
