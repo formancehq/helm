@@ -148,6 +148,16 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".stargate | string | `"v2.2.1"` |  |
 | versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
 | versions.files."v3.1".webhooks | string | `"v2.2.0"` |  |
+| versions.files."v3.2-rc".auth | string | `"v2.3.0"` |  |
+| versions.files."v3.2-rc".gateway | string | `"v2.1.0"` |  |
+| versions.files."v3.2-rc".ledger | string | `"v2.3.0"` |  |
+| versions.files."v3.2-rc".orchestration | string | `"v2.4.0"` |  |
+| versions.files."v3.2-rc".payments | string | `"v3.1.0-rc.1"` |  |
+| versions.files."v3.2-rc".reconciliation | string | `"v2.2.0"` |  |
+| versions.files."v3.2-rc".search | string | `"v2.1.0"` |  |
+| versions.files."v3.2-rc".stargate | string | `"v2.2.1"` |  |
+| versions.files."v3.2-rc".wallets | string | `"v2.1.5"` |  |
+| versions.files."v3.2-rc".webhooks | string | `"v2.2.0"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
 | versions.files.default.gateway | string | `"v2.0.18"` |  |
 | versions.files.default.ledger | string | `"v1.10.14"` |  |
