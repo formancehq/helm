@@ -137,9 +137,9 @@ versions:
       gateway: v2.1.0
       orchestration: v2.1.1
       reconciliation: v2.1.0
-    v3.1-rc:
-      payments: v3.1.0-rc.1
-      ledger: v2.3.0-rc.2
+    v3.1:
+      payments: v3.0.18
+      ledger: v2.3.0
       search: v2.1.0
       stargate: v2.2.1
       auth: v2.3.0

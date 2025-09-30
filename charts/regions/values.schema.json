@@ -373,7 +373,7 @@
                                 }
                             }
                         },
-                        "v3.1-rc": {
+                        "v3.1": {
                             "type": "object",
                             "properties": {
                                 "auth": {
