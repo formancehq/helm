@@ -45,38 +45,52 @@
 
 
 {{- define "core.monitoring.traces" }}
+{{- $tracesEndpoint := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.endpoint" "Default" "") -}}
+{{- $tracesPort := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.port" "Default" "") -}}
 - name: OTEL_TRACES
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.enabled" "Default" "") | quote}}
 - name: OTEL_TRACES_ENDPOINT
-  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.endpoint" "Default" "")| quote }}
+  value: {{ $tracesEndpoint | quote }}
+- name: OTEL_TRACES_PORT
+  value: {{ $tracesPort | quote }}
 - name: OTEL_TRACES_EXPORTER
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.exporter" "Default" "") | quote }}
 - name: OTEL_TRACES_EXPORTER_OTLP_INSECURE
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.insecure" "Default" "") | quote }}
 - name: OTEL_TRACES_EXPORTER_OTLP_MODE
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.mode" "Default" "") | quote }}
-- name: OTEL_TRACES_PORT
-  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.port" "Default" "") | quote }}
+{{- if and $tracesEndpoint $tracesPort }}
 - name: OTEL_TRACES_EXPORTER_OTLP_ENDPOINT
-  value: "$(OTEL_TRACES_ENDPOINT):$(OTEL_TRACES_PORT)"
+  value: "{{ $tracesEndpoint }}:{{ $tracesPort }}"
+{{- else }}
+- name: OTEL_TRACES_EXPORTER_OTLP_ENDPOINT
+  value: {{ $tracesEndpoint | quote }}
+{{- end }}
 {{- end }}
 
 {{- define "core.monitoring.metrics" }}
+{{- $metricsEndpoint := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.endpoint" "Default" "") -}}
+{{- $metricsPort := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.port" "Default" "") -}}
 - name: OTEL_METRICS
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.enabled" "Default" "") | quote }}
 - name: OTEL_METRICS_ENDPOINT
-  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.endpoint" "Default" "") | quote }}
+  value: {{ $metricsEndpoint | quote }}
+- name: OTEL_METRICS_PORT
+  value: {{ $metricsPort | quote }}
 - name: OTEL_METRICS_EXPORTER
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.exporter" "Default" "") | quote }}
 - name: OTEL_METRICS_EXPORTER_OTLP_INSECURE
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.insecure" "Default" "") | quote }}
 - name: OTEL_METRICS_EXPORTER_OTLP_MODE
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.mode" "Default" "") | quote }}
-- name: OTEL_METRICS_PORT
-  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.port" "Default" "") | quote }}
+{{- if and $metricsEndpoint $metricsPort }}
 - name: OTEL_METRICS_EXPORTER_OTLP_ENDPOINT
-  value: "$(OTEL_TRACES_ENDPOINT):$(OTEL_METRICS_PORT)"
-{{- end -}}
+  value: "{{ $metricsEndpoint }}:{{ $metricsPort }}"
+{{- else }}
+- name: OTEL_METRICS_EXPORTER_OTLP_ENDPOINT
+  value: {{ $metricsEndpoint | quote }}
+{{- end }}
+{{- end }}
 
 {{- define "core.monitoring.logs" }}
 - name: LOGS_ENABLED
