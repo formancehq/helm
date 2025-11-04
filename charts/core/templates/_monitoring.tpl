@@ -45,8 +45,8 @@
 
 
 {{- define "core.monitoring.traces" }}
-{{- $tracesEndpoint := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.endpoint" "Default" "") -}}
-{{- $tracesPort := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.port" "Default" "") -}}
+{{- $tracesEndpoint := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.endpoint" "Default" "") }}
+{{- $tracesPort := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.port" "Default" "") }}
 - name: OTEL_TRACES
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.enabled" "Default" "") | quote}}
 - name: OTEL_TRACES_ENDPOINT
@@ -69,8 +69,8 @@
 {{- end }}
 
 {{- define "core.monitoring.metrics" }}
-{{- $metricsEndpoint := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.endpoint" "Default" "") -}}
-{{- $metricsPort := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.port" "Default" "") -}}
+{{- $metricsEndpoint := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.endpoint" "Default" "") }}
+{{- $metricsPort := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.port" "Default" "") }}
 - name: OTEL_METRICS
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.metrics.enabled" "Default" "") | quote }}
 - name: OTEL_METRICS_ENDPOINT
