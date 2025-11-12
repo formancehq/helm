@@ -61,7 +61,6 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.debug | bool | `false` | Enable debug mode |
-| global.monitoring.batch | bool | `false` | Enable otel batching |
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
 | global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
@@ -71,6 +70,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.monitoring.metrics.insecure | bool | `true` | Insecure |
 | global.monitoring.metrics.mode | string | `"grpc"` | Mode |
 | global.monitoring.metrics.port | int | `4317` | Port |
+| global.monitoring.traces.batch | bool | `false` | Enable otel batching |
 | global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
 | global.monitoring.traces.endpoint | string | `""` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |

@@ -88,13 +88,13 @@ global:
         # -- is the host for the oidc
         host: "dex.{{ .Values.global.serviceHost }}"
   monitoring:
-    # -- Enable otel batching
-    # @section -- Global configuration
-    batch: false
     traces:
       # -- Enable otel tracing
       # @section -- Global configuration
       enabled: false
+      # -- Enable otel batching
+      # @section -- Global configuration
+      batch: false
       # -- Endpoint
       # @section -- Global configuration
       endpoint: "localhost"

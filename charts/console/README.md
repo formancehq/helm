@@ -37,7 +37,7 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.debug | bool | `false` | Enable debug mode |
-| global.monitoring.batch | bool | `false` | Enable otel batching |
+| global.monitoring.traces.batch | bool | `false` | Enable otel batching |
 | global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
 | global.monitoring.traces.endpoint | string | `""` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |

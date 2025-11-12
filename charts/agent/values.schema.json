@@ -81,9 +81,6 @@
                 "monitoring": {
                     "type": "object",
                     "properties": {
-                        "batch": {
-                            "type": "boolean"
-                        },
                         "logs": {
                             "type": "object",
                             "properties": {
@@ -101,6 +98,9 @@
                         "traces": {
                             "type": "object",
                             "properties": {
+                                "batch": {
+                                    "type": "boolean"
+                                },
                                 "enabled": {
                                     "type": "boolean"
                                 },
