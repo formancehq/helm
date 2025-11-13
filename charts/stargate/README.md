@@ -46,7 +46,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.monitoring.batch | bool | `false` | Enable otel batching |
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Format |
 | global.monitoring.logs.level | string | `"info"` | Level: Info, Debug, Error |
@@ -56,6 +55,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | global.monitoring.metrics.insecure | bool | `true` | Insecure |
 | global.monitoring.metrics.mode | string | `"grpc"` | Mode |
 | global.monitoring.metrics.port | int | `4317` | Port |
+| global.monitoring.traces.batch | bool | `false` | Enable otel batching |
 | global.monitoring.traces.enabled | bool | `false` | Enable otel tracing |
 | global.monitoring.traces.endpoint | string | `"localhost"` | Endpoint |
 | global.monitoring.traces.exporter | string | `"otlp"` | Exporter |

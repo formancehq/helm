@@ -49,6 +49,8 @@
 {{- $tracesPort := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.port" "Default" "") }}
 - name: OTEL_TRACES
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.enabled" "Default" "") | quote}}
+- name: OTEL_TRACES_BATCH
+  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.traces.batch" "Default" "false") | quote}}
 - name: OTEL_TRACES_ENDPOINT
   value: {{ $tracesEndpoint | quote }}
 - name: OTEL_TRACES_PORT
@@ -107,8 +109,6 @@
 {{- define "core.monitoring.common" }}
 - name: OTEL_SERVICE_NAME
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.serviceName" "Default" "{{ .Chart.Name }}") | quote }}
-- name: OTEL_BATCH
-  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.batch" "Default" "false") | quote }}
 - name: OTEL_RESOURCE_ATTRIBUTES
   value: {{ list ("pod-name=$(POD_NAME)") (include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "monitoring.attributes" "Default" "")) | compact | join " " | quote }}
 {{- end -}}
