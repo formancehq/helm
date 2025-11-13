@@ -4,6 +4,6 @@ dependencies:
   version: 2.9.0
 - name: operator
   repository: oci://ghcr.io/formancehq/helm
-  version: 2.17.2
-digest: sha256:f622988f406c0ea832e2cf4dae9f009acb67a11074dbee10bed1a4fb485aa7f7
-generated: "2025-11-12T09:44:41.43869+01:00"
+  version: 3.0.0
+digest: sha256:6d3df3a26d97875da3e04793e03e39e87c371489fe7ba9bbbb19892b7c16ed1d
+generated: "2025-11-13T15:17:31.546492+01:00"
