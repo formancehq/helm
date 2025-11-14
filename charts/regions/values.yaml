@@ -70,6 +70,7 @@ agent:
 
 versions:
   create: true
+  allowDefaultVersion: false
   files:
     default:
       orchestration: v0.2.1

@@ -157,6 +157,9 @@
         "versions": {
             "type": "object",
             "properties": {
+                "allowDefaultVersion": {
+                    "type": "boolean"
+                },
                 "create": {
                     "type": "boolean"
                 },
