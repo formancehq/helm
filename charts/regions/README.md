@@ -87,6 +87,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | operator.operator.metricsAddr | string | `":8080"` |  |
 | operator.operator.probeAddr | string | `":8081"` |  |
 | operator.operator.region | string | `"private"` |  |
+| versions.allowDefaultVersion | bool | `false` |  |
 | versions.create | bool | `true` |  |
 | versions.files."v1.0".auth | string | `"v0.4.4"` |  |
 | versions.files."v1.0".gateway | string | `"v2.0.18"` |  |

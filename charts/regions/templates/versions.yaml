@@ -1,12 +1,20 @@
+{{- $allowDefaultVersion := .Values.versions.allowDefaultVersion | default false -}}
 {{ if and .Values.versions.create }}
 {{- range $key, $version := .Values.versions.files }}
 apiVersion: formance.com/v1beta1
 kind: Versions
 metadata:
   name: {{ $key }}
-  {{- if or (eq $key "default") (gt (semver $key | (semver "v2.0.0").Compare) 0) }}
+  {{- if eq $key "default" }}
+  {{- if not $allowDefaultVersion }}
   annotations:
     formance.com/deprecated: "true"
+  {{- end }}
+  {{- else }}
+  {{- if gt (semver $key | (semver "v2.0.0").Compare) 0 }}
+  annotations:
+    formance.com/deprecated: "true"
+  {{- end }}
   {{- end }}
 spec:
   {{- range $k, $v := $version }}
