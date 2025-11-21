@@ -54,16 +54,21 @@ global:
           # -- is the name of the secret
           # @section -- Global configuration
           scopes:
-          - supertoken
           - accesses
           - remember_me
           - keep_refresh_token
-          - organization_features
+          - on_behalf
           existingSecret: ""
           # -- is the key contained within the secret
           # @section -- Global configuration
           secretKeys:
             secret: ""
+
+          redirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login
+            - {{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org
+          postLogoutRedirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout
     portal:
       enabled: true
       # -- is the scheme for the portal
@@ -83,16 +88,21 @@ global:
           # -- is the name of the secret
           # @section -- Global configuration
           scopes:
-          - supertoken
           - accesses
           - remember_me
           - keep_refresh_token
-          - organization_features
+          - on_behalf
           existingSecret: ""
           # -- is the key contained within the secret
           # @section -- Global configuration
           secretKeys:
             secret: ""
+
+          redirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login
+            - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login-by-org
+          postLogoutRedirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout
     membership:
       # -- is the scheme for the membership
       # @section -- Global configuration
