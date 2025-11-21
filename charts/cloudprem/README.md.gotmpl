@@ -66,7 +66,6 @@ In order to do your first deployment you will need to complete the following ste
 
 > [!IMPORTANT]
 > Each certificate must be in the form of `.global.serviceHost` following the example below:
->- Console: `console.{{ printf "{{ .Values.global.serviceHost }}" }}`
 >- Portal: `portal.{{ printf "{{ .Values.global.serviceHost }}" }}`
 >- Membership: `membership.{{ printf "{{ .Values.global.serviceHost }}" }}`
 >- Dex: `dex.{{ printf "{{ .Values.global.serviceHost }}" }}`
@@ -99,11 +98,6 @@ portal:
     tls:
       - secretName: example-com-wildcard-certificate-tls
 
-console:
-  ingress:
-    enabled: true
-    tls:
-      - secretName: example-com-wildcard-certificate-tls
 ```
 
 
@@ -273,6 +267,13 @@ fctl ui
 See [profiles](./profiles) for more examples.
 
 ## Migration
+
+### From v3.X.X To v4.0.0
+
+#### Breaking changes
+
+- Console-V2 is now removed, only Console-V3 is supported.
+
 
 ### From v2.X.X To v3.0.0
 

@@ -15,8 +15,8 @@ var (
 	releaseName   = "helm-basic"
 	chartDir      = "../../../charts/"
 	mainChart     = "cloudprem"
-	plaformCharts = []string{"portal", "console", "membership"}
-	charts        = []string{"portal", "console", "stargate"}
+	plaformCharts = []string{"portal", "membership"}
+	charts        = []string{"portal", "stargate"}
 )
 
 type Base struct {

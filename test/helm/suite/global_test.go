@@ -262,7 +262,7 @@ func (s *TemplateGoldenTest) TestLivenessRediness() {
 		require.NotNil(t, r.Spec.Template.Spec.Containers[0].ReadinessProbe)
 
 		path := "/_healthcheck"
-		if s.Name == "console" || s.Name == "portal" {
+		if s.Name == "portal" {
 			path = "/_info"
 		}
 		require.Equal(t, r.Spec.Template.Spec.Containers[0].LivenessProbe.HTTPGet.Path, path)

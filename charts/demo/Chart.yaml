@@ -10,19 +10,19 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: 2.1.1
+version: 2.1.2
 appVersion: "latest"
 
 dependencies:
 - name: nats
-  version: 1.1.4
+  version: 1.1.X
   repository: "https://nats-io.github.io/k8s/helm/charts/"
   condition: nats.enabled
 - name: postgresql
-  version: 13.2.24
+  version: 13.2.X
   repository: "oci://registry-1.docker.io/bitnamicharts"
   condition: postgresql.enabled
 - name: opensearch
-  version: 0.6.1
+  version: 0.6.X
   repository: "oci://registry-1.docker.io/bitnamicharts"
   condition: opensearch.enabled

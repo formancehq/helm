@@ -17,6 +17,8 @@ nats:
 postgresql:
   enabled: true
   fullnameOverride: postgresql
+  image:
+    repository: bitnamilegacy/postgresql
   architecture: standalone
   global:
     postgresql:

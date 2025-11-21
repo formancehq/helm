@@ -1,6 +1,6 @@
 # demo
 
-![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Private Regions Demo
 
@@ -20,9 +20,9 @@ Formance Private Regions Demo
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://nats-io.github.io/k8s/helm/charts/ | nats | 1.1.4 |
-| oci://registry-1.docker.io/bitnamicharts | opensearch | 0.6.1 |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 13.2.24 |
+| https://nats-io.github.io/k8s/helm/charts/ | nats | 1.1.X |
+| oci://registry-1.docker.io/bitnamicharts | opensearch | 0.6.X |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 13.2.X |
 
 ## Values
 
@@ -55,4 +55,5 @@ Formance Private Regions Demo
 | postgresql.global.postgresql.auth.password | string | `"formance"` |  |
 | postgresql.global.postgresql.auth.postgresPassword | string | `"formance"` |  |
 | postgresql.global.postgresql.auth.username | string | `"formance"` |  |
+| postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
 | postgresql.primary.persistence.enabled | bool | `false` |  |

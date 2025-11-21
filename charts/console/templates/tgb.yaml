@@ -1,3 +1,0 @@
-{{- if .Values.global.aws.elb }}
-{{- template "aws.tgb.generics" (list $ .Values.aws.targetGroups) }}
-{{- end }}

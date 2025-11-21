@@ -176,6 +176,14 @@
                         }
                     }
                 },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "primary": {
                     "type": "object",
                     "properties": {

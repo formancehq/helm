@@ -189,35 +189,3 @@ func (s *TemplateMembership) TestDeploymentConfigMapping() {
 		})
 	}
 }
-
-func (s *TemplateMembership) TestConsoleBaseUrl() {
-	t := s.T()
-	t.Parallel()
-	for _, withConsole := range []bool{false, true} {
-		t.Run(fmt.Sprintf("%s-with-%s", t.Name(), strconv.FormatBool(withConsole)), func(t *testing.T) {
-			t.Parallel()
-			var values map[string]string
-			if withConsole {
-				values = map[string]string{
-					"global.platform.console.host":   "console.example.com",
-					"global.platform.console.scheme": "https",
-				}
-			}
-
-			options := s.Options(
-				WithValues(values),
-			)
-			output, err := helm.RenderTemplateE(t, options, s.ChartPath, s.Release, []string{"templates/deployment.yaml"})
-			require.NoError(t, err)
-			r := v1.Deployment{}
-			helm.UnmarshalK8SYaml(t, output, &r)
-			if withConsole {
-				require.Contains(t, r.Spec.Template.Spec.Containers[0].Env, coreV1.EnvVar{
-					Name:  "CONSOLE_PUBLIC_BASEURL",
-					Value: fmt.Sprintf("%s://%s", values["global.platform.console.scheme"], values["global.platform.console.host"]),
-				})
-				return
-			}
-		})
-	}
-}
