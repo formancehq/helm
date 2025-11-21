@@ -68,6 +68,16 @@ global:
           # @section -- Global configuration
           secretKeys:
             secret: ""
+          scopes:
+          - accesses
+          - remember_me
+          - keep_refresh_token
+          - on_behalf
+          redirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login
+            - {{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org
+          postLogoutRedirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout
     stargate:
       # -- if enabled, the stackApiUrl is not required
       # It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}`
@@ -158,8 +168,8 @@ service:
       # -- service node port
       # nodePort:
 
-# -- AWS Console target groups
-# @section -- Global AWS configuration
+      # -- AWS Console target groups
+      # @section -- Global AWS configuration
 aws:
   targetGroups:
     http:
