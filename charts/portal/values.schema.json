@@ -177,39 +177,6 @@
                 "platform": {
                     "type": "object",
                     "properties": {
-                        "console": {
-                            "type": "object",
-                            "properties": {
-                                "cookie": {
-                                    "type": "object",
-                                    "properties": {
-                                        "encryptionKey": {
-                                            "type": "string"
-                                        },
-                                        "existingSecret": {
-                                            "type": "string"
-                                        },
-                                        "secretKeys": {
-                                            "type": "object",
-                                            "properties": {
-                                                "encryptionKey": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "host": {
-                                    "type": "string"
-                                },
-                                "scheme": {
-                                    "type": "string"
-                                }
-                            }
-                        },
                         "consoleV3": {
                             "type": "object",
                             "properties": {

@@ -302,31 +302,7 @@
                             "type": "string"
                         },
                         "connectors": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "clientID": {
-                                        "type": "string"
-                                    },
-                                    "clientSecret": {
-                                        "type": "string"
-                                    },
-                                    "config": {
-                                        "type": "object",
-                                        "additionalProperties": true
-                                    },
-                                    "id": {
-                                        "type": "string"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "type": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
+                            "type": "array"
                         },
                         "existingSecret": {
                             "type": "string"
@@ -757,20 +733,6 @@
                 "platform": {
                     "type": "object",
                     "properties": {
-                        "console": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "host": {
-                                    "type": "string"
-                                },
-                                "scheme": {
-                                    "type": "string"
-                                }
-                            }
-                        },
                         "consoleV3": {
                             "type": "object",
                             "properties": {
@@ -1064,6 +1026,14 @@
                 },
                 "fullnameOverride": {
                     "type": "string"
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "primary": {
                     "type": "object",
