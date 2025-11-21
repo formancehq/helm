@@ -78,10 +78,6 @@
   value: "{{.Values.feature.managedStacks}}"
 - name: DISABLE_EVENTS
   value: "{{.Values.feature.disableEvents}}"
-{{- if and .Values.global.platform.console.host .Values.global.platform.console.scheme }}
-- name: CONSOLE_PUBLIC_BASEURL
-  value: {{ tpl (default (printf "%s://%s" .Values.global.platform.console.scheme .Values.global.platform.console.host) .Values.config.redirect_url) $ }}
-{{- end }}
 {{- range $serviceName, $service := .Values.global.platform }}
 {{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled }}
 - name: {{ printf "%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}

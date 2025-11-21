@@ -35,14 +35,6 @@ global:
     elb: false
 
   platform:
-    console:
-      enabled: true
-      # -- is the scheme for the console
-      # @section -- Global configuration
-      scheme: "https"
-      # -- is the host for the console
-      # @section -- Global configuration
-      host: "console.{{ .Values.global.serviceHost }}"
     consoleV3:
       enabled: true
       # -- is the scheme for the console
@@ -435,7 +427,8 @@ config:
       secret: ""
 
     # -- Add external connectors
-    connectors: [] # @schema item:object;itemProperties:{"type": {"type": "string"}, "name": {"type": "string"}, "id": {"type": "string"}, "clientID": {"type": "string"}, "clientSecret": {"type": "string"}, "config": {"type": "object", "additionalProperties": true}}
+    connectors: []
+      # @schema item:object;itemProperties:{"type": {"type": "string"}, "name": {"type": "string"}, "id": {"type": "string"}, "clientID": {"type": "string"}, "clientSecret": {"type": "string"}, "config": {"type": "object", "additionalProperties": true}}
       # - name: CONNECTOR_DISPLAY_NAME
       #   id: CONNECTOR_ID
       #   clientID: CONNECTOR_CLIENT_ID
@@ -474,7 +467,6 @@ config:
     - Auth
     - Ledger
     - Gateway
-
     # Modules provided by default but can be disabled, enabled
     additionalModules:
     - Payments
@@ -750,3 +742,8 @@ postgresql:
   primary:
     persistence:
       enabled: false
+
+  image:
+    # -- Postgresql image repository
+    # @section -- Postgresql configuration
+    repository: bitnamilegacy/postgresql

@@ -13,20 +13,14 @@ data:
         public: true
       {{- end }}
       {{- range $serviceName, $service := .Values.global.platform }}
-      {{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled (not (eq $serviceName "console")) }}
+      {{- if (and (hasKey $service "oauth") (hasKey $service.oauth "client") $service.enabled) }}
       - id: "{{ $service.oauth.client.id }}"
         secrets:
           - "{{ printf "$%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}"
         redirectUris:
           - '{{ tpl (printf "%s://%s" $service.scheme $service.host) $ }}/auth/login'
-          {{- if and (eq "portal" $serviceName) $.Values.global.platform.console.enabled }}
-          - '{{ tpl (printf "%s://%s" $.Values.global.platform.console.scheme $.Values.global.platform.console.host) $ }}/auth/login'
-          {{- end }}
         postLogoutRedirectUris:
           - '{{ tpl (printf "%s://%s" $service.scheme $service.host) $ }}/auth/logout'
-          {{- if and (eq "portal" $serviceName) $.Values.global.platform.console.enabled }}
-          - '{{ tpl (printf "%s://%s" $.Values.global.platform.console.scheme $.Values.global.platform.console.host) $ }}/auth/logout'
-          {{- end }}
         scopes:
         {{- range $scope := $service.oauth.client.scopes }}
         - {{ $scope }}

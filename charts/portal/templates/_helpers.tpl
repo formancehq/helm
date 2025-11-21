@@ -16,15 +16,6 @@
     # COOKIE_SECRET is the secret to encrypt the session cookies
     # COOKIE_NAME is the name of the cookie
     # COOKIE_DOMAIN is the domain of the cookie to set (it could be inferred from the service host) as only available to the portal
-    # 
-    # Apps:
-    # APPS_CONSOLE is the url to the console app
-    #
-    # Console:
-    #
-    # CONSOLE_COOKIE_SECRET is the secret to encrypt the console v2 cookies
-    # - As console cookie also need to be available to the portal, a common domain must be used
-    # - Adding a CONSOLE_COOKIE_DOMAIN for cookie distinction
 
 */}}
 
@@ -40,19 +31,6 @@
   {{- end }}
 - name: COOKIE_DOMAIN
   value: {{ tpl .Values.global.platform.portal.host $ }}
-{{- if .Values.global.platform.console.enabled }}
-- name: CONSOLE_COOKIE_SECRET
-  {{- if gt (len .Values.global.platform.console.cookie.existingSecret) 0 }}
-  valueFrom:
-    secretKeyRef:
-      name: {{ .Values.global.platform.console.cookie.existingSecret }}
-      key: {{ .Values.global.platform.console.cookie.secretKeys.encryptionKey }}
-  {{- else }}
-  value: {{ .Values.global.platform.console.cookie.encryptionKey | quote }}
-  {{- end }}
-- name: CONSOLE_COOKIE_DOMAIN
-  value: {{ .Values.global.serviceHost }}
-{{- end -}}
 {{- end -}}
 
 {{- define "portal.oauth.client" }}
@@ -78,8 +56,6 @@
   value: {{ .Values.config.environment }}
 - name: FEATURES_DISABLED
   value: "{{ join "," .Values.config.featuresDisabled}}"
-- name: APPS_CONSOLE
-  value: {{ include "service.url" (dict "service" .Values.global.platform.console "Context" .) }}
 {{- if .Values.global.platform.consoleV3.enabled }}
 - name: APPS_CONSOLE_V3
   value: "{{ .Values.global.platform.consoleV3.scheme }}://{{ tpl .Values.global.platform.consoleV3.host . }}"
