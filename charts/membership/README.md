@@ -243,6 +243,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.host $ }}","paths":[{"path":"/api","pathType":"Prefix"}]}` | Membership ingress host |
 | ingress.hosts[0].paths[0] | object | `{"path":"/api","pathType":"Prefix"}` | Membership ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Membership ingress path type |
+| ingress.labels | object | `{}` | Membership ingress labels |
 | ingress.tls | list | `[]` | Membership ingress tls |
 | initContainers | list | `[]` | Membership init containers |
 | nameOverride | string | `""` | Membership name override |

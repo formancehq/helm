@@ -102,6 +102,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| ingress.labels | object | `{}` | ingress labels |
 | ingress.tls | list | `[]` | ingress tls |
 | livenessProbe | object | `{}` | Console liveness probe |
 | nodeSelector | object | `{}` | Console node selector |

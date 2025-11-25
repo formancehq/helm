@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.2](https://img.shields.io/badge/Version-4.0.0--beta.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.3](https://img.shields.io/badge/Version-4.0.0--beta.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -566,6 +566,7 @@ Dex:
 | console-v3.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | console-v3.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | console-v3.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| console-v3.ingress.labels | object | `{}` | ingress labels |
 | console-v3.ingress.tls | list | `[]` | ingress tls |
 | console-v3.livenessProbe | object | `{}` | Console liveness probe |
 | console-v3.nodeSelector | object | `{}` | Console node selector |
@@ -645,6 +646,7 @@ Dex:
 | membership.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.membership.host $ }}","paths":[{"path":"/api","pathType":"Prefix"}]}` | Membership ingress host |
 | membership.ingress.hosts[0].paths[0] | object | `{"path":"/api","pathType":"Prefix"}` | Membership ingress path |
 | membership.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Membership ingress path type |
+| membership.ingress.labels | object | `{}` | Membership ingress labels |
 | membership.ingress.tls | list | `[]` | Membership ingress tls |
 | membership.initContainers | list | `[]` | Membership init containers |
 | membership.nameOverride | string | `""` | Membership name override |
@@ -697,6 +699,7 @@ Dex:
 | portal.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.portal.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | portal.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | portal.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| portal.ingress.labels | object | `{}` | ingress labels |
 | portal.ingress.tls | list | `[]` | ingress tls |
 | portal.livenessProbe | object | `{}` | Portal liveness probe |
 | portal.nodeSelector | object | `{}` | Portal node selector |
