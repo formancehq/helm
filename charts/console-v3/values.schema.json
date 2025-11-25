@@ -309,6 +309,9 @@
                         }
                     }
                 },
+                "labels": {
+                    "type": "object"
+                },
                 "tls": {
                     "type": "array"
                 }

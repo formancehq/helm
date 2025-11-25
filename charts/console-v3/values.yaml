@@ -182,6 +182,8 @@ ingress:
   className: ""
   # -- ingress annotations
   annotations: {}
+  # -- ingress labels
+  labels: {}
   hosts:
   # -- ingress host
   - host: "{{ tpl .Values.global.platform.consoleV3.host $ }}"

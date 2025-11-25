@@ -134,6 +134,8 @@ ingress:
   className: ""
   # -- ingress annotations
   annotations: {}
+  # -- ingress labels
+  labels: {}
   hosts:
   # -- ingress host
   - host: "{{ tpl .Values.global.platform.portal.host $ }}"

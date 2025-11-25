@@ -348,6 +348,8 @@ ingress:
   className: ""
   # -- Membership ingress annotations
   annotations: {}
+  # -- Membership ingress labels
+  labels: {}
   hosts:
   # -- Membership ingress host
   - host: "{{ tpl .Values.global.platform.membership.host $ }}"
