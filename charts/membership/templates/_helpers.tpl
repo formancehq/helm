@@ -45,6 +45,10 @@
 {{- end }}
 
 {{- define "membership.env" -}}
+{{- if and .Values.global.platform.consoleV3.host .Values.global.platform.consoleV3.scheme }}
+- name: CONSOLE_PUBLIC_BASEURL
+  value: {{ tpl (default (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host)) $ }}
+{{- end }}
 - name: DEV
   value: "{{.Values.dev}}"
 - name: CONFIG
