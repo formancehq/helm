@@ -19,14 +19,6 @@ membership:
         dex-http:
           targetGroupARN: ""
 
-console:
-  ingress:
-    enabled: false
-  aws:
-    targetGroups:
-      http:
-        targetGroupARN: ""
-
 portal:
   ingress:
     enabled: false

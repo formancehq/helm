@@ -17,9 +17,3 @@ portal:
     enabled: true
     tls:
       - secretName: example-com-wildcard-certificate-tls
-
-console:
-  ingress:
-    enabled: true
-    tls:
-      - secretName: example-com-wildcard-certificate-tls

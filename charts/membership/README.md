@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 2.11.2](https://img.shields.io/badge/Version-2.11.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.1](https://img.shields.io/badge/AppVersion-v1.11.1-informational?style=flat-square)
+![Version: 3.0.0-beta.1](https://img.shields.io/badge/Version-3.0.0--beta.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.1](https://img.shields.io/badge/AppVersion-v1.11.1-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -78,8 +78,6 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
-| global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
-| global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
 | global.platform.consoleV3.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token","organization_features"]` | is the name of the secret |
@@ -168,6 +166,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | postgresql.architecture | string | `"standalone"` | Postgresql architecture |
 | postgresql.enabled | bool | `true` | Enable postgresql |
 | postgresql.fullnameOverride | string | `"postgresql"` | Postgresql fullname override |
+| postgresql.image.repository | string | `"bitnamilegacy/postgresql"` | Postgresql image repository |
 | postgresql.primary | object | `{"persistence":{"enabled":false}}` | Postgresql primary persistence enabled |
 
 ### Other Values
@@ -180,7 +179,6 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
-| global.platform.console.enabled | bool | `true` |  |
 | global.platform.consoleV3.enabled | bool | `true` |  |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
 | global.platform.portal.enabled | bool | `true` |  |

@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.20.1](https://img.shields.io/badge/Version-3.20.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.1](https://img.shields.io/badge/Version-4.0.0--beta.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -14,9 +14,8 @@ Kubernetes: `>=1.14.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../console-v3 | console-v3 | 2.X |
-| file://../console | console | 2.X |
-| file://../membership | membership | 2.X |
-| file://../portal | portal | 2.X |
+| file://../membership | membership | 3.0.X-X |
+| file://../portal | portal | 3.0.X-X |
 
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
@@ -73,7 +72,6 @@ In order to do your first deployment you will need to complete the following ste
 
 > [!IMPORTANT]
 > Each certificate must be in the form of `.global.serviceHost` following the example below:
->- Console: `console.{{ .Values.global.serviceHost }}`
 >- Portal: `portal.{{ .Values.global.serviceHost }}`
 >- Membership: `membership.{{ .Values.global.serviceHost }}`
 >- Dex: `dex.{{ .Values.global.serviceHost }}`
@@ -106,11 +104,6 @@ portal:
     tls:
       - secretName: example-com-wildcard-certificate-tls
 
-console:
-  ingress:
-    enabled: true
-    tls:
-      - secretName: example-com-wildcard-certificate-tls
 ```
 
 ## Init Cloudprem
@@ -279,6 +272,12 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### From v3.X.X To v4.0.0
+
+#### Breaking changes
+
+- Console-V2 is now removed, only Console-V3 is supported.
+
 ### From v2.X.X To v3.0.0
 
 #### EE Licence
@@ -417,11 +416,6 @@ Dex:
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
-| global.platform.console.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that share authentication between platform services (console, portal, ...),is used to store the current state organizationId-stackId It is not shared with console-v3 and the domain is only limited to portal app |
-| global.platform.console.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.console.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
-| global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
-| global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console-v3 |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
@@ -437,7 +431,6 @@ Dex:
 | global.platform.membership.relyingParty.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
-| global.platform.portal.oauth.client.existingSecret | string | `""` | is the name of the secret |
 | global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
 | global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token","organization_features"]` | is the name of the secret |
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
@@ -521,6 +514,7 @@ Dex:
 | membership.postgresql.architecture | string | `"standalone"` | Postgresql architecture |
 | membership.postgresql.enabled | bool | `true` | Enable postgresql |
 | membership.postgresql.fullnameOverride | string | `"postgresql"` | Postgresql fullname override |
+| membership.postgresql.image.repository | string | `"bitnamilegacy/postgresql"` | Postgresql image repository |
 | membership.postgresql.primary | object | `{"persistence":{"enabled":false}}` | Postgresql primary persistence enabled |
 
 ### Other Values
@@ -533,62 +527,12 @@ Dex:
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
-| global.platform.console.enabled | bool | `true` |  |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | global.platform.portal.enabled | bool | `true` |  |
+| global.platform.portal.oauth.client.existingSecret | string | `""` |  |
 | global.platform.stargate.serverURL | string | `""` |  |
 | global.platform.stargate.tls.disable | bool | `false` |  |
-| console.affinity | object | `{}` | Console affinity |
-| console.annotations | object | `{}` | Console annotations  |
-| console.autoscaling.enabled | bool | `false` |  |
-| console.autoscaling.maxReplicas | int | `100` |  |
-| console.autoscaling.minReplicas | int | `1` |  |
-| console.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| console.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
-| console.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
-| console.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
-| console.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
-| console.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
-| console.config.additionalEnv | list | `[]` | Console additional environment variables |
-| console.config.environment | string | `"production"` | Console environment |
-| console.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
-| console.config.sentry.dsn | string | `""` | Sentry DSN |
-| console.config.sentry.enabled | bool | `false` | Sentry enabled |
-| console.config.sentry.environment | string | `""` | Sentry environment |
-| console.config.sentry.release | string | `""` | Sentry release |
-| console.config.stargate_url | string | `""` | Deprecated |
-| console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
-| console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
-| console.image.tag | string | `""` | image tag |
-| console.imagePullSecrets | list | `[]` | image pull secrets |
-| console.ingress.annotations | object | `{}` | ingress annotations |
-| console.ingress.className | string | `""` | ingress class name |
-| console.ingress.enabled | bool | `true` | ingress enabled |
-| console.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.console.host $ }}"` | ingress host |
-| console.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
-| console.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
-| console.ingress.tls | list | `[]` | ingress tls |
-| console.livenessProbe | object | `{}` | Console liveness probe |
-| console.nodeSelector | object | `{}` | Console node selector |
-| console.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
-| console.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
-| console.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
-| console.podSecurityContext | object | `{}` | Pod Security Context |
-| console.readinessProbe | object | `{}` | Console readiness probe |
-| console.replicas | int | `1` | Number of replicas |
-| console.resources | object | `{}` | Console resources |
-| console.securityContext | object | `{}` | Container Security Context |
-| console.service.annotations | object | `{}` | service annotations |
-| console.service.clusterIP | string | `""` | service cluster IP |
-| console.service.ports.http | object | `{"port":3000}` | service http port |
-| console.service.type | string | `"ClusterIP"` | service type |
-| console.serviceAccount.annotations | object | `{}` | Service account annotations |
-| console.serviceAccount.create | bool | `true` | Service account creation |
-| console.serviceAccount.name | string | `""` | Service account name |
-| console.tolerations | list | `[]` | Console tolerations |
-| console.volumeMounts | list | `[]` | Console volume mounts |
-| console.volumes | list | `[]` | Console volumes |
 | console-v3.affinity | object | `{}` | Console affinity |
 | console-v3.annotations | object | `{}` | Console annotations  |
 | console-v3.autoscaling.enabled | bool | `false` |  |
@@ -750,7 +694,7 @@ Dex:
 | portal.ingress.annotations | object | `{}` | ingress annotations |
 | portal.ingress.className | string | `""` | ingress class name |
 | portal.ingress.enabled | bool | `true` | ingress enabled |
-| portal.ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.portal.host $ }}"` | ingress host |
+| portal.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.portal.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | portal.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | portal.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | portal.ingress.tls | list | `[]` | ingress tls |
@@ -772,5 +716,5 @@ Dex:
 | portal.serviceAccount.create | bool | `true` | Service account creation |
 | portal.serviceAccount.name | string | `""` | Service account name |
 | portal.tolerations | list | `[]` | Portal tolerations |
-| portal.volumeMounts | list | `[]` | Portal volume mounts |
+| portal.volumeMounts | list | `[]` |  |
 | portal.volumes | list | `[]` | Portal volumes |

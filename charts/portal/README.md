@@ -1,6 +1,6 @@
 # portal
 
-![Version: 2.8.0](https://img.shields.io/badge/Version-2.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.0](https://img.shields.io/badge/AppVersion-v1.17.0-informational?style=flat-square)
+![Version: 3.0.0-beta.1](https://img.shields.io/badge/Version-3.0.0--beta.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.0](https://img.shields.io/badge/AppVersion-v1.17.0-informational?style=flat-square)
 
 Formance Portal
 
@@ -45,11 +45,6 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
-| global.platform.console.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie that store authentication between console-v2 and portal |
-| global.platform.console.cookie.existingSecret | string | `""` | is the name of the secret |
-| global.platform.console.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
-| global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
-| global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console-v3  |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
@@ -74,7 +69,6 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.platform.console.enabled | bool | `true` |  |
 | affinity | object | `{}` | Portal affinity |
 | annotations | object | `{}` | Portal annotations  |
 | autoscaling.enabled | bool | `false` |  |
@@ -99,7 +93,7 @@ Kubernetes: `>=1.14.0-0`
 | ingress.annotations | object | `{}` | ingress annotations |
 | ingress.className | string | `""` | ingress class name |
 | ingress.enabled | bool | `true` | ingress enabled |
-| ingress.hosts[0].host | string | `"{{ tpl .Values.global.platform.portal.host $ }}"` | ingress host |
+| ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.portal.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.tls | list | `[]` | ingress tls |
@@ -121,5 +115,5 @@ Kubernetes: `>=1.14.0-0`
 | serviceAccount.create | bool | `true` | Service account creation |
 | serviceAccount.name | string | `""` | Service account name |
 | tolerations | list | `[]` | Portal tolerations |
-| volumeMounts | list | `[]` | Portal volume mounts |
+| volumeMounts | list | `[]` |  |
 | volumes | list | `[]` | Portal volumes |

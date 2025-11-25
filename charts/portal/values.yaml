@@ -35,28 +35,6 @@ global:
       # @section -- Global configuration
       port: 4317
   platform:
-    console:
-      enabled: true
-      # -- is the scheme for the console
-      # @section -- Global configuration
-      scheme: "https"
-      
-      # -- is the host for the console
-      # @section -- Global configuration
-      host: "console.{{ .Values.global.serviceHost }}"
-
-      # Deprecated with console-v3
-      cookie:
-        # -- is used to encrypt a cookie that store authentication between console-v2 and portal
-        # @section -- Global configuration
-        encryptionKey: "changeMe00"
-        # -- is the name of the secret
-        # @section -- Global configuration
-        existingSecret: ""
-        # -- is the key contained within the secret
-        # @section -- Global configuration
-        secretKeys:
-          encryptionKey: ""
     consoleV3:
       # -- Enable console-v3 
       # @section -- Global configuration
@@ -157,8 +135,8 @@ ingress:
   # -- ingress annotations
   annotations: {}
   hosts:
-  - # -- ingress host
-    host: "{{ tpl .Values.global.platform.portal.host $ }}"
+  # -- ingress host
+  - host: "{{ tpl .Values.global.platform.portal.host $ }}"
     paths:
     # -- ingress path
     - path: /
@@ -236,7 +214,7 @@ service:
       # -- service node port
       # nodePort:
 
-# -- Portal volume mounts
+      # -- Portal volume mounts
 volumeMounts: []
 
 # -- Portal annotations 
