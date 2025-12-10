@@ -7,6 +7,6 @@ dependencies:
   version: 3.0.0-beta.1
 - name: console-v3
   repository: file://../console-v3
-  version: 2.8.0
-digest: sha256:9dbccd8960c2ac6ce2365466bd3dcdf17d14b4200683b2a3c5c9e118a7ffd264
-generated: "2025-11-25T15:26:57.499343+01:00"
+  version: 2.10.0
+digest: sha256:66d75a2530bb9fd6325fdf27d1d7ba91be1af3a686276c75001cadb4bc188bd3
+generated: "2025-12-10T18:25:43.029054+01:00"
