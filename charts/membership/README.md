@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.0.0-beta.2](https://img.shields.io/badge/Version-3.0.0--beta.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.1](https://img.shields.io/badge/AppVersion-v1.11.1-informational?style=flat-square)
+![Version: 3.0.0-beta.3](https://img.shields.io/badge/Version-3.0.0--beta.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.11.1](https://img.shields.io/badge/AppVersion-v1.11.1-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -80,7 +80,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
-| global.platform.consoleV3.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token","organization_features"]` | is the name of the secret |
+| global.platform.consoleV3.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
 | global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
@@ -91,7 +91,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
-| global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token","organization_features"]` | is the name of the secret |
+| global.platform.portal.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
@@ -181,8 +181,12 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.nats.enabled | bool | `false` |  |
 | global.platform.consoleV3.enabled | bool | `true` |  |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
+| global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
+| global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.portal.enabled | bool | `true` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |
+| global.platform.portal.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout\n"` |  |
+| global.platform.portal.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.stargate.serverURL | string | `""` |  |
 | global.platform.stargate.tls.disable | bool | `false` |  |
 | affinity | object | `{}` | Membership affinity |

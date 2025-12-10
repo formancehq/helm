@@ -1,6 +1,6 @@
 # portal
 
-![Version: 3.0.0-beta.1](https://img.shields.io/badge/Version-3.0.0--beta.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.0](https://img.shields.io/badge/AppVersion-v1.17.0-informational?style=flat-square)
+![Version: 3.0.0-beta.2](https://img.shields.io/badge/Version-3.0.0--beta.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.0](https://img.shields.io/badge/AppVersion-v1.17.0-informational?style=flat-square)
 
 Formance Portal
 
@@ -69,6 +69,12 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.platform.portal.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout\n"` |  |
+| global.platform.portal.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login-by-org\n"` |  |
+| global.platform.portal.oauth.client.scopes[0] | string | `"accesses"` |  |
+| global.platform.portal.oauth.client.scopes[1] | string | `"remember_me"` |  |
+| global.platform.portal.oauth.client.scopes[2] | string | `"keep_refresh_token"` |  |
+| global.platform.portal.oauth.client.scopes[3] | string | `"on_behalf"` |  |
 | affinity | object | `{}` | Portal affinity |
 | annotations | object | `{}` | Portal annotations  |
 | autoscaling.enabled | bool | `false` |  |
