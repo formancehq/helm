@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.2.2](https://img.shields.io/badge/Version-3.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -121,7 +121,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v2.2".auth | string | `"v2.4.1"` |  |
 | versions.files."v2.2".gateway | string | `"v2.0.24"` |  |
-| versions.files."v2.2".ledger | string | `"v2.2.50"` |  |
+| versions.files."v2.2".ledger | string | `"v2.2.52"` |  |
 | versions.files."v2.2".orchestration | string | `"v2.0.24"` |  |
 | versions.files."v2.2".payments | string | `"v2.0.32"` |  |
 | versions.files."v2.2".reconciliation | string | `"v2.0.24"` |  |
@@ -131,7 +131,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.0".ledger | string | `"v2.2.50"` |  |
+| versions.files."v3.0".ledger | string | `"v2.2.52"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
@@ -141,7 +141,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.1".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.1".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.1".ledger | string | `"v2.3.3"` |  |
+| versions.files."v3.1".ledger | string | `"v2.3.6"` |  |
 | versions.files."v3.1".orchestration | string | `"v2.4.0"` |  |
 | versions.files."v3.1".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.1".reconciliation | string | `"v2.2.0"` |  |
@@ -151,7 +151,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".webhooks | string | `"v2.2.0"` |  |
 | versions.files."v3.2-rc".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.2-rc".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.2-rc".ledger | string | `"v2.3.3"` |  |
+| versions.files."v3.2-rc".ledger | string | `"v2.3.6"` |  |
 | versions.files."v3.2-rc".orchestration | string | `"v2.4.0"` |  |
 | versions.files."v3.2-rc".payments | string | `"v3.1.0-rc.5"` |  |
 | versions.files."v3.2-rc".reconciliation | string | `"v2.2.0"` |  |
