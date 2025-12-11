@@ -16,11 +16,11 @@ data:
       {{- if (and (hasKey $service "oauth") (hasKey $service.oauth "client") $service.enabled) }}
       - id: "{{ $service.oauth.client.id }}"
         secrets:
-          - "{{ printf "$%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}"
+        - "{{ printf "$%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}"
         redirectUris:
-          - '{{ tpl (printf "%s://%s" $service.scheme $service.host) $ }}/auth/login'
+        {{- tpl ($service.oauth.client.redirectUris) $ | nindent 8 }}
         postLogoutRedirectUris:
-          - '{{ tpl (printf "%s://%s" $service.scheme $service.host) $ }}/auth/logout'
+        {{- tpl ($service.oauth.client.postLogoutRedirectUris) $ | nindent 8 }}
         scopes:
         {{- range $scope := $service.oauth.client.scopes }}
         - {{ $scope }}

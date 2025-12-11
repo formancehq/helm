@@ -67,6 +67,16 @@ global:
           # @section -- Global configuration
           secretKeys:
             secret: ""
+          scopes:
+          - accesses
+          - remember_me
+          - keep_refresh_token
+          - on_behalf
+          redirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login
+            - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login-by-org
+          postLogoutRedirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout
     stargate:
       # -- if enabled, the stackApiUrl is not required
       # It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}`

@@ -220,6 +220,18 @@
                                                 "id": {
                                                     "type": "string"
                                                 },
+                                                "postLogoutRedirectUris": {
+                                                    "type": "string"
+                                                },
+                                                "redirectUris": {
+                                                    "type": "string"
+                                                },
+                                                "scopes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
                                                 "secret": {
                                                     "type": "string"
                                                 },

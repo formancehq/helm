@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.4](https://img.shields.io/badge/Version-4.0.0--beta.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.5](https://img.shields.io/badge/Version-4.0.0--beta.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -13,7 +13,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../console-v3 | console-v3 | 2.X |
+| file://../console-v3 | console-v3 | 3.0.X-X |
 | file://../membership | membership | 3.0.X-X |
 | file://../portal | portal | 3.0.X-X |
 
@@ -277,6 +277,10 @@ See [profiles](./profiles) for more examples.
 #### Breaking changes
 
 - Console-V2 is now removed, only Console-V3 is supported.
+- Membership oauth client now use Policy Based Access Control (PBAC) by default. See [PBAC documentation](https://docs.formance.com/deployment/cloudprem2/pbac) for more information.
+
+# Membership oauth client configuration changes:
+<Insert Docs>
 
 ### From v2.X.X To v3.0.0
 
@@ -389,7 +393,6 @@ Dex:
 |-----|------|---------|-------------|
 | global.aws.elb | bool | `false` | Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set |
 | global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
-| console-v3.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Console target groups |
 | membership.aws | object | `{"targetGroups":{"grpc":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.grpc.port }}"},"targetGroupARN":"","targetType":"ip"},"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Membership target groups |
 | membership.dex.aws | object | `{"targetGroups":{"dex-http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"dex.fullname\" .Subcharts.dex }}","port":"{{ .Values.dex.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Target Groups |
 | portal.aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
@@ -416,12 +419,12 @@ Dex:
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
-| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
+| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console-v3 |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` | is the name of the secret |
 | global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
-| global.platform.consoleV3.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token","organization_features"]` | is the name of the secret |
+| global.platform.consoleV3.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
 | global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
@@ -432,7 +435,7 @@ Dex:
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
 | global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
-| global.platform.portal.oauth.client.scopes | list | `["supertoken","accesses","remember_me","keep_refresh_token","organization_features"]` | is the name of the secret |
+| global.platform.portal.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
@@ -527,10 +530,18 @@ Dex:
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
+| global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
+| global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | global.platform.portal.enabled | bool | `true` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |
+| global.platform.portal.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout\n"` |  |
+| global.platform.portal.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login-by-org\n"` |  |
+| global.platform.portal.oauth.client.scopes[0] | string | `"accesses"` |  |
+| global.platform.portal.oauth.client.scopes[1] | string | `"remember_me"` |  |
+| global.platform.portal.oauth.client.scopes[2] | string | `"keep_refresh_token"` |  |
+| global.platform.portal.oauth.client.scopes[3] | string | `"on_behalf"` |  |
 | global.platform.stargate.serverURL | string | `""` |  |
 | global.platform.stargate.tls.disable | bool | `false` |  |
 | console-v3.affinity | object | `{}` | Console affinity |
