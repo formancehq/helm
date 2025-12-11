@@ -140,7 +140,7 @@ versions:
       reconciliation: v2.1.0
     v3.1:
       payments: v3.0.18
-      ledger: v2.3.6
+      ledger: v2.3.7
       search: v2.1.0
       stargate: v2.2.1
       auth: v2.4.1
@@ -151,7 +151,7 @@ versions:
       reconciliation: v2.2.0
     v3.2-rc:
       payments: v3.1.0-rc.5
-      ledger: v2.3.6
+      ledger: v2.3.7
       search: v2.1.0
       stargate: v2.2.1
       auth: v2.4.1
