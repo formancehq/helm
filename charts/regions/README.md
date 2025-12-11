@@ -141,7 +141,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.1".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.1".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.1".ledger | string | `"v2.3.6"` |  |
+| versions.files."v3.1".ledger | string | `"v2.3.7"` |  |
 | versions.files."v3.1".orchestration | string | `"v2.4.0"` |  |
 | versions.files."v3.1".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.1".reconciliation | string | `"v2.2.0"` |  |
@@ -151,7 +151,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".webhooks | string | `"v2.2.0"` |  |
 | versions.files."v3.2-rc".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.2-rc".gateway | string | `"v2.1.0"` |  |
-| versions.files."v3.2-rc".ledger | string | `"v2.3.6"` |  |
+| versions.files."v3.2-rc".ledger | string | `"v2.3.7"` |  |
 | versions.files."v3.2-rc".orchestration | string | `"v2.4.0"` |  |
 | versions.files."v3.2-rc".payments | string | `"v3.1.0-rc.5"` |  |
 | versions.files."v3.2-rc".reconciliation | string | `"v2.2.0"` |  |
