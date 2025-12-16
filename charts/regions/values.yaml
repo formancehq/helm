@@ -150,7 +150,7 @@ versions:
       orchestration: v2.4.0
       reconciliation: v2.2.0
     v3.2-rc:
-      payments: v3.1.0-rc.5
+      payments: v3.1.0
       ledger: v2.3.7
       search: v2.1.0
       stargate: v2.2.1
