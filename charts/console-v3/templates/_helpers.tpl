@@ -13,7 +13,7 @@
   # MEMBERSHIP_CLIENT_ID is the client id of the membership app
   # MEMBERSHIP_CLIENT_SECRET is the client secret of the membership app
   # MEMBERSHIP_URL_API is the url of the membership app
-  # API_URL is the url of the stack gateway
+  # API_STACK_URL is the url of the stack gateway
   # PORTAL_UI is the url of the portal app
   #
   # Monitoring:
@@ -69,7 +69,7 @@
 {{- define "console.v3.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
-- name: API_URL
+- name: API_STACK_URL
 {{- if .Values.global.platform.stargate.enabled  }}
   value: {{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}
 {{- else }}
