@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 3.0.0-beta.4](https://img.shields.io/badge/Version-3.0.0--beta.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.3](https://img.shields.io/badge/AppVersion-v1.17.3-informational?style=flat-square)
+![Version: 3.0.0-beta.5](https://img.shields.io/badge/Version-3.0.0--beta.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.4](https://img.shields.io/badge/AppVersion-v1.17.4-informational?style=flat-square)
 
 Formance Console
 
