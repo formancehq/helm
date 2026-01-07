@@ -4,9 +4,9 @@ dependencies:
   version: 3.0.0-beta.3
 - name: portal
   repository: file://../portal
-  version: 3.0.0-beta.6
+  version: 3.0.0-beta.7
 - name: console-v3
   repository: file://../console-v3
-  version: 3.0.0-beta.6
-digest: sha256:b7a06afffc2bf7990f33132e1353c036e37598b201f174acf4286fc0480c841e
-generated: "2026-01-07T14:44:33.40408+01:00"
+  version: 3.0.0-beta.7
+digest: sha256:d987a595c912f195789aff9c8ee56ac9edc2b0a3d3f44c53ab65c93084fb44fb
+generated: "2026-01-07T18:01:22.484903+01:00"
