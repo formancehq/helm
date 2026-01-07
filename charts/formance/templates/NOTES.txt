@@ -1,0 +1,79 @@
+{{- include "formance.validateEE" . -}}
+
+================================================================================
+    ______
+   / ____/___  _________ ___  ____ _____  ________
+  / /_  / __ \/ ___/ __ `__ \/ __ `/ __ \/ ___/ _ \
+ / __/ / /_/ / /  / / / / / / /_/ / / / / /__/  __/
+/_/    \____/_/  /_/ /_/ /_/\__,_/_/ /_/\___/\___/
+
+  {{ include "formance.edition" . }}
+================================================================================
+
+{{- if .Values.ee.enabled }}
+
+CONTROL PLANE DEPLOYED
+
+Access your Formance Platform:
+{{- if .Values.global.serviceHost }}
+  - Portal:     https://{{ tpl .Values.global.platform.portal.host . }}
+  - Console:    https://{{ tpl .Values.global.platform.consoleV3.host . }}
+  - Membership: https://{{ tpl .Values.global.platform.membership.host . }}
+{{- else }}
+  WARNING: global.serviceHost is not set. URLs cannot be displayed.
+  Set --set global.serviceHost=<your-domain> to configure access.
+{{- end }}
+
+{{- else }}
+
+COMMUNITY EDITION DEPLOYED
+
+The Formance Operator is ready to manage your stacks.
+
+{{- end }}
+
+--------------------------------------------------------------------------------
+OPERATOR STATUS
+--------------------------------------------------------------------------------
+
+Check the operator is running:
+  kubectl get pods -n {{ .Release.Namespace }} -l app.kubernetes.io/name=operator
+
+Check available versions:
+  kubectl get versions
+
+--------------------------------------------------------------------------------
+CREATE YOUR FIRST STACK
+--------------------------------------------------------------------------------
+
+Create a new stack:
+
+  kubectl apply -f - <<EOF
+  apiVersion: formance.com/v1beta1
+  kind: Stack
+  metadata:
+    name: my-stack
+  spec:
+    version: v3.1
+  EOF
+
+Monitor stack status:
+  kubectl get stacks
+  kubectl describe stack my-stack
+
+--------------------------------------------------------------------------------
+HELM TESTS
+--------------------------------------------------------------------------------
+
+Run post-deployment tests:
+  helm test {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+--------------------------------------------------------------------------------
+DOCUMENTATION
+--------------------------------------------------------------------------------
+
+  - Getting Started: https://docs.formance.com
+  - Helm Charts:     https://github.com/formancehq/helm
+  - Support:         https://formance.com/support
+
+================================================================================

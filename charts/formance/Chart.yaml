@@ -1,0 +1,27 @@
+apiVersion: v2
+name: formance
+description: Formance Platform - Unified Helm Chart
+home: "https://formance.com"
+sources:
+  - "https://github.com/formancehq/helm"
+maintainers:
+  - name: "Formance Team"
+    email: "support@formance.com"
+icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
+
+type: application
+version: 1.0.0
+appVersion: "latest"
+kubeVersion: ">=1.14.0-0"
+
+dependencies:
+  # Data-plane (always installed)
+  - name: regions
+    version: ">=3.0.0-0"
+    repository: "file://../regions"
+
+  # Control-plane (EE only)
+  - name: cloudprem
+    version: ">=4.0.0-0"
+    repository: "file://../cloudprem"
+    condition: ee.enabled

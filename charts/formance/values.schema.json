@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Formance Unified Chart Values",
+  "description": "Configuration schema for the Formance unified Helm chart",
+  "properties": {
+    "ee": {
+      "type": "object",
+      "description": "Enterprise Edition configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable Enterprise Edition (requires licence)",
+          "default": false
+        }
+      }
+    },
+    "global": {
+      "type": "object",
+      "description": "Global configuration propagated to all subcharts",
+      "properties": {
+        "debug": {
+          "type": "boolean",
+          "description": "Enable debug mode",
+          "default": false
+        },
+        "serviceHost": {
+          "type": "string",
+          "description": "Base domain for all services"
+        },
+        "licence": {
+          "type": "object",
+          "description": "Licence configuration",
+          "properties": {
+            "createSecret": {
+              "type": "boolean",
+              "default": true
+            },
+            "clusterID": {
+              "type": "string",
+              "description": "Cluster ID from kube-system namespace UID"
+            },
+            "issuer": {
+              "type": "string",
+              "default": "https://license.formance.cloud/keys"
+            },
+            "token": {
+              "type": "string",
+              "description": "Licence token from Formance"
+            },
+            "existingSecret": {
+              "type": "string",
+              "description": "Name of existing secret containing licence token"
+            },
+            "secretKeys": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "default": "token"
+                }
+              }
+            }
+          }
+        },
+        "aws": {
+          "type": "object",
+          "properties": {
+            "iam": {
+              "type": "boolean",
+              "description": "Enable AWS IAM authentication (IRSA)",
+              "default": false
+            },
+            "elb": {
+              "type": "boolean",
+              "description": "Enable AWS ELB TargetGroupBinding",
+              "default": false
+            }
+          }
+        },
+        "platform": {
+          "type": "object",
+          "description": "Platform services configuration",
+          "properties": {
+            "membership": {
+              "type": "object",
+              "properties": {
+                "scheme": { "type": "string", "default": "https" },
+                "host": { "type": "string" }
+              }
+            },
+            "portal": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean", "default": true },
+                "scheme": { "type": "string", "default": "https" },
+                "host": { "type": "string" }
+              }
+            },
+            "consoleV3": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean", "default": true },
+                "scheme": { "type": "string", "default": "https" },
+                "host": { "type": "string" }
+              }
+            },
+            "stargate": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean", "default": false },
+                "stackApiUrl": { "type": "string" }
+              }
+            }
+          }
+        },
+        "monitoring": {
+          "type": "object",
+          "properties": {
+            "traces": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean", "default": false },
+                "batch": { "type": "boolean", "default": false },
+                "endpoint": { "type": "string" },
+                "exporter": { "type": "string", "default": "otlp" },
+                "insecure": { "type": "boolean", "default": true },
+                "mode": { "type": "string", "enum": ["grpc", "http"], "default": "grpc" },
+                "port": { "type": "integer", "default": 4317 }
+              }
+            },
+            "logs": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean", "default": true },
+                "level": { "type": "string", "enum": ["info", "debug", "error"], "default": "info" },
+                "format": { "type": "string", "enum": ["json", "text"], "default": "json" }
+              }
+            },
+            "metrics": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean", "default": false },
+                "endpoint": { "type": "string" },
+                "exporter": { "type": "string", "default": "otlp" },
+                "insecure": { "type": "boolean", "default": true },
+                "mode": { "type": "string", "enum": ["grpc", "http"], "default": "grpc" },
+                "port": { "type": "integer", "default": 4317 }
+              }
+            }
+          }
+        },
+        "postgresql": {
+          "type": "object",
+          "properties": {
+            "host": { "type": "string" },
+            "additionalArgs": { "type": "string", "default": "sslmode=disable" },
+            "auth": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string", "default": "formance" },
+                "password": { "type": "string", "default": "formance" },
+                "database": { "type": "string", "default": "formance" },
+                "postgresPassword": { "type": "string" },
+                "existingSecret": { "type": "string" },
+                "secretKeys": {
+                  "type": "object",
+                  "properties": {
+                    "adminPasswordKey": { "type": "string" },
+                    "userPasswordKey": { "type": "string" }
+                  }
+                }
+              }
+            },
+            "service": {
+              "type": "object",
+              "properties": {
+                "ports": {
+                  "type": "object",
+                  "properties": {
+                    "postgresql": { "type": "integer", "default": 5432 }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nats": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "url": { "type": "string" },
+            "auth": {
+              "type": "object",
+              "properties": {
+                "user": { "type": "string" },
+                "password": { "type": "string" },
+                "existingSecret": { "type": "string" },
+                "secretKeys": {
+                  "type": "object",
+                  "properties": {
+                    "password": { "type": "string", "default": "password" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "regions": {
+      "type": "object",
+      "description": "Regions subchart configuration",
+      "properties": {
+        "operator": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": true }
+          }
+        },
+        "agent": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false }
+          }
+        },
+        "versions": {
+          "type": "object",
+          "properties": {
+            "create": { "type": "boolean", "default": true },
+            "allowDefaultVersion": { "type": "boolean", "default": false }
+          }
+        }
+      }
+    },
+    "cloudprem": {
+      "type": "object",
+      "description": "CloudPrem subchart configuration (EE only)"
+    }
+  }
+}

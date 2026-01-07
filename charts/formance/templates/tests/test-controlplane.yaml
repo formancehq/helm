@@ -1,0 +1,83 @@
+{{- if .Values.ee.enabled }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-test-controlplane"
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  containers:
+    - name: test-membership
+      image: curlimages/curl:latest
+      command: ['sh', '-c']
+      args:
+        - |
+          echo "============================================"
+          echo "Testing Formance Control Plane (EE)"
+          echo "============================================"
+          echo ""
+
+          FAILED=0
+
+          # Test Membership
+          echo "Testing Membership service..."
+          for i in $(seq 1 12); do
+            if curl -sf http://{{ .Release.Name }}-membership:8080/_healthcheck > /dev/null 2>&1; then
+              echo "OK: Membership health check passed"
+              break
+            fi
+            if [ $i -eq 12 ]; then
+              echo "FAILED: Membership health check failed"
+              FAILED=1
+            fi
+            echo "Waiting for Membership... ($i/12)"
+            sleep 5
+          done
+
+          echo ""
+
+          # Test Portal
+          echo "Testing Portal service..."
+          for i in $(seq 1 12); do
+            if curl -sf http://{{ .Release.Name }}-portal:3000/ > /dev/null 2>&1; then
+              echo "OK: Portal health check passed"
+              break
+            fi
+            if [ $i -eq 12 ]; then
+              echo "WARNING: Portal health check failed (may still be starting)"
+            fi
+            echo "Waiting for Portal... ($i/12)"
+            sleep 5
+          done
+
+          echo ""
+
+          # Test Console
+          echo "Testing Console service..."
+          for i in $(seq 1 12); do
+            if curl -sf http://{{ .Release.Name }}-console-v3:3000/ > /dev/null 2>&1; then
+              echo "OK: Console health check passed"
+              break
+            fi
+            if [ $i -eq 12 ]; then
+              echo "WARNING: Console health check failed (may still be starting)"
+            fi
+            echo "Waiting for Console... ($i/12)"
+            sleep 5
+          done
+
+          echo ""
+          echo "============================================"
+          if [ $FAILED -eq 0 ]; then
+            echo "Control plane tests completed!"
+          else
+            echo "Some control plane tests failed!"
+            exit 1
+          fi
+          echo "============================================"
+  restartPolicy: Never
+{{- end }}
