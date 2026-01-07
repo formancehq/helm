@@ -258,6 +258,7 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
 | cloudprem.console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | cloudprem.console-v3.config.environment | string | `"production"` | Console environment |
+| cloudprem.console-v3.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
 | cloudprem.console-v3.config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | cloudprem.console-v3.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | cloudprem.console-v3.config.sentry.dsn | string | `""` | Sentry DSN |
@@ -393,6 +394,7 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | cloudprem.portal.config.environment | string | `"production"` | Portal environment |
 | cloudprem.portal.config.featuresDisabled | list | `[]` |  |
+| cloudprem.portal.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
 | cloudprem.portal.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | cloudprem.portal.config.sentry.dsn | string | `""` | Sentry DSN |
 | cloudprem.portal.config.sentry.enabled | bool | `false` | Sentry enabled |
