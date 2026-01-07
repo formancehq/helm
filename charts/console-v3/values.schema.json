@@ -88,6 +88,9 @@
                 "environment": {
                     "type": "string"
                 },
+                "managedStack": {
+                    "type": "string"
+                },
                 "sentry": {
                     "type": "object",
                     "properties": {

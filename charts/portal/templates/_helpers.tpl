@@ -54,6 +54,8 @@
 {{- define "portal.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
+- name: MANAGED_STACK
+  value: {{ .Values.config.managedStack | quote }}
 - name: FEATURES_DISABLED
   value: "{{ join "," .Values.config.featuresDisabled}}"
 {{- if .Values.global.platform.consoleV3.enabled }}

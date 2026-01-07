@@ -1,6 +1,6 @@
 # portal
 
-![Version: 3.0.0-beta.5](https://img.shields.io/badge/Version-3.0.0--beta.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.5](https://img.shields.io/badge/AppVersion-v1.17.5-informational?style=flat-square)
+![Version: 3.0.0-beta.6](https://img.shields.io/badge/Version-3.0.0--beta.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.6](https://img.shields.io/badge/AppVersion-v1.17.6-informational?style=flat-square)
 
 Formance Portal
 
@@ -87,6 +87,7 @@ Kubernetes: `>=1.14.0-0`
 | config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | config.environment | string | `"production"` | Portal environment |
 | config.featuresDisabled | list | `[]` |  |
+| config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
 | config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | config.sentry.dsn | string | `""` | Sentry DSN |
 | config.sentry.enabled | bool | `false` | Sentry enabled |

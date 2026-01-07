@@ -176,6 +176,9 @@ config:
   # -- Portal environment
   environment: production
 
+  # -- Enable managed stack mode (1 = enabled, 0 = disabled)
+  managedStack: "1"
+
   featuresDisabled: []
 
   cookie:
