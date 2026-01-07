@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.10](https://img.shields.io/badge/Version-4.0.0--beta.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.11](https://img.shields.io/badge/Version-4.0.0--beta.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -560,6 +560,7 @@ Dex:
 | console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
 | console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | console-v3.config.environment | string | `"production"` | Console environment |
+| console-v3.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
 | console-v3.config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | console-v3.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | console-v3.config.sentry.dsn | string | `""` | Sentry DSN |
@@ -695,6 +696,7 @@ Dex:
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
 | portal.config.featuresDisabled | list | `[]` |  |
+| portal.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
 | portal.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | portal.config.sentry.dsn | string | `""` | Sentry DSN |
 | portal.config.sentry.enabled | bool | `false` | Sentry enabled |

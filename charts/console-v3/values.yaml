@@ -228,6 +228,10 @@ affinity: {}
 config:
   # -- Deprecated
   stargate_url: ""
+
+  # -- Enable managed stack mode (1 = enabled, 0 = disabled)
+  managedStack: "1"
+
   cookie:
     # -- is used to encrypt a cookie value
     encryptionKey: "changeMe00"
