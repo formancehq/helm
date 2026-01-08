@@ -66,9 +66,15 @@
 {{- end }}
 
 
+{{- define "console.v3.managed.stack" -}}
+- name: MANAGED_STACK
+  value: {{ .Values.config.managedStack | default "1" | quote }}
+{{- end -}}
+
 {{- define "console.v3.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
+{{- include "console.v3.managed.stack" . }}
 - name: API_URL
 {{- if .Values.global.platform.stargate.enabled  }}
   value: {{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}

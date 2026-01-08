@@ -214,6 +214,9 @@ tolerations: []
 affinity: {}
 
 config:
+  # -- Managed stack mode (set to "0" to disable)
+  # @section -- Console configuration
+  managedStack: "1"
   # -- Deprecated
   stargate_url: ""
   cookie:

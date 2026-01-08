@@ -63,6 +63,9 @@
         "config": {
             "type": "object",
             "properties": {
+                "managedStack": {
+                    "type": "string"
+                },
                 "additionalEnv": {
                     "type": "array"
                 },
