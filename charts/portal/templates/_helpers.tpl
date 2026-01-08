@@ -73,9 +73,15 @@
   value: {{ include "service.url" (dict "service" .Values.global.platform.portal "Context" .) }}
 {{- end }}
 
+{{- define "portal.managed.stack" -}}
+- name: MANAGED_STACK
+  value: {{ .Values.config.managedStack | default "1" | quote }}
+{{- end -}}
+
 {{- define "portal.env" -}}
 - name: NODE_ENV
   value: {{ .Values.config.environment }}
+{{ include "portal.managed.stack" . }}
 - name: FEATURES_DISABLED
   value: "{{ join "," .Values.config.featuresDisabled}}"
 - name: APPS_CONSOLE

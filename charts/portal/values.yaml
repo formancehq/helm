@@ -183,6 +183,9 @@ aws:
 
 # Cookie store portal session in a cookie
 config:
+  # -- Managed stack mode (set to "0" to disable)
+  # @section -- Portal configuration
+  managedStack: "1"
   # -- Portal environment
   environment: production
 

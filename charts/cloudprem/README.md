@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 3.20.1](https://img.shields.io/badge/Version-3.20.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.20.2](https://img.shields.io/badge/Version-3.20.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -477,6 +477,12 @@ Dex:
 | global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
 | global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
 
+### Console configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| console-v3.config.managedStack | string | `"1"` | Managed stack mode (set to "0" to disable) |
+
 ### Dex configuration
 
 | Key | Type | Default | Description |
@@ -522,6 +528,12 @@ Dex:
 | membership.postgresql.enabled | bool | `true` | Enable postgresql |
 | membership.postgresql.fullnameOverride | string | `"postgresql"` | Postgresql fullname override |
 | membership.postgresql.primary | object | `{"persistence":{"enabled":false}}` | Postgresql primary persistence enabled |
+
+### Portal configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| portal.config.managedStack | string | `"1"` | Managed stack mode (set to "0" to disable) |
 
 ### Other Values
 

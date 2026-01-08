@@ -91,6 +91,9 @@
                 "featuresDisabled": {
                     "type": "array"
                 },
+                "managedStack": {
+                    "type": "string"
+                },
                 "sentry": {
                     "type": "object",
                     "properties": {

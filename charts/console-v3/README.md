@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 2.8.0](https://img.shields.io/badge/Version-2.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.0](https://img.shields.io/badge/AppVersion-v1.17.0-informational?style=flat-square)
+![Version: 2.8.1](https://img.shields.io/badge/Version-2.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.7](https://img.shields.io/badge/AppVersion-v1.17.7-informational?style=flat-square)
 
 Formance Console
 
@@ -64,6 +64,12 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
 | global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
+
+### Console configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| config.managedStack | string | `"1"` | Managed stack mode (set to "0" to disable) |
 
 ### Other Values
 
