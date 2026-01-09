@@ -330,9 +330,10 @@ demo:
     # -- Deploy Ledger module
     # @section -- Demo configuration
     ledger: true
-    # -- Deploy Payments module
-    # @section -- Demo configuration
-    payments: true
+
+  # -- Number of replicas for demo deployments
+  # @section -- Demo configuration
+  replicas: 2
 
   # -- Resource settings for demo (minimal for testing)
   # @section -- Demo configuration
@@ -349,9 +350,9 @@ demo:
 # Standalone PostgreSQL for demo stack (uses official postgres image)
 # =============================================================================
 postgresql:
-  # -- Enable standalone PostgreSQL for demo mode
+  # -- Enable standalone PostgreSQL for demo mode (automatically enabled when demo.enabled=true)
   # @section -- PostgreSQL (Demo)
-  enabled: false
+  enabled: true
   # -- PostgreSQL image configuration
   # @section -- PostgreSQL (Demo)
   image:

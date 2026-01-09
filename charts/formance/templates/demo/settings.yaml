@@ -10,12 +10,27 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "19"
-    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   key: deployments.*.containers.*.resource-requirements.requests
   stacks:
     - {{ .Values.demo.stack.name | quote }}
   value: "cpu={{ .Values.demo.resources.cpu }},memory={{ .Values.demo.resources.memory }}"
+---
+apiVersion: formance.com/v1beta1
+kind: Settings
+metadata:
+  name: {{ .Values.demo.stack.name }}-replicas
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: demo
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "19"
+spec:
+  key: deployments.*.replicas
+  stacks:
+    - {{ .Values.demo.stack.name | quote }}
+  value: "{{ .Values.demo.replicas }}"
 ---
 apiVersion: formance.com/v1beta1
 kind: Settings
@@ -27,7 +42,6 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "19"
-    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   key: postgres.*.uri
   stacks:
@@ -36,24 +50,5 @@ spec:
   value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-membership-postgresql.{{ .Release.Namespace }}.svc:5432?disableSSLMode=true"
 {{- else }}
   value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@postgresql.{{ .Release.Namespace }}.svc:5432?disableSSLMode=true"
-{{- end }}
-{{- if .Values.demo.modules.payments }}
----
-apiVersion: formance.com/v1beta1
-kind: Settings
-metadata:
-  name: {{ .Values.demo.stack.name }}-payments-encryption-key
-  labels:
-    {{- include "formance.labels" . | nindent 4 }}
-    app.kubernetes.io/component: demo
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade
-    "helm.sh/hook-weight": "19"
-    "helm.sh/hook-delete-policy": before-hook-creation
-spec:
-  key: payments.encryption-key
-  stacks:
-    - {{ .Values.demo.stack.name | quote }}
-  value: "demo-encryption-key-change-in-production"
 {{- end }}
 {{- end }}

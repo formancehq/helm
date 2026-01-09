@@ -10,7 +10,6 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "20"
-    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   versionsFromFile: {{ .Values.demo.stack.version }}
 {{- if .Values.demo.modules.gateway }}
@@ -25,7 +24,6 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "21"
-    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   stack: {{ .Values.demo.stack.name }}
 {{- end }}
@@ -41,23 +39,6 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "21"
-    "helm.sh/hook-delete-policy": before-hook-creation
-spec:
-  stack: {{ .Values.demo.stack.name }}
-{{- end }}
-{{- if .Values.demo.modules.payments }}
----
-apiVersion: formance.com/v1beta1
-kind: Payments
-metadata:
-  name: {{ .Values.demo.stack.name }}
-  labels:
-    {{- include "formance.labels" . | nindent 4 }}
-    app.kubernetes.io/component: demo
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade
-    "helm.sh/hook-weight": "21"
-    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   stack: {{ .Values.demo.stack.name }}
 {{- end }}
