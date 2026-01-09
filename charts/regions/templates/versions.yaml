@@ -5,17 +5,21 @@ apiVersion: formance.com/v1beta1
 kind: Versions
 metadata:
   name: {{ $key }}
-  {{- if eq $key "default" }}
-  {{- if not $allowDefaultVersion }}
+  labels:
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
   annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "10"
+    "helm.sh/hook-delete-policy": before-hook-creation
+    {{- if eq $key "default" }}
+    {{- if not $allowDefaultVersion }}
     formance.com/deprecated: "true"
-  {{- end }}
-  {{- else }}
-  {{- if gt (semver $key | (semver "v2.0.0").Compare) 0 }}
-  annotations:
+    {{- end }}
+    {{- else }}
+    {{- if gt (semver $key | (semver "v2.0.0").Compare) 0 }}
     formance.com/deprecated: "true"
-  {{- end }}
-  {{- end }}
+    {{- end }}
+    {{- end }}
 spec:
   {{- range $k, $v := $version }}
   {{ $k }}: {{ $v }}
