@@ -140,12 +140,44 @@ Kubernetes: `>=1.14.0-0`
 | global.postgresql.host | string | `""` | External PostgreSQL host (leave empty to use embedded) |
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL port |
 
+### Demo configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| demo.enabled | bool | `false` | Enable demo mode (deploys a demo stack with PostgreSQL) |
+| demo.modules | object | `{"gateway":true,"ledger":true}` | Modules to deploy with the demo stack |
+| demo.modules.gateway | bool | `true` | Deploy Gateway module |
+| demo.modules.ledger | bool | `true` | Deploy Ledger module |
+| demo.replicas | int | `2` | Number of replicas for demo deployments |
+| demo.resources | object | `{"cpu":"10m","memory":"64Mi"}` | Resource settings for demo (minimal for testing) |
+| demo.resources.cpu | string | `"10m"` | CPU request for demo containers |
+| demo.resources.memory | string | `"64Mi"` | Memory request for demo containers |
+| demo.stack | object | `{"name":"formance-demo","version":"v3.1"}` | Demo stack configuration |
+| demo.stack.name | string | `"formance-demo"` | Stack name |
+| demo.stack.version | string | `"v3.1"` | Stack version (must match an available Version CRD) |
+
 ### Edition
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ee | object | `{"enabled":false}` | Edition configuration |
 | ee.enabled | bool | `false` | Enable Enterprise Edition (requires licence) |
+
+### PostgreSQL (Demo)
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| postgresql.auth.database | string | `"formance"` | PostgreSQL database |
+| postgresql.auth.password | string | `"formance"` | PostgreSQL password |
+| postgresql.auth.postgresPassword | string | `"formance"` | PostgreSQL admin password |
+| postgresql.auth.username | string | `"formance"` | PostgreSQL username |
+| postgresql.enabled | bool | `true` | Enable standalone PostgreSQL for demo mode (automatically enabled when demo.enabled=true) |
+| postgresql.image | object | `{"registry":"docker.io","repository":"postgres","tag":"16-alpine"}` | PostgreSQL image configuration |
+| postgresql.image.registry | string | `"docker.io"` | PostgreSQL image registry |
+| postgresql.image.repository | string | `"postgres"` | PostgreSQL image repository (official postgres image) |
+| postgresql.image.tag | string | `"16-alpine"` | PostgreSQL image tag |
+| postgresql.primary.persistence.enabled | bool | `false` | Enable persistence (disabled for demo, data is ephemeral) |
+| postgresql.primary.persistence.size | string | `"1Gi"` | Persistence size (if enabled) |
 
 ### Regions configuration
 
