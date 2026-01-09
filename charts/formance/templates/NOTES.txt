@@ -52,6 +52,11 @@ A demo stack "{{ .Values.demo.stack.name }}" has been created with:
   - Ledger
   - Replicas: {{ .Values.demo.replicas }}
 
+{{- if .Values.global.serviceHost }}
+Access your demo stack at:
+  https://{{ .Values.demo.stack.name }}.{{ .Values.global.serviceHost }}
+{{- end }}
+
 Check the demo stack status:
   kubectl get stacks
   kubectl describe stack {{ .Values.demo.stack.name }}
@@ -59,12 +64,20 @@ Check the demo stack status:
 Check deployed pods:
   kubectl get pods -n {{ .Release.Namespace }} -l formance.com/stack={{ .Values.demo.stack.name }}
 
-{{- if .Values.postgresql.enabled }}
-PostgreSQL is running at:
-  postgresql.{{ .Release.Namespace }}.svc:5432
 {{- end }}
 
-{{- else }}
+{{- if .Values.postgresql.enabled }}
+--------------------------------------------------------------------------------
+POSTGRESQL
+--------------------------------------------------------------------------------
+
+PostgreSQL is running at:
+  postgresql.{{ .Release.Namespace }}.svc:5432
+  Username: {{ .Values.postgresql.auth.username }}
+  Database: {{ .Values.postgresql.auth.database }}
+{{- end }}
+
+{{- if not .Values.demo.enabled }}
 --------------------------------------------------------------------------------
 CREATE YOUR FIRST STACK
 --------------------------------------------------------------------------------

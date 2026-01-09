@@ -174,9 +174,9 @@ global:
   # -- PostgreSQL configuration
   # @section -- PostgreSQL configuration
   postgresql:
-    # -- External PostgreSQL host (leave empty to use embedded)
+    # -- PostgreSQL host (used by membership/dex in EE mode)
     # @section -- PostgreSQL configuration
-    host: ""
+    host: "postgresql"
     # -- Additional connection arguments
     # @section -- PostgreSQL configuration
     additionalArgs: "sslmode=disable"
@@ -300,7 +300,11 @@ regions:
 # CLOUDPREM CONFIGURATION (Control Plane - EE only)
 # Uses global.* values, add overrides here if needed
 # =============================================================================
-cloudprem: {}
+cloudprem:
+  membership:
+    # Disable built-in PostgreSQL (use formance chart's PostgreSQL instead)
+    postgresql:
+      enabled: false
 
 # =============================================================================
 # DEMO CONFIGURATION (Optional demo stack)
@@ -346,12 +350,12 @@ demo:
     memory: "64Mi"
 
 # =============================================================================
-# POSTGRESQL CONFIGURATION (Demo mode only)
-# Standalone PostgreSQL for demo stack (uses official postgres image)
+# POSTGRESQL CONFIGURATION
+# Standalone PostgreSQL used by demo stack and membership/dex (EE mode)
 # =============================================================================
 postgresql:
-  # -- Enable standalone PostgreSQL for demo mode (automatically enabled when demo.enabled=true)
-  # @section -- PostgreSQL (Demo)
+  # -- Enable standalone PostgreSQL
+  # @section -- PostgreSQL
   enabled: true
   # -- PostgreSQL image configuration
   # @section -- PostgreSQL (Demo)

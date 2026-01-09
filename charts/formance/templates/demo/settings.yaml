@@ -46,9 +46,5 @@ spec:
   key: postgres.*.uri
   stacks:
     - {{ .Values.demo.stack.name | quote }}
-{{- if .Values.ee.enabled }}
-  value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-membership-postgresql.{{ .Release.Namespace }}.svc:5432?disableSSLMode=true"
-{{- else }}
   value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@postgresql.{{ .Release.Namespace }}.svc:5432?disableSSLMode=true"
-{{- end }}
 {{- end }}

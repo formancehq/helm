@@ -26,6 +26,11 @@ metadata:
     "helm.sh/hook-weight": "21"
 spec:
   stack: {{ .Values.demo.stack.name }}
+  {{- if .Values.global.serviceHost }}
+  ingress:
+    host: {{ .Values.demo.stack.name }}.{{ .Values.global.serviceHost }}
+    scheme: https
+  {{- end }}
 {{- end }}
 {{- if .Values.demo.modules.ledger }}
 ---

@@ -1,4 +1,4 @@
-{{- if and .Values.demo.enabled .Values.postgresql.enabled (not .Values.ee.enabled) }}
+{{- if .Values.postgresql.enabled }}
 ---
 apiVersion: v1
 kind: Secret
@@ -6,7 +6,7 @@ metadata:
   name: postgresql
   labels:
     {{- include "formance.labels" . | nindent 4 }}
-    app.kubernetes.io/component: demo-postgresql
+    app.kubernetes.io/component: postgresql
 type: Opaque
 stringData:
   postgres-password: {{ .Values.postgresql.auth.postgresPassword | quote }}
@@ -18,7 +18,7 @@ metadata:
   name: postgresql
   labels:
     {{- include "formance.labels" . | nindent 4 }}
-    app.kubernetes.io/component: demo-postgresql
+    app.kubernetes.io/component: postgresql
 spec:
   type: ClusterIP
   ports:
@@ -35,7 +35,7 @@ metadata:
   name: postgresql
   labels:
     {{- include "formance.labels" . | nindent 4 }}
-    app.kubernetes.io/component: demo-postgresql
+    app.kubernetes.io/component: postgresql
 spec:
   serviceName: postgresql
   replicas: 1
