@@ -133,10 +133,20 @@ storage:
     {{- else }}
     password: $POSTGRES_PASSWORD
     {{- end }}
-    {{- if contains .Values.global.postgresql.additionalArgs "sslmode=disable" }}
+    {{- if .Values.global.postgresql.additionalArgs }}
+    {{- if contains .Values.global.postgresql.additionalArgs "sslmode=" }}
     ssl:
+      {{- if contains .Values.global.postgresql.additionalArgs "sslmode=disable" }}
       mode: disable
+      {{- else if contains .Values.global.postgresql.additionalArgs "sslmode=require" }}
+      mode: require
+      {{- else if contains .Values.global.postgresql.additionalArgs "sslmode=verify-ca" }}
+      mode: verify-ca
+      {{- else if contains .Values.global.postgresql.additionalArgs "sslmode=verify-full" }}
+      mode: verify-full
       {{- end }}
+    {{- end }}
+    {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}
