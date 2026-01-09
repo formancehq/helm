@@ -128,7 +128,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.postgresql | object | `{"additionalArgs":"sslmode=disable","auth":{"database":"formance","existingSecret":"","password":"formance","postgresPassword":"formance","secretKeys":{"adminPasswordKey":"","userPasswordKey":""},"username":"formance"},"host":"","service":{"ports":{"postgresql":5432}}}` | PostgreSQL configuration |
+| global.postgresql | object | `{"additionalArgs":"sslmode=disable","auth":{"database":"formance","existingSecret":"","password":"formance","postgresPassword":"formance","secretKeys":{"adminPasswordKey":"","userPasswordKey":""},"username":"formance"},"host":"postgresql","service":{"ports":{"postgresql":5432}}}` | PostgreSQL configuration |
 | global.postgresql.additionalArgs | string | `"sslmode=disable"` | Additional connection arguments |
 | global.postgresql.auth.database | string | `"formance"` | Database name |
 | global.postgresql.auth.existingSecret | string | `""` | Use existing secret for credentials |
@@ -137,7 +137,7 @@ Kubernetes: `>=1.14.0-0`
 | global.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Key for admin password in secret |
 | global.postgresql.auth.secretKeys.userPasswordKey | string | `""` | Key for user password in secret |
 | global.postgresql.auth.username | string | `"formance"` | Database username |
-| global.postgresql.host | string | `""` | External PostgreSQL host (leave empty to use embedded) |
+| global.postgresql.host | string | `"postgresql"` | PostgreSQL host (used by membership/dex in EE mode) |
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL port |
 
 ### Demo configuration
@@ -171,13 +171,18 @@ Kubernetes: `>=1.14.0-0`
 | postgresql.auth.password | string | `"formance"` | PostgreSQL password |
 | postgresql.auth.postgresPassword | string | `"formance"` | PostgreSQL admin password |
 | postgresql.auth.username | string | `"formance"` | PostgreSQL username |
-| postgresql.enabled | bool | `true` | Enable standalone PostgreSQL for demo mode (automatically enabled when demo.enabled=true) |
 | postgresql.image | object | `{"registry":"docker.io","repository":"postgres","tag":"16-alpine"}` | PostgreSQL image configuration |
 | postgresql.image.registry | string | `"docker.io"` | PostgreSQL image registry |
 | postgresql.image.repository | string | `"postgres"` | PostgreSQL image repository (official postgres image) |
 | postgresql.image.tag | string | `"16-alpine"` | PostgreSQL image tag |
 | postgresql.primary.persistence.enabled | bool | `false` | Enable persistence (disabled for demo, data is ephemeral) |
 | postgresql.primary.persistence.size | string | `"1Gi"` | Persistence size (if enabled) |
+
+### PostgreSQL
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| postgresql.enabled | bool | `true` | Enable standalone PostgreSQL |
 
 ### Regions configuration
 
@@ -273,7 +278,7 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.stargate.serverURL | string | `""` |  |
 | global.platform.stargate.tls.disable | bool | `false` |  |
 | global.serviceName | string | `"agent"` | TORework |
-| cloudprem | object | `{}` |  |
+| cloudprem.membership.postgresql.enabled | bool | `false` |  |
 | cloudprem.console-v3.affinity | object | `{}` | Console affinity |
 | cloudprem.console-v3.annotations | object | `{}` | Console annotations  |
 | cloudprem.console-v3.autoscaling.enabled | bool | `false` |  |

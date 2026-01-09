@@ -3,7 +3,22 @@
     "type": "object",
     "properties": {
         "cloudprem": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "membership": {
+                    "type": "object",
+                    "properties": {
+                        "postgresql": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         "demo": {
             "type": "object",
