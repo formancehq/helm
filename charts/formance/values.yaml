@@ -301,3 +301,87 @@ regions:
 # Uses global.* values, add overrides here if needed
 # =============================================================================
 cloudprem: {}
+
+# =============================================================================
+# DEMO CONFIGURATION (Optional demo stack)
+# Deploys a ready-to-use Formance stack for testing
+# =============================================================================
+demo:
+  # -- Enable demo mode (deploys a demo stack with PostgreSQL)
+  # @section -- Demo configuration
+  enabled: false
+
+  # -- Demo stack configuration
+  # @section -- Demo configuration
+  stack:
+    # -- Stack name
+    # @section -- Demo configuration
+    name: "formance-demo"
+    # -- Stack version (must match an available Version CRD)
+    # @section -- Demo configuration
+    version: "v3.1"
+
+  # -- Modules to deploy with the demo stack
+  # @section -- Demo configuration
+  modules:
+    # -- Deploy Gateway module
+    # @section -- Demo configuration
+    gateway: true
+    # -- Deploy Ledger module
+    # @section -- Demo configuration
+    ledger: true
+    # -- Deploy Payments module
+    # @section -- Demo configuration
+    payments: true
+
+  # -- Resource settings for demo (minimal for testing)
+  # @section -- Demo configuration
+  resources:
+    # -- CPU request for demo containers
+    # @section -- Demo configuration
+    cpu: "10m"
+    # -- Memory request for demo containers
+    # @section -- Demo configuration
+    memory: "64Mi"
+
+# =============================================================================
+# POSTGRESQL CONFIGURATION (Demo mode only)
+# Standalone PostgreSQL for demo stack (uses official postgres image)
+# =============================================================================
+postgresql:
+  # -- Enable standalone PostgreSQL for demo mode
+  # @section -- PostgreSQL (Demo)
+  enabled: false
+  # -- PostgreSQL image configuration
+  # @section -- PostgreSQL (Demo)
+  image:
+    # -- PostgreSQL image registry
+    # @section -- PostgreSQL (Demo)
+    registry: docker.io
+    # -- PostgreSQL image repository (official postgres image)
+    # @section -- PostgreSQL (Demo)
+    repository: postgres
+    # -- PostgreSQL image tag
+    # @section -- PostgreSQL (Demo)
+    tag: "16-alpine"
+  auth:
+    # -- PostgreSQL username
+    # @section -- PostgreSQL (Demo)
+    username: formance
+    # -- PostgreSQL password
+    # @section -- PostgreSQL (Demo)
+    password: formance
+    # -- PostgreSQL database
+    # @section -- PostgreSQL (Demo)
+    database: formance
+    # -- PostgreSQL admin password
+    # @section -- PostgreSQL (Demo)
+    postgresPassword: formance
+  primary:
+    persistence:
+      # -- Enable persistence (disabled for demo, data is ephemeral)
+      # @section -- PostgreSQL (Demo)
+      enabled: false
+      # -- Persistence size (if enabled)
+      # @section -- PostgreSQL (Demo)
+      size: "1Gi"
