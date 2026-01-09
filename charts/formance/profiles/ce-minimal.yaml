@@ -1,0 +1,23 @@
+# =============================================================================
+# FORMANCE - COMMUNITY EDITION - MINIMAL CONFIGURATION
+# =============================================================================
+#
+# This profile deploys the Formance Operator only (no control plane).
+# Use this for self-managed deployments where you manage stacks via kubectl.
+#
+# Usage:
+#   helm install formance formance/formance -f profiles/ce-minimal.yaml
+#
+# =============================================================================
+
+ee:
+  enabled: false
+
+# Operator is always enabled
+regions:
+  operator:
+    enabled: true
+  agent:
+    enabled: false
+  versions:
+    create: true
