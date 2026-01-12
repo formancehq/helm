@@ -445,7 +445,6 @@ Dex:
 | global.postgresql.auth.password | string | `"formance"` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
 | global.postgresql.auth.postgresPassword | string | `"formance"` | Password for the custom user to create (overrides `auth.password`) |
 | global.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
-| global.postgresql.auth.secretKeys.uriKey | string | `""` | Name of key in existing secret containing the full PostgreSQL URI. Used by Portal and Console-v3 for DATABASE_URL. |
 | global.postgresql.auth.secretKeys.userPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
 | global.postgresql.auth.username | string | `"formance"` | Name for a custom user to create (overrides `auth.username`) |
 | global.postgresql.host | string | `""` | Host for PostgreSQL (overrides included postgreql `host`) |

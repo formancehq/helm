@@ -216,9 +216,6 @@
                                         "adminPasswordKey": {
                                             "type": "string"
                                         },
-                                        "uriKey": {
-                                            "type": "string"
-                                        },
                                         "userPasswordKey": {
                                             "type": "string"
                                         }
