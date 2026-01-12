@@ -73,6 +73,7 @@
 {{ include "core.env.common" . }}
 {{- include "portal.cookie" . }}
 {{- include "portal.oauth.client" . }}
+{{- include "core.postgres.uri" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
 {{ include "portal.additionalEnv" . }}

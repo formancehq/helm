@@ -7,9 +7,48 @@ global:
   serviceHost: ""
 
   aws:
+    # -- Enable AWS IAM Authentification
+    # @section -- Global AWS configuration
+    iam: false
     # -- Enable AWS ELB
     # @section -- Global AWS configuration
     elb: false
+
+  postgresql:
+    # -- Host for PostgreSQL (overrides included postgreql `host`)
+    # @section -- Global configuration
+    host: ""
+    # -- Additional arguments for PostgreSQL Connection URI
+    # @section -- Global configuration
+    additionalArgs: "sslmode=disable"
+    auth:
+      # -- Name for a custom user to create (overrides `auth.username`)
+      # @section -- Global configuration
+      username: formance
+      # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+      # @section -- Global configuration
+      password: formance
+      # -- Name for a custom database to create (overrides `auth.database`)
+      # @section -- Global configuration
+      database: formance
+      # -- Password for the custom user to create (overrides `auth.password`)
+      # @section -- Global configuration
+      postgresPassword: formance
+      # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+      # @section -- Global configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        adminPasswordKey: ""
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        userPasswordKey: ""
+    service:
+      ports:
+        # -- PostgreSQL service port (overrides `service.ports.postgresql`)
+        # @section -- Global configuration
+        postgresql: 5432
 
   monitoring:
     traces:
@@ -179,6 +218,10 @@ config:
   # -- Enable managed stack mode (1 = enabled, 0 = disabled)
   managedStack: "1"
 
+  # -- PostgreSQL connection URL override (if not set, will be generated from global.postgresql)
+  # @section -- Portal configuration
+  postgresqlUrl: ""
+
   featuresDisabled: []
 
   cookie:
@@ -261,3 +304,8 @@ tolerations: []
 
 # -- Portal affinity
 affinity: {}
+
+postgresql:
+  # -- Enable postgresql
+  # @section -- Postgresql configuration
+  enabled: false
