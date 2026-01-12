@@ -163,9 +163,6 @@ global:
         # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
         # @section -- Global configuration
         userPasswordKey: ""
-        # -- Name of key in existing secret containing the full PostgreSQL URI. Used by Portal and Console-v3 for DATABASE_URL.
-        # @section -- Global configuration
-        uriKey: ""
     service:
       ports:
         # -- PostgreSQL service port (overrides `service.ports.postgresql`)
