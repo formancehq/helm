@@ -1,6 +1,6 @@
 # portal
 
-![Version: 3.0.0-beta.6](https://img.shields.io/badge/Version-3.0.0--beta.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.6](https://img.shields.io/badge/AppVersion-v1.17.6-informational?style=flat-square)
+![Version: 3.0.0-beta.7](https://img.shields.io/badge/Version-3.0.0--beta.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.6](https://img.shields.io/badge/AppVersion-v1.17.6-informational?style=flat-square)
 
 Formance Portal
 
@@ -31,6 +31,7 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.aws.elb | bool | `false` | Enable AWS ELB |
+| global.aws.iam | bool | `false` | Enable AWS IAM Authentification |
 | aws | object | `{"targetGroups":{"http":{"ipAddressType":"ipv4","serviceRef":{"name":"{{ include \"core.fullname\" $ }}","port":"{{ .Values.service.ports.http.port }}"},"targetGroupARN":"","targetType":"ip"}}}` | AWS Portal target groups |
 
 ### Global configuration
@@ -56,6 +57,16 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.portal.oauth.client.secret | string | `"changeMe1"` | is the secret of the client |
 | global.platform.portal.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.portal.scheme | string | `"https"` | is the scheme for the portal |
+| global.postgresql.additionalArgs | string | `"sslmode=disable"` | Additional arguments for PostgreSQL Connection URI |
+| global.postgresql.auth.database | string | `"formance"` | Name for a custom database to create (overrides `auth.database`) |
+| global.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
+| global.postgresql.auth.password | string | `"formance"` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
+| global.postgresql.auth.postgresPassword | string | `"formance"` | Password for the custom user to create (overrides `auth.password`) |
+| global.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
+| global.postgresql.auth.secretKeys.userPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
+| global.postgresql.auth.username | string | `"formance"` | Name for a custom user to create (overrides `auth.username`) |
+| global.postgresql.host | string | `""` | Host for PostgreSQL (overrides included postgreql `host`) |
+| global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 
 ### Stargate configuration
@@ -64,6 +75,18 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
 | global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
+
+### Portal configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Postgresql configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| postgresql.enabled | bool | `false` | Enable postgresql |
 
 ### Other Values
 

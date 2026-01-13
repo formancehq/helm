@@ -91,6 +91,9 @@
                 "managedStack": {
                     "type": "string"
                 },
+                "postgresqlUrl": {
+                    "type": "string"
+                },
                 "sentry": {
                     "type": "object",
                     "properties": {
@@ -139,6 +142,9 @@
                     "type": "object",
                     "properties": {
                         "elb": {
+                            "type": "boolean"
+                        },
+                        "iam": {
                             "type": "boolean"
                         }
                     }
@@ -265,6 +271,61 @@
                         }
                     }
                 },
+                "postgresql": {
+                    "type": "object",
+                    "properties": {
+                        "additionalArgs": {
+                            "type": "string"
+                        },
+                        "auth": {
+                            "type": "object",
+                            "properties": {
+                                "database": {
+                                    "type": "string"
+                                },
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "postgresPassword": {
+                                    "type": "string"
+                                },
+                                "secretKeys": {
+                                    "type": "object",
+                                    "properties": {
+                                        "adminPasswordKey": {
+                                            "type": "string"
+                                        },
+                                        "userPasswordKey": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "username": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "host": {
+                            "type": "string"
+                        },
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "ports": {
+                                    "type": "object",
+                                    "properties": {
+                                        "postgresql": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "serviceHost": {
                     "type": "string"
                 }
@@ -354,6 +415,14 @@
         },
         "podSecurityContext": {
             "type": "object"
+        },
+        "postgresql": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
         },
         "readinessProbe": {
             "type": "object"

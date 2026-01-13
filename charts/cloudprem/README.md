@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.11](https://img.shields.io/badge/Version-4.0.0--beta.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.12](https://img.shields.io/badge/Version-4.0.0--beta.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -473,6 +473,24 @@ Dex:
 | global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
 | global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
 
+### Console configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| console-v3.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Postgresql configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| console-v3.postgresql.enabled | bool | `false` | Enable postgresql |
+| membership.postgresql.architecture | string | `"standalone"` | Postgresql architecture |
+| membership.postgresql.enabled | bool | `true` | Enable postgresql |
+| membership.postgresql.fullnameOverride | string | `"postgresql"` | Postgresql fullname override |
+| membership.postgresql.image.repository | string | `"bitnamilegacy/postgresql"` | Postgresql image repository |
+| membership.postgresql.primary | object | `{"persistence":{"enabled":false}}` | Postgresql primary persistence enabled |
+| portal.postgresql.enabled | bool | `false` | Enable postgresql |
+
 ### Dex configuration
 
 | Key | Type | Default | Description |
@@ -510,15 +528,11 @@ Dex:
 | membership.feature.managedStacks | bool | `true` | Membership feature managed stacks |
 | membership.feature.migrationHooks | bool | `false` | Run migration in a hook |
 
-### Postgresql configuration
+### Portal configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| membership.postgresql.architecture | string | `"standalone"` | Postgresql architecture |
-| membership.postgresql.enabled | bool | `true` | Enable postgresql |
-| membership.postgresql.fullnameOverride | string | `"postgresql"` | Postgresql fullname override |
-| membership.postgresql.image.repository | string | `"bitnamilegacy/postgresql"` | Postgresql image repository |
-| membership.postgresql.primary | object | `{"persistence":{"enabled":false}}` | Postgresql primary persistence enabled |
+| portal.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
 ### Other Values
 

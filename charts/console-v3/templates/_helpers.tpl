@@ -88,6 +88,7 @@
 {{ include "core.env.common" . }}
 {{- include "console.v3.cookie" . }}
 {{- include "console.v3.oauth.client" . }}
+{{- include "core.postgres.uri" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
 {{ with .Values.config.additionalEnv }}
