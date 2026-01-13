@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-test-operator"
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  containers:
+    - name: test-operator-health
+      image: curlimages/curl:latest
+      command: ['sh', '-c']
+      args:
+        - |
+          echo "============================================"
+          echo "Testing Formance Operator Health"
+          echo "============================================"
+          echo ""
+          echo "Checking operator readiness probe..."
+
+          # Wait for operator to be ready (max 60 seconds)
+          for i in $(seq 1 12); do
+            if curl -sf http://operator:8081/readyz > /dev/null 2>&1; then
+              echo "OK: Operator readiness check passed"
+              break
+            fi
+            echo "Waiting for operator to be ready... ($i/12)"
+            sleep 5
+          done
+
+          # Final check
+          if ! curl -sf http://operator:8081/readyz; then
+            echo "FAILED: Operator readiness check failed"
+            exit 1
+          fi
+
+          echo ""
+          echo "Checking operator health probe..."
+          if curl -sf http://operator:8081/healthz; then
+            echo "OK: Operator health check passed"
+          else
+            echo "FAILED: Operator health check failed"
+            exit 1
+          fi
+
+          echo ""
+          echo "============================================"
+          echo "All operator tests passed!"
+          echo "============================================"
+  restartPolicy: Never
