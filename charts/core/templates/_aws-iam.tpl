@@ -13,7 +13,7 @@
   **/}}
 
 {{- define "aws.iam.postgres" }}
-{{- if .Values.global.aws.iam }}
+{{- if eq (include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "aws.iam" "Default" "false")) "true"}}
 - name: POSTGRES_AWS_ENABLE_IAM
   value: "true"
 {{- end }}
