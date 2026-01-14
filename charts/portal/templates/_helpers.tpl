@@ -62,8 +62,6 @@
 - name: APPS_CONSOLE_V3
   value: "{{ .Values.global.platform.consoleV3.scheme }}://{{ tpl .Values.global.platform.consoleV3.host . }}"
 {{- end }}
-- name: DEBUG
-  value: {{ .Values.global.debug | quote }}
 - name: API_STACK_URL
 {{- if .Values.global.platform.stargate.enabled  }}
   value: {{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" }}
