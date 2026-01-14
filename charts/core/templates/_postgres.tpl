@@ -19,42 +19,47 @@
 
 {{- define "core.postgres.uri" -}}
 {{- include "aws.iam.postgres" . }}
+{{- $enableIam := (eq (include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "aws.iam" "Default" "false")) "true") }}
 {{- if .Values.postgresql.enabled }}
 - name: POSTGRES_USERNAME
   value: {{ include "postgresql.v1.username" . }}
 {{- else }}
 - name: POSTGRES_USERNAME
-  value: {{ .Values.global.postgresql.auth.username }}
+  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.username" "Default" "") }}
 {{- end }}
-{{- if and .Values.global.postgresql.auth.existingSecret (not .Values.config.postgresqlUrl) }}
+{{- $existingSecret := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.existingSecret" "Default" "") }}
+{{- if and (not (empty $existingSecret)) (empty .Values.config.postgresqlUrl) }}
   {{- if .Values.postgresql.enabled }}
 - name: POSTGRES_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ include "postgresql.v1.secretName" . }}
       key: {{ include "postgresql.v1.adminPasswordKey" . }}
-  {{- else if (not .Values.global.aws.iam) }}
+  {{- else if (not $enableIam) }}
 - name: POSTGRES_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.global.postgresql.auth.existingSecret }}
-      key: {{ .Values.global.postgresql.auth.secretKeys.adminPasswordKey }}
+      name: {{ $existingSecret | quote }}
+      key: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.secretKeys.adminPasswordKey" "Default" "") | quote }}
   {{- end }}
-{{- else if (not .Values.global.aws.iam) }}
+{{- else if (not $enableIam) }}
 - name: POSTGRES_PASSWORD
-  value: {{ .Values.global.postgresql.auth.password }}
+  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.password" "Default" "") }}
 {{- end }}
 - name: POSTGRES_URI
 {{- if .Values.config.postgresqlUrl }}
   value: "{{ .Values.config.postgresqlUrl }}"
 {{- else }}
-  {{- $host := .Values.global.postgresql.host }}
-  {{- if .Values.global.aws.iam }}
-  value: "postgresql://$(POSTGRES_USERNAME)@{{ $host }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
+  {{- $host := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.host" "Default" "") }}
+  {{- $database := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.database" "Default" "") }}
+  {{- $port := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.service.ports.postgresql" "Default" "5432") }}
+  {{- $additionalArgs := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.additionalArgs" "Default" "") }}
+  {{- if $enableIam }}
+  value: "postgresql://$(POSTGRES_USERNAME)@{{ $host }}:{{ $port }}/{{ $database }}{{- if $additionalArgs}}?{{ $additionalArgs }}{{- end -}}"
   {{- else if .Values.postgresql.enabled }}
-  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ printf "%s.%s.svc" (include "postgresql.v1.primary.fullname" .Subcharts.postgresql) .Release.Namespace }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
+  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ printf "%s.%s.svc" (include "postgresql.v1.primary.fullname" .Subcharts.postgresql) .Release.Namespace }}:{{ $port }}/{{ $database }}{{- if $additionalArgs}}?{{ $additionalArgs }}{{- end -}}"
   {{- else }}
-  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ $host }}:{{.Values.global.postgresql.service.ports.postgresql}}/{{.Values.global.postgresql.auth.database}}{{- if .Values.global.postgresql.additionalArgs}}?{{.Values.global.postgresql.additionalArgs}}{{- end -}}"
+  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ $host }}:{{ $port }}/{{ $database }}{{- if $additionalArgs}}?{{ $additionalArgs }}{{- end -}}"
   {{- end }}
 {{- end }}
 {{- end }}
