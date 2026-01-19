@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 3.0.0-beta.8](https://img.shields.io/badge/Version-3.0.0--beta.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.6](https://img.shields.io/badge/AppVersion-v1.17.6-informational?style=flat-square)
+![Version: 3.0.0-beta.9](https://img.shields.io/badge/Version-3.0.0--beta.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.6](https://img.shields.io/badge/AppVersion-v1.17.6-informational?style=flat-square)
 
 Formance Console
 
@@ -75,11 +75,27 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
 | global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
 
+### Migration configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| config.migration.enabled | bool | `true` | Enable migration job with a separated user |
+| config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
+| config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
+| config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
+| config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
+
 ### Console configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Membership Feature
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| feature.migrationHooks | bool | `false` | Run migration in a hook |
 
 ### Postgresql configuration
 
@@ -108,6 +124,13 @@ Kubernetes: `>=1.14.0-0`
 | config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | config.environment | string | `"production"` | Console environment |
 | config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
+| config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| config.migration.serviceAccount.annotations | object | `{}` |  |
+| config.migration.serviceAccount.create | bool | `true` |  |
+| config.migration.serviceAccount.name | string | `""` |  |
+| config.migration.ttlSecondsAfterFinished | string | `""` |  |
+| config.migration.volumeMounts | list | `[]` |  |
+| config.migration.volumes | list | `[]` |  |
 | config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | config.sentry.dsn | string | `""` | Sentry DSN |

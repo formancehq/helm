@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.14](https://img.shields.io/badge/Version-4.0.0--beta.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.15](https://img.shields.io/badge/Version-4.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -451,10 +451,6 @@ Dex:
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 | membership.config.migration.enabled | bool | `true` | Enable migration job |
-| membership.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
-| membership.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
-| membership.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
-| membership.config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
 
 ### Licence configuration
 
@@ -473,11 +469,36 @@ Dex:
 | global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
 | global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
 
+### Migration configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
+| console-v3.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
+| console-v3.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
+| console-v3.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
+| console-v3.config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
+| portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
+| portal.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
+| portal.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
+| portal.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
+| portal.config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
+
 ### Console configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | console-v3.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Membership Feature
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| console-v3.feature.migrationHooks | bool | `false` | Run migration in a hook |
+| membership.feature.disableEvents | bool | `true` | Membership feature disable events |
+| membership.feature.managedStacks | bool | `true` | Membership feature managed stacks |
+| membership.feature.migrationHooks | bool | `false` | Run migration in a hook |
+| portal.feature.migrationHooks | bool | `false` | Run migration in a hook |
 
 ### Postgresql configuration
 
@@ -519,14 +540,6 @@ Dex:
 | membership.dex.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | Dex ingress path type |
 | membership.dex.ingress.tls | list | `[]` | Dex ingress tls |
 | membership.dex.resources | object | `{}` | Dex resources |
-
-### Membership Feature
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| membership.feature.disableEvents | bool | `true` | Membership feature disable events |
-| membership.feature.managedStacks | bool | `true` | Membership feature managed stacks |
-| membership.feature.migrationHooks | bool | `false` | Run migration in a hook |
 
 ### Portal configuration
 
@@ -575,6 +588,13 @@ Dex:
 | console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | console-v3.config.environment | string | `"production"` | Console environment |
 | console-v3.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
+| console-v3.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| console-v3.config.migration.serviceAccount.annotations | object | `{}` |  |
+| console-v3.config.migration.serviceAccount.create | bool | `true` |  |
+| console-v3.config.migration.serviceAccount.name | string | `""` |  |
+| console-v3.config.migration.ttlSecondsAfterFinished | string | `""` |  |
+| console-v3.config.migration.volumeMounts | list | `[]` |  |
+| console-v3.config.migration.volumes | list | `[]` |  |
 | console-v3.config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | console-v3.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | console-v3.config.sentry.dsn | string | `""` | Sentry DSN |
@@ -711,6 +731,13 @@ Dex:
 | portal.config.environment | string | `"production"` | Portal environment |
 | portal.config.featuresDisabled | list | `[]` |  |
 | portal.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
+| portal.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| portal.config.migration.serviceAccount.annotations | object | `{}` |  |
+| portal.config.migration.serviceAccount.create | bool | `true` |  |
+| portal.config.migration.serviceAccount.name | string | `""` |  |
+| portal.config.migration.ttlSecondsAfterFinished | string | `""` |  |
+| portal.config.migration.volumeMounts | list | `[]` |  |
+| portal.config.migration.volumes | list | `[]` |  |
 | portal.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | portal.config.sentry.dsn | string | `""` | Sentry DSN |
 | portal.config.sentry.enabled | bool | `false` | Sentry enabled |
