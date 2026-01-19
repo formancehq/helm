@@ -14,6 +14,36 @@
 #     # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
 #     # @section -- Global configuration
 #     elb: false
+#     # -- AWS region (optional - automatically provided by IRSA when using serviceAccount with roleARN)
+#     # @section -- Global configuration
+#     region: ""
+#     s3:
+#       # -- Enable S3 bucket integration
+#       # @section -- Global configuration
+#       enabled: false
+#       # -- S3 endpoint override (for LocalStack or MinIO)
+#       # @section -- Global configuration
+#       endpointOverride: ""
+#     sns:
+#       # -- Enable SNS publisher
+#       # @section -- Global configuration
+#       enabled: false
+#       # -- SNS endpoint override (for LocalStack)
+#       # @section -- Global configuration
+#       endpointOverride: ""
+#       # -- SNS topic mapping (format: "event1:topic1,event2:topic2")
+#       # @section -- Global configuration
+#       topicMapping: ""
+#     sqs:
+#       # -- Enable SQS subscriber
+#       # @section -- Global configuration
+#       enabled: false
+#       # -- SQS endpoint override (for LocalStack)
+#       # @section -- Global configuration
+#       endpointOverride: ""
+#       # -- SQS queue mapping (format: "event1:queue1,event2:queue2")
+#       # @section -- Global configuration
+#       queueMapping: ""
 #   nats:
 #     # -- Enable NATS
 #     # @section -- Global configuration
