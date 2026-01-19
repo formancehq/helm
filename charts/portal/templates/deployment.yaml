@@ -34,6 +34,11 @@ spec:
           imagePullPolicy: {{.Values.image.pullPolicy}}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          command:
+          - pnpm
+          args:
+          - run
+          - start:prod
           ports:
             - containerPort: 3000
               protocol: TCP

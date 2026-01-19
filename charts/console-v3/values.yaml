@@ -264,9 +264,48 @@ tolerations: []
 # -- Console affinity
 affinity: {}
 
+# TODO: See helm tags for more information
+# https://helm.sh/docs/chart_template_guide/variables/#tags
+feature:
+  # -- Run migration in a hook
+  # @section -- Membership Feature
+  migrationHooks: false
+
 config:
   # -- Deprecated
   stargate_url: ""
+  migration:
+    # -- Enable migration job with a separated user
+    # @section -- Migration configuration
+    enabled: true
+    postgresql:
+      auth:
+        # -- Name for a custom user to create (overrides `auth.username`)
+        # @section -- Migration configuration
+        username: ""
+        # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+        # @section -- Migration configuration
+        password: ""
+        # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+        # @section -- Migration configuration
+        existingSecret: ""
+        secretKeys:
+          # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+          # @section -- Migration configuration
+          adminPasswordKey: ""
+
+    serviceAccount:
+      create: true
+      name: ""
+      annotations: {}
+
+    # -- Membership job migration annotations
+    # Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync
+    annotations: {}
+
+    ttlSecondsAfterFinished: ""
+    volumes: []
+    volumeMounts: []
 
   # -- Enable managed stack mode (1 = enabled, 0 = disabled)
   managedStack: "1"
