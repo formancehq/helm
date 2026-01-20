@@ -8,11 +8,12 @@
   {{- $values := $values.Values -}}
   {{- $key := .Key -}}
   {{- $default := tpl .Default .Context -}}
+  {{- $from := .From | default "config" -}}
 
   {{- $keys := splitList "." $key -}}
   
 
-  {{- $configkeys := splitList "." (print "config." $key) -}}
+  {{- $configkeys := splitList "." (print $from "." $key) -}}
   {{- $subchartValue := $values -}}
   {{- $found := true -}}
   {{- range $configkeys -}}

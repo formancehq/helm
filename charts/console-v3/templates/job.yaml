@@ -34,36 +34,15 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          command:
+            - pnpm
           args:
-            - storage
-            - migrations
-            - up
+            - run
+            - db:migrate
           env:
-            - name: DEV
-              value: "{{.Values.dev}}"
             {{- include "core.env.common" . | nindent 12 }}
             {{- include "core.monitoring" . | nindent 12 }}
             {{- include "core.postgres.job.uri" . | nindent 12 }}
-            {{- include "core.licence.env" . | nindent 12 }}
-        {{- if .Values.global.nats.enabled }}
-        - name: {{ .Chart.Name }}-init
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          {{- with .Values.config.migration.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          args:
-            - stream
-            - init
-          env:
-          - name: JETSTREAM_REPLICAS
-            value: "{{ .Values.config.publisher.jetstream.replicas }}"
-          {{- include "core.licence.env" . | nindent 10 }}
-          {{- include "core.env.common" . | nindent 10 }}
-          {{- include "core.nats.env" . | nindent 10 }}
-        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

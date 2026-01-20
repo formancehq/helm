@@ -63,3 +63,81 @@
   {{- end }}
 {{- end }}
 {{- end }}
+
+
+{{/**
+  
+    This way is only reliable when using helm install and helm upgrade.
+    ArgoCD use helm template
+  
+  **/}}
+{{- define "core.postgres.job.annotations" -}}
+{{- if and (not .Release.IsInstall) .Values.feature.migrationHooks }}
+helm.sh/hook: pre-upgrade
+helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
+helm.sh/hook-weight: "10"
+{{- end }}
+{{- end }}
+
+{{- define "core.postgres.job.sa.annotations" -}}
+{{- if and (not .Release.IsInstall) .Values.feature.migrationHooks }}
+helm.sh/hook: pre-upgrade
+helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
+helm.sh/hook-weight: "-10"
+{{- end }}
+{{- end }}
+
+{{- define "core.postgres.job.serviceAccountName" -}}
+{{- if .Values.config.migration.serviceAccount.create }}
+{{- default (printf "%s-%s" (include "core.fullname" .) "migrate") .Values.config.migration.serviceAccount.name }}
+{{- else }}
+{{- default "default-migrate" .Values.config.migration.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{- define "core.postgres.job.uri" -}}
+{{- include "aws.iam.postgres" . }}
+{{- $enableIam := (eq (include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "aws.iam" "Default" "false")) "true") }}
+{{- if .Values.postgresql.enabled }}
+- name: POSTGRES_USERNAME
+  value: {{ include "postgresql.v1.username" . }}
+{{- else }}
+- name: POSTGRES_USERNAME
+  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.username" "From" "config.migration" "Default" "") }}
+{{- end }}
+{{- $existingSecret := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.existingSecret" "From" "config.migration" "Default" "") }}
+{{- if and (not (empty $existingSecret)) (empty .Values.config.postgresqlUrl) }}
+  {{- if .Values.postgresql.enabled }}
+- name: POSTGRES_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "postgresql.v1.secretName" . }}
+      key: {{ include "postgresql.v1.adminPasswordKey" . }}
+  {{- else if (not $enableIam) }}
+- name: POSTGRES_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ $existingSecret | quote }}
+      key: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.secretKeys.adminPasswordKey" "From" "config.migration" "Default" "") | quote }}
+  {{- end }}
+{{- else if (not $enableIam) }}
+- name: POSTGRES_PASSWORD
+  value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.password" "From" "config.migration" "Default" "") }}
+{{- end }}
+- name: POSTGRES_URI
+{{- if .Values.config.postgresqlUrl }}
+  value: "{{ .Values.config.postgresqlUrl }}"
+{{- else }}
+  {{- $host := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.host" "Default" "") }}
+  {{- $database := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.database" "Default" "") }}
+  {{- $port := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.service.ports.postgresql" "Default" "5432") }}
+  {{- $additionalArgs := include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.additionalArgs" "Default" "") }}
+  {{- if $enableIam }}
+  value: "postgresql://$(POSTGRES_USERNAME)@{{ $host }}:{{ $port }}/{{ $database }}{{- if $additionalArgs}}?{{ $additionalArgs }}{{- end -}}"
+  {{- else if .Values.postgresql.enabled }}
+  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ printf "%s.%s.svc" (include "postgresql.v1.primary.fullname" .Subcharts.postgresql) .Release.Namespace }}:{{ $port }}/{{ $database }}{{- if $additionalArgs}}?{{ $additionalArgs }}{{- end -}}"
+  {{- else }}
+  value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ $host }}:{{ $port }}/{{ $database }}{{- if $additionalArgs}}?{{ $additionalArgs }}{{- end -}}"
+  {{- end }}
+{{- end }}
+{{- end }}

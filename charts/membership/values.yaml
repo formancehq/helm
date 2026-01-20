@@ -567,21 +567,22 @@ config:
     # -- Enable migration job
     # @section -- Global configuration
     enabled: true
-    postgresql:
-      auth:
-        # -- Name for a custom user to create (overrides `auth.username`)
-        # @section -- Global configuration
-        username: ""
-        # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
-        # @section -- Global configuration
-        password: ""
-        # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
-        # @section -- Global configuration
-        existingSecret: ""
-        secretKeys:
-          # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
-          # @section -- Global configuration
-          adminPasswordKey: ""
+    # -- Migration job override
+    # postgresql:
+    #   auth:
+    #     # -- Name for a custom user to create (overrides `auth.username`)
+    #     # @section -- Global configuration
+    #     username: ""
+    #     # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+    #     # @section -- Global configuration
+    #     password: ""
+    #     # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+    #     # @section -- Global configuration
+    #     existingSecret: ""
+    #     secretKeys:
+    #       # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+    #       # @section -- Global configuration
+    #       adminPasswordKey: ""
 
     serviceAccount:
       create: true
