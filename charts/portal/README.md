@@ -1,6 +1,6 @@
 # portal
 
-![Version: 3.0.0-beta.10](https://img.shields.io/badge/Version-3.0.0--beta.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.17.6](https://img.shields.io/badge/AppVersion-v1.17.6-informational?style=flat-square)
+![Version: 3.0.0-beta.12](https://img.shields.io/badge/Version-3.0.0--beta.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.3](https://img.shields.io/badge/AppVersion-v2.0.0--beta.3-informational?style=flat-square)
 
 Formance Portal
 
@@ -81,10 +81,6 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | config.migration.enabled | bool | `true` | Enable migration job with a separated user |
-| config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
-| config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
-| config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
-| config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
 
 ### Portal configuration
 
