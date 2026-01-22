@@ -153,7 +153,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2-rc".gateway | string | `"v2.1.0"` |  |
 | versions.files."v3.2-rc".ledger | string | `"v2.4.0-beta.1"` |  |
 | versions.files."v3.2-rc".orchestration | string | `"v2.4.0"` |  |
-| versions.files."v3.2-rc".payments | string | `"v3.1.2-rc1"` |  |
+| versions.files."v3.2-rc".payments | string | `"v3.1.2-rc.1"` |  |
 | versions.files."v3.2-rc".reconciliation | string | `"v2.2.0"` |  |
 | versions.files."v3.2-rc".search | string | `"v2.1.0"` |  |
 | versions.files."v3.2-rc".stargate | string | `"v2.2.1"` |  |
