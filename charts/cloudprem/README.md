@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.15](https://img.shields.io/badge/Version-4.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.17](https://img.shields.io/badge/Version-4.0.0--beta.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -474,15 +474,7 @@ Dex:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
-| console-v3.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
-| console-v3.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
-| console-v3.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
-| console-v3.config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
 | portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
-| portal.config.migration.postgresql.auth.existingSecret | string | `""` | Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`). |
-| portal.config.migration.postgresql.auth.password | string | `""` | Password for the "postgres" admin user (overrides `auth.postgresPassword`) |
-| portal.config.migration.postgresql.auth.secretKeys.adminPasswordKey | string | `""` | Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set. |
-| portal.config.migration.postgresql.auth.username | string | `""` | Name for a custom user to create (overrides `auth.username`) |
 
 ### Console configuration
 

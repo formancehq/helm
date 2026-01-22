@@ -235,21 +235,21 @@ config:
     # -- Enable migration job with a separated user
     # @section -- Migration configuration
     enabled: true
-    postgresql:
-      auth:
-        # -- Name for a custom user to create (overrides `auth.username`)
-        # @section -- Migration configuration
-        username: ""
-        # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
-        # @section -- Migration configuration
-        password: ""
-        # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
-        # @section -- Migration configuration
-        existingSecret: ""
-        secretKeys:
-          # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
-          # @section -- Migration configuration
-          adminPasswordKey: ""
+    # postgresql:
+    #   auth:
+    #     # -- Name for a custom user to create (overrides `auth.username`)
+    #     # @section -- Migration configuration
+    #     username: ""
+    #     # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+    #     # @section -- Migration configuration
+    #     password: ""
+    #     # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+    #     # @section -- Migration configuration
+    #     existingSecret: ""
+    #     secretKeys:
+    #       # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+    #       # @section -- Migration configuration
+    #       adminPasswordKey: ""
 
     serviceAccount:
       create: true
