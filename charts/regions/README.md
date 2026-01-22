@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.6.1](https://img.shields.io/badge/Version-3.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.6.2](https://img.shields.io/badge/Version-3.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -134,7 +134,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".ledger | string | `"v2.2.57"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.18"` |  |
-| versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
+| versions.files."v3.0".reconciliation | string | `"v2.2.2"` |  |
 | versions.files."v3.0".search | string | `"v2.1.0"` |  |
 | versions.files."v3.0".stargate | string | `"v2.2.1"` |  |
 | versions.files."v3.0".wallets | string | `"v2.1.5"` |  |
@@ -144,7 +144,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".ledger | string | `"v2.3.9"` |  |
 | versions.files."v3.1".orchestration | string | `"v2.4.0"` |  |
 | versions.files."v3.1".payments | string | `"v3.0.18"` |  |
-| versions.files."v3.1".reconciliation | string | `"v2.2.0"` |  |
+| versions.files."v3.1".reconciliation | string | `"v2.2.2"` |  |
 | versions.files."v3.1".search | string | `"v2.1.0"` |  |
 | versions.files."v3.1".stargate | string | `"v2.2.1"` |  |
 | versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
@@ -154,7 +154,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2-rc".ledger | string | `"v2.4.0-beta.1"` |  |
 | versions.files."v3.2-rc".orchestration | string | `"v2.4.0"` |  |
 | versions.files."v3.2-rc".payments | string | `"v3.1.1"` |  |
-| versions.files."v3.2-rc".reconciliation | string | `"v2.2.0"` |  |
+| versions.files."v3.2-rc".reconciliation | string | `"v2.2.2"` |  |
 | versions.files."v3.2-rc".search | string | `"v2.1.0"` |  |
 | versions.files."v3.2-rc".stargate | string | `"v2.2.1"` |  |
 | versions.files."v3.2-rc".wallets | string | `"v2.1.5"` |  |

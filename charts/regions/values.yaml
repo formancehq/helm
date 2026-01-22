@@ -137,7 +137,7 @@ versions:
       webhooks: v2.1.0
       gateway: v2.1.0
       orchestration: v2.1.1
-      reconciliation: v2.1.0
+      reconciliation: v2.2.2
     v3.1:
       payments: v3.0.18
       ledger: v2.3.9
@@ -148,7 +148,7 @@ versions:
       webhooks: v2.2.0
       gateway: v2.1.0
       orchestration: v2.4.0
-      reconciliation: v2.2.0
+      reconciliation: v2.2.2
     v3.2-rc:
       payments: v3.1.1
       ledger: v2.4.0-beta.1
@@ -159,4 +159,4 @@ versions:
       webhooks: v2.2.0
       gateway: v2.1.0
       orchestration: v2.4.0
-      reconciliation: v2.2.0
+      reconciliation: v2.2.2
