@@ -15,5 +15,5 @@ sources:
 - "https://github.com/formancehq/helm/charts/core"
 
 type: library
-version: 1.3.0
+version: 1.4.0
 appVersion: "latest"
