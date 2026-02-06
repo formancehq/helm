@@ -1,0 +1,306 @@
+global:
+  # -- Enable debug mode
+  # @section -- Global configuration
+  debug: false
+  # -- is the base domain for portal and console
+  # @section -- Global configuration
+  serviceHost: ""
+
+  aws:
+    # -- Enable AWS IAM Authentification
+    # @section -- Global AWS configuration
+    iam: false
+    # -- Enable AWS ELB across all services, appropriate <service>.aws.targertGroup must be set
+    # @section -- Global AWS configuration
+    elb: false
+
+  postgresql:
+    # -- Host for PostgreSQL (overrides included postgreql `host`)
+    # @section -- Global configuration
+    host: ""
+    # -- Additional arguments for PostgreSQL Connection URI
+    # @section -- Global configuration
+    additionalArgs: "sslmode=disable"
+    auth:
+      # -- Name for a custom user to create (overrides `auth.username`)
+      # @section -- Global configuration
+      username: formance
+      # -- Password for the "postgres" admin user (overrides `auth.postgresPassword`)
+      # @section -- Global configuration
+      password: formance
+      # -- Name for a custom database to create (overrides `auth.database`)
+      # @section -- Global configuration
+      database: studio
+      # -- Password for the custom user to create (overrides `auth.password`)
+      # @section -- Global configuration
+      postgresPassword: formance
+      # -- Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`).
+      # @section -- Global configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.adminPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        adminPasswordKey: ""
+        # -- Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.userPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
+        # @section -- Global configuration
+        userPasswordKey: ""
+    service:
+      ports:
+        # -- PostgreSQL service port (overrides `service.ports.postgresql`)
+        # @section -- Global configuration
+        postgresql: 5432
+
+  monitoring:
+    traces:
+      # -- Enable otel tracing
+      # @section -- Global configuration
+      enabled: false
+      # -- Enable otel batching
+      # @section -- Global configuration
+      batch: false
+      # -- Endpoint
+      # @section -- Global configuration
+      endpoint: ""
+      # -- Exporter
+      # @section -- Global configuration
+      exporter: "otlp"
+      # -- Insecure
+      # @section -- Global configuration
+      insecure: true
+      # -- Mode
+      # @section -- Global configuration
+      mode: "grpc"
+      # -- Port
+      # @section -- Global configuration
+      port: 4317
+
+  platform:
+    studio:
+      # -- is the scheme for the studio
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the studio
+      # @section -- Global configuration
+      host: "studio.{{ .Values.global.serviceHost }}"
+      oauth:
+        client:
+          # -- is the id of the client
+          # @section -- Global configuration
+          id: "studio"
+          # -- is the secret of the client
+          # @section -- Global configuration
+          secret: "changeMe"
+          # -- is the name of the secret
+          # @section -- Global configuration
+          existingSecret: ""
+          # -- is the key contained within the secret
+          # @section -- Global configuration
+          secretKeys:
+            secret: ""
+          scopes:
+          - accesses
+          - remember_me
+          - keep_refresh_token
+          - on_behalf
+          redirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.studio.scheme .Values.global.platform.studio.host) $ }}/auth/login
+
+    membership:
+      # -- is the scheme for the membership
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the membership
+      # @section -- Global configuration
+      host: "membership.{{ .Values.global.serviceHost }}"
+
+# -- Number of replicas
+replicas: 1
+
+podDisruptionBudget:
+  # -- Enable pod disruption budget
+  enabled: false
+  # -- Minimum available pods
+  minAvailable: 1
+  # -- Maximum unavailable pods
+  maxUnavailable: 0
+
+# -- Pod Security Context
+podSecurityContext: {}
+
+# -- Container Security Context
+securityContext: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+serviceAccount:
+  # -- Service account creation
+  create: true
+  # -- Service account name
+  name: ""
+  # -- Service account annotations
+  annotations: {}
+
+image:
+  # -- image repository
+  repository: ghcr.io/formancehq/studio
+  # -- image pull policy
+  pullPolicy: IfNotPresent
+  # -- image tag
+  tag: ""
+
+# -- image pull secrets
+imagePullSecrets: []
+
+# -- Studio resources
+resources: {}
+
+# -- Studio readiness probe
+readinessProbe: {}
+
+# -- Studio liveness probe
+livenessProbe: {}
+
+service:
+  # -- service annotations
+  annotations: {}
+  # -- service type
+  type: ClusterIP
+  # -- service cluster IP
+  clusterIP: ""
+  ports:
+    # -- service http port
+    http:
+      port: 3000
+
+# -- AWS Studio target groups
+# @section -- Global AWS configuration
+aws:
+  targetGroups:
+    http:
+      # -- Target group IP address type
+      ipAddressType: "ipv4"
+      # -- Target group target type
+      targetType: "ip"
+      # -- Target group ARN
+      targetGroupARN: ""
+      serviceRef:
+        # -- Target group service reference name
+        name: '{{ include "core.fullname" $ }}'
+        # -- Target group service reference port
+        port: "{{ .Values.service.ports.http.port }}"
+
+ingress:
+  # -- ingress enabled
+  enabled: true
+  # -- ingress class name
+  className: ""
+  # -- ingress annotations
+  annotations: {}
+  # -- ingress labels
+  labels: {}
+  hosts:
+  # -- ingress host
+  - host: "{{ tpl .Values.global.platform.studio.host $ }}"
+    paths:
+    # -- ingress path
+    - path: /
+      # -- ingress path type
+      pathType: Prefix
+  # -- ingress tls
+  tls: []
+
+# -- Studio volume mounts
+volumeMounts: []
+
+# -- Studio annotations
+annotations: {}
+
+# -- Studio volumes
+volumes: []
+
+# -- Studio node selector
+nodeSelector: {}
+
+# -- Studio tolerations
+tolerations: []
+
+# -- Studio affinity
+affinity: {}
+
+feature:
+  # -- Run migration in a hook
+  # @section -- Feature
+  migrationHooks: false
+
+config:
+  migration:
+    # -- Enable migration job
+    # @section -- Migration configuration
+    enabled: true
+    serviceAccount:
+      create: true
+      name: ""
+      annotations: {}
+    # -- Migration job annotations
+    annotations: {}
+    ttlSecondsAfterFinished: ""
+    volumes: []
+    volumeMounts: []
+
+  # -- PostgreSQL connection URL override (if not set, will be generated from global.postgresql)
+  # @section -- Studio configuration
+  postgresqlUrl: ""
+
+  cookie:
+    # -- is used to encrypt a cookie value
+    encryptionKey: "changeMe00"
+    # -- is the name of the secret
+    existingSecret: ""
+    # -- is the key contained within the secret
+    secretKeys:
+      encryptionKey: ""
+
+  openai:
+    # -- OpenAI API key for AI features
+    apiKey: ""
+    # -- is the name of the secret
+    existingSecret: ""
+    # -- is the key contained within the secret
+    secretKeys:
+      apiKey: ""
+
+  features:
+    # -- Enable chat feature
+    chatEnabled: "1"
+    # -- Enable apps builder feature
+    appsBuilder: "1"
+
+  # -- Studio environment
+  environment: production
+  # -- Studio additional environment variables
+  additionalEnv: []
+
+  sentry:
+    # -- Sentry enabled
+    enabled: false
+    # -- Sentry DSN
+    dsn: ""
+    # -- Sentry environment
+    environment: ""
+    # -- Sentry release
+    release: ""
+    # -- Sentry Auth Token
+    authToken:
+      value: ""
+      existingSecret: ""
+      secretKeys:
+        value: ""
+
+postgresql:
+  # -- Enable postgresql
+  # @section -- Postgresql configuration
+  enabled: false
