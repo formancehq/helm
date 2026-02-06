@@ -1,5 +1,5 @@
 global:
-  # Add your license information 
+  # Add your license information
   licence:
     # -- Licence Secret with label `formance.com/stack: any`
     # @section -- Licence configuration
@@ -7,7 +7,7 @@ global:
     # -- Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
     # @section -- Licence configuration
     clusterID: ""
-    # -- Licence Environment 
+    # -- Licence Environment
     # @section -- Licence configuration
     issuer: "https://license.formance.cloud/keys"
     # -- Licence Client Token delivered by contacting [Formance](https://formance.com)
@@ -117,7 +117,7 @@ versions:
       orchestration: v2.0.24
       reconciliation: v2.0.24
     v2.2:
-      ledger: v2.2.57
+      ledger: v2.2.58
       search: v2.0.24
       stargate: v2.2.2
       auth: v2.4.1
@@ -129,7 +129,7 @@ versions:
       reconciliation: v2.0.24
     v3.0:
       payments: v3.0.18
-      ledger: v2.2.57
+      ledger: v2.2.58
       search: v2.1.0
       stargate: v2.2.2
       auth: v2.4.1
@@ -140,7 +140,7 @@ versions:
       reconciliation: v2.1.0
     v3.1:
       payments: v3.0.18
-      ledger: v2.3.10
+      ledger: v2.3.11
       search: v2.1.0
       stargate: v2.2.2
       auth: v2.4.1

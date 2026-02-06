@@ -6,4 +6,4 @@ dependencies:
   repository: oci://ghcr.io/formancehq/helm
   version: 3.5.1
 digest: sha256:90dddd250c63425d854456c598866db79b7ff9af2f7f47d56673ba82b51ef44c
-generated: "2026-02-06T11:47:17.822792+01:00"
+generated: "2026-02-06T14:54:58.51914+01:00"
