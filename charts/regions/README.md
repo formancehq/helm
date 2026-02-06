@@ -55,7 +55,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
 | global.licence.createSecret | bool | `true` | Licence Secret with label `formance.com/stack: any` |
 | global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
-| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment  |
+| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment |
 | global.licence.secretKeys.token | string | `"token"` | Hardcoded in the operator |
 | global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
@@ -121,7 +121,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.1".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v2.2".auth | string | `"v2.4.1"` |  |
 | versions.files."v2.2".gateway | string | `"v2.2.0"` |  |
-| versions.files."v2.2".ledger | string | `"v2.2.57"` |  |
+| versions.files."v2.2".ledger | string | `"v2.2.58"` |  |
 | versions.files."v2.2".orchestration | string | `"v2.0.24"` |  |
 | versions.files."v2.2".payments | string | `"v2.0.32"` |  |
 | versions.files."v2.2".reconciliation | string | `"v2.0.24"` |  |
@@ -131,7 +131,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v2.2".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.0".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.0".gateway | string | `"v2.2.0"` |  |
-| versions.files."v3.0".ledger | string | `"v2.2.57"` |  |
+| versions.files."v3.0".ledger | string | `"v2.2.58"` |  |
 | versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | versions.files."v3.0".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.0".reconciliation | string | `"v2.1.0"` |  |
@@ -141,7 +141,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".webhooks | string | `"v2.1.0"` |  |
 | versions.files."v3.1".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.1".gateway | string | `"v2.2.0"` |  |
-| versions.files."v3.1".ledger | string | `"v2.3.10"` |  |
+| versions.files."v3.1".ledger | string | `"v2.3.11"` |  |
 | versions.files."v3.1".orchestration | string | `"v2.4.0"` |  |
 | versions.files."v3.1".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.1".reconciliation | string | `"v2.2.0"` |  |
