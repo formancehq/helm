@@ -1,0 +1,44 @@
+# =============================================================================
+# FORMANCE - ENTERPRISE EDITION - MINIMAL CONFIGURATION
+# =============================================================================
+#
+# This profile deploys the full Formance Platform:
+# - Operator + Versions (data plane)
+# - Membership + Portal + Console (control plane)
+#
+# REQUIRED: You must set the following values:
+#   --set global.serviceHost=<your-domain>
+#   --set global.licence.clusterID=<cluster-id>
+#   --set global.licence.token=<licence-token>
+#
+# Get your cluster ID:
+#   kubectl get ns kube-system -o jsonpath='{.metadata.uid}'
+#
+# Usage:
+#   helm install formance formance/formance \
+#     -f profiles/ee-minimal.yaml \
+#     --set global.serviceHost=formance.example.com \
+#     --set global.licence.clusterID=xxx \
+#     --set global.licence.token=yyy
+#
+# =============================================================================
+
+global:
+  # REQUIRED: Set your base domain
+  serviceHost: ""
+
+  # REQUIRED: Licence configuration
+  licence:
+    # Get with: kubectl get ns kube-system -o jsonpath='{.metadata.uid}'
+    clusterID: ""
+    # Your licence token from Formance
+    token: ""
+
+# Operator configuration
+regions:
+  operator:
+    enabled: true
+  agent:
+    enabled: false
+  versions:
+    create: true

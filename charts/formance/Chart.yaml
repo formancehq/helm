@@ -1,0 +1,37 @@
+apiVersion: v2
+name: formance
+description: Formance Platform - Unified Helm Chart
+home: "https://formance.com"
+sources:
+- "https://github.com/formancehq/helm"
+maintainers:
+- name: "Formance Team"
+  email: "support@formance.com"
+icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
+
+type: application
+version: 1.0.0
+appVersion: "latest"
+kubeVersion: ">=1.14.0-0"
+
+dependencies:
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 18.X.X
+  condition: postgresql.enabled
+- name: regions
+  version: ">=3.0.0-0"
+  repository: "file://../regions"
+  tags:
+  - EntrepriseEdition
+  - CommunityEdition
+  import-values:
+  - child: versions
+    parent: global.exports.versions
+  - child: stacks
+    parent: global.exports.stacks
+- name: cloudprem
+  version: ">=4.0.0-0"
+  repository: "file://../cloudprem"
+  tags:
+  - EntrepriseEdition

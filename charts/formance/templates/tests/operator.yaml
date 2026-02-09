@@ -1,0 +1,102 @@
+{{- if .Values.regions.operator.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "formance.fullname" . }}-test-operator
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "formance.fullname" . }}-test-operator
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "formance.fullname" . }}-test-operator
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "formance.fullname" . }}-test-operator
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "formance.fullname" . }}-test-operator
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "formance.fullname" . }}-test-operator
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  serviceAccountName: {{ include "formance.fullname" . }}-test-operator
+  containers:
+    - name: operator-test
+      image: bitnami/kubectl:latest
+      command:
+        - sh
+        - -c
+        - |
+          echo "Testing Operator deployment..."
+          max_attempts=30
+          attempt=0
+
+          # Find operator deployment (it's installed as a subchart from OCI registry)
+          deployment_name=$(kubectl get deployments -n {{ .Release.Namespace }} -l app.kubernetes.io/name=operator -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
+
+          if [ -z "$deployment_name" ]; then
+            echo "ERROR: Operator deployment not found"
+            exit 1
+          fi
+
+          echo "Found operator deployment: $deployment_name"
+
+          until kubectl rollout status deployment/$deployment_name -n {{ .Release.Namespace }} --timeout=2s 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+            echo "Waiting for Operator to be ready... (attempt $((attempt+1))/$max_attempts)"
+            attempt=$((attempt+1))
+            sleep 2
+          done
+
+          if [ $attempt -eq $max_attempts ]; then
+            echo "ERROR: Operator is not ready after $max_attempts attempts"
+            kubectl get deployment/$deployment_name -n {{ .Release.Namespace }} -o wide
+            kubectl get pods -n {{ .Release.Namespace }} -l app.kubernetes.io/name=operator
+            exit 1
+          fi
+
+          echo "SUCCESS: Operator is ready"
+{{- end }}

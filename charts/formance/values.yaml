@@ -1,0 +1,337 @@
+# =============================================================================
+# FORMANCE UNIFIED CHART - CENTRALIZED CONFIGURATION
+# =============================================================================
+# This chart deploys the Formance Platform with two editions:
+# - Community Edition (CE): Operator + Versions (default)
+# - Enterprise Edition (EE): Operator + Versions + Control Plane
+# =============================================================================
+
+# -- Tags
+# @section -- Tags
+tags:
+  # -- Choose deployment edition
+  # - EE: Entreprise (requires Licence)
+  # - CE: Community
+  # @section -- Edition
+  EntrepriseEdition: false
+  CommunityEdition: true
+
+# =============================================================================
+# GLOBAL CONFIGURATION
+# Propagated to all subcharts (regions, cloudprem)
+# =============================================================================
+global:
+  # -- Enable debug mode
+  # @section -- Global configuration
+  debug: false
+
+  # -- Base domain for all services (e.g., formance.example.com)
+  # @section -- Global configuration
+  serviceHost: ""
+
+  # -- Licence configuration (REQUIRED when ee.enabled=true)
+  # @section -- Licence configuration
+  licence:
+    # -- Create licence secret
+    # @section -- Licence configuration
+    createSecret: true
+    # -- Cluster ID: kubectl get ns kube-system -o jsonpath='{.metadata.uid}'
+    # @section -- Licence configuration
+    clusterID: ""
+    # -- Licence issuer URL
+    # @section -- Licence configuration
+    issuer: "https://license.formance.cloud/keys"
+    # -- Licence token from Formance
+    # @section -- Licence configuration
+    token: ""
+    # -- Use existing secret for licence token
+    # @section -- Licence configuration
+    existingSecret: ""
+    secretKeys:
+      # -- Key in existing secret for licence token
+      # @section -- Licence configuration
+      token: "token"
+
+  # -- AWS integration
+  # @section -- AWS configuration
+  aws:
+    # -- Enable AWS IAM authentication (IRSA)
+    # @section -- AWS configuration
+    iam: false
+    # -- Enable AWS ELB TargetGroupBinding
+    # @section -- AWS configuration
+    elb: false
+
+  # -- Platform services configuration (EE only)
+  # @section -- Platform configuration
+  platform:
+    membership:
+      # -- Membership URL scheme
+      # @section -- Platform configuration
+      scheme: "https"
+      # -- Membership host
+      # @section -- Platform configuration
+      host: "membership.{{ .Values.global.serviceHost }}"
+      relyingParty:
+        # -- Relying party scheme (Dex)
+        # @section -- Platform configuration
+        scheme: "https"
+        # -- Relying party host (Dex)
+        # @section -- Platform configuration
+        host: "dex.{{ .Values.global.serviceHost }}"
+      oidc:
+        # -- OIDC issuer scheme
+        # @section -- Platform configuration
+        scheme: "https"
+        # -- OIDC issuer host
+        # @section -- Platform configuration
+        host: "dex.{{ .Values.global.serviceHost }}"
+
+    portal:
+      # -- Enable portal
+      # @section -- Platform configuration
+      enabled: true
+      # -- Portal URL scheme
+      # @section -- Platform configuration
+      scheme: "https"
+      # -- Portal host
+      # @section -- Platform configuration
+      host: "portal.{{ .Values.global.serviceHost }}"
+
+    consoleV3:
+      # -- Enable console v3
+      # @section -- Platform configuration
+      enabled: true
+      # -- Console URL scheme
+      # @section -- Platform configuration
+      scheme: "https"
+      # -- Console host
+      # @section -- Platform configuration
+      host: "console.{{ .Values.global.serviceHost }}"
+
+    stargate:
+      # -- Enable Stargate for stack API routing
+      # @section -- Platform configuration
+      enabled: false
+      # -- Stack API URL (if stargate disabled)
+      # @section -- Platform configuration
+      stackApiUrl: ""
+
+  # -- Monitoring configuration
+  # @section -- Monitoring configuration
+  monitoring:
+    traces:
+      # -- Enable OpenTelemetry tracing
+      # @section -- Monitoring configuration
+      enabled: false
+      # -- Enable trace batching
+      # @section -- Monitoring configuration
+      batch: false
+      # -- OTLP endpoint
+      # @section -- Monitoring configuration
+      endpoint: "localhost"
+      # -- Exporter type
+      # @section -- Monitoring configuration
+      exporter: "otlp"
+      # -- Disable TLS verification
+      # @section -- Monitoring configuration
+      insecure: true
+      # -- Transport mode (grpc/http)
+      # @section -- Monitoring configuration
+      mode: "grpc"
+      # -- OTLP port
+      # @section -- Monitoring configuration
+      port: 4317
+
+    logs:
+      # -- Enable logging
+      # @section -- Monitoring configuration
+      enabled: true
+      # -- Log level (info, debug, error)
+      # @section -- Monitoring configuration
+      level: "info"
+      # -- Log format (json, text)
+      # @section -- Monitoring configuration
+      format: "json"
+
+    metrics:
+      # -- Enable OpenTelemetry metrics
+      # @section -- Monitoring configuration
+      enabled: false
+      # -- OTLP endpoint
+      # @section -- Monitoring configuration
+      endpoint: ""
+      # -- Exporter type
+      # @section -- Monitoring configuration
+      exporter: "otlp"
+      # -- Disable TLS verification
+      # @section -- Monitoring configuration
+      insecure: true
+      # -- Transport mode (grpc/http)
+      # @section -- Monitoring configuration
+      mode: "grpc"
+      # -- OTLP port
+      # @section -- Monitoring configuration
+      port: 4317
+
+  # -- PostgreSQL configuration
+  # @section -- PostgreSQL configuration
+  postgresql:
+    # -- PostgreSQL host (used by membership/dex in EE mode)
+    # @section -- PostgreSQL configuration
+    host: "postgresql"
+    # -- Additional connection arguments
+    # @section -- PostgreSQL configuration
+    additionalArgs: "sslmode=disable"
+    auth:
+      # -- Database username
+      # @section -- PostgreSQL configuration
+      username: formance
+      # -- Database password
+      # @section -- PostgreSQL configuration
+      password: formance
+      # -- Database name
+      # @section -- PostgreSQL configuration
+      database: formance
+      # -- Postgres admin password
+      # @section -- PostgreSQL configuration
+      postgresPassword: formance
+      # -- Use existing secret for credentials
+      # @section -- PostgreSQL configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Key for admin password in secret
+        # @section -- PostgreSQL configuration
+        adminPasswordKey: ""
+        # -- Key for user password in secret
+        # @section -- PostgreSQL configuration
+        userPasswordKey: ""
+    service:
+      ports:
+        # -- PostgreSQL port
+        # @section -- PostgreSQL configuration
+        postgresql: 5432
+
+  # -- NATS configuration
+  # @section -- NATS configuration
+  nats:
+    # -- Enable NATS for event streaming
+    # @section -- NATS configuration
+    enabled: false
+    # -- NATS URL
+    # @section -- NATS configuration
+    url: ""
+    auth:
+      # -- NATS username
+      # @section -- NATS configuration
+      user: ""
+      # -- NATS password
+      # @section -- NATS configuration
+      password: ""
+      # -- Use existing secret
+      # @section -- NATS configuration
+      existingSecret: ""
+      secretKeys:
+        # -- Key for password in secret
+        # @section -- NATS configuration
+        password: "password"
+
+# =============================================================================
+# REGIONS CONFIGURATION (Data Plane - Always installed)
+# =============================================================================
+regions:
+  # -- Operator configuration
+  # @section -- Regions configuration
+  operator:
+    # -- Enable operator (always true)
+    # @section -- Regions configuration
+    enabled: true
+    operator-crds:
+      create: false
+
+  # -- Agent configuration (connects to Formance Cloud)
+  # @section -- Regions configuration
+  agent:
+    # -- Enable agent (must be explicitly enabled)
+    # @section -- Regions configuration
+    enabled: false
+    image:
+      # -- Agent image tag
+      # @section -- Regions configuration
+      tag: ""
+    server:
+      # -- Formance Cloud server address
+      # @section -- Regions configuration
+      address: "app.formance.cloud:443"
+      tls:
+        # -- Enable TLS
+        # @section -- Regions configuration
+        enabled: true
+        # -- Skip TLS verification
+        # @section -- Regions configuration
+        insecureSkipVerify: true
+    agent:
+      # -- Agent ID (region identifier)
+      # @section -- Regions configuration
+      id: ""
+      # -- Base URL for the region
+      # @section -- Regions configuration
+      baseUrl: ""
+      authentication:
+        # -- Authentication mode (bearer, token)
+        # @section -- Regions configuration
+        mode: bearer
+        # -- OAuth issuer
+        # @section -- Regions configuration
+        issuer: "https://app.formance.cloud/api"
+        # -- OAuth client ID
+        # @section -- Regions configuration
+        clientID: ""
+        # -- OAuth client secret
+        # @section -- Regions configuration
+        clientSecret: ""
+
+  # -- Stack versions configuration
+  # @section -- Regions configuration
+  versions:
+    # -- Create version CRDs
+    # @section -- Regions configuration
+    create: true
+    # -- Allow default version
+    # @section -- Regions configuration
+    allowDefaultVersion: false
+  settings: {}
+  stacks: {}
+# =============================================================================
+# CLOUDPREM CONFIGURATION (Control Plane - EE only)
+# Uses global.* values, add overrides here if needed
+# =============================================================================
+cloudprem:
+  portal:
+    config:
+      postgresql:
+        auth:
+          database: "portal"
+  console-v3:
+    config:
+      postgresql:
+        auth:
+          database: "console"
+  membership:
+    # Disable built-in PostgreSQL (use formance top level PostgreSQL instead)
+    postgresql:
+      enabled: false
+
+# =============================================================================
+# POSTGRESQL CONFIGURATION
+# Standalone PostgreSQL used by stacks and membership/dex (EE mode)
+# =============================================================================
+postgresql:
+  # -- Enable standalone PostgreSQL
+  # @section -- PostgreSQL
+  enabled: true
+  # -- PostgreSQL image configuration
+  # @section -- PostgreSQL (Demo)
+  fullnameOverride: "postgresql"
+  nameOverride: ""
+  name: ""

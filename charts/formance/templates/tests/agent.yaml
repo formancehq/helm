@@ -1,0 +1,94 @@
+{{- if .Values.regions.agent.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "formance.fullname" . }}-test-agent
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "formance.fullname" . }}-test-agent
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "formance.fullname" . }}-test-agent
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "formance.fullname" . }}-test-agent
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "formance.fullname" . }}-test-agent
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "formance.fullname" . }}-test-agent
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  serviceAccountName: {{ include "formance.fullname" . }}-test-agent
+  containers:
+    - name: agent-test
+      image: bitnami/kubectl:latest
+      command:
+        - sh
+        - -c
+        - |
+          echo "Testing Agent deployment..."
+          max_attempts=30
+          attempt=0
+
+          deployment_name="{{ .Release.Name }}-agent"
+
+          until kubectl rollout status deployment/$deployment_name -n {{ .Release.Namespace }} --timeout=2s 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+            echo "Waiting for Agent to be ready... (attempt $((attempt+1))/$max_attempts)"
+            attempt=$((attempt+1))
+            sleep 2
+          done
+
+          if [ $attempt -eq $max_attempts ]; then
+            echo "ERROR: Agent is not ready after $max_attempts attempts"
+            kubectl get deployment/$deployment_name -n {{ .Release.Namespace }} -o wide
+            kubectl get pods -n {{ .Release.Namespace }} -l app.kubernetes.io/name=agent
+            exit 1
+          fi
+
+          echo "SUCCESS: Agent is ready"
+{{- end }}

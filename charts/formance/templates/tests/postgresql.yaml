@@ -1,0 +1,43 @@
+{{- if .Values.postgresql.enabled }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "formance.fullname" . }}-test-postgresql
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  containers:
+    - name: postgresql-test
+      image: postgres:16-alpine
+      command:
+        - sh
+        - -c
+        - |
+          echo "Testing PostgreSQL connection..."
+          max_attempts=30
+          attempt=0
+          until pg_isready -h {{ .Values.global.postgresql.host }} -p {{ .Values.global.postgresql.service.ports.postgresql }} -U {{ .Values.global.postgresql.auth.username }} || [ $attempt -eq $max_attempts ]; do
+            echo "Waiting for PostgreSQL to be ready... (attempt $((attempt+1))/$max_attempts)"
+            attempt=$((attempt+1))
+            sleep 2
+          done
+
+          if [ $attempt -eq $max_attempts ]; then
+            echo "ERROR: PostgreSQL is not ready after $max_attempts attempts"
+            exit 1
+          fi
+
+          echo "SUCCESS: PostgreSQL is ready"
+      env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ if .Values.global.postgresql.auth.existingSecret }}{{ .Values.global.postgresql.auth.existingSecret }}{{ else }}postgresql{{ end }}
+              key: {{ if .Values.global.postgresql.auth.secretKeys.userPasswordKey }}{{ .Values.global.postgresql.auth.secretKeys.userPasswordKey }}{{ else }}password{{ end }}
+{{- end }}

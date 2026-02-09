@@ -1,0 +1,128 @@
+#############################################
+#               DEMO (EE,CE)                #
+#############################################
+
+global:
+  exports:
+    stacks: &stacks
+      demo-dev:
+        debug: true
+        versionsFromFile: "v3.1"
+        modules:
+          auth:
+            enableScopes: true
+            delegatedOIDCServer:
+              clientSecret: changeMe
+              # clientSecretFromEnv:
+              issuer: '{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}'
+          gateway: {}
+          ledger: {}
+          stargate: {} # ToFix: remove when portal and console are up to date
+          # payments: {}
+        authClients:
+          fctl:
+            public: true
+      demo-ci:
+        debug: true
+        versionsFromFile: "v3.0"
+        modules:
+          auth:
+            enableScopes: true
+            delegatedOIDCServer:
+              clientSecret: changeMe
+              # clientSecretFromEnv:
+              issuer: '{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}'
+          gateway: {}
+          ledger: {}
+          stargate: {} # ToFix: remove when portal and console are up to date
+
+regions:
+  settings:
+    resource-requests:
+      key: deployments.*.containers.*.resource-requirements.requests
+      value: "cpu=50m,memory=500Mi"
+    replicas:
+      key: deployments.*.replicas
+      value: "2"
+    postgres-uri:
+      key: postgres.*.uri
+      value: 'postgresql://{{ include "resolveGlobalOrServiceValue" (dict "Context" $ "Key" "postgresql.auth.username" "Default" "") }}:{{ include "resolveGlobalOrServiceValue" (dict "Context" $ "Key" "postgresql.auth.password" "Default" "") }}@postgresql.{{ $.Release.Namespace }}.svc:5432?disableSSLMode=true'
+    auth-scopes-enabled:
+      key: "auth.*.check-scopes"
+      value: "true"
+  stacks: *stacks
+
+cloudprem:
+  membership:
+    dex:
+      configOverrides:
+        staticPasswords:
+        - email: support@formance.com
+          # -- static passwords hash
+          # @section -- Dex configuration
+          hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
+          # -- static passwords username
+          # @section -- Dex configuration
+          username: admin
+          # -- static passwords user id
+          # @section -- Dex configuration
+          userID: 08a8684b-user-supp-90a9-3cd1661f5466
+          role: ADMIN
+        - email: admin@formance.com
+          # -- static passwords hash
+          # @section -- Dex configuration
+          hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
+          # -- static passwords username
+          # @section -- Dex configuration
+          username: admin
+          # -- static passwords user id
+          # @section -- Dex configuration
+          userID: 08a8684b-user-admn-90a9-3cd1661f5466
+          role: USER
+    config:
+      minimalStackModules: []
+      wizard:
+        setup: |-
+          users:
+          {{- range $_, $user := .Values.dex.configOverrides.staticPasswords }}
+          - id: {{ $user.userID }}
+            email: {{ $user.email }}
+            role: {{ $user.role }}
+          {{- end }}
+          organizations:
+          - id: demo
+            ownerId: {{ (index .Values.dex.configOverrides.staticPasswords 0).userID }}
+            defaultPolicyId: 1
+            domain: example.com
+            name: demo
+            features:
+            - EnablePrivateRegionsCreation
+          regions:
+          - id: region-1
+            name: dev
+            organizationId: demo
+            baseUrl: https://{{ .Values.global.serviceHost }}
+            versions:
+            {{- range $version, $value := .Values.global.exports.versions.files }}
+            - name: {{ $version }}
+              services:
+                {{- range $service,$version := $value }}
+                {{$service}}: {{$version}}
+                {{- end}}
+            {{- end }}
+          stacks:
+          {{- range $name,$stack := .Values.global.exports.stacks }}
+          {{- $stackName := split "-" $name}}
+          - id: {{$stackName._1}}
+            name: {{$stackName._1}}
+            organizationId: {{$stackName._0}}
+            regionId: region-1
+            version: {{ $stack.versionsFromFile | default "" }}
+            modules:
+            {{- range $module,$_ := $stack.modules }}
+            - {{ $module }}
+            {{- end}}
+            {{- if and (hasKey $stack.modules "auth") (hasKey $stack.modules.auth "delegatedOIDCServer") (hasKey $stack.modules.auth.delegatedOIDCServer "clientSecret") }}
+            clientSecret: {{ $stack.modules.auth.delegatedOIDCServer.clientSecret }}
+            {{- end }}
+          {{- end }}
