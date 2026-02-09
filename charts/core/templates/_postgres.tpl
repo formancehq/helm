@@ -1,3 +1,13 @@
+
+{{- /**DEPRECATED **/}}
+{{- define "core.postgres.job.annotations" -}}
+{{- include "core.job.annotations" . -}}
+{{- end }}
+{{- /**DEPRECATED **/}}
+{{- define "core.postgres.job.sa.annotations" -}}
+{{- include "core.job.annotations" . -}}
+{{- end }}
+
 {{/** 
     This now can be included in every chart folowing:
     It need to be either integrate as one instance or as multiple seperated instances
@@ -61,29 +71,6 @@
   {{- else }}
   value: "postgresql://$(POSTGRES_USERNAME):$(POSTGRES_PASSWORD)@{{ $host }}:{{ $port }}/{{ $database }}{{- if $additionalArgs}}?{{ $additionalArgs }}{{- end -}}"
   {{- end }}
-{{- end }}
-{{- end }}
-
-
-{{/**
-  
-    This way is only reliable when using helm install and helm upgrade.
-    ArgoCD use helm template
-  
-  **/}}
-{{- define "core.postgres.job.annotations" -}}
-{{- if and (not .Release.IsInstall) .Values.feature.migrationHooks }}
-helm.sh/hook: pre-upgrade
-helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
-helm.sh/hook-weight: "10"
-{{- end }}
-{{- end }}
-
-{{- define "core.postgres.job.sa.annotations" -}}
-{{- if and (not .Release.IsInstall) .Values.feature.migrationHooks }}
-helm.sh/hook: pre-upgrade
-helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
-helm.sh/hook-weight: "-10"
 {{- end }}
 {{- end }}
 
