@@ -406,14 +406,19 @@ feature:
   migrationHooks: false
 
 config:
-  # -- Override monitoring configuration
-  # monitoring:
-  #   # -- Override otel service name
-  #   serviceName: "membership"
-  #   # -- Override otel resources attributes
-  #   attributes: ""
-
-  # -- Additional Environment variables on the main deployment
+  wizard:
+    job:
+      annotations: {}
+      labels: {}
+      # -- Seconds after which the wizard Job is eligible for cleanup (e.g. 300)
+      ttlSecondsAfterFinished: 300
+    # -- Wizard bootstrap config (users, organizations, regions, stacks). Rendered under "wizard:" in /config/config.yaml.
+    setup: |-
+      users: []
+      organizations: []
+      regions: []
+      stacks: []
+    # -- Additional Environment variables on the main deployment
   additionalEnv: []
   # -- Enable Fctl
   fctl: true
@@ -611,7 +616,7 @@ dex:
     pullPolicy: IfNotPresent
     # -- image tag
     # @section -- Dex configuration
-    tag: v1.0.4
+    tag: "v2.0.0-beta.2"
 
   ingress:
     # -- Dex ingress enabled
@@ -736,27 +741,9 @@ dex:
       # -- static passwords user id
       # @section -- Dex configuration
       userID: 08a8684b-db88-4b73-90a9-3cd1661f5466
+      role: USER
 
 postgresql:
   # -- Enable postgresql
   # @section -- Postgresql configuration
   enabled: true
-
-  # -- Postgresql fullname override
-  # @section -- Postgresql configuration
-  fullnameOverride: postgresql
-
-  # -- Postgresql architecture
-  # @section -- Postgresql configuration
-  architecture: standalone
-
-  # -- Postgresql primary persistence enabled
-  # @section -- Postgresql configuration
-  primary:
-    persistence:
-      enabled: false
-
-  image:
-    # -- Postgresql image repository
-    # @section -- Postgresql configuration
-    repository: bitnamilegacy/postgresql

@@ -362,6 +362,28 @@
                             }
                         }
                     }
+                },
+                "wizard": {
+                    "type": "object",
+                    "properties": {
+                        "job": {
+                            "type": "object",
+                            "properties": {
+                                "annotations": {
+                                    "type": "object"
+                                },
+                                "labels": {
+                                    "type": "object"
+                                },
+                                "ttlSecondsAfterFinished": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "setup": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
@@ -438,6 +460,9 @@
                                         "type": "string"
                                     },
                                     "hash": {
+                                        "type": "string"
+                                    },
+                                    "role": {
                                         "type": "string"
                                     },
                                     "userID": {
@@ -1006,35 +1031,8 @@
         "postgresql": {
             "type": "object",
             "properties": {
-                "architecture": {
-                    "type": "string"
-                },
                 "enabled": {
                     "type": "boolean"
-                },
-                "fullnameOverride": {
-                    "type": "string"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "repository": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "primary": {
-                    "type": "object",
-                    "properties": {
-                        "persistence": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                }
-                            }
-                        }
-                    }
                 }
             }
         },

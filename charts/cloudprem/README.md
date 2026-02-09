@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.21](https://img.shields.io/badge/Version-4.0.0--beta.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0-beta.22](https://img.shields.io/badge/Version-4.0.0--beta.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -497,22 +497,18 @@ Dex:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | console-v3.postgresql.enabled | bool | `false` | Enable postgresql |
-| membership.postgresql.architecture | string | `"standalone"` | Postgresql architecture |
 | membership.postgresql.enabled | bool | `true` | Enable postgresql |
-| membership.postgresql.fullnameOverride | string | `"postgresql"` | Postgresql fullname override |
-| membership.postgresql.image.repository | string | `"bitnamilegacy/postgresql"` | Postgresql image repository |
-| membership.postgresql.primary | object | `{"persistence":{"enabled":false}}` | Postgresql primary persistence enabled |
 | portal.postgresql.enabled | bool | `false` | Enable postgresql |
 
 ### Dex configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| membership.dex.configOverrides | object | `{"enablePasswordDB":true,"oauth2":{"responseTypes":["code","token","id_token"],"skipApprovalScreen":true},"staticPasswords":[{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}],"storage":{"type":"postgres"}}` | Config override allow template function. Database is setup on the chart global, make sure that user/password when using kubernetes secret |
+| membership.dex.configOverrides | object | `{"enablePasswordDB":true,"oauth2":{"responseTypes":["code","token","id_token"],"skipApprovalScreen":true},"staticPasswords":[{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","role":"USER","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}],"storage":{"type":"postgres"}}` | Config override allow template function. Database is setup on the chart global, make sure that user/password when using kubernetes secret |
 | membership.dex.configOverrides.enablePasswordDB | bool | `true` | enable password db |
 | membership.dex.configOverrides.oauth2.responseTypes | list | `["code","token","id_token"]` | oauth2 response types |
 | membership.dex.configOverrides.oauth2.skipApprovalScreen | bool | `true` | oauth2 skip approval screen |
-| membership.dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
+| membership.dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","role":"USER","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
 | membership.dex.configOverrides.staticPasswords[0].hash | string | `"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"` | static passwords hash |
 | membership.dex.configOverrides.staticPasswords[0].userID | string | `"08a8684b-db88-4b73-90a9-3cd1661f5466"` | static passwords user id |
 | membership.dex.configOverrides.staticPasswords[0].username | string | `"admin"` | static passwords username |
@@ -523,7 +519,7 @@ Dex:
 | membership.dex.envVars | list | `[]` | Dex additional environment variables |
 | membership.dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | membership.dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| membership.dex.image.tag | string | `"v1.0.4"` | image tag |
+| membership.dex.image.tag | string | `"v2.0.0-beta.2"` | image tag |
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
@@ -630,7 +626,7 @@ Dex:
 | membership.annotations | object | `{}` | Membership annotations  |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
-| membership.config.additionalEnv | list | `[]` | Additional Environment variables on the main deployment |
+| membership.config.additionalEnv | list | `[]` |  |
 | membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | membership.config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | membership.config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
@@ -671,6 +667,10 @@ Dex:
 | membership.config.stack.minimalStackModules[0] | string | `"Auth"` |  |
 | membership.config.stack.minimalStackModules[1] | string | `"Ledger"` |  |
 | membership.config.stack.minimalStackModules[2] | string | `"Gateway"` |  |
+| membership.config.wizard.job.annotations | object | `{}` |  |
+| membership.config.wizard.job.labels | object | `{}` |  |
+| membership.config.wizard.job.ttlSecondsAfterFinished | int | `300` | Seconds after which the wizard Job is eligible for cleanup (e.g. 300) |
+| membership.config.wizard.setup | string | `"users: []\norganizations: []\nregions: []\nstacks: []"` | Wizard bootstrap config (users, organizations, regions, stacks). Rendered under "wizard:" in /config/config.yaml. |
 | membership.debug | bool | `false` | Membership debug |
 | membership.dev | bool | `false` | Membership dev, disable ssl verification |
 | membership.fullnameOverride | string | `""` | Membership fullname override |

@@ -19,7 +19,6 @@
 {{- end }}
 
 {{- define "membership.stack.env" }}
-{{- include "membership.stack.cycle" . }}
 - name: STACK_MINIMAL_MODULES
   value: "{{ join " " .Values.config.stack.minimalStackModules}}"
 - name: STACK_ADDITIONAL_DEFAULT_MODULES
@@ -101,6 +100,7 @@
 {{- include "core.monitoring" . }}
 {{- include "membership.grpc.env" . }}
 {{- include "membership.stack.env" . }}
+{{- include "membership.stack.cycle" . }}
 {{- if not .Values.feature.managedStacks }}
 {{- include "core.nats.env" .  }}
 {{- end }}
@@ -151,4 +151,8 @@ staticClients:
     {{ end }}
     redirectURIs:
       - "{{ .Values.global.platform.membership.scheme }}://{{ tpl .Values.global.platform.membership.host $ }}/api/authorize/callback"
+{{- end }}
+
+{{- define "membership.wizard.env" -}}
+{{- include "membership.env" . }}
 {{- end }}
