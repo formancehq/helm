@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "core.fullname" . }}-wizard
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "core.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    wizard:
+    {{- tpl .Values.config.wizard.setup . | nindent 6 }}

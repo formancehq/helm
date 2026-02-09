@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.0.0-beta.8](https://img.shields.io/badge/Version-3.0.0--beta.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.2](https://img.shields.io/badge/AppVersion-v2.0.0--beta.2-informational?style=flat-square)
+![Version: 3.0.0-beta.9](https://img.shields.io/badge/Version-3.0.0--beta.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.3](https://img.shields.io/badge/AppVersion-v2.0.0--beta.3-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -11,7 +11,7 @@ Kubernetes: `>=1.14.0-0`
 |------------|------|---------|
 | file://../core | core | 1.X |
 | https://charts.dexidp.io | dex | 0.17.X |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X.X |
 
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
@@ -122,11 +122,11 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| dex.configOverrides | object | `{"enablePasswordDB":true,"oauth2":{"responseTypes":["code","token","id_token"],"skipApprovalScreen":true},"staticPasswords":[{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}],"storage":{"type":"postgres"}}` | Config override allow template function. Database is setup on the chart global, make sure that user/password when using kubernetes secret |
+| dex.configOverrides | object | `{"enablePasswordDB":true,"oauth2":{"responseTypes":["code","token","id_token"],"skipApprovalScreen":true},"staticPasswords":[{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","role":"USER","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}],"storage":{"type":"postgres"}}` | Config override allow template function. Database is setup on the chart global, make sure that user/password when using kubernetes secret |
 | dex.configOverrides.enablePasswordDB | bool | `true` | enable password db |
 | dex.configOverrides.oauth2.responseTypes | list | `["code","token","id_token"]` | oauth2 response types |
 | dex.configOverrides.oauth2.skipApprovalScreen | bool | `true` | oauth2 skip approval screen |
-| dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
+| dex.configOverrides.staticPasswords[0] | object | `{"email":"admin@formance.com","hash":"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W","role":"USER","userID":"08a8684b-db88-4b73-90a9-3cd1661f5466","username":"admin"}` | static passwords email |
 | dex.configOverrides.staticPasswords[0].hash | string | `"$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"` | static passwords hash |
 | dex.configOverrides.staticPasswords[0].userID | string | `"08a8684b-db88-4b73-90a9-3cd1661f5466"` | static passwords user id |
 | dex.configOverrides.staticPasswords[0].username | string | `"admin"` | static passwords username |
@@ -137,7 +137,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | dex.envVars | list | `[]` | Dex additional environment variables |
 | dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| dex.image.tag | string | `"v1.0.4"` | image tag |
+| dex.image.tag | string | `"v2.0.0-beta.2"` | image tag |
 | dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |
@@ -159,11 +159,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| postgresql.architecture | string | `"standalone"` | Postgresql architecture |
 | postgresql.enabled | bool | `true` | Enable postgresql |
-| postgresql.fullnameOverride | string | `"postgresql"` | Postgresql fullname override |
-| postgresql.image.repository | string | `"bitnamilegacy/postgresql"` | Postgresql image repository |
-| postgresql.primary | object | `{"persistence":{"enabled":false}}` | Postgresql primary persistence enabled |
 
 ### Other Values
 
@@ -189,7 +185,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | annotations | object | `{}` | Membership annotations  |
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |
-| config.additionalEnv | list | `[]` | Additional Environment variables on the main deployment |
+| config.additionalEnv | list | `[]` |  |
 | config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
@@ -230,6 +226,10 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | config.stack.minimalStackModules[0] | string | `"Auth"` |  |
 | config.stack.minimalStackModules[1] | string | `"Ledger"` |  |
 | config.stack.minimalStackModules[2] | string | `"Gateway"` |  |
+| config.wizard.job.annotations | object | `{}` |  |
+| config.wizard.job.labels | object | `{}` |  |
+| config.wizard.job.ttlSecondsAfterFinished | int | `300` | Seconds after which the wizard Job is eligible for cleanup (e.g. 300) |
+| config.wizard.setup | string | `"users: []\norganizations: []\nregions: []\nstacks: []"` | Wizard bootstrap config (users, organizations, regions, stacks). Rendered under "wizard:" in /config/config.yaml. |
 | debug | bool | `false` | Membership debug |
 | dev | bool | `false` | Membership dev, disable ssl verification |
 | fullnameOverride | string | `""` | Membership fullname override |
