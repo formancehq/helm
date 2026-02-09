@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "core.labels" . | nindent 4 }}
-  {{- with merge .Values.config.migration.annotations (include "core.postgres.job.annotations" . | fromYaml) }}
+  {{- with merge .Values.config.migration.annotations (include "core.job.annotations" . | fromYaml) }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
