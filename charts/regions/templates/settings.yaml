@@ -1,0 +1,24 @@
+{{- range $name, $setting := .Values.settings }}
+apiVersion: formance.com/v1beta1
+kind: Settings
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+  annotations:
+  {{- with $.Values.annotations }}
+  {{- . | toYaml | nindent 4 }}
+  {{- end}}
+spec:
+  key: {{ $setting.key }}
+  stacks:
+  {{- if hasKey $setting "stacks" }}
+  {{- range $_,$stack := $setting.stacks }}
+  - {{ tpl $stack $ | quote }}
+  {{- end }}
+  {{- else }}
+  - "*"
+  {{- end }}
+  value: {{ tpl $setting.value $ | quote }}
+---
+{{- end }}

@@ -10,7 +10,7 @@
 | [Core](./charts/core/README.md) | 1.5.0 | latest | Formance Core Library | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/core)](https://artifacthub.io/packages/search?repo=core) |
 | [Membership](./charts/membership/README.md) | 3.0.0-beta.9 | v2.0.0-beta.3 | Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions. | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/membership)](https://artifacthub.io/packages/search?repo=membership) |
 | [Portal](./charts/portal/README.md) | 3.0.0-beta.16 | v2.0.0-beta.10 | Formance Portal | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/portal)](https://artifacthub.io/packages/search?repo=portal) |
-| [Regions](./charts/regions/README.md) | 3.6.9 | latest | Formance Private Regions Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/regions)](https://artifacthub.io/packages/search?repo=regions) |
+| [Regions](./charts/regions/README.md) | 3.7.0 | latest | Formance Private Regions Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/regions)](https://artifacthub.io/packages/search?repo=regions) |
 | [Stargate](./charts/stargate/README.md) | 0.10.0 | latest | Formance EE Stargate gRPC Gateway | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/stargate)](https://artifacthub.io/packages/search?repo=stargate) |
 
 ## How to contribute

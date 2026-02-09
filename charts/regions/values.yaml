@@ -1,5 +1,7 @@
 global:
-  # Add your license information
+  # Only for managed stacks within this chart
+  serviceHost: ""
+  # Add your license information 
   licence:
     # -- Licence Secret with label `formance.com/stack: any`
     # @section -- Licence configuration
@@ -45,7 +47,7 @@ operator:
   # Then you will be able to disable it and moved to the new chart `components/operator/helm/operator-crds`
   # If using Helm Release, you will need to set `meta.helm.sh/release-name` and `meta.helm.sh/release-namespace` to the new relase name and namespace on all CRDs from Group: formance.com
   operator-crds:
-    create: true
+    create: false
 
 agent:
   enabled: false
@@ -67,6 +69,9 @@ agent:
       issuer: https://app.formance.cloud/api
       clientID: "REGION_ID"
       clientSecret: ""
+
+fullnameOverride: ""
+nameOverride: ""
 
 versions:
   create: true
@@ -160,3 +165,26 @@ versions:
       gateway: v2.2.0
       orchestration: v2.4.0
       reconciliation: v2.2.0
+
+settings: {}
+  # replicas:
+  #   key: "deployments.*.replicas"
+  #   value: "3"
+stacks: {}
+  # demo-dev:
+  #   debug: true
+  #   versionsFromFile: "v3.1"
+  #   modules:
+  #     auth:
+  #       enableScopes: true
+  #       delegatedOIDCServer:
+  #         clientSecret: changeMe
+  #         # clientSecretFromEnv:
+  #         issuer: 'https://membership.{{ .Values.global.serviceHost }}/api'
+  #     gateway: {}
+  #     ledger: {}
+  #     stargate: {} # ToFix: remove when portal and console are up to date
+  #     # payments: {}
+  #   authClients:
+  #     fctl:
+  #       public: true

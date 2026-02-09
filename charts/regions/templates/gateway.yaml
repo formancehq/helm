@@ -1,0 +1,27 @@
+{{- range $name, $stack := .Values.stacks }}
+{{- if hasKey $stack.modules "gateway" }}
+{{- $gateway := $stack.modules.gateway }}
+apiVersion: formance.com/v1beta1
+kind: Gateway
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+  annotations:
+  {{- with $.Values.annotations }}
+  {{- . | toYaml | nindent 4 }}
+  {{- end}}
+spec:
+  stack: {{ $name }}
+  {{- if not (hasKey $gateway "ingress")}}
+  {{- $gateway = omit $gateway "ingress" }} 
+  ingress:
+    host: {{ $name }}.{{ $.Values.global.serviceHost }}
+    scheme: https
+  {{- end }}
+  {{- with $gateway }}
+  {{ tpl (. | toYaml) $ | nindent 2 }}
+  {{- end -}} 
+{{- end }}
+---
+{{- end }}

@@ -1,0 +1,21 @@
+{{- range $name, $stack := .Values.stacks }}
+{{- if hasKey $stack.modules "payments" }}
+{{- $payments := $stack.modules.payments }}
+apiVersion: formance.com/v1beta1
+kind: Payments
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+  annotations:
+  {{- with $.Values.annotations }}
+  {{- . | toYaml | nindent 4 }}
+  {{- end}}
+spec:
+  stack: {{ $name }}
+  {{- with $payments }}
+  {{ tpl (. | toYaml) $ | nindent 2 }}
+  {{- end }}
+{{- end }}
+---
+{{- end }}

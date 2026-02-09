@@ -1,0 +1,34 @@
+{{- range $name, $stack := .Values.stacks }}
+{{- if hasKey $stack.modules "auth" }}
+{{- $auth := $stack.modules.auth }}
+apiVersion: formance.com/v1beta1
+kind: Auth
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+  annotations:
+  {{- with $.Values.annotations }}
+  {{- . | toYaml | nindent 4 }}
+  {{- end}}
+spec:
+  stack: {{ $name }}
+  {{-  if hasKey $auth "delegatedOIDCServer" }}
+  {{- $value := $auth.delegatedOIDCServer }}
+  delegatedOIDCServer:
+    clientID: stack_{{ $name | replace "-" "_" }}
+    {{ if hasKey $value "clientSecretFromEnv" }}
+    clientSecretFromSecret: {{$value.clientSecretFromEnv}}
+    {{- else }}
+    clientSecret: {{$value.clientSecret}}
+    {{- end }}
+    issuer: {{ tpl $value.issuer $ }}
+  {{- $auth = omit $auth "delegatedOIDCServer" -}}
+  {{- end }}
+  {{- with $auth }}
+  {{ tpl ($auth | toYaml) $ | nindent 2 }}
+  {{- end -}}
+{{- end }}
+---
+
+{{- end }}
