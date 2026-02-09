@@ -1,0 +1,157 @@
+{{- if and .Values.tags.EntrepriseEdition (index .Values "global" "platform" "membership" "enabled" | default true) }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "formance.fullname" . }}-test-membership
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "formance.fullname" . }}-test-membership
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "formance.fullname" . }}-test-membership
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "formance.fullname" . }}-test-membership
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "formance.fullname" . }}-test-membership
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "formance.fullname" . }}-test-membership
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "4"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  serviceAccountName: {{ include "formance.fullname" . }}-test-membership
+  containers:
+    - name: membership-test
+      image: bitnami/kubectl:latest
+      command:
+        - sh
+        - -c
+        - |
+          echo "Testing Membership component..."
+          max_attempts=30
+          attempt=0
+
+          # Check migration job if it exists
+          migration_job="{{ .Release.Name }}-membership"
+          if kubectl get job/$migration_job -n {{ .Release.Namespace }} 2>/dev/null; then
+            echo "Found migration job: $migration_job"
+            echo "Waiting for migration job to complete..."
+
+            until kubectl wait --for=condition=complete --timeout=2s job/$migration_job -n {{ .Release.Namespace }} 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+              job_status=$(kubectl get job/$migration_job -n {{ .Release.Namespace }} -o jsonpath='{.status.conditions[?(@.type=="Failed")].status}' 2>/dev/null)
+              if [ "$job_status" = "True" ]; then
+                echo "ERROR: Migration job failed"
+                kubectl describe job/$migration_job -n {{ .Release.Namespace }}
+                kubectl logs -l job-name=$migration_job -n {{ .Release.Namespace }} --tail=50
+                exit 1
+              fi
+              echo "Waiting for migration job to complete... (attempt $((attempt+1))/$max_attempts)"
+              attempt=$((attempt+1))
+              sleep 2
+            done
+
+            if [ $attempt -eq $max_attempts ]; then
+              echo "ERROR: Migration job did not complete after $max_attempts attempts"
+              kubectl describe job/$migration_job -n {{ .Release.Namespace }}
+              exit 1
+            fi
+
+            echo "SUCCESS: Migration job completed"
+            attempt=0
+          fi
+
+          # Check wizard job if it exists
+          wizard_job="{{ .Release.Name }}-membership-wizard"
+          if kubectl get job/$wizard_job -n {{ .Release.Namespace }} 2>/dev/null; then
+            echo "Found wizard job: $wizard_job"
+            echo "Waiting for wizard job to complete..."
+
+            until kubectl wait --for=condition=complete --timeout=2s job/$wizard_job -n {{ .Release.Namespace }} 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+              job_status=$(kubectl get job/$wizard_job -n {{ .Release.Namespace }} -o jsonpath='{.status.conditions[?(@.type=="Failed")].status}' 2>/dev/null)
+              if [ "$job_status" = "True" ]; then
+                echo "ERROR: Wizard job failed"
+                kubectl describe job/$wizard_job -n {{ .Release.Namespace }}
+                kubectl logs -l job-name=$wizard_job -n {{ .Release.Namespace }} --tail=50
+                exit 1
+              fi
+              echo "Waiting for wizard job to complete... (attempt $((attempt+1))/$max_attempts)"
+              attempt=$((attempt+1))
+              sleep 2
+            done
+
+            if [ $attempt -eq $max_attempts ]; then
+              echo "ERROR: Wizard job did not complete after $max_attempts attempts"
+              kubectl describe job/$wizard_job -n {{ .Release.Namespace }}
+              exit 1
+            fi
+
+            echo "SUCCESS: Wizard job completed"
+            attempt=0
+          fi
+
+          # Check deployment
+          deployment_name="{{ .Release.Name }}-membership"
+          echo "Checking deployment: $deployment_name"
+
+          until kubectl rollout status deployment/$deployment_name -n {{ .Release.Namespace }} --timeout=2s 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+            echo "Waiting for Membership deployment to be ready... (attempt $((attempt+1))/$max_attempts)"
+            attempt=$((attempt+1))
+            sleep 2
+          done
+
+          if [ $attempt -eq $max_attempts ]; then
+            echo "ERROR: Membership deployment is not ready after $max_attempts attempts"
+            kubectl get deployment/$deployment_name -n {{ .Release.Namespace }} -o wide
+            kubectl describe deployment/$deployment_name -n {{ .Release.Namespace }}
+            exit 1
+          fi
+
+          echo "SUCCESS: Membership is fully ready"
+{{- end }}

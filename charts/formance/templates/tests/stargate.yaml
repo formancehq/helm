@@ -1,0 +1,94 @@
+{{- if and .Values.tags.EntrepriseEdition .Values.global.platform.stargate.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "formance.fullname" . }}-test-stargate
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "formance.fullname" . }}-test-stargate
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "formance.fullname" . }}-test-stargate
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "formance.fullname" . }}-test-stargate
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "formance.fullname" . }}-test-stargate
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "formance.fullname" . }}-test-stargate
+  labels:
+    {{- include "formance.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "4"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  serviceAccountName: {{ include "formance.fullname" . }}-test-stargate
+  containers:
+    - name: stargate-test
+      image: bitnami/kubectl:latest
+      command:
+        - sh
+        - -c
+        - |
+          echo "Testing Stargate deployment..."
+          max_attempts=30
+          attempt=0
+
+          deployment_name="{{ .Release.Name }}-stargate"
+
+          until kubectl rollout status deployment/$deployment_name -n {{ .Release.Namespace }} --timeout=2s 2>/dev/null || [ $attempt -eq $max_attempts ]; do
+            echo "Waiting for Stargate to be ready... (attempt $((attempt+1))/$max_attempts)"
+            attempt=$((attempt+1))
+            sleep 2
+          done
+
+          if [ $attempt -eq $max_attempts ]; then
+            echo "ERROR: Stargate is not ready after $max_attempts attempts"
+            kubectl get deployment/$deployment_name -n {{ .Release.Namespace }} -o wide
+            kubectl describe deployment/$deployment_name -n {{ .Release.Namespace }}
+            exit 1
+          fi
+
+          echo "SUCCESS: Stargate is ready"
+{{- end }}
