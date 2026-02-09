@@ -65,6 +65,9 @@
                 }
             }
         },
+        "fullnameOverride": {
+            "type": "string"
+        },
         "global": {
             "type": "object",
             "properties": {
@@ -95,8 +98,14 @@
                             "type": "string"
                         }
                     }
+                },
+                "serviceHost": {
+                    "type": "string"
                 }
             }
+        },
+        "nameOverride": {
+            "type": "string"
         },
         "operator": {
             "type": "object",
@@ -153,6 +162,12 @@
                     }
                 }
             }
+        },
+        "settings": {
+            "type": "object"
+        },
+        "stacks": {
+            "type": "object"
         },
         "versions": {
             "type": "object",

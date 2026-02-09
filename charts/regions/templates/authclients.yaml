@@ -1,0 +1,23 @@
+{{- range $name, $stack := .Values.stacks }}
+{{- if hasKey $stack "authClients" }}
+{{- range $clientName,$client := $stack.authClients }}
+apiVersion: formance.com/v1beta1
+kind: AuthClient
+metadata:
+  name: {{ $name }}-{{ $clientName }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+  annotations:
+  {{- with $.Values.annotations }}
+  {{- . | toYaml | nindent 4 }}
+  {{- end}}
+spec:
+  stack: {{ $name }}
+  id: {{ $clientName }}
+  {{- with $client }}
+  {{ tpl (. | toYaml) $ | nindent 2 }}
+  {{- end }}
+{{- end }}
+---
+{{- end }}
+{{- end }}

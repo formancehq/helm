@@ -1,0 +1,19 @@
+{{- range $name, $stack := .Values.stacks }}
+{{- $stackValues := omit $stack "modules" "authClients" }}
+apiVersion: formance.com/v1beta1
+kind: Stack
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+  annotations:
+  {{- with $.Values.annotations }}
+  {{- . | toYaml | nindent 4 }}
+  {{- end}}
+spec:
+  stack: {{ $name }}
+  {{- with $stackValues }}
+  {{ tpl (. | toYaml) $ | nindent 2 }}
+  {{- end }}
+---
+{{- end }}

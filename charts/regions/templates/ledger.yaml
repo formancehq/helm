@@ -1,0 +1,21 @@
+{{- range $name, $stack := .Values.stacks }}
+{{- if hasKey $stack.modules "ledger" }}
+{{- $ledger := $stack.modules.ledger }}
+apiVersion: formance.com/v1beta1
+kind: Ledger
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+  annotations:
+  {{- with $.Values.annotations }}
+  {{- . | toYaml | nindent 4 }}
+  {{- end}}
+spec:
+  stack: {{ $name }}
+  {{- with $ledger }}
+  {{ tpl (. | toYaml) $ | nindent 2 }}
+  {{- end }}
+{{- end }}
+---
+{{- end }}

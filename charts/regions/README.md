@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.6.9](https://img.shields.io/badge/Version-3.6.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.7.0](https://img.shields.io/badge/Version-3.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -8,6 +8,7 @@ Formance Private Regions Helm Chart
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../agent | agent | 2.X |
+| file://../core | core | 1.X |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
 ## Maintainers
@@ -63,6 +64,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.serviceHost | string | `""` |  |
 | global.serviceName | string | `"agent"` | TORework |
 | agent.agent.authentication.clientID | string | `"REGION_ID"` |  |
 | agent.agent.authentication.clientSecret | string | `""` |  |
@@ -75,18 +77,22 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.address | string | `"app.formance.cloud:443"` |  |
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
+| fullnameOverride | string | `""` |  |
+| nameOverride | string | `""` |  |
 | operator.enabled | bool | `true` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
 | operator.image.tag | string | `""` |  |
 | operator.nameOverride | string | `"operator"` |  |
-| operator.operator-crds.create | bool | `true` |  |
+| operator.operator-crds.create | bool | `false` |  |
 | operator.operator.disableWebhooks | bool | `false` |  |
 | operator.operator.enableLeaderElection | bool | `true` |  |
 | operator.operator.env | string | `"private"` |  |
 | operator.operator.metricsAddr | string | `":8080"` |  |
 | operator.operator.probeAddr | string | `":8081"` |  |
 | operator.operator.region | string | `"private"` |  |
+| settings | object | `{}` |  |
+| stacks | object | `{}` |  |
 | versions.allowDefaultVersion | bool | `false` |  |
 | versions.create | bool | `true` |  |
 | versions.files."v1.0".auth | string | `"v0.4.4"` |  |
