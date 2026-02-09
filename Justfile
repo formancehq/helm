@@ -8,24 +8,10 @@ pre-commit: helm-all template-readme
 pc: pre-commit
 
 lint:
-  #!/bin/bash
-  set -euo pipefail
-  pushd ./tools/readme
-  golangci-lint run --fix --timeout 5m
-  popd
-  pushd ./test/helm
-  golangci-lint run --fix --timeout 5m
-  popd
+  @cd ./tools/readme && golangci-lint run --fix --timeout 5m
 
 tidy: lint
-  #!/bin/bash
-  set -euo pipefail
-  pushd ./tools/readme
-  go mod tidy
-  popd
-  pushd ./test/helm
-  go mod tidy
-  popd
+  @cd ./tools/readme && go mod tidy
 
 helm-schema-install:
   helm plugin uninstall schema || true
@@ -68,11 +54,6 @@ template-readme: tidy
   go run ./ \
     --template-file contributing.tpl > ../../CONTRIBUTING.md
   popd
-
-tests args='': tidy
-  #!/bin/bash
-  pushd ./test/helm
-  go test ./... -race
 
 helm-update path='' args='': helm-login
   #!/bin/bash
