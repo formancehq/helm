@@ -103,6 +103,18 @@ Region: Private (self-hosted)
 List all stacks:
   kubectl get stacks
 
+{{- if and .Values.regions.stacks (not .Values.tags.EntrepriseEdition) }}
+
+Port-forward:
+{{- range $name, $config := .Values.regions.stacks }}
+{{- if $config.modules }}
+{{- if hasKey $config.modules "gateway" }}
+  kubectl port-forward -n {{ $name }} svc/gateway 8080:8080
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+
 {{- if not .Values.regions.stacks }}
 
 Create a new stack:

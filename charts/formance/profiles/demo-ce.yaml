@@ -1,0 +1,38 @@
+#############################################
+#            DEMO (CE only)                 #
+#############################################
+#
+# Community Edition demo profile.
+# Deploys stacks with CE modules only (no auth, no stargate).
+#
+# Usage:
+#   helm install formance formance/formance \
+#     -f profiles/ce-minimal.yaml \
+#     -f profiles/demo-ce.yaml
+#
+#############################################
+
+global:
+  serviceHost: "formance.localhost"
+  exports:
+    stacks: &stacks
+      demo-demo:
+        debug: true
+        versionsFromFile: "v3.1"
+        modules:
+          gateway: {}
+          ledger: {}
+          # payments: {}
+
+regions:
+  settings:
+    resource-requests:
+      key: deployments.*.containers.*.resource-requirements.requests
+      value: "cpu=50m,memory=500Mi"
+    replicas:
+      key: deployments.*.replicas
+      value: "2"
+    postgres-uri:
+      key: postgres.*.uri
+      value: 'postgresql://{{ include "resolveGlobalOrServiceValue" (dict "Context" $ "Key" "postgresql.auth.username" "Default" "") }}:{{ include "resolveGlobalOrServiceValue" (dict "Context" $ "Key" "postgresql.auth.password" "Default" "") }}@postgresql.{{ $.Release.Namespace }}.svc:5432?disableSSLMode=true'
+  stacks: *stacks
