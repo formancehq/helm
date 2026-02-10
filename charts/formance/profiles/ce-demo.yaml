@@ -8,7 +8,7 @@
 # Usage:
 #   helm install formance formance/formance \
 #     -f profiles/ce-minimal.yaml \
-#     -f profiles/demo-ce.yaml
+#     -f profiles/ce-demo.yaml
 #
 #############################################
 

@@ -13,7 +13,7 @@
 # Usage:
 #   helm install formance formance/formance \
 #     -f profiles/ee-minimal.yaml \
-#     -f profiles/demo-ee.yaml \
+#     -f profiles/ee-demo.yaml \
 #     --set global.serviceHost=formance.example.com \
 #     --set global.licence.clusterID=xxx \
 #     --set global.licence.token=yyy
