@@ -23,7 +23,7 @@
 global:
   exports:
     stacks: &stacks
-      demo-dev:
+      demo-demo:
         debug: true
         versionsFromFile: "v3.1"
         modules:
@@ -35,24 +35,9 @@ global:
               issuer: '{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}'
           gateway: {}
           ledger: {}
-          stargate: {} # ToFix: remove when portal and console are up to date
-          # payments: {}
         authClients:
           fctl:
             public: true
-      demo-ci:
-        debug: true
-        versionsFromFile: "v3.0"
-        modules:
-          auth:
-            enableScopes: true
-            delegatedOIDCServer:
-              clientSecret: changeMe
-              # clientSecretFromEnv:
-              issuer: '{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}'
-          gateway: {}
-          ledger: {}
-          stargate: {} # ToFix: remove when portal and console are up to date
 
 regions:
   settings:
@@ -68,11 +53,70 @@ regions:
     auth-scopes-enabled:
       key: "auth.*.check-scopes"
       value: "true"
+    gateway-ingress-annotations:
+      key: "gateway.ingress.annotations"
+      value: "cert-manager.io/cluster-issuer=zerossl"
+    gateway-ingress-tls:
+      key: "gateway.ingress.tls.enabled"
+      value: "true"
   stacks: *stacks
 
 cloudprem:
+  console-v3:
+    feature:
+      migrationHooks: false
+      ttlSecondsAfterFinished: 300
+    ingress:
+      annotations:
+        cert-manager.io/cluster-issuer: "zerossl"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
+        nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "24k"
+      tls:
+      - hosts:
+        - "{{ tpl .Values.global.platform.consoleV3.host $ }}"
+        secretName: console-certificate
+  portal:
+    feature:
+      migrationHooks: false
+      ttlSecondsAfterFinished: 300
+    ingress:
+      annotations:
+        cert-manager.io/cluster-issuer: "zerossl"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
+        nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "24k"
+      tls:
+      - hosts:
+        - "{{ tpl .Values.global.platform.portal.host $ }}"
+        secretName: portal-certificate
   membership:
+    feature:
+      migrationHooks: false
+      ttlSecondsAfterFinished: 300
+    ingress:
+      annotations:
+        cert-manager.io/cluster-issuer: "zerossl"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
+        nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "24k"
+      tls:
+      - hosts:
+        - "{{ tpl .Values.global.platform.membership.host $ }}"
+        secretName: membership-certificate
     dex:
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: "zerossl"
+        hosts:
+        - host: "dex.{{ .Values.global.serviceHost }}"
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "dex.{{ .Values.global.serviceHost }}"
+          secretName: dex-certificate
       configOverrides:
         staticPasswords:
           - email: support@formance.com
