@@ -23,7 +23,7 @@
 global:
   exports:
     stacks: &stacks
-      demo-dev:
+      demo-demo:
         debug: true
         versionsFromFile: "v3.1"
         modules:
@@ -40,19 +40,6 @@ global:
         authClients:
           fctl:
             public: true
-      demo-ci:
-        debug: true
-        versionsFromFile: "v3.0"
-        modules:
-          auth:
-            enableScopes: true
-            delegatedOIDCServer:
-              clientSecret: changeMe
-              # clientSecretFromEnv:
-              issuer: '{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}'
-          gateway: {}
-          ledger: {}
-          stargate: {} # ToFix: remove when portal and console are up to date
 
 regions:
   settings:
