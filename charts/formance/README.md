@@ -26,6 +26,46 @@ Kubernetes: `>=1.14.0-0`
 | file://../regions | regions | >=3.0.0-0 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X.X |
 
+## Profiles
+
+Pre-configured value files are available in the `profiles/` directory to simplify deployment.
+
+### Community Edition (CE)
+
+| Profile | Description | Usage |
+|---------|-------------|-------|
+| `ce-minimal.yaml` | Operator only, no stacks | `-f profiles/ce-minimal.yaml` |
+| `ce-demo.yaml` | Single demo stack with Gateway + Ledger | `-f profiles/ce-minimal.yaml -f profiles/ce-demo.yaml` |
+
+**Quick start (CE):**
+
+```bash
+helm install formance formance/formance \
+  -f profiles/ce-minimal.yaml \
+  -f profiles/ce-demo.yaml
+```
+
+### Enterprise Edition (EE)
+
+| Profile | Description | Usage |
+|---------|-------------|-------|
+| `ee-minimal.yaml` | Operator + Control Plane (requires licence) | `-f profiles/ee-minimal.yaml` |
+| `ee-demo.yaml` | Demo stacks with Auth, Stargate, Dex users | `-f profiles/ee-minimal.yaml -f profiles/ee-demo.yaml` |
+
+**Quick start (EE):**
+
+```bash
+# Get your cluster ID
+kubectl get ns kube-system -o jsonpath='{.metadata.uid}'
+
+helm install formance formance/formance \
+  -f profiles/ee-minimal.yaml \
+  -f profiles/ee-demo.yaml \
+  --set global.serviceHost=formance.example.com \
+  --set global.licence.clusterID=<cluster-id> \
+  --set global.licence.token=<licence-token>
+```
+
 ## Values
 
 ### AWS configuration
