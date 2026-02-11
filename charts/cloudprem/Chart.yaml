@@ -7,17 +7,17 @@ description: |-
 home: "https://formance.com"
 
 maintainers:
-- name: "Formance Team"
-  email: "support@formance.com"
+  - name: "Formance Team"
+    email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 keywords:
-- cloudprem
-- oidc
-- portal
-- membership
-- dex
-- portal
+  - cloudprem
+  - oidc
+  - portal
+  - membership
+  - dex
+  - portal
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -32,7 +32,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 4.0.0-beta.22
+version: 4.0.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -42,18 +42,18 @@ appVersion: "latest"
 
 kubeVersion: ">=1.14.0-0"
 sources:
-- "https://github.com/formancehq/helm/charts/cloudprem"
+  - "https://github.com/formancehq/helm/charts/cloudprem"
 
 dependencies:
-- name: membership
-  version: 3.0.X-X
-  repository: file://../membership
-  condition: global.platform.membership.enabled
-- name: portal
-  version: 3.0.X-X
-  repository: file://../portal
-  condition: global.platform.portal.enabled
-- name: console-v3
-  version: 3.0.X-X
-  repository: file://../console-v3
-  condition: global.platform.consoleV3.enabled
+  - name: membership
+    version: 3.0.X-X
+    repository: file://../membership
+    condition: global.platform.membership.enabled
+  - name: portal
+    version: 3.0.X-X
+    repository: file://../portal
+    condition: global.platform.portal.enabled
+  - name: console-v3
+    version: 3.0.X-X
+    repository: file://../console-v3
+    condition: global.platform.consoleV3.enabled

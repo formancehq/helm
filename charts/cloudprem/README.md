@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.0-beta.22](https://img.shields.io/badge/Version-4.0.0--beta.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -519,7 +519,7 @@ Dex:
 | membership.dex.envVars | list | `[]` | Dex additional environment variables |
 | membership.dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | membership.dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| membership.dex.image.tag | string | `"v2.0.0-beta.2"` | image tag |
+| membership.dex.image.tag | string | `"v2.0.0"` | image tag |
 | membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
@@ -623,7 +623,7 @@ Dex:
 | console-v3.volumeMounts | list | `[]` | Console volume mounts |
 | console-v3.volumes | list | `[]` | Console volumes |
 | membership.affinity | object | `{}` | Membership affinity |
-| membership.annotations | object | `{}` | Membership annotations  |
+| membership.annotations | object | `{}` | Membership annotations |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | membership.config.additionalEnv | list | `[]` |  |

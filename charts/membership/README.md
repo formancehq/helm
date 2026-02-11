@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.0.0-beta.9](https://img.shields.io/badge/Version-3.0.0--beta.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.3](https://img.shields.io/badge/AppVersion-v2.0.0--beta.3-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -114,7 +114,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 |-----|------|---------|-------------|
 | global.licence.clusterID | string | `""` | Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'` |
 | global.licence.existingSecret | string | `""` | Licence Client Token as a secret |
-| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment  |
+| global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment |
 | global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
 | global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
@@ -137,7 +137,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | dex.envVars | list | `[]` | Dex additional environment variables |
 | dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| dex.image.tag | string | `"v2.0.0-beta.2"` | image tag |
+| dex.image.tag | string | `"v2.0.0"` | image tag |
 | dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | dex.ingress.className | string | `""` | Dex ingress class name |
 | dex.ingress.enabled | bool | `true` | Dex ingress enabled |
@@ -182,7 +182,7 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.stargate.serverURL | string | `""` |  |
 | global.platform.stargate.tls.disable | bool | `false` |  |
 | affinity | object | `{}` | Membership affinity |
-| annotations | object | `{}` | Membership annotations  |
+| annotations | object | `{}` | Membership annotations |
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |
 | config.additionalEnv | list | `[]` |  |
