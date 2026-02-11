@@ -23,7 +23,7 @@
 global:
   exports:
     stacks: &stacks
-      demo-demo:
+      demo-dev:
         debug: true
         versionsFromFile: "v3.1"
         modules:

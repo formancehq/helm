@@ -18,12 +18,12 @@ Formance Platform - Unified Helm Chart
 
 ## Requirements
 
-Kubernetes: `>=1.14.0-0`
+Kubernetes: `>=1.14.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../cloudprem | cloudprem | >=4.0.0-0 |
-| file://../regions | regions | >=3.0.0-0 |
+| file://../cloudprem | cloudprem | >=4.0.0 |
+| file://../regions | regions | >=3.0.0 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X.X |
 
 ## Values

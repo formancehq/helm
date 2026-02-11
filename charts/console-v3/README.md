@@ -18,7 +18,7 @@ Formance Console
 
 ## Requirements
 
-Kubernetes: `>=1.14.0-0`
+Kubernetes: `>=1.14.0`
 
 | Repository | Name | Version |
 |------------|------|---------|

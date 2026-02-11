@@ -40,20 +40,20 @@ version: 4.0.0
 # It is recommended to use it with quotes.
 appVersion: "latest"
 
-kubeVersion: ">=1.14.0-0"
+kubeVersion: ">=1.14.0"
 sources:
   - "https://github.com/formancehq/helm/charts/cloudprem"
 
 dependencies:
   - name: membership
-    version: 3.0.X-X
+    version: 3.0.X
     repository: file://../membership
     condition: global.platform.membership.enabled
   - name: portal
-    version: 3.0.X-X
+    version: 3.0.X
     repository: file://../portal
     condition: global.platform.portal.enabled
   - name: console-v3
-    version: 3.0.X-X
+    version: 3.0.X
     repository: file://../console-v3
     condition: global.platform.consoleV3.enabled

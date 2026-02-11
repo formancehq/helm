@@ -9,13 +9,13 @@ Formance control-plane
 
 ## Requirements
 
-Kubernetes: `>=1.14.0-0`
+Kubernetes: `>=1.14.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../console-v3 | console-v3 | 3.0.X-X |
-| file://../membership | membership | 3.0.X-X |
-| file://../portal | portal | 3.0.X-X |
+| file://../console-v3 | console-v3 | 3.0.X |
+| file://../membership | membership | 3.0.X |
+| file://../portal | portal | 3.0.X |
 
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))

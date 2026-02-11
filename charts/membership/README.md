@@ -5,7 +5,7 @@ Formance EE Membership API. Manage stacks, organizations, regions, invitations, 
 
 ## Requirements
 
-Kubernetes: `>=1.14.0-0`
+Kubernetes: `>=1.14.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
