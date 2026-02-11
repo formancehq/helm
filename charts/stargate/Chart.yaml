@@ -33,5 +33,5 @@ dependencies:
   repository: file://../core
 - name: postgresql
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 15.5.X
+  version: 15.X
   condition: postgresql.enabled

@@ -46,14 +46,14 @@ sources:
 
 dependencies:
   - name: membership
-    version: 3.0.X
+    version: 3.X
     repository: file://../membership
     condition: global.platform.membership.enabled
   - name: portal
-    version: 3.0.X
+    version: 3.X
     repository: file://../portal
     condition: global.platform.portal.enabled
   - name: console-v3
-    version: 3.0.X
+    version: 3.X
     repository: file://../console-v3
     condition: global.platform.consoleV3.enabled
