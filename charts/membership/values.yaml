@@ -6,12 +6,12 @@ global:
   # @section -- Global configuration
   serviceHost: ""
 
-  # Add your license information 
+  # Add your license information
   licence:
     # -- Obtain your licence cluster id with `kubectl get ns kube-system -o jsonpath='{.metadata.uid}'`
     # @section -- Licence configuration
     clusterID: ""
-    # -- Licence Environment 
+    # -- Licence Environment
     # @section -- Licence configuration
     issuer: "https://license.formance.cloud/keys"
     # -- Licence Client Token delivered by contacting [Formance](https://formance.com)
@@ -54,10 +54,10 @@ global:
           # -- is the name of the secret
           # @section -- Global configuration
           scopes:
-          - accesses
-          - remember_me
-          - keep_refresh_token
-          - on_behalf
+            - accesses
+            - remember_me
+            - keep_refresh_token
+            - on_behalf
           existingSecret: ""
           # -- is the key contained within the secret
           # @section -- Global configuration
@@ -88,10 +88,10 @@ global:
           # -- is the name of the secret
           # @section -- Global configuration
           scopes:
-          - accesses
-          - remember_me
-          - keep_refresh_token
-          - on_behalf
+            - accesses
+            - remember_me
+            - keep_refresh_token
+            - on_behalf
           existingSecret: ""
           # -- is the key contained within the secret
           # @section -- Global configuration
@@ -277,7 +277,7 @@ securityContext:
   # -- Membership security context capabilities drop
   capabilities:
     drop:
-    - ALL
+      - ALL
   # -- Membership security context read only root filesystem
   readOnlyRootFilesystem: true
   # -- Membership security context run as non root
@@ -326,7 +326,7 @@ initContainers: []
 # -- Membership volume mounts
 volumeMounts: []
 
-# -- Membership annotations 
+# -- Membership annotations
 annotations: {}
 
 # -- Membership volumes
@@ -361,13 +361,13 @@ ingress:
   # -- Membership ingress labels
   labels: {}
   hosts:
-  # -- Membership ingress host
-  - host: "{{ tpl .Values.global.platform.membership.host $ }}"
-    paths:
-    # -- Membership ingress path
-    - path: /api
-      # -- Membership ingress path type
-      pathType: Prefix
+    # -- Membership ingress host
+    - host: "{{ tpl .Values.global.platform.membership.host $ }}"
+      paths:
+        # -- Membership ingress path
+        - path: /api
+          # -- Membership ingress path type
+          pathType: Prefix
   # -- Membership ingress tls
   tls: []
     # -- Membership ingress tls secret name
@@ -433,10 +433,10 @@ config:
     clientSecret: "changeMe"
     # -- Membership oidc redirect uri
     scopes:
-    - openid
-    - email
-    # -- Membership Dex federated id scope
-    - federated:id
+      - openid
+      - email
+      # -- Membership Dex federated id scope
+      - federated:id
     # -- Membership oidc existing secret
     existingSecret: ""
     # -- Membership oidc secret key
@@ -481,13 +481,13 @@ config:
   stack:
     # Modules created by default on a stack and can't be disabled, enabled
     minimalStackModules:
-    - Auth
-    - Ledger
-    - Gateway
+      - Auth
+      - Ledger
+      - Gateway
     # Modules provided by default but can be disabled, enabled
     additionalModules:
-    - Payments
-    - Stargate
+      - Payments
+      - Stargate
 
     cycle:
       dryRun: true
@@ -616,7 +616,7 @@ dex:
     pullPolicy: IfNotPresent
     # -- image tag
     # @section -- Dex configuration
-    tag: "v2.0.0-beta.2"
+    tag: "v2.0.0"
 
   ingress:
     # -- Dex ingress enabled
@@ -629,17 +629,17 @@ dex:
     # @section -- Dex configuration
     annotations: {}
     hosts:
-    # -- Dex ingress host
-    # @section -- Dex configuration
-    - host: "{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"
-      paths:
-      # -- Dex ingress path
+      # -- Dex ingress host
       # @section -- Dex configuration
-      # refer to .Values.global.platform.membership.relyingParty.host.path
-      - path: "/"
-        # -- Dex ingress path type
-        # @section -- Dex configuration
-        pathType: Prefix
+      - host: "{{ tpl .Values.global.platform.membership.relyingParty.host $ }}"
+        paths:
+          # -- Dex ingress path
+          # @section -- Dex configuration
+          # refer to .Values.global.platform.membership.relyingParty.host.path
+          - path: "/"
+            # -- Dex ingress path type
+            # @section -- Dex configuration
+            pathType: Prefix
     # -- Dex ingress tls
     # @section -- Dex configuration
     tls: []
@@ -720,28 +720,28 @@ dex:
       # -- oauth2 response types
       # @section -- Dex configuration
       responseTypes:
-      - code
-      - token
-      - id_token
+        - code
+        - token
+        - id_token
 
     # -- enable password db
     # @section -- Dex configuration
     enablePasswordDB: true
     # Generate password:  https://github.com/dexidp/dex/blob/576f990d257d9dd63e283cf379960e50506e8bcc/examples/config-dev.yaml#L145
     staticPasswords:
-    # -- static passwords email
-    # @section -- Dex configuration
-    - email: admin@formance.com
-      # -- static passwords hash
+      # -- static passwords email
       # @section -- Dex configuration
-      hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
-      # -- static passwords username
-      # @section -- Dex configuration
-      username: admin
-      # -- static passwords user id
-      # @section -- Dex configuration
-      userID: 08a8684b-db88-4b73-90a9-3cd1661f5466
-      role: USER
+      - email: admin@formance.com
+        # -- static passwords hash
+        # @section -- Dex configuration
+        hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
+        # -- static passwords username
+        # @section -- Dex configuration
+        username: admin
+        # -- static passwords user id
+        # @section -- Dex configuration
+        userID: 08a8684b-db88-4b73-90a9-3cd1661f5466
+        role: USER
 
 postgresql:
   # -- Enable postgresql

@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 3.0.0-beta.15](https://img.shields.io/badge/Version-3.0.0--beta.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-beta.10](https://img.shields.io/badge/AppVersion-v2.0.0--beta.10-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
 
 Formance Console
 
@@ -18,7 +18,7 @@ Formance Console
 
 ## Requirements
 
-Kubernetes: `>=1.14.0-0`
+Kubernetes: `>=1.14.0`
 
 | Repository | Name | Version |
 |------------|------|---------|

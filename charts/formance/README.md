@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -18,12 +18,12 @@ Formance Platform - Unified Helm Chart
 
 ## Requirements
 
-Kubernetes: `>=1.14.0-0`
+Kubernetes: `>=1.14.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../cloudprem | cloudprem | >=4.0.0-0 |
-| file://../regions | regions | >=3.0.0-0 |
+| file://../cloudprem | cloudprem | >=4.0.0 |
+| file://../regions | regions | >=3.0.0 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X.X |
 
 ## Values
@@ -241,7 +241,7 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.dex.envVars | list | `[]` | Dex additional environment variables |
 | cloudprem.membership.dex.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
 | cloudprem.membership.dex.image.repository | string | `"ghcr.io/formancehq/dex"` | image repository |
-| cloudprem.membership.dex.image.tag | string | `"v2.0.0-beta.2"` | image tag |
+| cloudprem.membership.dex.image.tag | string | `"v2.0.0"` | image tag |
 | cloudprem.membership.dex.ingress.annotations | object | `{}` | Dex ingress annotations |
 | cloudprem.membership.dex.ingress.className | string | `""` | Dex ingress class name |
 | cloudprem.membership.dex.ingress.enabled | bool | `true` | Dex ingress enabled |
@@ -345,7 +345,7 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.console-v3.volumeMounts | list | `[]` | Console volume mounts |
 | cloudprem.console-v3.volumes | list | `[]` | Console volumes |
 | cloudprem.membership.affinity | object | `{}` | Membership affinity |
-| cloudprem.membership.annotations | object | `{}` | Membership annotations  |
+| cloudprem.membership.annotations | object | `{}` | Membership annotations |
 | cloudprem.membership.autoscaling | object | `{}` | Membership autoscaling |
 | cloudprem.membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | cloudprem.membership.config.additionalEnv | list | `[]` |  |

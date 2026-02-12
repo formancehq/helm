@@ -1,5 +1,23 @@
 #############################################
-#               DEMO (EE,CE)                #
+#            DEMO (EE only)                 #
+#############################################
+#
+# Enterprise Edition demo profile.
+# Deploys stacks with EE modules (auth, stargate) and control plane config.
+#
+# REQUIRED:
+#   --set global.serviceHost=<your-domain>
+#   --set global.licence.clusterID=<cluster-id>
+#   --set global.licence.token=<licence-token>
+#
+# Usage:
+#   helm install formance formance/formance \
+#     -f profiles/ee-minimal.yaml \
+#     -f profiles/ee-demo.yaml \
+#     --set global.serviceHost=formance.example.com \
+#     --set global.licence.clusterID=xxx \
+#     --set global.licence.token=yyy
+#
 #############################################
 
 global:
@@ -22,19 +40,6 @@ global:
         authClients:
           fctl:
             public: true
-      demo-ci:
-        debug: true
-        versionsFromFile: "v3.0"
-        modules:
-          auth:
-            enableScopes: true
-            delegatedOIDCServer:
-              clientSecret: changeMe
-              # clientSecretFromEnv:
-              issuer: '{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}'
-          gateway: {}
-          ledger: {}
-          stargate: {} # ToFix: remove when portal and console are up to date
 
 regions:
   settings:
@@ -57,28 +62,28 @@ cloudprem:
     dex:
       configOverrides:
         staticPasswords:
-        - email: support@formance.com
-          # -- static passwords hash
-          # @section -- Dex configuration
-          hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
-          # -- static passwords username
-          # @section -- Dex configuration
-          username: admin
-          # -- static passwords user id
-          # @section -- Dex configuration
-          userID: 08a8684b-user-supp-90a9-3cd1661f5466
-          role: ADMIN
-        - email: admin@formance.com
-          # -- static passwords hash
-          # @section -- Dex configuration
-          hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
-          # -- static passwords username
-          # @section -- Dex configuration
-          username: admin
-          # -- static passwords user id
-          # @section -- Dex configuration
-          userID: 08a8684b-user-admn-90a9-3cd1661f5466
-          role: USER
+          - email: support@formance.com
+            # -- static passwords hash
+            # @section -- Dex configuration
+            hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
+            # -- static passwords username
+            # @section -- Dex configuration
+            username: admin
+            # -- static passwords user id
+            # @section -- Dex configuration
+            userID: 08a8684b-user-supp-90a9-3cd1661f5466
+            role: ADMIN
+          - email: admin@formance.com
+            # -- static passwords hash
+            # @section -- Dex configuration
+            hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W" # password
+            # -- static passwords username
+            # @section -- Dex configuration
+            username: admin
+            # -- static passwords user id
+            # @section -- Dex configuration
+            userID: 08a8684b-user-admn-90a9-3cd1661f5466
+            role: USER
     config:
       minimalStackModules: []
       wizard:
