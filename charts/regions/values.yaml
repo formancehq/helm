@@ -1,7 +1,7 @@
 global:
   # Only for managed stacks within this chart
   serviceHost: ""
-  # Add your license information 
+  # Add your license information
   licence:
     # -- Licence Secret with label `formance.com/stack: any`
     # @section -- Licence configuration
@@ -145,7 +145,7 @@ versions:
       reconciliation: v2.1.0
     v3.1:
       payments: v3.0.18
-      ledger: v2.3.11
+      ledger: v2.3.13
       search: v2.1.0
       stargate: v2.2.2
       auth: v2.4.1

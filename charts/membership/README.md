@@ -11,7 +11,7 @@ Kubernetes: `>=1.14.0`
 |------------|------|---------|
 | file://../core | core | 1.X |
 | https://charts.dexidp.io | dex | 0.17.X |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X.X |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
 
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
