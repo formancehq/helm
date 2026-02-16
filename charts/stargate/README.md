@@ -8,7 +8,7 @@ Formance EE Stargate gRPC Gateway
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../core | core | 1.X |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 15.5.X |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 15.X |
 
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
