@@ -50,6 +50,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 - name: BASE_URL
   value: "{{ .Values.agent.baseUrl }}"
+{{- if .Values.agent.additionalBaseUrls }}
+- name: ADDITIONAL_BASE_URLS
+  value: "{{ .Values.agent.additionalBaseUrls | join "," }}"
+{{- end }}
 - name: PRODUCTION
   value: "{{ .Values.agent.production }}"
 - name: OUTDATED

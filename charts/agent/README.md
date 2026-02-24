@@ -1,6 +1,6 @@
 # agent
 
-![Version: 2.12.0](https://img.shields.io/badge/Version-2.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.7.0](https://img.shields.io/badge/AppVersion-v2.7.0-informational?style=flat-square)
+![Version: 2.12.1](https://img.shields.io/badge/Version-2.12.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.7.0](https://img.shields.io/badge/AppVersion-v2.7.0-informational?style=flat-square)
 
 Formance Membership Agent Helm Chart
 
@@ -47,6 +47,7 @@ Formance Membership Agent Helm Chart
 |-----|------|---------|-------------|
 | global.serviceName | string | `"agent"` | TORework |
 | affinity | object | `{}` |  |
+| agent.additionalBaseUrls | list | `[]` |  |
 | agent.authentication.clientID | string | `""` | Mode: Bearer |
 | agent.authentication.clientSecret | string | `""` | Mode: Beare |
 | agent.authentication.existingSecret | string | `""` | Existing Secret |

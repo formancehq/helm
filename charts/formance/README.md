@@ -599,6 +599,7 @@ Kubernetes: `>=1.14.0`
 | regions.versions.files.default.wallets | string | `"v0.4.6"` |  |
 | regions.versions.files.default.webhooks | string | `"v2.0.18"` |  |
 | regions.agent.affinity | object | `{}` |  |
+| regions.agent.agent.additionalBaseUrls | list | `[]` |  |
 | regions.agent.agent.authentication.clientID | string | `""` | Mode: Bearer |
 | regions.agent.agent.authentication.clientSecret | string | `""` | Mode: Beare |
 | regions.agent.agent.authentication.existingSecret | string | `""` | Existing Secret |

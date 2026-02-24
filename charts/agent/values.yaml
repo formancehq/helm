@@ -95,6 +95,7 @@ config:
 agent:
   id: "b7549a16-f74a-4815-ab1e-bb8ef1c3833b"
   baseUrl: ""
+  additionalBaseUrls: []
 
   # -- Only for public region
   # This flag is not sync by the server
