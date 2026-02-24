@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.7.2](https://img.shields.io/badge/Version-3.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.7.3](https://img.shields.io/badge/Version-3.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -176,6 +176,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files.default.wallets | string | `"v0.4.6"` |  |
 | versions.files.default.webhooks | string | `"v2.0.18"` |  |
 | agent.affinity | object | `{}` |  |
+| agent.agent.additionalBaseUrls | list | `[]` |  |
 | agent.agent.authentication.clientID | string | `""` | Mode: Bearer |
 | agent.agent.authentication.clientSecret | string | `""` | Mode: Beare |
 | agent.agent.authentication.existingSecret | string | `""` | Existing Secret |

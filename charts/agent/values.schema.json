@@ -8,6 +8,9 @@
         "agent": {
             "type": "object",
             "properties": {
+                "additionalBaseUrls": {
+                    "type": "array"
+                },
                 "authentication": {
                     "type": "object",
                     "properties": {
