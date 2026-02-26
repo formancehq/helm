@@ -32,7 +32,9 @@ global:
   # -- Licence configuration (REQUIRED when ee.enabled=true)
   # @section -- Licence configuration
   licence:
-    # -- Create licence secret
+    # -- Create a K8s Secret for the licence token.
+    # When true, the chart creates a Secret containing the token and issuer.
+    # To share this Secret with the Operator, also set existingSecret to '<release-name>-licence'.
     # @section -- Licence configuration
     createSecret: true
     # -- Cluster ID: kubectl get ns kube-system -o jsonpath='{.metadata.uid}'
@@ -44,7 +46,8 @@ global:
     # -- Licence token from Formance
     # @section -- Licence configuration
     token: ""
-    # -- Use existing secret for licence token
+    # -- Use an existing secret for licence. When set with createSecret=true,
+    # the created secret uses this name (enabling sharing with the Operator).
     # @section -- Licence configuration
     existingSecret: ""
     secretKeys:
