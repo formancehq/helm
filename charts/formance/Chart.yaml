@@ -10,9 +10,13 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: 1.0.3
+version: 1.0.4
 appVersion: "latest"
-kubeVersion: ">=1.14.0"
+# The "-0" suffix is required for GKE compatibility. GKE versions contain
+# build metadata like "v1.33.5-gke.2392000" which semver treats as pre-release.
+# Without "-0", Helm rejects these versions as incompatible.
+# See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
+kubeVersion: ">=1.14.0-0"
 
 dependencies:
   - name: postgresql

@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -18,7 +18,7 @@ Formance Platform - Unified Helm Chart
 
 ## Requirements
 
-Kubernetes: `>=1.14.0`
+Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|

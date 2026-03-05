@@ -16,14 +16,18 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 3.0.0
+version: 3.0.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "v2.0.0"
-kubeVersion: ">=1.14.0"
+# The "-0" suffix is required for GKE compatibility. GKE versions contain
+# build metadata like "v1.33.5-gke.2392000" which semver treats as pre-release.
+# Without "-0", Helm rejects these versions as incompatible.
+# See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
+kubeVersion: ">=1.14.0-0"
 sources:
   - https://github.com/formancehq/membership-api
   - "https://github.com/formancehq/helm/charts/membership"
