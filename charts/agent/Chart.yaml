@@ -4,7 +4,7 @@ description: Formance Membership Agent Helm Chart
 home: "https://formance.com"
 sources:
 - "https://github.com/formancehq/agent"
-- "https://github.com/formancehq/helm/charts/agent"
+- "https://github.com/formancehq/helm"
 
 maintainers:
 - name: "Formance Team"

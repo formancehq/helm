@@ -13,5 +13,5 @@ Formance Core Library
 
 ## Source Code
 
-* <https://github.com/formancehq/helm/charts/core>
+* <https://github.com/formancehq/helm>
 

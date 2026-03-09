@@ -383,7 +383,7 @@ Dex:
 
 ## Source Code
 
-* <https://github.com/formancehq/helm/charts/cloudprem>
+* <https://github.com/formancehq/helm>
 
 ## Values
 

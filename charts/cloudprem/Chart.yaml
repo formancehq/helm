@@ -46,7 +46,7 @@ appVersion: "latest"
 # See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
 kubeVersion: ">=1.14.0-0"
 sources:
-  - "https://github.com/formancehq/helm/charts/cloudprem"
+  - "https://github.com/formancehq/helm"
 
 dependencies:
   - name: membership

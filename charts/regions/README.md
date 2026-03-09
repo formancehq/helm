@@ -19,8 +19,7 @@ Formance Private Regions Helm Chart
 
 ## Source Code
 
-* <https://github.com/formancehq/operator>
-* <https://github.com/formancehq/agent>
+* <https://github.com/formancehq/helm>
 
 ## Migration
 
