@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -196,6 +196,15 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | cloudprem.console-v3.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
+### Publisher configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| cloudprem.console-v3.config.publisher.clientID | string | `"console-v3"` | NATS client ID |
+| cloudprem.console-v3.config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
+| cloudprem.portal.config.publisher.clientID | string | `"portal"` | NATS client ID |
+| cloudprem.portal.config.publisher.topicMapping | string | `"portal"` | NATS topic mapping |
+
 ### Membership Feature
 
 | Key | Type | Default | Description |
@@ -262,6 +271,7 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
+| global.nats.requestTimeout | string | `"60s"` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |

@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 3.0.1](https://img.shields.io/badge/Version-3.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
+![Version: 3.1.0](https://img.shields.io/badge/Version-3.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
 
 Formance Console
 
@@ -24,6 +24,7 @@ Kubernetes: `>=1.14.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../core | core | 1.X |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
 
 ## Values
 
@@ -69,6 +70,13 @@ Kubernetes: `>=1.14.0-0`
 | global.postgresql.service.ports.postgresql | int | `5432` | PostgreSQL service port (overrides `service.ports.postgresql`) |
 | global.serviceHost | string | `""` | is the base domain for portal and console |
 
+### Global Nats configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.nats.enabled | bool | `false` | Enable NATS |
+| global.nats.url | string | `""` | URL for NATS |
+
 ### Stargate configuration
 
 | Key | Type | Default | Description |
@@ -88,6 +96,13 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
+### Publisher configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| config.publisher.clientID | string | `"console-v3"` | NATS client ID |
+| config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
+
 ### Membership Feature
 
 | Key | Type | Default | Description |
@@ -104,6 +119,12 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| global.nats.auth.existingSecret | string | `""` |  |
+| global.nats.auth.password | string | `nil` |  |
+| global.nats.auth.secretKeys.password | string | `"password"` |  |
+| global.nats.auth.secretKeys.username | string | `"username"` |  |
+| global.nats.auth.user | string | `nil` |  |
+| global.nats.requestTimeout | string | `"60s"` |  |
 | affinity | object | `{}` | Console affinity |
 | annotations | object | `{}` | Console annotations  |
 | autoscaling.enabled | bool | `false` |  |

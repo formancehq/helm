@@ -74,6 +74,7 @@
 {{- include "core.postgres.uri" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
+{{- include "core.nats.env" . }}
 {{ include "portal.additionalEnv" . }}
 {{- end }}
 

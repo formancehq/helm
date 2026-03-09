@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.0.2](https://img.shields.io/badge/Version-4.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.1.0](https://img.shields.io/badge/Version-4.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -418,7 +418,6 @@ Dex:
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
-| global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
 | global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console-v3 |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
@@ -462,6 +461,13 @@ Dex:
 | global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
 | global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
 
+### Global Nats configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.nats.enabled | bool | `false` | Enable NATS |
+| global.nats.url | string | `""` | URL for NATS |
+
 ### Stargate configuration
 
 | Key | Type | Default | Description |
@@ -481,6 +487,15 @@ Dex:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | console-v3.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Publisher configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| console-v3.config.publisher.clientID | string | `"console-v3"` | NATS client ID |
+| console-v3.config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
+| portal.config.publisher.clientID | string | `"portal"` | NATS client ID |
+| portal.config.publisher.topicMapping | string | `"portal"` | NATS topic mapping |
 
 ### Membership Feature
 
@@ -540,11 +555,11 @@ Dex:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.nats.auth.existingSecret | string | `""` |  |
-| global.nats.auth.password | string | `""` |  |
+| global.nats.auth.password | string | `nil` |  |
 | global.nats.auth.secretKeys.password | string | `"password"` |  |
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
-| global.nats.auth.user | string | `""` |  |
-| global.nats.enabled | bool | `false` |  |
+| global.nats.auth.user | string | `nil` |  |
+| global.nats.requestTimeout | string | `"60s"` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |

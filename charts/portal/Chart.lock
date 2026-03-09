@@ -2,5 +2,8 @@ dependencies:
 - name: core
   repository: file://../core
   version: 1.5.0
-digest: sha256:58ef22d9d5e778c78e97548194c5c2c45db4e0cae7ed339009fb23c0cc148a28
-generated: "2026-02-09T11:12:43.125137+01:00"
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 18.5.5
+digest: sha256:313bb1584a5d2e3cf7c00b44ecfb4edfd6342a67de76cd42ebc2b2bfc7c93a8a
+generated: "2026-03-09T12:02:21.897354+01:00"
