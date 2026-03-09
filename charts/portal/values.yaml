@@ -50,6 +50,23 @@ global:
         # @section -- Global configuration
         postgresql: 5432
 
+  nats:
+    # -- Enable NATS
+    # @section -- Global Nats configuration
+    enabled: false
+    requestTimeout: "60s"
+
+    # -- URL for NATS
+    # @section -- Global Nats configuration
+    url: ""
+    auth:
+      user:
+      password:
+      existingSecret: ""
+      secretKeys:
+        password: password
+        username: username
+
   monitoring:
     traces:
       # -- Enable otel tracing
@@ -219,6 +236,13 @@ feature:
 
 # Cookie store portal session in a cookie
 config:
+  publisher:
+    # -- NATS client ID
+    # @section -- Publisher configuration
+    clientID: "portal"
+    # -- NATS topic mapping
+    # @section -- Publisher configuration
+    topicMapping: "portal"
   # -- Portal environment
   environment: production
 

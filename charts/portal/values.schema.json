@@ -131,6 +131,17 @@
                 "postgresqlUrl": {
                     "type": "string"
                 },
+                "publisher": {
+                    "type": "object",
+                    "properties": {
+                        "clientID": {
+                            "type": "string"
+                        },
+                        "topicMapping": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "sentry": {
                     "type": "object",
                     "properties": {
@@ -222,6 +233,45 @@
                                     "type": "integer"
                                 }
                             }
+                        }
+                    }
+                },
+                "nats": {
+                    "type": "object",
+                    "properties": {
+                        "auth": {
+                            "type": "object",
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "null"
+                                },
+                                "secretKeys": {
+                                    "type": "object",
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "user": {
+                                    "type": "null"
+                                }
+                            }
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "requestTimeout": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
                         }
                     }
                 },

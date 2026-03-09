@@ -91,6 +91,7 @@
 {{- include "core.postgres.uri" . }}
 {{- include "core.sentry" . }}
 {{- include "core.monitoring" . }}
+{{- include "core.nats.env" . }}
 {{ with .Values.config.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
