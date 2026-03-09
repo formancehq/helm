@@ -25,8 +25,8 @@ version: 0.10.0
 appVersion: "latest"
 
 sources:
-- "https://github.com/formancehq/helm/charts/stargate"
-
+- "https://github.com/formancehq/membership-api"
+- "https://github.com/formancehq/helm"
 dependencies:
 - name: core
   version: "1.X"

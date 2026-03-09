@@ -15,6 +15,7 @@ Formance Portal
 ## Source Code
 
 * <https://github.com/formancehq/platform-ui>
+* <https://github.com/formancehq/helm>
 
 ## Requirements
 

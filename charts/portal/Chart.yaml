@@ -10,6 +10,9 @@ maintainers:
     email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
+annotations:
+  formance.com/monorepo: "true"
+
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
@@ -38,6 +41,7 @@ kubeVersion: ">=1.14.0-0"
 
 sources:
   - https://github.com/formancehq/platform-ui
+  - "https://github.com/formancehq/helm"
 
 dependencies:
   - name: core

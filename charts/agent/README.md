@@ -15,7 +15,7 @@ Formance Membership Agent Helm Chart
 ## Source Code
 
 * <https://github.com/formancehq/agent>
-* <https://github.com/formancehq/helm/charts/agent>
+* <https://github.com/formancehq/helm>
 
 ## Requirements
 

@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 ## Source Code
 
 * <https://github.com/formancehq/membership-api>
-* <https://github.com/formancehq/helm/charts/membership>
+* <https://github.com/formancehq/helm>
 
 ## Migration
 

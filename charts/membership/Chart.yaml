@@ -29,18 +29,18 @@ appVersion: "v2.0.0"
 # See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
 kubeVersion: ">=1.14.0-0"
 sources:
-  - https://github.com/formancehq/membership-api
-  - "https://github.com/formancehq/helm/charts/membership"
+- https://github.com/formancehq/membership-api
+- "https://github.com/formancehq/helm"
 
 dependencies:
-  - name: postgresql
-    repository: oci://registry-1.docker.io/bitnamicharts
-    version: 18.X
-    condition: postgresql.enabled
-  - name: dex
-    version: 0.17.X
-    repository: https://charts.dexidp.io
-    condition: dex.enabled
-  - name: core
-    version: "1.X"
-    repository: file://../core
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 18.X
+  condition: postgresql.enabled
+- name: dex
+  version: 0.17.X
+  repository: https://charts.dexidp.io
+  condition: dex.enabled
+- name: core
+  version: "1.X"
+  repository: file://../core
