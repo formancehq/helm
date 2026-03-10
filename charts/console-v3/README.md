@@ -4,7 +4,7 @@
 
 Formance Console
 
-**Homepage:** <https://formance.com>
+**Homepage:** <https://github.com/formancehq/platform-ui>
 
 ## Maintainers
 
@@ -14,8 +14,7 @@ Formance Console
 
 ## Source Code
 
-* <https://github.com/formancehq/platform-ui>
-* <https://github.com/formancehq/helm>
+* <https://github.com/formancehq/helm/tree/main/charts/console-v3>
 
 ## Requirements
 
