@@ -1,4 +1,5 @@
-annotations: {}
+annotations:
+  formance.com/monorepo-tag-prefix: "cloudprem"
 apiVersion: v2
 name: cloudprem
 description: |-

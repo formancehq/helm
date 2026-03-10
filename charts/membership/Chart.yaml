@@ -34,6 +34,8 @@ maintainers:
   email: "support@formance.com"
 sources:
 - "https://github.com/formancehq/helm/tree/main/charts/membership"
+annotations:
+  formance.com/monorepo-tag-prefix: "membership"
 
 dependencies:
 - name: postgresql

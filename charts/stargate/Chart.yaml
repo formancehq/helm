@@ -30,6 +30,8 @@ maintainers:
   email: "support@formance.com"
 sources:
 - "https://github.com/formancehq/helm/tree/main/charts/stargate"
+annotations:
+  formance.com/monorepo-tag-prefix: "stargate"
 dependencies:
 - name: core
   version: "1.X"
