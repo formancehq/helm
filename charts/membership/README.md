@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.0.2](https://img.shields.io/badge/Version-3.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
+![Version: 3.0.3](https://img.shields.io/badge/Version-3.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -44,6 +44,8 @@ The fallback has been removed from the RBAC module and is only used when a new u
 #### Breaking changes
 
 Membership chart now use `.global.platform.<service>.oauth.client` to generate a client and allow the ability to integrate with another chart. specific configuration can added through `.config.auth.additionalOAuthClients` value.
+
+**Homepage:** <https://formance.com>
 
 ## Values
 
