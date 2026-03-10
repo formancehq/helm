@@ -4,6 +4,7 @@ description: Formance Console
 
 annotations:
   formance.com/monorepo: "apps/console-v3"
+  formance.com/monorepo-tag-prefix: "console-v3"
   artifacthub.io/images: |
     - name: console-v3
       image: ghcr.io/formancehq/console-v3
