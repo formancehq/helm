@@ -11,7 +11,7 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 annotations:
-  formance.com/monorepo: "true"
+  formance.com/monorepo: "apps/portal"
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -26,7 +26,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 3.1.0
+version: 3.1.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
