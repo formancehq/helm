@@ -28,10 +28,12 @@ appVersion: "v2.0.0"
 # Without "-0", Helm rejects these versions as incompatible.
 # See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
 kubeVersion: ">=1.14.0-0"
-home: "https://formance.com"
+home: "https://github.com/formancehq/membership-api"
+maintainers:
+- name: "Formance Team"
+  email: "support@formance.com"
 sources:
-- https://github.com/formancehq/membership-api
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/membership"
 
 dependencies:
 - name: postgresql

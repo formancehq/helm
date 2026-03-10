@@ -4,7 +4,7 @@ name: cloudprem
 description: |-
   Formance control-plane
 
-home: "https://formance.com"
+home: "https://github.com/formancehq/helm"
 
 maintainers:
 - name: "Formance Team"
@@ -46,7 +46,7 @@ appVersion: "latest"
 # See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
 kubeVersion: ">=1.14.0-0"
 sources:
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/cloudprem"
 
 dependencies:
 - name: membership

@@ -22,7 +22,13 @@ Formance EE Stargate gRPC Gateway
 Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
 Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
 
-**Homepage:** <https://formance.com>
+**Homepage:** <https://github.com/formancehq/membership-api>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Formance Team | <support@formance.com> |  |
 
 ## Values
 

@@ -13,6 +13,12 @@ Kubernetes: `>=1.14.0-0`
 | https://charts.dexidp.io | dex | 0.17.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Formance Team | <support@formance.com> |  |
+
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
 
@@ -21,8 +27,7 @@ Kubernetes: `>=1.14.0-0`
 
 ## Source Code
 
-* <https://github.com/formancehq/membership-api>
-* <https://github.com/formancehq/helm>
+* <https://github.com/formancehq/helm/tree/main/charts/membership>
 
 ## Migration
 
@@ -45,7 +50,7 @@ The fallback has been removed from the RBAC module and is only used when a new u
 
 Membership chart now use `.global.platform.<service>.oauth.client` to generate a client and allow the ability to integrate with another chart. specific configuration can added through `.config.auth.additionalOAuthClients` value.
 
-**Homepage:** <https://formance.com>
+**Homepage:** <https://github.com/formancehq/membership-api>
 
 ## Values
 

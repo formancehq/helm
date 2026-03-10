@@ -373,7 +373,7 @@ Dex:
 
 - `.dex.envVars` and `.dex.configOverrides.staticClients.[].secretEnv` can be used together to set static clients secrets.
 
-**Homepage:** <https://formance.com>
+**Homepage:** <https://github.com/formancehq/helm>
 
 ## Maintainers
 
@@ -383,7 +383,7 @@ Dex:
 
 ## Source Code
 
-* <https://github.com/formancehq/helm>
+* <https://github.com/formancehq/helm/tree/main/charts/cloudprem>
 
 ## Values
 

@@ -1,9 +1,9 @@
 apiVersion: v2
 name: regions
 description: Formance Private Regions Helm Chart
-home: "https://formance.com"
+home: "https://github.com/formancehq/helm"
 sources:
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/regions"
 
 maintainers:
 - name: "Formance Team"

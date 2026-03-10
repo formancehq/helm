@@ -24,10 +24,12 @@ version: 0.10.1
 # It is recommended to use it with quotes.
 appVersion: "latest"
 
-home: "https://formance.com"
+home: "https://github.com/formancehq/membership-api"
+maintainers:
+- name: "Formance Team"
+  email: "support@formance.com"
 sources:
-- "https://github.com/formancehq/membership-api"
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/stargate"
 dependencies:
 - name: core
   version: "1.X"
