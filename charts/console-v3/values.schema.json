@@ -246,7 +246,7 @@
                                     "type": "string"
                                 },
                                 "password": {
-                                    "type": "null"
+                                    "type": "string"
                                 },
                                 "secretKeys": {
                                     "type": "object",
@@ -260,7 +260,7 @@
                                     }
                                 },
                                 "user": {
-                                    "type": "null"
+                                    "type": "string"
                                 }
                             }
                         },

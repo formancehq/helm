@@ -60,8 +60,8 @@ global:
     # @section -- Global Nats configuration
     url: ""
     auth:
-      user:
-      password:
+      user: ""
+      password: ""
       existingSecret: ""
       secretKeys:
         password: password
