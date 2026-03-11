@@ -4,7 +4,7 @@ dependencies:
   version: 18.5.6
 - name: regions
   repository: file://../regions
-  version: 3.7.6
+  version: 3.8.0
 - name: cloudprem
   repository: file://../cloudprem
   version: 4.2.2
