@@ -3,7 +3,7 @@ name: stargate
 description: |-
   Formance EE Stargate gRPC Gateway
 
-home: "https://github.com/formancehq/membership-api"
+home: "https://formance.com"
 
 maintainers:
 - name: "Formance Team"
@@ -32,6 +32,7 @@ appVersion: "latest"
 
 sources:
 - "https://github.com/formancehq/helm/tree/main/charts/stargate"
+- "https://github.com/formancehq/membership-api"
 dependencies:
 - name: core
   version: "1.X"

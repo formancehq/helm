@@ -3,7 +3,7 @@ name: cloudprem
 description: |-
   Formance control-plane
 
-home: "https://github.com/formancehq/helm"
+home: "https://formance.com"
 
 maintainers:
 - name: "Formance Team"

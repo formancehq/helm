@@ -28,6 +28,7 @@ Kubernetes: `>=1.14.0-0`
 ## Source Code
 
 * <https://github.com/formancehq/helm/tree/main/charts/membership>
+* <https://github.com/formancehq/membership-api>
 
 ## Migration
 
@@ -50,7 +51,7 @@ The fallback has been removed from the RBAC module and is only used when a new u
 
 Membership chart now use `.global.platform.<service>.oauth.client` to generate a client and allow the ability to integrate with another chart. specific configuration can added through `.config.auth.additionalOAuthClients` value.
 
-**Homepage:** <https://github.com/formancehq/membership-api>
+**Homepage:** <https://formance.com>
 
 ## Values
 

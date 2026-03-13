@@ -1,7 +1,7 @@
 apiVersion: v2
 name: core
 description: Formance Core Library
-home: "https://github.com/formancehq/helm"
+home: "https://formance.com"
 
 keywords:
 - core

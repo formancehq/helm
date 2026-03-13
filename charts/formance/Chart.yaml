@@ -1,7 +1,7 @@
 apiVersion: v2
 name: formance
 description: Formance Platform - Unified Helm Chart
-home: "https://github.com/formancehq/helm"
+home: "https://formance.com"
 sources:
 - "https://github.com/formancehq/helm/tree/main/charts/formance"
 maintainers:

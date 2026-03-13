@@ -4,7 +4,7 @@
 
 Formance Portal
 
-**Homepage:** <https://github.com/formancehq/platform-ui>
+**Homepage:** <https://formance.com>
 
 ## Maintainers
 
@@ -15,6 +15,7 @@ Formance Portal
 ## Source Code
 
 * <https://github.com/formancehq/helm/tree/main/charts/portal>
+* <https://github.com/formancehq/platform-ui>
 
 ## Requirements
 

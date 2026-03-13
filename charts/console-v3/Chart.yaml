@@ -9,7 +9,7 @@ annotations:
       image: ghcr.io/formancehq/console-v3
       whitelisted: true
 
-home: "https://github.com/formancehq/platform-ui"
+home: "https://formance.com"
 
 maintainers:
 - name: "Formance Team"
@@ -43,6 +43,7 @@ appVersion: "v2.0.0"
 kubeVersion: ">=1.14.0-0"
 sources:
 - "https://github.com/formancehq/helm/tree/main/charts/console-v3"
+- "https://github.com/formancehq/platform-ui"
 
 dependencies:
 - name: core

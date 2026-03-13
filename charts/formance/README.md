@@ -4,7 +4,7 @@
 
 Formance Platform - Unified Helm Chart
 
-**Homepage:** <https://github.com/formancehq/helm>
+**Homepage:** <https://formance.com>
 
 ## Maintainers
 

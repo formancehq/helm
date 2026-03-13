@@ -3,7 +3,7 @@ name: membership
 description: |-
   Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
-home: "https://github.com/formancehq/membership-api"
+home: "https://formance.com"
 
 maintainers:
 - name: "Formance Team"
@@ -36,6 +36,7 @@ appVersion: "v2.1.0"
 kubeVersion: ">=1.14.0-0"
 sources:
 - "https://github.com/formancehq/helm/tree/main/charts/membership"
+- "https://github.com/formancehq/membership-api"
 
 dependencies:
 - name: postgresql

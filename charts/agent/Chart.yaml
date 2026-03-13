@@ -1,9 +1,10 @@
 apiVersion: v2
 name: agent
 description: Formance Membership Agent Helm Chart
-home: "https://github.com/formancehq/agent"
+home: "https://formance.com"
 sources:
 - "https://github.com/formancehq/helm/tree/main/charts/agent"
+- "https://github.com/formancehq/agent"
 
 maintainers:
 - name: "Formance Team"

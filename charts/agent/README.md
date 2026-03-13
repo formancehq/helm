@@ -4,7 +4,7 @@
 
 Formance Membership Agent Helm Chart
 
-**Homepage:** <https://github.com/formancehq/agent>
+**Homepage:** <https://formance.com>
 
 ## Maintainers
 
@@ -15,6 +15,7 @@ Formance Membership Agent Helm Chart
 ## Source Code
 
 * <https://github.com/formancehq/helm/tree/main/charts/agent>
+* <https://github.com/formancehq/agent>
 
 ## Requirements
 

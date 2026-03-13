@@ -3,7 +3,7 @@ name: portal
 description: |-
   Formance Portal
 
-home: "https://github.com/formancehq/platform-ui"
+home: "https://formance.com"
 
 maintainers:
   - name: "Formance Team"
@@ -41,6 +41,7 @@ kubeVersion: ">=1.14.0-0"
 
 sources:
   - "https://github.com/formancehq/helm/tree/main/charts/portal"
+  - "https://github.com/formancehq/platform-ui"
 
 dependencies:
   - name: core
