@@ -1,0 +1,61 @@
+{{- if .Values.config.migration.enabled -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "core.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "core.labels" . | nindent 4 }}
+  {{- with merge .Values.config.migration.annotations (include "core.postgres.job.annotations" . | fromYaml) }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ttlSecondsAfterFinished: {{ .Values.config.migration.ttlSecondsAfterFinished }}
+  template:
+    metadata:
+      labels:
+        {{- include "core.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: OnFailure
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ include "core.postgres.job.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: migrate
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          {{- with .Values.config.migration.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command:
+            - node
+          args:
+            - apps/studio/migrate.mjs
+          env:
+            {{- include "core.env.common" . | nindent 12 }}
+            {{- include "core.monitoring" . | nindent 12 }}
+            {{- include "core.postgres.job.uri" . | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.config.migration.volumes}}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end -}}

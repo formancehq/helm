@@ -1,0 +1,35 @@
+apiVersion: v2
+name: studio
+description: Formance Studio
+
+annotations:
+  artifacthub.io/prerelease: "true"
+  artifacthub.io/images: |
+    - name: studio
+      image: ghcr.io/formancehq/studio
+      whitelisted: true
+
+home: "https://formance.com"
+
+maintainers:
+- name: "Formance Team"
+  email: "support@formance.com"
+icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
+
+type: application
+
+version: 1.0.0-beta.1
+
+appVersion: "v1.0.0"
+kubeVersion: ">=1.14.0-0"
+sources:
+- https://github.com/formancehq/platform-ui
+
+dependencies:
+- name: core
+  version: "1.X"
+  repository: file://../core
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 15.5.X
+  condition: postgresql.enabled
