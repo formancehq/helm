@@ -1,16 +1,16 @@
 apiVersion: v2
 name: formance
 description: Formance Platform - Unified Helm Chart
-home: "https://formance.com"
+home: "https://github.com/formancehq/helm"
 sources:
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/formance"
 maintainers:
 - name: "Formance Team"
   email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: 1.2.1
+version: 1.2.2
 appVersion: "latest"
 # The "-0" suffix is required for GKE compatibility. GKE versions contain
 # build metadata like "v1.33.5-gke.2392000" which semver treats as pre-release.

@@ -1,10 +1,9 @@
-annotations: {}
 apiVersion: v2
 name: cloudprem
 description: |-
   Formance control-plane
 
-home: "https://formance.com"
+home: "https://github.com/formancehq/helm"
 
 maintainers:
 - name: "Formance Team"
@@ -32,7 +31,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 4.2.1
+version: 4.2.2
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -46,7 +45,7 @@ appVersion: "latest"
 # See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
 kubeVersion: ">=1.14.0-0"
 sources:
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/cloudprem"
 
 dependencies:
 - name: membership

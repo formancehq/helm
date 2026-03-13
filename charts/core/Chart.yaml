@@ -1,7 +1,7 @@
 apiVersion: v2
 name: core
 description: Formance Core Library
-home: "https://formance.com"
+home: "https://github.com/formancehq/helm"
 
 keywords:
 - core
@@ -12,8 +12,8 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 sources:
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/core"
 
 type: library
-version: 1.5.0
+version: 1.5.1
 appVersion: "latest"

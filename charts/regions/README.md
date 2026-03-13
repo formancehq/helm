@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.7.4](https://img.shields.io/badge/Version-3.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.7.5](https://img.shields.io/badge/Version-3.7.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -19,7 +19,7 @@ Formance Private Regions Helm Chart
 
 ## Source Code
 
-* <https://github.com/formancehq/helm>
+* <https://github.com/formancehq/helm/tree/main/charts/regions>
 
 ## Migration
 
@@ -28,7 +28,7 @@ Formance Private Regions Helm Chart
 Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
 Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
 
-**Homepage:** <https://formance.com>
+**Homepage:** <https://github.com/formancehq/helm>
 
 ## Values
 

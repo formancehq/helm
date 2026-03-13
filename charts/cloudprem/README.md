@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.2.1](https://img.shields.io/badge/Version-4.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.2.2](https://img.shields.io/badge/Version-4.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -373,7 +373,7 @@ Dex:
 
 - `.dex.envVars` and `.dex.configOverrides.staticClients.[].secretEnv` can be used together to set static clients secrets.
 
-**Homepage:** <https://formance.com>
+**Homepage:** <https://github.com/formancehq/helm>
 
 ## Maintainers
 
@@ -383,7 +383,7 @@ Dex:
 
 ## Source Code
 
-* <https://github.com/formancehq/helm>
+* <https://github.com/formancehq/helm/tree/main/charts/cloudprem>
 
 ## Values
 

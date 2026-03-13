@@ -1,10 +1,10 @@
 # portal
 
-![Version: 3.1.1](https://img.shields.io/badge/Version-3.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
+![Version: 3.1.2](https://img.shields.io/badge/Version-3.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
 
 Formance Portal
 
-**Homepage:** <https://formance.com>
+**Homepage:** <https://github.com/formancehq/platform-ui>
 
 ## Maintainers
 
@@ -14,8 +14,7 @@ Formance Portal
 
 ## Source Code
 
-* <https://github.com/formancehq/platform-ui>
-* <https://github.com/formancehq/helm>
+* <https://github.com/formancehq/helm/tree/main/charts/portal>
 
 ## Requirements
 
