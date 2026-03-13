@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 3.1.1](https://img.shields.io/badge/Version-3.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
+![Version: 3.1.2](https://img.shields.io/badge/Version-3.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
 
 Formance Console
 
@@ -14,8 +14,8 @@ Formance Console
 
 ## Source Code
 
+* <https://github.com/formancehq/helm/tree/main/charts/console-v3>
 * <https://github.com/formancehq/platform-ui>
-* <https://github.com/formancehq/helm>
 
 ## Requirements
 

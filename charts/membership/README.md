@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.1.1](https://img.shields.io/badge/Version-3.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.1.0](https://img.shields.io/badge/AppVersion-v2.1.0-informational?style=flat-square)
+![Version: 3.1.2](https://img.shields.io/badge/Version-3.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.1.0](https://img.shields.io/badge/AppVersion-v2.1.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -13,6 +13,12 @@ Kubernetes: `>=1.14.0-0`
 | https://charts.dexidp.io | dex | 0.17.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Formance Team | <support@formance.com> |  |
+
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
 
@@ -21,8 +27,8 @@ Kubernetes: `>=1.14.0-0`
 
 ## Source Code
 
+* <https://github.com/formancehq/helm/tree/main/charts/membership>
 * <https://github.com/formancehq/membership-api>
-* <https://github.com/formancehq/helm>
 
 ## Migration
 
@@ -44,6 +50,8 @@ The fallback has been removed from the RBAC module and is only used when a new u
 #### Breaking changes
 
 Membership chart now use `.global.platform.<service>.oauth.client` to generate a client and allow the ability to integrate with another chart. specific configuration can added through `.config.auth.additionalOAuthClients` value.
+
+**Homepage:** <https://formance.com>
 
 ## Values
 

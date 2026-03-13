@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.7.4](https://img.shields.io/badge/Version-3.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.7.5](https://img.shields.io/badge/Version-3.7.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -19,7 +19,7 @@ Formance Private Regions Helm Chart
 
 ## Source Code
 
-* <https://github.com/formancehq/helm>
+* <https://github.com/formancehq/helm/tree/main/charts/regions>
 
 ## Migration
 

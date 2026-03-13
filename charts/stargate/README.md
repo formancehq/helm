@@ -1,6 +1,6 @@
 # Formance stargate Helm chart
 
-![Version: 0.10.0](https://img.shields.io/badge/Version-0.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.10.1](https://img.shields.io/badge/Version-0.10.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance EE Stargate gRPC Gateway
 
 ## Requirements
@@ -21,6 +21,14 @@ Formance EE Stargate gRPC Gateway
 
 Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.
 Then configure it through the `global.licence.token` and `global.licence.clusterID` values. See [Licence configuration](#licence-configuration) for more information.
+
+**Homepage:** <https://formance.com>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Formance Team | <support@formance.com> |  |
 
 ## Values
 

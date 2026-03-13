@@ -3,7 +3,7 @@ name: regions
 description: Formance Private Regions Helm Chart
 home: "https://formance.com"
 sources:
-- "https://github.com/formancehq/helm"
+- "https://github.com/formancehq/helm/tree/main/charts/regions"
 
 maintainers:
 - name: "Formance Team"
@@ -11,7 +11,7 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: 3.7.4
+version: 3.7.5
 appVersion: "latest"
 
 dependencies:
