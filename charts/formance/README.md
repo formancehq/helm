@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.2.2](https://img.shields.io/badge/Version-1.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -528,16 +528,6 @@ Kubernetes: `>=1.14.0-0`
 | regions.stacks | object | `{}` |  |
 | regions.versions.allowDefaultVersion | bool | `false` |  |
 | regions.versions.create | bool | `true` |  |
-| regions.versions.files."v1.0".auth | string | `"v0.4.4"` |  |
-| regions.versions.files."v1.0".gateway | string | `"v2.0.18"` |  |
-| regions.versions.files."v1.0".ledger | string | `"v1.10.14"` |  |
-| regions.versions.files."v1.0".orchestration | string | `"v0.2.1"` |  |
-| regions.versions.files."v1.0".payments | string | `"v1.0.0-rc.5"` |  |
-| regions.versions.files."v1.0".reconciliation | string | `"v0.1.0"` |  |
-| regions.versions.files."v1.0".search | string | `"v0.10.0"` |  |
-| regions.versions.files."v1.0".stargate | string | `"v0.1.10"` |  |
-| regions.versions.files."v1.0".wallets | string | `"v0.4.6"` |  |
-| regions.versions.files."v1.0".webhooks | string | `"v2.0.18"` |  |
 | regions.versions.files."v2.0".auth | string | `"v2.4.1"` |  |
 | regions.versions.files."v2.0".gateway | string | `"v2.2.0"` |  |
 | regions.versions.files."v2.0".ledger | string | `"v2.0.24"` |  |
@@ -580,7 +570,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.0".webhooks | string | `"v2.1.0"` |  |
 | regions.versions.files."v3.1".auth | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.1".gateway | string | `"v2.2.0"` |  |
-| regions.versions.files."v3.1".ledger | string | `"v2.3.13"` |  |
+| regions.versions.files."v3.1".ledger | string | `"v2.3.16"` |  |
 | regions.versions.files."v3.1".orchestration | string | `"v2.4.0"` |  |
 | regions.versions.files."v3.1".payments | string | `"v3.0.18"` |  |
 | regions.versions.files."v3.1".reconciliation | string | `"v2.2.0"` |  |
@@ -588,16 +578,17 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.1".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v3.1".webhooks | string | `"v2.2.0"` |  |
-| regions.versions.files."v3.2-rc".auth | string | `"v2.4.1"` |  |
-| regions.versions.files."v3.2-rc".gateway | string | `"v2.2.0"` |  |
-| regions.versions.files."v3.2-rc".ledger | string | `"v2.4.0-beta.1"` |  |
-| regions.versions.files."v3.2-rc".orchestration | string | `"v2.4.0"` |  |
-| regions.versions.files."v3.2-rc".payments | string | `"v3.1.3"` |  |
-| regions.versions.files."v3.2-rc".reconciliation | string | `"v2.2.0"` |  |
-| regions.versions.files."v3.2-rc".search | string | `"v2.1.0"` |  |
-| regions.versions.files."v3.2-rc".stargate | string | `"v2.2.2"` |  |
-| regions.versions.files."v3.2-rc".wallets | string | `"v2.1.5"` |  |
-| regions.versions.files."v3.2-rc".webhooks | string | `"v2.2.0"` |  |
+| regions.versions.files."v3.2".auth | string | `"v2.4.3"` |  |
+| regions.versions.files."v3.2".gateway | string | `"v2.2.0"` |  |
+| regions.versions.files."v3.2".ledger | string | `"v2.4.1"` |  |
+| regions.versions.files."v3.2".orchestration | string | `"v2.4.1"` |  |
+| regions.versions.files."v3.2".payments | string | `"v3.2.0"` |  |
+| regions.versions.files."v3.2".reconciliation | string | `"v2.2.2"` |  |
+| regions.versions.files."v3.2".search | string | `"v2.1.0"` |  |
+| regions.versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
+| regions.versions.files."v3.2".transactionplane | string | `"v0.2.1"` |  |
+| regions.versions.files."v3.2".wallets | string | `"v2.1.5"` |  |
+| regions.versions.files."v3.2".webhooks | string | `"v2.2.0"` |  |
 | regions.versions.files.default.auth | string | `"v0.4.4"` |  |
 | regions.versions.files.default.gateway | string | `"v2.0.18"` |  |
 | regions.versions.files.default.ledger | string | `"v1.10.14"` |  |
