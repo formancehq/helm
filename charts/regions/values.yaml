@@ -134,7 +134,7 @@ versions:
       reconciliation: v2.1.0
     v3.1:
       payments: v3.0.18
-      ledger: v2.3.16
+      ledger: v2.3.17
       search: v2.1.0
       stargate: v2.2.2
       auth: v2.4.1
