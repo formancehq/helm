@@ -14,10 +14,10 @@ jobs:
       pull-requests: write
     runs-on: shipfox-2vcpu-ubuntu-2404
     steps:
-      - uses: "actions/checkout@v4"
+      - uses: "actions/checkout@v6"
         with:
           fetch-depth: 0
-      - uses: actions/labeler@v5
+      - uses: actions/labeler@v6
         with:
           sync-labels: true
       - name: Retrieve chart changes
@@ -28,7 +28,7 @@ jobs:
           echo "::set-output name=changed_charts::$CHARTS"
       - name: Label PR based on chart changes
         if: steps.chart_changes.outputs.changed_charts != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           CHARTS: ${{ steps.chart_changes.outputs.changed_charts }}
         with:
@@ -54,13 +54,13 @@ jobs:
     permissions:
       statuses: write
     steps:
-      - uses: amannn/action-semantic-pull-request@v5
+      - uses: amannn/action-semantic-pull-request@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   Dirty:
     runs-on: shipfox-4vcpu-ubuntu-2404
     steps:
-      - uses: "actions/checkout@v4"
+      - uses: "actions/checkout@v6"
         with:
           fetch-depth: 0
       - name: Setup Nix
@@ -86,7 +86,7 @@ jobs:
   Artifacts:
     runs-on: shipfox-2vcpu-ubuntu-2404
     steps:
-      - uses: "actions/checkout@v4"
+      - uses: "actions/checkout@v6"
         with:
           fetch-depth: 0
       - name: Setup Nix
@@ -98,7 +98,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.NUMARY_GITHUB_TOKEN }}
       - name: Archive chart
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: charts_${{ github.ref_type == 'branch' && github.sha }}.tgz
           path: build/*.tgz
