@@ -26,13 +26,21 @@ helm-all package="false" publish='false' packageArgs="": helm-docs helm-schema-i
   #!/bin/bash
   set -euo pipefail
 
-  for chart in $(find ./charts -name Chart.yaml | xargs -n1 dirname); do
+  charts=$(find ./charts -name Chart.yaml | xargs -n1 dirname)
+
+  # Phase 1: Update dependencies sequentially to avoid race conditions on shared subcharts
+  for chart in $charts; do
+    just helm-schema "$chart"
+    just helm-update "$chart"
+  done
+
+  # Phase 2: Lint, template, and package in parallel (dependencies are already resolved)
+  for chart in $charts; do
     (
-      just helm-schema "$chart"
       if [ "{{package}}" = "true" ]; then
-        just helm-package "$chart" {{packageArgs}}
+        just helm-package-only "$chart" {{packageArgs}}
       else
-        just helm-template "$chart"
+        just helm-template-only "$chart"
       fi
     ) &
   done
@@ -107,8 +115,39 @@ helm-template path='' args='' output='/dev/null':
     helm template {{path}} {{args}} > {{output}}
   fi
 
+helm-template-only path='' args='' output='/dev/null':
+  #!/bin/bash
+  set -euo pipefail
+  echo "📝 Linting chart {{path}}"
+  helm lint {{path}} --strict
+
+  isLibrary=$(yq -r '.type' {{path}}/Chart.yaml)
+  echo "Chart type: $isLibrary"
+  if [ "$isLibrary" = "library" ]; then
+    echo "❌ Skipping template for library chart"
+  else
+    echo "✨ Rendering chart {{path}} on {{output}}"
+    helm template {{path}} {{args}} > {{output}}
+  fi
+
 helm-package path='' args='':
   just helm-template {{path}}
+  helm package {{path}} --destination ./build {{args}}
+
+helm-package-only path='' args='':
+  #!/bin/bash
+  set -euo pipefail
+  echo "📝 Linting chart {{path}}"
+  helm lint {{path}} --strict
+
+  isLibrary=$(yq -r '.type' {{path}}/Chart.yaml)
+  echo "Chart type: $isLibrary"
+  if [ "$isLibrary" = "library" ]; then
+    echo "❌ Skipping template for library chart"
+  else
+    echo "✨ Rendering chart {{path}}"
+    helm template {{path}} > /dev/null
+  fi
   helm package {{path}} --destination ./build {{args}}
 
 helm-publish path='': helm-login
