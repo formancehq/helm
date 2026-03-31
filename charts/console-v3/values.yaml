@@ -350,13 +350,11 @@ config:
   # -- Console environment
   environment: production
   # -- Console additional environment variables
-  additionalEnv: []
-    # -- Console additional environment variables HOST
+  additionalEnv:
+    - name: FEATURES_DISABLED
+      value: "sessions"
     # - name: HOST
     #   value: "0.0.0.0"
-    # -- Console additional environment variables FEATURE_DISABLED
-    # - name: FEATURE_DISABLED
-    #   value: "true"
   sentry:
     # -- Sentry enabled
     enabled: false
