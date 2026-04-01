@@ -89,7 +89,10 @@
                     "type": "string"
                 },
                 "featuresDisabled": {
-                    "type": "array"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "managedStack": {
                     "type": "string"

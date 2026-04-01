@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.3.0](https://img.shields.io/badge/Version-4.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 4.4.0](https://img.shields.io/badge/Version-4.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -585,7 +585,7 @@ Dex:
 | console-v3.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | console-v3.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | console-v3.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
-| console-v3.config.additionalEnv | list | `[]` | Console additional environment variables |
+| console-v3.config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
 | console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
 | console-v3.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
@@ -598,7 +598,6 @@ Dex:
 | console-v3.config.migration.ttlSecondsAfterFinished | string | `""` |  |
 | console-v3.config.migration.volumeMounts | list | `[]` |  |
 | console-v3.config.migration.volumes | list | `[]` |  |
-| console-v3.config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | console-v3.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | console-v3.config.sentry.dsn | string | `""` | Sentry DSN |
 | console-v3.config.sentry.enabled | bool | `false` | Sentry enabled |
@@ -736,7 +735,8 @@ Dex:
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | portal.config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | portal.config.environment | string | `"production"` | Portal environment |
-| portal.config.featuresDisabled | list | `[]` |  |
+| portal.config.featuresDisabled[0] | string | `"notifications"` |  |
+| portal.config.featuresDisabled[1] | string | `"sessions"` |  |
 | portal.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
 | portal.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | portal.config.migration.serviceAccount.annotations | object | `{}` |  |

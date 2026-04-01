@@ -1,6 +1,6 @@
 # portal
 
-![Version: 3.1.2](https://img.shields.io/badge/Version-3.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0](https://img.shields.io/badge/AppVersion-v2.0.0-informational?style=flat-square)
+![Version: 3.2.0](https://img.shields.io/badge/Version-3.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.0](https://img.shields.io/badge/AppVersion-v2.2.0-informational?style=flat-square)
 
 Formance Portal
 
@@ -143,7 +143,8 @@ Kubernetes: `>=1.14.0-0`
 | config.cookie.secret | string | `"changeMe2"` | Cookie secret |
 | config.cookie.secretKeys | object | `{"secret":""}` | Cookie secret key |
 | config.environment | string | `"production"` | Portal environment |
-| config.featuresDisabled | list | `[]` |  |
+| config.featuresDisabled[0] | string | `"notifications"` |  |
+| config.featuresDisabled[1] | string | `"sessions"` |  |
 | config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
 | config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | config.migration.serviceAccount.annotations | object | `{}` |  |

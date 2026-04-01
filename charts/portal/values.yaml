@@ -253,7 +253,7 @@ config:
   # @section -- Portal configuration
   postgresqlUrl: ""
 
-  featuresDisabled: []
+  featuresDisabled: ["notifications", "sessions"]
 
   migration:
     # -- Enable migration job with a separated user

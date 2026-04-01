@@ -64,7 +64,18 @@
             "type": "object",
             "properties": {
                 "additionalEnv": {
-                    "type": "array"
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
+                    }
                 },
                 "cookie": {
                     "type": "object",
