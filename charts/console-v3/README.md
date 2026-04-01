@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 3.1.2](https://img.shields.io/badge/Version-3.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.0](https://img.shields.io/badge/AppVersion-v2.2.0-informational?style=flat-square)
+![Version: 3.2.0](https://img.shields.io/badge/Version-3.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.2.0](https://img.shields.io/badge/AppVersion-v2.2.0-informational?style=flat-square)
 
 Formance Console
 
@@ -136,7 +136,7 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
-| config.additionalEnv | list | `[]` | Console additional environment variables |
+| config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
 | config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | config.cookie.existingSecret | string | `""` | is the name of the secret |
 | config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
@@ -149,7 +149,6 @@ Kubernetes: `>=1.14.0-0`
 | config.migration.ttlSecondsAfterFinished | string | `""` |  |
 | config.migration.volumeMounts | list | `[]` |  |
 | config.migration.volumes | list | `[]` |  |
-| config.sentry | object | `{"authToken":{"existingSecret":"","secretKeys":{"value":""},"value":""},"dsn":"","enabled":false,"environment":"","release":""}` | Console additional environment variables FEATURE_DISABLED - name: FEATURE_DISABLED   value: "true" |
 | config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
 | config.sentry.dsn | string | `""` | Sentry DSN |
 | config.sentry.enabled | bool | `false` | Sentry enabled |
