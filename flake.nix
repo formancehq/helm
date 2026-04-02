@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    just-lib = { url = "git+ssh://git@github.com/formancehq/just-lib"; flake = false; };
+    just-lib = { url = "github:formancehq/just-lib/feat/actions-and-tests"; flake = false; };
   };
 
   outputs = { self, nixpkgs, nur, just-lib }:
