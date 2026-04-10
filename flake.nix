@@ -8,9 +8,11 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    just-lib = { url = "github:formancehq/just-lib/feat/actions-and-tests"; flake = false; };
   };
 
-  outputs = { self, nixpkgs, nur }:
+  outputs = { self, nixpkgs, nur, just-lib }:
     let
       goVersion = 23;
 
@@ -42,6 +44,9 @@
       devShells = forEachSupportedSystem ({ pkgs, system }:
         {
           default = pkgs.mkShell {
+            shellHook = ''
+              ln -sfn ${just-lib} .just-lib
+            '';
             packages = with pkgs; [
               go
               gotools
@@ -49,11 +54,11 @@
               ginkgo
               pkgs.nur.repos.goreleaser.goreleaser-pro
               just
-              kubernetes-helm
               kustomize_4
               mockgen
               yq
-            ];
+            ]
+            ++ (import "${just-lib}/helm/pkgs.nix" { inherit pkgs; });
           };
         }
       );

@@ -11,3 +11,4 @@ charts/**/LICENSE
 .ci
 
 docs
+.just-lib
