@@ -105,7 +105,7 @@ versions:
       stargate: v2.2.2
       auth: v2.4.1
       wallets: v2.1.5
-      webhooks: v2.1.0
+      webhooks: v2.3.0
       gateway: v2.2.0
       payments: v2.0.32
       orchestration: v2.0.24
@@ -116,7 +116,7 @@ versions:
       stargate: v2.2.2
       auth: v2.4.1
       wallets: v2.1.5
-      webhooks: v2.1.0
+      webhooks: v2.3.0
       gateway: v2.2.0
       payments: v2.0.32
       orchestration: v2.0.24
@@ -128,7 +128,7 @@ versions:
       stargate: v2.2.2
       auth: v2.4.1
       wallets: v2.1.5
-      webhooks: v2.1.0
+      webhooks: v2.3.0
       gateway: v2.2.0
       orchestration: v2.1.1
       reconciliation: v2.1.0
@@ -139,7 +139,7 @@ versions:
       stargate: v2.2.2
       auth: v2.4.1
       wallets: v2.1.5
-      webhooks: v2.2.0
+      webhooks: v2.3.0
       gateway: v2.2.0
       orchestration: v2.4.0
       reconciliation: v2.2.0
@@ -150,7 +150,7 @@ versions:
       stargate: v2.2.2
       auth: v2.4.3
       wallets: v2.1.5
-      webhooks: v2.2.0
+      webhooks: v2.3.0
       gateway: v2.2.0
       orchestration: v2.4.1
       reconciliation: v2.2.2
