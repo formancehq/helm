@@ -28,7 +28,7 @@ jobs:
           echo "::set-output name=changed_charts::$CHARTS"
       - name: Label PR based on chart changes
         if: steps.chart_changes.outputs.changed_charts != ''
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           CHARTS: ${{ steps.chart_changes.outputs.changed_charts }}
         with:
