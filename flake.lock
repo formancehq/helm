@@ -21,6 +21,23 @@
         "type": "github"
       }
     },
+    "just-lib": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775050988,
+        "narHash": "sha256-8JEACb/nm2o3pWQtSB3axaLnTpPPvDT03GvR5DHihQA=",
+        "owner": "formancehq",
+        "repo": "just-lib",
+        "rev": "5708b133512d8670e29920819a80acd4c192ee28",
+        "type": "github"
+      },
+      "original": {
+        "owner": "formancehq",
+        "ref": "feat/actions-and-tests",
+        "repo": "just-lib",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1742422364,
@@ -59,6 +76,7 @@
     },
     "root": {
       "inputs": {
+        "just-lib": "just-lib",
         "nixpkgs": "nixpkgs",
         "nur": "nur"
       }
