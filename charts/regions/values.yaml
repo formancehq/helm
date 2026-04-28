@@ -141,7 +141,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.3.0
       gateway: v2.2.0
-      orchestration: v2.4.0
+      orchestration: v2.4.1
       reconciliation: v2.2.0
     v3.2:
       payments: v3.2.0
@@ -152,7 +152,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.3.0
       gateway: v2.2.0
-      orchestration: v2.4.1
+      orchestration: v2.6.0
       reconciliation: v2.2.2
       transactionplane: v0.2.1
 

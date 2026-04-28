@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.8.5](https://img.shields.io/badge/Version-3.8.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.9.0](https://img.shields.io/badge/Version-3.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -137,7 +137,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".auth | string | `"v2.4.1"` |  |
 | versions.files."v3.1".gateway | string | `"v2.2.0"` |  |
 | versions.files."v3.1".ledger | string | `"v2.3.17"` |  |
-| versions.files."v3.1".orchestration | string | `"v2.4.0"` |  |
+| versions.files."v3.1".orchestration | string | `"v2.4.1"` |  |
 | versions.files."v3.1".payments | string | `"v3.0.18"` |  |
 | versions.files."v3.1".reconciliation | string | `"v2.2.0"` |  |
 | versions.files."v3.1".search | string | `"v2.1.0"` |  |
@@ -147,7 +147,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2".auth | string | `"v2.4.3"` |  |
 | versions.files."v3.2".gateway | string | `"v2.2.0"` |  |
 | versions.files."v3.2".ledger | string | `"v2.4.2"` |  |
-| versions.files."v3.2".orchestration | string | `"v2.4.1"` |  |
+| versions.files."v3.2".orchestration | string | `"v2.6.0"` |  |
 | versions.files."v3.2".payments | string | `"v3.2.0"` |  |
 | versions.files."v3.2".reconciliation | string | `"v2.2.2"` |  |
 | versions.files."v3.2".search | string | `"v2.1.0"` |  |
