@@ -122,7 +122,7 @@ versions:
       orchestration: v2.0.24
       reconciliation: v2.0.24
     v3.0:
-      payments: v3.0.18
+      payments: v3.0.20
       ledger: v2.2.59
       search: v2.1.0
       stargate: v2.2.2
@@ -133,7 +133,7 @@ versions:
       orchestration: v2.1.1
       reconciliation: v2.1.0
     v3.1:
-      payments: v3.0.18
+      payments: v3.0.20
       ledger: v2.3.18
       search: v2.1.0
       stargate: v2.2.2
@@ -141,7 +141,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.3.0
       gateway: v2.2.0
-      orchestration: v2.4.1
+      orchestration: v2.4.2
       reconciliation: v2.2.0
     v3.2:
       payments: v3.2.1
@@ -152,7 +152,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.3.0
       gateway: v2.2.0
-      orchestration: v2.6.0
+      orchestration: v2.6.1
       reconciliation: v2.2.2
       transactionplane: v0.2.1
 
