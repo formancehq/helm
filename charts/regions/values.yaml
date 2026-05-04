@@ -154,7 +154,7 @@ versions:
       gateway: v2.2.0
       orchestration: v2.6.1
       reconciliation: v2.2.2
-      transactionplane: v0.2.2
+      transactionplane: v0.2.1
 
 settings: {}
   # replicas:
