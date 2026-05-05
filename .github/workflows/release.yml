@@ -9,10 +9,10 @@ permissions:
 jobs:
   release:
     name: Release
-    runs-on: shipfox-4vcpu-ubuntu-2404
+    runs-on: namespace-profile-linux-amd64-4vcpu
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: namespacelabs/nscloud-checkout-action@v7
         with:
           fetch-depth: 0
       - name: Setup Nix

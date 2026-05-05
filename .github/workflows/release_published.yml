@@ -4,10 +4,10 @@ on:
     types: [published]
 jobs:
   push:
-    runs-on: shipfox-2vcpu-ubuntu-2404
+    runs-on: namespace-profile-linux-amd64-2vcpu
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: namespacelabs/nscloud-checkout-action@v7
         with:
           fetch-depth: 0
       - name: Setup Nix
