@@ -412,12 +412,24 @@ config:
       labels: {}
       # -- Seconds after which the wizard Job is eligible for cleanup (e.g. 300)
       ttlSecondsAfterFinished: 300
-    # -- Wizard bootstrap config (users, organizations, regions, stacks). Rendered under "wizard:" in /config/config.yaml.
+    # -- Wizard bootstrap config (users, organizations, regions, stacks, policies, groups). Rendered under "wizard:" in /config/config.yaml.
+    # See https://github.com/formancehq/membership-api/blob/main/docs/wizard.md for the full schema reference.
+    #
+    # `policies` and `groups` use source-of-truth scoping per organization:
+    # within any org that declares at least one entry in `policies` or `groups`,
+    # the wizard config is authoritative — declared items are created or updated
+    # to match exactly, and undeclared items in those orgs are deleted on apply.
+    # Organizations with no entries in those blocks are not touched.
+    #
+    # Native (protected) policies (OrganizationAdmin, StackAdmin, etc.) are never
+    # modified or deleted; groups can reference them by name.
     setup: |-
       users: []
       organizations: []
       regions: []
       stacks: []
+      policies: []
+      groups: []
     # -- Additional Environment variables on the main deployment
   additionalEnv: []
   # -- Enable Fctl
