@@ -7,7 +7,7 @@ jobs:
     runs-on: namespace-profile-linux-amd64-2vcpu
     steps:
       - name: Checkout
-        uses: namespacelabs/nscloud-checkout-action@v7
+        uses: namespacelabs/nscloud-checkout-action@v8
         with:
           fetch-depth: 0
       - name: Setup Nix
