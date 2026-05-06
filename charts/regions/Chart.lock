@@ -1,12 +1,12 @@
 dependencies:
 - name: agent
   repository: file://../agent
-  version: 2.14.0
+  version: 2.15.0
 - name: operator
   repository: oci://ghcr.io/formancehq/helm
   version: 3.11.2
 - name: core
   repository: file://../core
-  version: 1.5.1
-digest: sha256:866749c40f0605be3ee16788b1a99cacc325faf749bafa44da87479d1092e164
-generated: "2026-06-12T12:28:48.576894+02:00"
+  version: 1.6.0
+digest: sha256:ac7f9226c98c82d59e82c848beb4021e1d26e13b33772d22f721f04f79c9967d
+generated: "2026-06-22T09:32:46.086595+02:00"
