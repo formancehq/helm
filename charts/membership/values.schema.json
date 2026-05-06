@@ -275,7 +275,31 @@
                             "type": "string"
                         },
                         "connectors": {
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "clientID": {
+                                        "type": "string"
+                                    },
+                                    "clientSecret": {
+                                        "type": "string"
+                                    },
+                                    "config": {
+                                        "type": "object",
+                                        "additionalProperties": true
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
                         },
                         "existingSecret": {
                             "type": "string"
