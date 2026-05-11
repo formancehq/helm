@@ -14,7 +14,7 @@ metadata:
     formance.com/deprecated: "true"
   {{- end }}
   {{- else }}
-  {{- if gt (semver $key | (semver "v2.0.0").Compare) 0 }}
+  {{- if gt (semver $key | (semver "v2.2.0").Compare) 0 }}
     formance.com/deprecated: "true"
   {{- end }}
   {{- end }}
