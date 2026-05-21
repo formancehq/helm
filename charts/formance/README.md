@@ -547,7 +547,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.1".search | string | `"v2.0.24"` |  |
 | regions.versions.files."v2.1".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v2.1".wallets | string | `"v2.1.5"` |  |
-| regions.versions.files."v2.1".webhooks | string | `"v2.3.1"` |  |
+| regions.versions.files."v2.1".webhooks | string | `"v2.3.2"` |  |
 | regions.versions.files."v2.2".auth | string | `"v2.4.1"` |  |
 | regions.versions.files."v2.2".gateway | string | `"v2.2.0"` |  |
 | regions.versions.files."v2.2".ledger | string | `"v2.2.58"` |  |
@@ -557,7 +557,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.2".search | string | `"v2.0.24"` |  |
 | regions.versions.files."v2.2".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v2.2".wallets | string | `"v2.1.5"` |  |
-| regions.versions.files."v2.2".webhooks | string | `"v2.3.1"` |  |
+| regions.versions.files."v2.2".webhooks | string | `"v2.3.2"` |  |
 | regions.versions.files."v3.0".auth | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.0".gateway | string | `"v2.2.0"` |  |
 | regions.versions.files."v3.0".ledger | string | `"v2.2.58"` |  |
@@ -567,7 +567,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.0".search | string | `"v2.1.0"` |  |
 | regions.versions.files."v3.0".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.0".wallets | string | `"v2.1.5"` |  |
-| regions.versions.files."v3.0".webhooks | string | `"v2.3.1"` |  |
+| regions.versions.files."v3.0".webhooks | string | `"v2.3.2"` |  |
 | regions.versions.files."v3.1".auth | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.1".gateway | string | `"v2.2.0"` |  |
 | regions.versions.files."v3.1".ledger | string | `"v2.3.19"` |  |
@@ -577,7 +577,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.1".search | string | `"v2.1.0"` |  |
 | regions.versions.files."v3.1".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
-| regions.versions.files."v3.1".webhooks | string | `"v2.3.1"` |  |
+| regions.versions.files."v3.1".webhooks | string | `"v2.3.2"` |  |
 | regions.versions.files."v3.2".auth | string | `"v2.4.3"` |  |
 | regions.versions.files."v3.2".gateway | string | `"v2.2.0"` |  |
 | regions.versions.files."v3.2".ledger | string | `"v2.4.5"` |  |
@@ -588,7 +588,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.2".transactionplane | string | `"v0.2.1"` |  |
 | regions.versions.files."v3.2".wallets | string | `"v2.1.5"` |  |
-| regions.versions.files."v3.2".webhooks | string | `"v2.3.1"` |  |
+| regions.versions.files."v3.2".webhooks | string | `"v2.3.2"` |  |
 | regions.versions.files.default.auth | string | `"v0.4.4"` |  |
 | regions.versions.files.default.gateway | string | `"v2.0.18"` |  |
 | regions.versions.files.default.ledger | string | `"v1.10.14"` |  |
