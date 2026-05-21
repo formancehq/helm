@@ -586,7 +586,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.2".reconciliation | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.2".search | string | `"v2.1.0"` |  |
 | regions.versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
-| regions.versions.files."v3.2".transactionplane | string | `"v0.2.1"` |  |
+| regions.versions.files."v3.2".transactionplane | string | `"v0.9.0"` |  |
 | regions.versions.files."v3.2".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v3.2".webhooks | string | `"v2.3.2"` |  |
 | regions.versions.files.default.auth | string | `"v0.4.4"` |  |

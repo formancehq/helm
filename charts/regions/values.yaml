@@ -152,7 +152,7 @@ versions:
       reconciliation: v2.2.2
       search: v2.1.0
       stargate: v2.2.2
-      transactionplane: v0.2.1
+      transactionplane: v0.9.0
       wallets: v2.1.5
       webhooks: v2.3.2
 

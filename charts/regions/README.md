@@ -152,7 +152,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2".reconciliation | string | `"v2.2.2"` |  |
 | versions.files."v3.2".search | string | `"v2.1.0"` |  |
 | versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
-| versions.files."v3.2".transactionplane | string | `"v0.2.1"` |  |
+| versions.files."v3.2".transactionplane | string | `"v0.9.0"` |  |
 | versions.files."v3.2".wallets | string | `"v2.1.5"` |  |
 | versions.files."v3.2".webhooks | string | `"v2.3.2"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
