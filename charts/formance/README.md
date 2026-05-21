@@ -582,7 +582,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.2".gateway | string | `"v2.2.0"` |  |
 | regions.versions.files."v3.2".ledger | string | `"v2.4.5"` |  |
 | regions.versions.files."v3.2".orchestration | string | `"v2.6.0"` |  |
-| regions.versions.files."v3.2".payments | string | `"v3.2.0"` |  |
+| regions.versions.files."v3.2".payments | string | `"v3.2.1"` |  |
 | regions.versions.files."v3.2".reconciliation | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.2".search | string | `"v2.1.0"` |  |
 | regions.versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
