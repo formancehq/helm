@@ -192,6 +192,20 @@ image:
   # -- image tag
   tag: ""
 
+# -- Entrypoint command for the console-v3 container.
+# Default keeps the historical `pnpm run start:prod` behaviour. Slim
+# prod-remix images (which strip `pnpm` to save ~30 MB) should override
+# this with the runtime entrypoint, e.g.
+# `[node_modules/.bin/react-router-serve]` with
+# `args: [./build/server/index.js]`.
+command:
+  - pnpm
+
+# -- Entrypoint args for the console-v3 container.
+args:
+  - run
+  - start:prod
+
 # -- image pull secrets
 imagePullSecrets: []
 
@@ -302,6 +316,19 @@ config:
     # -- Enable migration job with a separated user
     # @section -- Migration configuration
     enabled: true
+
+    # -- Migrate-job command. Defaults to `pnpm run db:migrate`; override
+    # for images without `pnpm` (e.g. the slim prod-remix runtime).
+    # @section -- Migration configuration
+    command:
+      - pnpm
+
+    # -- Migrate-job args.
+    # @section -- Migration configuration
+    args:
+      - run
+      - db:migrate
+
     # postgresql:
     #   auth:
     #     # -- Name for a custom user to create (overrides `auth.username`)
