@@ -14,7 +14,7 @@ jobs:
       pull-requests: write
     runs-on: namespace-profile-linux-amd64-2vcpu
     steps:
-      - uses: "namespacelabs/nscloud-checkout-action@v8"
+      - uses: "namespacelabs/nscloud-checkout-action@v9"
         with:
           fetch-depth: 0
       - uses: actions/labeler@v6
@@ -60,7 +60,7 @@ jobs:
   Dirty:
     runs-on: namespace-profile-linux-amd64-4vcpu
     steps:
-      - uses: "namespacelabs/nscloud-checkout-action@v8"
+      - uses: "namespacelabs/nscloud-checkout-action@v9"
         with:
           fetch-depth: 0
       - name: Setup Nix
@@ -86,7 +86,7 @@ jobs:
   Artifacts:
     runs-on: namespace-profile-linux-amd64-2vcpu
     steps:
-      - uses: "namespacelabs/nscloud-checkout-action@v8"
+      - uses: "namespacelabs/nscloud-checkout-action@v9"
         with:
           fetch-depth: 0
       - name: Setup Nix
