@@ -13,16 +13,13 @@ lint:
 tidy: lint
   @cd ./tools/readme && go mod tidy
 
-helm-schema-install:
-  helm plugin install https://github.com/losisin/helm-values-schema-json.git --version v1.9.2 || true
-
 helm-schema path='':
-  helm schema -input {{path}}/values.yaml -output {{path}}/values.schema.json
+  helm schema --values {{path}}/values.yaml --output {{path}}/values.schema.json
   
 helm-docs:
   go run github.com/norwoodj/helm-docs/cmd/helm-docs@v1.14 --chart-search-root=charts --document-dependency-values --skip-version-footer
 
-helm-all package="false" publish='false' packageArgs="": helm-docs helm-schema-install
+helm-all package="false" publish='false' packageArgs="": helm-docs
   #!/bin/bash
   set -euo pipefail
 

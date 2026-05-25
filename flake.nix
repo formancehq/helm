@@ -2,7 +2,7 @@
   description = "Wallets dev env";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511.*.tar.gz";
 
     nur = {
       url = "github:nix-community/NUR";
@@ -12,7 +12,7 @@
 
   outputs = { self, nixpkgs, nur }:
     let
-      goVersion = 23;
+      goVersion = 26;
 
       supportedSystems = [
         "x86_64-linux"
@@ -49,7 +49,9 @@
               ginkgo
               pkgs.nur.repos.goreleaser.goreleaser-pro
               just
-              kubernetes-helm
+              (wrapHelm kubernetes-helm {
+                plugins = [ kubernetes-helmPlugins.helm-schema ];
+              })
               kustomize_4
               mockgen
               yq
