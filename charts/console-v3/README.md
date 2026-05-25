@@ -1,6 +1,6 @@
 # console-v3
 
-![Version: 3.5.1](https://img.shields.io/badge/Version-3.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.1](https://img.shields.io/badge/AppVersion-v2.5.1-informational?style=flat-square)
+![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.0.0](https://img.shields.io/badge/AppVersion-v3.0.0-informational?style=flat-square)
 
 Formance Console
 
@@ -88,6 +88,8 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| config.migration.args | list | `["dist/migrate.cjs"]` | Migrate-job args. The bundled runner reads SQL files from `./dist/migrations` (set via `MIGRATIONS_FOLDER` env in the image). |
+| config.migration.command | list | `["node"]` | Migrate-job command. Defaults to the bundled CJS migration runner shipped at `dist/migrate.cjs` by platform-ui#1195. |
 | config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
 ### Console configuration
@@ -127,6 +129,7 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.requestTimeout | string | `"60s"` |  |
 | affinity | object | `{}` | Console affinity |
 | annotations | object | `{}` | Console annotations  |
+| args | list | `["./build/server/index.js"]` | Entrypoint args for the console-v3 container. |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
@@ -136,6 +139,7 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| command | list | `["node_modules/.bin/react-router-serve"]` | Entrypoint command for the console-v3 container. Defaults match the slim `prod-remix` image which has no `pnpm` (saved ~30 MB) and invokes the React Router server binary directly. |
 | config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
 | config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | config.cookie.existingSecret | string | `""` | is the name of the secret |

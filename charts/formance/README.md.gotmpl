@@ -1,0 +1,53 @@
+{{ template "chart.header" . }}
+
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+## Migration
+
+### From v1.X.X To v2.0.0
+
+#### Breaking changes
+
+This bump pulls in `cloudprem` v5, which in turn upgrades the `portal` and `console-v3`
+subcharts to v4 (app `v3.0.0`). Both subcharts now default their container `command` /
+`args` to the slim production image entrypoint
+(`react-router-serve ./build/server/index.js`) and the migration runner to
+`node dist/migrate.cjs`. Consumers still running the legacy `pnpm`-based images **must**
+override these values to keep the previous behavior:
+
+```yaml
+cloudprem:
+  portal:
+    command: ["pnpm"]
+    args: ["start"]
+    config:
+      migration:
+        command: ["pnpm"]
+        args: ["migrate", "up"]
+
+  console-v3:
+    command: ["pnpm"]
+    args: ["start"]
+    config:
+      migration:
+        command: ["pnpm"]
+        args: ["migrate", "up"]
+```
+
+If you already pin a recent image tag shipping the slim entrypoint, no action is required.
+See the [`cloudprem` migration notes](../cloudprem/README.md#from-v4xx-to-v500) for the
+underlying change.
+
+{{ template "chart.valuesSection" . }}

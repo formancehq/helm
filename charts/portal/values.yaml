@@ -183,6 +183,16 @@ image:
   # -- image tag
   tag: ""
 
+# -- Entrypoint command for the portal container. Defaults match the slim
+# `prod-remix` image which has no `pnpm` (saved ~30 MB) and invokes the
+# React Router server binary directly.
+command:
+  - node_modules/.bin/react-router-serve
+
+# -- Entrypoint args for the portal container.
+args:
+  - ./build/server/index.js
+
 imagePullSecrets: []
 
 serviceAccount:
@@ -259,6 +269,19 @@ config:
     # -- Enable migration job with a separated user
     # @section -- Migration configuration
     enabled: true
+
+    # -- Migrate-job command. Defaults to the bundled CJS migration runner
+    # shipped at `dist/migrate.cjs` by platform-ui#1195.
+    # @section -- Migration configuration
+    command:
+      - node
+
+    # -- Migrate-job args. The bundled runner reads SQL files from
+    # `./dist/migrations` (set via `MIGRATIONS_FOLDER` env in the image).
+    # @section -- Migration configuration
+    args:
+      - dist/migrate.cjs
+
     # postgresql:
     #   auth:
     #     # -- Name for a custom user to create (overrides `auth.username`)

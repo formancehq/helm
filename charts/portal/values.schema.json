@@ -8,6 +8,12 @@
         "annotations": {
             "type": "object"
         },
+        "args": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "autoscaling": {
             "type": "object",
             "properties": {
@@ -60,6 +66,12 @@
                 }
             }
         },
+        "command": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "config": {
             "type": "object",
             "properties": {
@@ -102,6 +114,18 @@
                     "properties": {
                         "annotations": {
                             "type": "object"
+                        },
+                        "args": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "command": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         },
                         "enabled": {
                             "type": "boolean"

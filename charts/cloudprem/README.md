@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 4.6.2](https://img.shields.io/badge/Version-4.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 5.0.0](https://img.shields.io/badge/Version-5.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -13,9 +13,9 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../console-v3 | console-v3 | 3.X |
+| file://../console-v3 | console-v3 | 4.X |
 | file://../membership | membership | 3.X |
-| file://../portal | portal | 3.X |
+| file://../portal | portal | 4.X |
 
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
@@ -272,6 +272,36 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### From v4.X.X To v5.0.0
+
+#### Breaking changes
+
+The bundled `portal` and `console-v3` subcharts have been bumped to `v4.X` (app `v3.0.0`)
+and now default their container `command` / `args` to the slim production image entrypoint
+(`react-router-serve ./build/server/index.js`) and the migration runner to
+`node dist/migrate.cjs`. Consumers still running the legacy `pnpm`-based images **must**
+override these values to keep the previous behavior:
+
+```yaml
+portal:
+  command: ["pnpm"]
+  args: ["start"]
+  config:
+    migration:
+      command: ["pnpm"]
+      args: ["migrate", "up"]
+
+console-v3:
+  command: ["pnpm"]
+  args: ["start"]
+  config:
+    migration:
+      command: ["pnpm"]
+      args: ["migrate", "up"]
+```
+
+If you already pin a recent image tag shipping the slim entrypoint, no action is required.
+
 ### From v3.X.X To v4.0.0
 
 #### Breaking changes
@@ -479,7 +509,11 @@ Dex:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| console-v3.config.migration.args | list | `["dist/migrate.cjs"]` | Migrate-job args. The bundled runner reads SQL files from `./dist/migrations` (set via `MIGRATIONS_FOLDER` env in the image). |
+| console-v3.config.migration.command | list | `["node"]` | Migrate-job command. Defaults to the bundled CJS migration runner shipped at `dist/migrate.cjs` by platform-ui#1195. |
 | console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
+| portal.config.migration.args | list | `["dist/migrate.cjs"]` | Migrate-job args. The bundled runner reads SQL files from `./dist/migrations` (set via `MIGRATIONS_FOLDER` env in the image). |
+| portal.config.migration.command | list | `["node"]` | Migrate-job command. Defaults to the bundled CJS migration runner shipped at `dist/migrate.cjs` by platform-ui#1195. |
 | portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
 ### Console configuration
@@ -576,6 +610,7 @@ Dex:
 | global.platform.stargate.tls.disable | bool | `false` |  |
 | console-v3.affinity | object | `{}` | Console affinity |
 | console-v3.annotations | object | `{}` | Console annotations  |
+| console-v3.args | list | `["./build/server/index.js"]` | Entrypoint args for the console-v3 container. |
 | console-v3.autoscaling.enabled | bool | `false` |  |
 | console-v3.autoscaling.maxReplicas | int | `100` |  |
 | console-v3.autoscaling.minReplicas | int | `1` |  |
@@ -585,6 +620,7 @@ Dex:
 | console-v3.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | console-v3.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | console-v3.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| console-v3.command | list | `["node_modules/.bin/react-router-serve"]` | Entrypoint command for the console-v3 container. Defaults match the slim `prod-remix` image which has no `pnpm` (saved ~30 MB) and invokes the React Router server binary directly. |
 | console-v3.config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
 | console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
@@ -726,10 +762,12 @@ Dex:
 | membership.volumes | list | `[]` | Membership volumes |
 | portal.affinity | object | `{}` | Portal affinity |
 | portal.annotations | object | `{}` | Portal annotations  |
+| portal.args | list | `["./build/server/index.js"]` | Entrypoint args for the portal container. |
 | portal.autoscaling.enabled | bool | `false` |  |
 | portal.autoscaling.maxReplicas | int | `100` |  |
 | portal.autoscaling.minReplicas | int | `1` |  |
 | portal.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| portal.command | list | `["node_modules/.bin/react-router-serve"]` | Entrypoint command for the portal container. Defaults match the slim `prod-remix` image which has no `pnpm` (saved ~30 MB) and invokes the React Router server binary directly. |
 | portal.config.additionalEnv | list | `[]` | Additional environment variables |
 | portal.config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |

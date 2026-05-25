@@ -10,7 +10,7 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: 1.10.1
+version: 2.0.0
 appVersion: "latest"
 # The "-0" suffix is required for GKE compatibility. GKE versions contain
 # build metadata like "v1.33.5-gke.2392000" which semver treats as pre-release.
@@ -35,7 +35,7 @@ dependencies:
   - child: stacks
     parent: global.exports.stacks
 - name: cloudprem
-  version: 4.X
+  version: 5.X
   repository: "file://../cloudprem"
   tags:
   - EntrepriseEdition

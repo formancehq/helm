@@ -34,11 +34,14 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          command: 
-          - pnpm
+          {{- with .Values.config.migration.command }}
+          command:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.config.migration.args }}
           args:
-            - run
-            - db:migrate
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             {{- include "core.env.common" . | nindent 12 }}
             {{- include "core.monitoring" . | nindent 12 }}
