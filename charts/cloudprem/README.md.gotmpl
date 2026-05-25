@@ -268,6 +268,36 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### From v4.X.X To v5.0.0
+
+#### Breaking changes
+
+The bundled `portal` and `console-v3` subcharts have been bumped to `v4.X` (app `v3.0.0`)
+and now default their container `command` / `args` to the slim production image entrypoint
+(`react-router-serve ./build/server/index.js`) and the migration runner to
+`node dist/migrate.cjs`. Consumers still running the legacy `pnpm`-based images **must**
+override these values to keep the previous behavior:
+
+```yaml
+portal:
+  command: ["pnpm"]
+  args: ["start"]
+  config:
+    migration:
+      command: ["pnpm"]
+      args: ["migrate", "up"]
+
+console-v3:
+  command: ["pnpm"]
+  args: ["start"]
+  config:
+    migration:
+      command: ["pnpm"]
+      args: ["migrate", "up"]
+```
+
+If you already pin a recent image tag shipping the slim entrypoint, no action is required.
+
 ### From v3.X.X To v4.0.0
 
 #### Breaking changes

@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.10.1](https://img.shields.io/badge/Version-1.10.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -22,9 +22,45 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../cloudprem | cloudprem | 4.X |
+| file://../cloudprem | cloudprem | 5.X |
 | file://../regions | regions | 3.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
+
+## Migration
+
+### From v1.X.X To v2.0.0
+
+#### Breaking changes
+
+This bump pulls in `cloudprem` v5, which in turn upgrades the `portal` and `console-v3`
+subcharts to v4 (app `v3.0.0`). Both subcharts now default their container `command` /
+`args` to the slim production image entrypoint
+(`react-router-serve ./build/server/index.js`) and the migration runner to
+`node dist/migrate.cjs`. Consumers still running the legacy `pnpm`-based images **must**
+override these values to keep the previous behavior:
+
+```yaml
+cloudprem:
+  portal:
+    command: ["pnpm"]
+    args: ["start"]
+    config:
+      migration:
+        command: ["pnpm"]
+        args: ["migrate", "up"]
+
+  console-v3:
+    command: ["pnpm"]
+    args: ["start"]
+    config:
+      migration:
+        command: ["pnpm"]
+        args: ["migrate", "up"]
+```
+
+If you already pin a recent image tag shipping the slim entrypoint, no action is required.
+See the [`cloudprem` migration notes](../cloudprem/README.md#from-v4xx-to-v500) for the
+underlying change.
 
 ## Values
 
@@ -187,7 +223,11 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| cloudprem.console-v3.config.migration.args | list | `["dist/migrate.cjs"]` | Migrate-job args. The bundled runner reads SQL files from `./dist/migrations` (set via `MIGRATIONS_FOLDER` env in the image). |
+| cloudprem.console-v3.config.migration.command | list | `["node"]` | Migrate-job command. Defaults to the bundled CJS migration runner shipped at `dist/migrate.cjs` by platform-ui#1195. |
 | cloudprem.console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
+| cloudprem.portal.config.migration.args | list | `["dist/migrate.cjs"]` | Migrate-job args. The bundled runner reads SQL files from `./dist/migrations` (set via `MIGRATIONS_FOLDER` env in the image). |
+| cloudprem.portal.config.migration.command | list | `["node"]` | Migrate-job command. Defaults to the bundled CJS migration runner shipped at `dist/migrate.cjs` by platform-ui#1195. |
 | cloudprem.portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
 ### Console configuration
@@ -293,6 +333,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.stacks | object | `{}` |  |
 | cloudprem.console-v3.affinity | object | `{}` | Console affinity |
 | cloudprem.console-v3.annotations | object | `{}` | Console annotations  |
+| cloudprem.console-v3.args | list | `["./build/server/index.js"]` | Entrypoint args for the console-v3 container. |
 | cloudprem.console-v3.autoscaling.enabled | bool | `false` |  |
 | cloudprem.console-v3.autoscaling.maxReplicas | int | `100` |  |
 | cloudprem.console-v3.autoscaling.minReplicas | int | `1` |  |
@@ -302,6 +343,7 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.console-v3.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | cloudprem.console-v3.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | cloudprem.console-v3.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| cloudprem.console-v3.command | list | `["node_modules/.bin/react-router-serve"]` | Entrypoint command for the console-v3 container. Defaults match the slim `prod-remix` image which has no `pnpm` (saved ~30 MB) and invokes the React Router server binary directly. |
 | cloudprem.console-v3.config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
 | cloudprem.console-v3.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | cloudprem.console-v3.config.cookie.existingSecret | string | `""` | is the name of the secret |
@@ -443,10 +485,12 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.volumes | list | `[]` | Membership volumes |
 | cloudprem.portal.affinity | object | `{}` | Portal affinity |
 | cloudprem.portal.annotations | object | `{}` | Portal annotations  |
+| cloudprem.portal.args | list | `["./build/server/index.js"]` | Entrypoint args for the portal container. |
 | cloudprem.portal.autoscaling.enabled | bool | `false` |  |
 | cloudprem.portal.autoscaling.maxReplicas | int | `100` |  |
 | cloudprem.portal.autoscaling.minReplicas | int | `1` |  |
 | cloudprem.portal.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| cloudprem.portal.command | list | `["node_modules/.bin/react-router-serve"]` | Entrypoint command for the portal container. Defaults match the slim `prod-remix` image which has no `pnpm` (saved ~30 MB) and invokes the React Router server binary directly. |
 | cloudprem.portal.config.additionalEnv | list | `[]` | Additional environment variables |
 | cloudprem.portal.config.cookie.existingSecret | string | `""` | Cookie existing secret |
 | cloudprem.portal.config.cookie.secret | string | `"changeMe2"` | Cookie secret |
