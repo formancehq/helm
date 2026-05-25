@@ -11,3 +11,6 @@ charts/**/LICENSE
 .ci
 
 docs
+
+.direnv
+.envrc.local
