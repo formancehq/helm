@@ -580,7 +580,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.1".webhooks | string | `"v2.3.2"` |  |
 | regions.versions.files."v3.2".auth | string | `"v2.4.3"` |  |
 | regions.versions.files."v3.2".gateway | string | `"v2.2.0"` |  |
-| regions.versions.files."v3.2".ledger | string | `"v2.4.5"` |  |
+| regions.versions.files."v3.2".ledger | string | `"v2.4.6"` |  |
 | regions.versions.files."v3.2".orchestration | string | `"v2.6.0"` |  |
 | regions.versions.files."v3.2".payments | string | `"v3.2.1"` |  |
 | regions.versions.files."v3.2".reconciliation | string | `"v2.2.2"` |  |
