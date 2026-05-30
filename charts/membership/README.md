@@ -10,7 +10,7 @@ Kubernetes: `>=1.14.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../core | core | 1.X |
-| https://charts.dexidp.io | dex | 0.24.0 |
+| https://charts.dexidp.io | dex | 0.24.1 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
 
 ## Maintainers
