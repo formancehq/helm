@@ -146,7 +146,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".webhooks | string | `"v2.3.2"` |  |
 | versions.files."v3.2".auth | string | `"v2.4.3"` |  |
 | versions.files."v3.2".gateway | string | `"v2.2.0"` |  |
-| versions.files."v3.2".ledger | string | `"v2.4.6"` |  |
+| versions.files."v3.2".ledger | string | `"v2.4.9"` |  |
 | versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
 | versions.files."v3.2".orchestration | string | `"v2.6.0"` |  |
 | versions.files."v3.2".payments | string | `"v3.3.1"` |  |
