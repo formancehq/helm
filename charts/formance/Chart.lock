@@ -9,4 +9,4 @@ dependencies:
   repository: file://../cloudprem
   version: 4.8.0
 digest: sha256:95bc863b6813299501d3a2c45746918b7dbbb153fb1666fc1acd893020aac0fd
-generated: "2026-06-09T14:59:39.267435+02:00"
+generated: "2026-06-09T15:20:24.325486+02:00"
