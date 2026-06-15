@@ -109,7 +109,7 @@ versions:
       search: v2.0.24
       stargate: v2.2.2
       wallets: v2.1.5
-      webhooks: v2.4.0
+      webhooks: v2.4.1
     v2.2:
       auth: v2.4.1
       gateway: v2.2.0
@@ -120,7 +120,7 @@ versions:
       search: v2.0.24
       stargate: v2.2.2
       wallets: v2.1.5
-      webhooks: v2.4.0
+      webhooks: v2.4.1
     v3.0:
       auth: v2.4.1
       gateway: v2.2.0
@@ -131,7 +131,7 @@ versions:
       search: v2.1.0
       stargate: v2.2.2
       wallets: v2.1.5
-      webhooks: v2.4.0
+      webhooks: v2.4.1
     v3.1:
       auth: v2.4.1
       gateway: v2.2.0
@@ -142,7 +142,7 @@ versions:
       search: v2.1.0
       stargate: v2.2.2
       wallets: v2.1.5
-      webhooks: v2.4.0
+      webhooks: v2.4.1
     v3.2:
       auth: v2.4.3
       gateway: v2.2.0
@@ -155,7 +155,7 @@ versions:
       stargate: v2.2.2
       transactionplane: v0.2.1
       wallets: v2.1.5
-      webhooks: v2.4.0
+      webhooks: v2.4.1
 
 settings: {}
   # replicas:
