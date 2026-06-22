@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 18.7.3
+  version: 18.7.6
 - name: dex
   repository: https://charts.dexidp.io
   version: 0.24.1
 - name: core
   repository: file://../core
-  version: 1.5.1
-digest: sha256:f516e5a8711af3c7a57a609c043c3eb83aa8b5db56ccc4e8c449b66f09725253
-generated: "2026-06-09T14:59:33.302603+02:00"
+  version: 1.6.0
+digest: sha256:b130a654a9fd60d5f6da5bf73a0d9710e10060b2a54a163662392f1206835f9a
+generated: "2026-06-22T09:26:52.299904+02:00"

@@ -1,11 +1,23 @@
 
-{{- /**DEPRECATED **/}}
+{{- /**DEPRECATED — use `core.job.annotations` directly **/}}
 {{- define "core.postgres.job.annotations" -}}
 {{- include "core.job.annotations" . -}}
 {{- end }}
-{{- /**DEPRECATED **/}}
+
+{{/**
+    Hook annotations for the migration Job's ServiceAccount. Same
+    Helm hook semantics as `core.job.annotations` and gated by the
+    same `.Values.feature.migrationHooks` flag, but with a LOWER
+    `hook-weight` so the SA is created before the Job that references
+    it (otherwise the Job's pod fails to schedule with "ServiceAccount
+    not found"). ArgoCD auto-translates `hook-weight` to `sync-wave`.
+  **/}}
 {{- define "core.postgres.job.sa.annotations" -}}
-{{- include "core.job.annotations" . -}}
+{{- if .Values.feature.migrationHooks }}
+helm.sh/hook: pre-install,pre-upgrade
+helm.sh/hook-delete-policy: before-hook-creation
+helm.sh/hook-weight: "0"
+{{- end }}
 {{- end }}
 
 {{/** 
