@@ -6,6 +6,7 @@ metadata:
   name: {{ $name }}
   labels:
     {{- include "core.labels" $ | nindent 4 }}
+    formance.com/stack: {{ $name | trunc 63 | trimSuffix "-" | trimSuffix "." | quote }}
   annotations:
   {{- with $.Values.annotations }}
   {{- . | toYaml | nindent 4 }}

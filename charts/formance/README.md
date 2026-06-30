@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.14.3](https://img.shields.io/badge/Version-1.14.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.15.0](https://img.shields.io/badge/Version-1.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -71,7 +71,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.monitoring | object | `{"logs":{"enabled":true,"format":"json","level":"info"},"metrics":{"enabled":false,"endpoint":"","exporter":"otlp","insecure":true,"mode":"grpc","port":4317},"traces":{"batch":false,"enabled":false,"endpoint":"localhost","exporter":"otlp","insecure":true,"mode":"grpc","port":4317}}` | Monitoring configuration |
+| global.monitoring | object | `{"logs":{"enabled":true,"format":"json","level":"info"},"metrics":{"enabled":false,"endpoint":"","exporter":"otlp","insecure":true,"mode":"grpc","port":4317},"support":{"authSecret":"","authSecretKey":"","enabled":false,"endpoint":"https://otel-support.internal.frmnc.net","resourceAttributes":{},"stackSelector":{"matchExpressions":[{"key":"formance.com/stack","operator":"Exists"}]}},"traces":{"batch":false,"enabled":false,"endpoint":"localhost","exporter":"otlp","insecure":true,"mode":"grpc","port":4317}}` | Monitoring configuration |
 | global.monitoring.logs.enabled | bool | `true` | Enable logging |
 | global.monitoring.logs.format | string | `"json"` | Log format (json, text) |
 | global.monitoring.logs.level | string | `"info"` | Log level (info, debug, error) |
@@ -81,6 +81,12 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.metrics.insecure | bool | `true` | Disable TLS verification |
 | global.monitoring.metrics.mode | string | `"grpc"` | Transport mode (grpc/http) |
 | global.monitoring.metrics.port | int | `4317` | OTLP port |
+| global.monitoring.support.authSecret | string | `""` | Secret name containing the bearer token for auth. Defaults to the licence secret if empty. |
+| global.monitoring.support.authSecretKey | string | `""` | Key within the auth secret that contains the token |
+| global.monitoring.support.enabled | bool | `false` | Enable Formance support telemetry forwarding (opt-in). Requires operator chart >= 3.12.0. |
+| global.monitoring.support.endpoint | string | `"https://otel-support.internal.frmnc.net"` | Formance support collector endpoint |
+| global.monitoring.support.resourceAttributes | object | `{}` | Resource attributes added to all signals sent to this endpoint |
+| global.monitoring.support.stackSelector | object | `{"matchExpressions":[{"key":"formance.com/stack","operator":"Exists"}]}` | Stack selector for the support OtelExporterEndpoint |
 | global.monitoring.traces.batch | bool | `false` | Enable trace batching |
 | global.monitoring.traces.enabled | bool | `false` | Enable OpenTelemetry tracing |
 | global.monitoring.traces.endpoint | string | `"localhost"` | OTLP endpoint |

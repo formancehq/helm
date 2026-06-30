@@ -151,6 +151,45 @@
                                 }
                             }
                         },
+                        "support": {
+                            "type": "object",
+                            "properties": {
+                                "authSecret": {
+                                    "type": "string"
+                                },
+                                "authSecretKey": {
+                                    "type": "string"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "endpoint": {
+                                    "type": "string"
+                                },
+                                "resourceAttributes": {
+                                    "type": "object"
+                                },
+                                "stackSelector": {
+                                    "type": "object",
+                                    "properties": {
+                                        "matchExpressions": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "key": {
+                                                        "type": "string"
+                                                    },
+                                                    "operator": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         "traces": {
                             "type": "object",
                             "properties": {
