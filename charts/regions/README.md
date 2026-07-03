@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.11.2](https://img.shields.io/badge/Version-3.11.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.12.0](https://img.shields.io/badge/Version-3.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -58,6 +58,17 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment |
 | global.licence.secretKeys.token | string | `"token"` | Hardcoded in the operator |
 | global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
+
+### Monitoring configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.monitoring.support.authSecret | string | `""` | Secret name containing the bearer token for auth. Defaults to the licence secret if empty. |
+| global.monitoring.support.authSecretKey | string | `""` | Key within the auth secret that contains the token |
+| global.monitoring.support.enabled | bool | `false` | Enable Formance support telemetry forwarding (opt-in). Requires operator chart >= 3.12.0. |
+| global.monitoring.support.endpoint | string | `"https://otel-support.internal.frmnc.net"` | Formance support collector endpoint |
+| global.monitoring.support.resourceAttributes | object | `{}` | Resource attributes added to all signals sent to this endpoint |
+| global.monitoring.support.stackSelector | object | `{"matchExpressions":[{"key":"formance.com/stack","operator":"Exists"}]}` | Stack selector for the support OtelExporterEndpoint |
 
 ### Other Values
 
