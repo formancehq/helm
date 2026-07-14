@@ -153,7 +153,7 @@ versions:
       ledger: v2.2.58
       orchestration: v2.1.1
       payments: v3.0.18
-      reconciliation: v2.3.0
+      reconciliation: v2.3.1
       search: v2.1.0
       stargate: v2.2.2
       wallets: v2.1.5
@@ -164,7 +164,7 @@ versions:
       ledger: v2.3.19
       orchestration: v2.4.1
       payments: v3.0.18
-      reconciliation: v2.3.0
+      reconciliation: v2.3.1
       search: v2.1.0
       stargate: v2.2.2
       wallets: v2.1.5
@@ -176,7 +176,7 @@ versions:
       mcp: v0.3.0
       orchestration: v2.6.0
       payments: v3.3.1
-      reconciliation: v2.3.0
+      reconciliation: v2.3.1
       search: v2.1.0
       stargate: v2.2.2
       transactionplane: v0.2.1
