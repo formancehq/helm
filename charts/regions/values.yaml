@@ -161,7 +161,7 @@ versions:
     v3.1:
       auth: v2.4.3
       gateway: v2.3.1
-      ledger: v2.3.20
+      ledger: v2.3.22
       orchestration: v2.4.1
       payments: v3.0.19
       reconciliation: v2.3.1
@@ -172,7 +172,7 @@ versions:
     v3.2:
       auth: v2.4.3
       gateway: v2.3.1
-      ledger: v2.4.11
+      ledger: v2.4.12
       mcp: v0.3.0
       orchestration: v2.6.0
       payments: v3.4.0
