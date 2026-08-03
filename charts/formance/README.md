@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.16.1](https://img.shields.io/badge/Version-1.16.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.16.2](https://img.shields.io/badge/Version-1.16.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -584,18 +584,18 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.1".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v3.1".webhooks | string | `"v2.4.1"` |  |
-| regions.versions.files."v3.2".auth | string | `"v2.4.3"` |  |
+| regions.versions.files."v3.2".auth | string | `"v2.5.0"` |  |
 | regions.versions.files."v3.2".gateway | string | `"v2.3.1"` |  |
 | regions.versions.files."v3.2".ledger | string | `"v2.4.12"` |  |
 | regions.versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
 | regions.versions.files."v3.2".orchestration | string | `"v2.6.0"` |  |
 | regions.versions.files."v3.2".payments | string | `"v3.4.0"` |  |
-| regions.versions.files."v3.2".reconciliation | string | `"v2.3.1"` |  |
+| regions.versions.files."v3.2".reconciliation | string | `"v2.4.0"` |  |
 | regions.versions.files."v3.2".search | string | `"v2.1.0"` |  |
 | regions.versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
-| regions.versions.files."v3.2".transactionplane | string | `"v0.2.1"` |  |
-| regions.versions.files."v3.2".wallets | string | `"v2.1.5"` |  |
-| regions.versions.files."v3.2".webhooks | string | `"v2.4.1"` |  |
+| regions.versions.files."v3.2".transactionplane | string | `"v0.11.1"` |  |
+| regions.versions.files."v3.2".wallets | string | `"v2.2.0"` |  |
+| regions.versions.files."v3.2".webhooks | string | `"v2.5.0"` |  |
 | regions.versions.files.default.auth | string | `"v0.4.4"` |  |
 | regions.versions.files.default.gateway | string | `"v2.0.18"` |  |
 | regions.versions.files.default.ledger | string | `"v1.10.14"` |  |
