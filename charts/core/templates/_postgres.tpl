@@ -44,7 +44,7 @@ helm.sh/hook-weight: "0"
 {{- $enableIam := (eq (include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "aws.iam" "Default" "false")) "true") }}
 {{- if .Values.postgresql.enabled }}
 - name: POSTGRES_USERNAME
-  value: {{ include "postgresql.v1.username" . }}
+  value: {{ include "postgresql.v1.username" .Subcharts.postgresql }}
 {{- else }}
 - name: POSTGRES_USERNAME
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.username" "Default" "") }}
@@ -55,8 +55,8 @@ helm.sh/hook-weight: "0"
 - name: POSTGRES_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ include "postgresql.v1.secretName" . }}
-      key: {{ include "postgresql.v1.adminPasswordKey" . }}
+      name: {{ include "postgresql.v1.secretName" .Subcharts.postgresql }}
+      key: {{ include "postgresql.v1.adminPasswordKey" .Subcharts.postgresql }}
   {{- else if (not $enableIam) }}
 - name: POSTGRES_PASSWORD
   valueFrom:
@@ -99,7 +99,7 @@ helm.sh/hook-weight: "0"
 {{- $enableIam := (eq (include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "aws.iam" "Default" "false")) "true") }}
 {{- if .Values.postgresql.enabled }}
 - name: POSTGRES_USERNAME
-  value: {{ include "postgresql.v1.username" . }}
+  value: {{ include "postgresql.v1.username" .Subcharts.postgresql }}
 {{- else }}
 - name: POSTGRES_USERNAME
   value: {{ include "resolveGlobalOrServiceValue" (dict "Context" . "Key" "postgresql.auth.username" "From" "config.migration" "Default" "") }}
@@ -110,8 +110,8 @@ helm.sh/hook-weight: "0"
 - name: POSTGRES_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ include "postgresql.v1.secretName" . }}
-      key: {{ include "postgresql.v1.adminPasswordKey" . }}
+      name: {{ include "postgresql.v1.secretName" .Subcharts.postgresql }}
+      key: {{ include "postgresql.v1.adminPasswordKey" .Subcharts.postgresql }}
   {{- else if (not $enableIam) }}
 - name: POSTGRES_PASSWORD
   valueFrom:
