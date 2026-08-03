@@ -1,0 +1,3 @@
+Cloudprem has been installed.
+
+Documentation: https://docs.formance.com/deployment/cloudprem2/intro
