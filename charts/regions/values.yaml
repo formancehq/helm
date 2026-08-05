@@ -181,7 +181,7 @@ versions:
       stargate: v2.2.2
       transactionplane: v0.11.1
       wallets: v2.2.0
-      webhooks: v2.5.2
+      webhooks: v2.5.3
 
 settings: {}
   # replicas:
