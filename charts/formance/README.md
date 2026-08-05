@@ -1,6 +1,6 @@
 # formance
 
-![Version: 1.17.1](https://img.shields.io/badge/Version-1.17.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.17.2](https://img.shields.io/badge/Version-1.17.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -595,7 +595,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.2".transactionplane | string | `"v0.11.1"` |  |
 | regions.versions.files."v3.2".wallets | string | `"v2.2.0"` |  |
-| regions.versions.files."v3.2".webhooks | string | `"v2.5.0"` |  |
+| regions.versions.files."v3.2".webhooks | string | `"v2.5.1"` |  |
 | regions.versions.files.default.auth | string | `"v0.4.4"` |  |
 | regions.versions.files.default.gateway | string | `"v2.0.18"` |  |
 | regions.versions.files.default.ledger | string | `"v1.10.14"` |  |
