@@ -4,9 +4,9 @@ dependencies:
   version: 18.8.8
 - name: regions
   repository: file://../regions
-  version: 3.15.0
+  version: 3.15.1
 - name: cloudprem
   repository: file://../cloudprem
-  version: 4.10.2
-digest: sha256:9f72015d5de4d2959bf44ac797309afc93e5b2b640f6fb947ea3f4a949fc8acc
-generated: "2026-08-12T11:40:31.039746+02:00"
+  version: 4.10.3
+digest: sha256:fc5a447bc0f51cc49651e9f6710c12473370da7268320985d0551ae84fee6e55
+generated: "2026-08-12T14:17:39.572323+02:00"
