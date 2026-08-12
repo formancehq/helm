@@ -160,7 +160,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2".ledger | string | `"v2.4.12"` |  |
 | versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
 | versions.files."v3.2".orchestration | string | `"v2.6.0"` |  |
-| versions.files."v3.2".payments | string | `"v3.4.0"` |  |
+| versions.files."v3.2".payments | string | `"v3.4.1"` |  |
 | versions.files."v3.2".reconciliation | string | `"v2.4.1"` |  |
 | versions.files."v3.2".search | string | `"v2.1.0"` |  |
 | versions.files."v3.2".stargate | string | `"v2.2.2"` |  |
