@@ -53,11 +53,41 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Is Enterprise Edition selected?
+
+`tags.EnterpriseEdition` is the supported key. `tags.EntrepriseEdition` is the
+original misspelling, still honoured so existing values files keep working; it
+is deprecated and warned about in NOTES.txt.
+
+Returns a non-empty string when EE is on, so callers can use it directly in an
+`if`. Keep this as the only place that reads either tag.
+*/}}
+{{- define "formance.enterpriseEnabled" -}}
+{{- if or .Values.tags.EnterpriseEdition .Values.tags.EntrepriseEdition -}}true{{- end -}}
+{{- end -}}
+
+{{/*
+Reject unknown keys under `tags`.
+
+Helm resolves tags natively and silently ignores ones it does not know, so a
+typo -- including the near-miss `EnterprizeEdition` -- would otherwise leave an
+Enterprise install quietly running as Community.
+*/}}
+{{- define "formance.validateTags" -}}
+{{- $known := list "EnterpriseEdition" "EntrepriseEdition" "CommunityEdition" -}}
+{{- range $key, $_ := .Values.tags -}}
+  {{- if not (has $key $known) -}}
+    {{- fail (printf "\n\n==================== CONFIGURATION ERROR ====================\nUnknown tag: tags.%s\n\nHelm ignores tags it does not recognise, so this would have been\nsilently dropped -- leaving an Enterprise install running as Community.\n\nValid tags are:\n  tags.EnterpriseEdition  (Enterprise Edition, requires a licence)\n  tags.CommunityEdition   (Community Edition, the default)\n==============================================================\n" $key) -}}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Validate Enterprise Edition configuration.
 This template will fail if EE is enabled but licence is not properly configured.
 */}}
 {{- define "formance.validateEE" -}}
-{{- if .Values.tags.EntrepriseEdition -}}
+{{- if include "formance.enterpriseEnabled" . -}}
   {{- if and (not .Values.global.licence.token) (not .Values.global.licence.existingSecret) -}}
     {{- fail "\n\n==================== CONFIGURATION ERROR ====================\nEnterprise Edition enabled but no licence provided.\n\nPlease set one of:\n  --set global.licence.token=<your-token>\n  --set global.licence.existingSecret=<secret-name>\n\nContact Formance to obtain a licence: https://formance.com\n==============================================================\n" -}}
   {{- end -}}
@@ -71,7 +101,7 @@ This template will fail if EE is enabled but licence is not properly configured.
 Get edition name
 */}}
 {{- define "formance.edition" -}}
-{{- if .Values.tags.EntrepriseEdition -}}
+{{- if include "formance.enterpriseEnabled" . -}}
 Enterprise Edition
 {{- else -}}
 Community Edition

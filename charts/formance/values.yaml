@@ -10,8 +10,12 @@
 # @section -- Tags
 tags:
   # -- Choose deployment edition
-  # - EE: Entreprise (requires Licence)
+  # - EE: Enterprise (requires a Licence)
   # - CE: Community
+  # @section -- Edition
+  EnterpriseEdition: false
+  # -- Deprecated misspelling of `tags.EnterpriseEdition`, still honoured.
+  # Will be removed in the next major. Prefer `tags.EnterpriseEdition`.
   # @section -- Edition
   EntrepriseEdition: false
   CommunityEdition: true

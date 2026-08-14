@@ -512,6 +512,9 @@
                 "CommunityEdition": {
                     "type": "boolean"
                 },
+                "EnterpriseEdition": {
+                    "type": "boolean"
+                },
                 "EntrepriseEdition": {
                     "type": "boolean"
                 }

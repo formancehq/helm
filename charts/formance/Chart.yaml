@@ -27,6 +27,7 @@ dependencies:
   version: 3.X
   repository: "file://../regions"
   tags:
+  - EnterpriseEdition
   - EntrepriseEdition
   - CommunityEdition
   import-values:
@@ -38,4 +39,5 @@ dependencies:
   version: 5.X
   repository: "file://../cloudprem"
   tags:
+  - EnterpriseEdition
   - EntrepriseEdition
