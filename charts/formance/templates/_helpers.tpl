@@ -74,10 +74,10 @@ typo -- including the near-miss `EnterprizeEdition` -- would otherwise leave an
 Enterprise install quietly running as Community.
 */}}
 {{- define "formance.validateTags" -}}
-{{- $known := list "EnterpriseEdition" "EntrepriseEdition" "CommunityEdition" -}}
+{{- $known := list "EnterpriseEdition" "EntrepriseEdition" "CommunityEdition" "Demo" -}}
 {{- range $key, $_ := .Values.tags -}}
   {{- if not (has $key $known) -}}
-    {{- fail (printf "\n\n==================== CONFIGURATION ERROR ====================\nUnknown tag: tags.%s\n\nHelm ignores tags it does not recognise, so this would have been\nsilently dropped -- leaving an Enterprise install running as Community.\n\nValid tags are:\n  tags.EnterpriseEdition  (Enterprise Edition, requires a licence)\n  tags.CommunityEdition   (Community Edition, the default)\n==============================================================\n" $key) -}}
+    {{- fail (printf "\n\n==================== CONFIGURATION ERROR ====================\nUnknown tag: tags.%s\n\nHelm ignores tags it does not recognise, so this would have been\nsilently dropped -- leaving an Enterprise install running as Community.\n\nValid tags are:\n  tags.EnterpriseEdition  (Enterprise Edition, requires a licence)\n  tags.CommunityEdition   (Community Edition, the default)\n  tags.Demo               (demo mode hints in the install notes)\n  tags.EntrepriseEdition  (deprecated spelling of tags.EnterpriseEdition)\n==============================================================\n" $key) -}}
   {{- end -}}
 {{- end -}}
 {{- end -}}
