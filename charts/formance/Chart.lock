@@ -7,6 +7,6 @@ dependencies:
   version: 3.15.2
 - name: cloudprem
   repository: file://../cloudprem
-  version: 5.1.0
-digest: sha256:37163e35a319612a4e2cb156143bfa0a756ea4910fa9b34e095875ef84da6cd5
-generated: "2026-08-24T18:59:08.957777+02:00"
+  version: 5.2.0
+digest: sha256:17841371784cbf297ef94d518487f960f4be9624e2184e32bdb2e2acdcbfb5ff
+generated: "2026-08-24T19:01:04.196705+02:00"
