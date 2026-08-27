@@ -18,6 +18,9 @@ CONTROL PLANE
 Services:
 {{- if .Values.global.serviceHost }}
   - Console:    {{ .Values.global.platform.consoleV3.scheme }}://{{ tpl .Values.global.platform.consoleV3.host . }}
+{{- if .Values.global.platform.console.enabled }}
+  - Console (Next): {{ .Values.global.platform.console.scheme }}://{{ tpl .Values.global.platform.console.host . }}
+{{- end }}
   - Membership: {{ .Values.global.platform.membership.scheme }}://{{ tpl .Values.global.platform.membership.host . }}
   - Portal:     {{ .Values.global.platform.portal.scheme }}://{{ tpl .Values.global.platform.portal.host . }}
   - Dex:        {{ .Values.global.platform.membership.relyingParty.scheme }}://{{ tpl .Values.global.platform.membership.relyingParty.host . }}

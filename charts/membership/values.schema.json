@@ -731,6 +731,59 @@
                 "platform": {
                     "type": "object",
                     "properties": {
+                        "console": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "host": {
+                                    "type": "string"
+                                },
+                                "oauth": {
+                                    "type": "object",
+                                    "properties": {
+                                        "client": {
+                                            "type": "object",
+                                            "properties": {
+                                                "existingSecret": {
+                                                    "type": "string"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "postLogoutRedirectUris": {
+                                                    "type": "string"
+                                                },
+                                                "redirectUris": {
+                                                    "type": "string"
+                                                },
+                                                "scopes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "secret": {
+                                                    "type": "string"
+                                                },
+                                                "secretKeys": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "secret": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "consoleV3": {
                             "type": "object",
                             "properties": {
