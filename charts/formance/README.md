@@ -1,6 +1,6 @@
 # formance
 
-![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.3.0](https://img.shields.io/badge/Version-2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -41,6 +41,12 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.debug | bool | `false` | Enable debug mode |
+| global.platform.console | object | `{"host":"console.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe3","secretKeys":{"secret":""}}},"scheme":"https"}` | Console (Next.js) |
+| global.platform.console.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.console.oauth.client.id | string | `"console"` | is the id of the client |
+| global.platform.console.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
+| global.platform.console.oauth.client.secret | string | `"changeMe3"` | is the secret of the client |
+| global.platform.console.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` | is the name of the secret |
 | global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
@@ -111,7 +117,10 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.platform | object | `{"consoleV3":{"enabled":true,"host":"console.{{ .Values.global.serviceHost }}","scheme":"https"},"membership":{"host":"membership.{{ .Values.global.serviceHost }}","oidc":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"relyingParty":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"scheme":"https"},"portal":{"enabled":true,"host":"portal.{{ .Values.global.serviceHost }}","scheme":"https"},"stargate":{"enabled":false,"stackApiUrl":""}}` | Platform services configuration (EE only) |
+| global.platform | object | `{"console":{"enabled":false,"host":"console.{{ .Values.global.serviceHost }}","scheme":"https"},"consoleV3":{"enabled":true,"host":"console.{{ .Values.global.serviceHost }}","scheme":"https"},"membership":{"host":"membership.{{ .Values.global.serviceHost }}","oidc":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"relyingParty":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"scheme":"https"},"portal":{"enabled":true,"host":"portal.{{ .Values.global.serviceHost }}","scheme":"https"},"stargate":{"enabled":false,"stackApiUrl":""}}` | Platform services configuration (EE only) |
+| global.platform.console.enabled | bool | `false` | Enable console (Next.js) |
+| global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | Console host |
+| global.platform.console.scheme | string | `"https"` | Console URL scheme |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console v3 |
 | global.platform.consoleV3.host | string | `"console.{{ .Values.global.serviceHost }}"` | Console host |
 | global.platform.consoleV3.scheme | string | `"https"` | Console URL scheme |
@@ -193,6 +202,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| cloudprem.console.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 | cloudprem.console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 | cloudprem.portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
@@ -200,12 +210,15 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| cloudprem.console.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 | cloudprem.console-v3.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
 ### Publisher configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| cloudprem.console.config.publisher.clientID | string | `"console"` | NATS client ID |
+| cloudprem.console.config.publisher.topicMapping | string | `"console"` | NATS topic mapping |
 | cloudprem.console-v3.config.publisher.clientID | string | `"console-v3"` | NATS client ID |
 | cloudprem.console-v3.config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
 | cloudprem.portal.config.publisher.clientID | string | `"portal"` | NATS client ID |
@@ -215,6 +228,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| cloudprem.console.feature.migrationHooks | bool | `false` | Run migration in a hook |
 | cloudprem.console-v3.feature.migrationHooks | bool | `false` | Run migration in a hook |
 | cloudprem.membership.feature.disableEvents | bool | `true` | Membership feature disable events |
 | cloudprem.membership.feature.managedStacks | bool | `true` | Membership feature managed stacks |
@@ -225,6 +239,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| cloudprem.console.postgresql.enabled | bool | `false` | Enable postgresql |
 | cloudprem.console-v3.postgresql.enabled | bool | `false` | Enable postgresql |
 | cloudprem.membership.postgresql.enabled | bool | `true` | Enable postgresql |
 | cloudprem.portal.postgresql.enabled | bool | `false` | Enable postgresql |
@@ -278,6 +293,8 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.requestTimeout | string | `"60s"` |  |
+| global.platform.console.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout\n"` |  |
+| global.platform.console.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |
@@ -297,6 +314,68 @@ Kubernetes: `>=1.14.0-0`
 | postgresql.nameOverride | string | `""` |  |
 | regions.settings | object | `{}` |  |
 | regions.stacks | object | `{}` |  |
+| cloudprem.console.affinity | object | `{}` | Console affinity |
+| cloudprem.console.annotations | object | `{}` | Console annotations  |
+| cloudprem.console.autoscaling.enabled | bool | `false` |  |
+| cloudprem.console.autoscaling.maxReplicas | int | `100` |  |
+| cloudprem.console.autoscaling.minReplicas | int | `1` |  |
+| cloudprem.console.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| cloudprem.console.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
+| cloudprem.console.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
+| cloudprem.console.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
+| cloudprem.console.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
+| cloudprem.console.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| cloudprem.console.config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
+| cloudprem.console.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
+| cloudprem.console.config.cookie.existingSecret | string | `""` | is the name of the secret |
+| cloudprem.console.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+| cloudprem.console.config.environment | string | `"production"` | Console environment |
+| cloudprem.console.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
+| cloudprem.console.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| cloudprem.console.config.migration.serviceAccount.annotations | object | `{}` |  |
+| cloudprem.console.config.migration.serviceAccount.create | bool | `true` |  |
+| cloudprem.console.config.migration.serviceAccount.name | string | `""` |  |
+| cloudprem.console.config.migration.ttlSecondsAfterFinished | string | `""` |  |
+| cloudprem.console.config.migration.volumeMounts | list | `[]` |  |
+| cloudprem.console.config.migration.volumes | list | `[]` |  |
+| cloudprem.console.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
+| cloudprem.console.config.sentry.dsn | string | `""` | Sentry DSN |
+| cloudprem.console.config.sentry.enabled | bool | `false` | Sentry enabled |
+| cloudprem.console.config.sentry.environment | string | `""` | Sentry environment |
+| cloudprem.console.config.sentry.release | string | `""` | Sentry release |
+| cloudprem.console.config.stargate_url | string | `""` | Deprecated |
+| cloudprem.console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
+| cloudprem.console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
+| cloudprem.console.image.tag | string | `""` | image tag |
+| cloudprem.console.imagePullSecrets | list | `[]` | image pull secrets |
+| cloudprem.console.ingress.annotations | object | `{}` | ingress annotations |
+| cloudprem.console.ingress.className | string | `""` | ingress class name |
+| cloudprem.console.ingress.enabled | bool | `true` | ingress enabled |
+| cloudprem.console.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.console.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| cloudprem.console.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
+| cloudprem.console.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| cloudprem.console.ingress.labels | object | `{}` | ingress labels |
+| cloudprem.console.ingress.tls | list | `[]` | ingress tls |
+| cloudprem.console.livenessProbe | object | `{}` | Console liveness probe |
+| cloudprem.console.nodeSelector | object | `{}` | Console node selector |
+| cloudprem.console.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| cloudprem.console.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| cloudprem.console.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| cloudprem.console.podSecurityContext | object | `{}` | Pod Security Context |
+| cloudprem.console.readinessProbe | object | `{}` | Console readiness probe |
+| cloudprem.console.replicas | int | `1` | Number of replicas |
+| cloudprem.console.resources | object | `{}` | Console resources |
+| cloudprem.console.securityContext | object | `{}` | Container Security Context |
+| cloudprem.console.service.annotations | object | `{}` | service annotations |
+| cloudprem.console.service.clusterIP | string | `""` | service cluster IP |
+| cloudprem.console.service.ports.http | object | `{"port":3000}` | service http port |
+| cloudprem.console.service.type | string | `"ClusterIP"` | service type |
+| cloudprem.console.serviceAccount.annotations | object | `{}` | Service account annotations |
+| cloudprem.console.serviceAccount.create | bool | `true` | Service account creation |
+| cloudprem.console.serviceAccount.name | string | `""` | Service account name |
+| cloudprem.console.tolerations | list | `[]` | Console tolerations |
+| cloudprem.console.volumeMounts | list | `[]` | Console volume mounts |
+| cloudprem.console.volumes | list | `[]` | Console volumes |
 | cloudprem.console-v3.affinity | object | `{}` | Console affinity |
 | cloudprem.console-v3.annotations | object | `{}` | Console annotations  |
 | cloudprem.console-v3.autoscaling.enabled | bool | `false` |  |

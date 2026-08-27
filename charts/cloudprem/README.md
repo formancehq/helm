@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 5.2.0](https://img.shields.io/badge/Version-5.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 5.3.0](https://img.shields.io/badge/Version-5.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -14,6 +14,7 @@ Kubernetes: `>=1.14.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../console-v3 | console-v3 | 4.X |
+| file://../console | console | 3.X |
 | file://../membership | membership | 3.X |
 | file://../portal | portal | 4.X |
 
@@ -418,6 +419,15 @@ Dex:
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
+| global.platform.console | object | `{"host":"console.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe3","secretKeys":{"secret":""}}},"scheme":"https"}` | Console (Next.js) |
+| global.platform.console.enabled | bool | `false` | Enable console (Next.js) |
+| global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.console.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.console.oauth.client.id | string | `"console"` | is the id of the client |
+| global.platform.console.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
+| global.platform.console.oauth.client.secret | string | `"changeMe3"` | is the secret of the client |
+| global.platform.console.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console-v3 |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
@@ -479,6 +489,7 @@ Dex:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| console.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 | console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 | portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
@@ -486,12 +497,15 @@ Dex:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| console.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 | console-v3.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
 ### Publisher configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| console.config.publisher.clientID | string | `"console"` | NATS client ID |
+| console.config.publisher.topicMapping | string | `"console"` | NATS topic mapping |
 | console-v3.config.publisher.clientID | string | `"console-v3"` | NATS client ID |
 | console-v3.config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
 | portal.config.publisher.clientID | string | `"portal"` | NATS client ID |
@@ -501,6 +515,7 @@ Dex:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| console.feature.migrationHooks | bool | `false` | Run migration in a hook |
 | console-v3.feature.migrationHooks | bool | `false` | Run migration in a hook |
 | membership.feature.disableEvents | bool | `true` | Membership feature disable events |
 | membership.feature.managedStacks | bool | `true` | Membership feature managed stacks |
@@ -511,6 +526,7 @@ Dex:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| console.postgresql.enabled | bool | `false` | Enable postgresql |
 | console-v3.postgresql.enabled | bool | `false` | Enable postgresql |
 | membership.postgresql.enabled | bool | `true` | Enable postgresql |
 | portal.postgresql.enabled | bool | `false` | Enable postgresql |
@@ -560,6 +576,8 @@ Dex:
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.requestTimeout | string | `"60s"` |  |
+| global.platform.console.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout\n"` |  |
+| global.platform.console.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
@@ -574,6 +592,68 @@ Dex:
 | global.platform.portal.oauth.client.scopes[3] | string | `"on_behalf"` |  |
 | global.platform.stargate.serverURL | string | `""` |  |
 | global.platform.stargate.tls.disable | bool | `false` |  |
+| console.affinity | object | `{}` | Console affinity |
+| console.annotations | object | `{}` | Console annotations  |
+| console.autoscaling.enabled | bool | `false` |  |
+| console.autoscaling.maxReplicas | int | `100` |  |
+| console.autoscaling.minReplicas | int | `1` |  |
+| console.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| console.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
+| console.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
+| console.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
+| console.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
+| console.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| console.config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
+| console.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
+| console.config.cookie.existingSecret | string | `""` | is the name of the secret |
+| console.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+| console.config.environment | string | `"production"` | Console environment |
+| console.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
+| console.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| console.config.migration.serviceAccount.annotations | object | `{}` |  |
+| console.config.migration.serviceAccount.create | bool | `true` |  |
+| console.config.migration.serviceAccount.name | string | `""` |  |
+| console.config.migration.ttlSecondsAfterFinished | string | `""` |  |
+| console.config.migration.volumeMounts | list | `[]` |  |
+| console.config.migration.volumes | list | `[]` |  |
+| console.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
+| console.config.sentry.dsn | string | `""` | Sentry DSN |
+| console.config.sentry.enabled | bool | `false` | Sentry enabled |
+| console.config.sentry.environment | string | `""` | Sentry environment |
+| console.config.sentry.release | string | `""` | Sentry release |
+| console.config.stargate_url | string | `""` | Deprecated |
+| console.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
+| console.image.repository | string | `"ghcr.io/formancehq/console"` | image repository |
+| console.image.tag | string | `""` | image tag |
+| console.imagePullSecrets | list | `[]` | image pull secrets |
+| console.ingress.annotations | object | `{}` | ingress annotations |
+| console.ingress.className | string | `""` | ingress class name |
+| console.ingress.enabled | bool | `true` | ingress enabled |
+| console.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.console.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| console.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
+| console.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| console.ingress.labels | object | `{}` | ingress labels |
+| console.ingress.tls | list | `[]` | ingress tls |
+| console.livenessProbe | object | `{}` | Console liveness probe |
+| console.nodeSelector | object | `{}` | Console node selector |
+| console.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| console.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| console.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| console.podSecurityContext | object | `{}` | Pod Security Context |
+| console.readinessProbe | object | `{}` | Console readiness probe |
+| console.replicas | int | `1` | Number of replicas |
+| console.resources | object | `{}` | Console resources |
+| console.securityContext | object | `{}` | Container Security Context |
+| console.service.annotations | object | `{}` | service annotations |
+| console.service.clusterIP | string | `""` | service cluster IP |
+| console.service.ports.http | object | `{"port":3000}` | service http port |
+| console.service.type | string | `"ClusterIP"` | service type |
+| console.serviceAccount.annotations | object | `{}` | Service account annotations |
+| console.serviceAccount.create | bool | `true` | Service account creation |
+| console.serviceAccount.name | string | `""` | Service account name |
+| console.tolerations | list | `[]` | Console tolerations |
+| console.volumeMounts | list | `[]` | Console volume mounts |
+| console.volumes | list | `[]` | Console volumes |
 | console-v3.affinity | object | `{}` | Console affinity |
 | console-v3.annotations | object | `{}` | Console annotations  |
 | console-v3.autoscaling.enabled | bool | `false` |  |

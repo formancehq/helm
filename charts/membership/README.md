@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.6.3](https://img.shields.io/badge/Version-3.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 3.7.0](https://img.shields.io/badge/Version-3.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -86,6 +86,12 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
 | global.nats.url | string | `""` | NATS URL: nats://nats:4222 nats://$PUBLISHER_NATS_USERNAME:$PUBLISHER_NATS_PASSWORD@nats:4222 |
+| global.platform.console.host | string | `"console.{{ .Values.global.serviceHost }}"` | is the host for the console |
+| global.platform.console.oauth.client.id | string | `"console"` | is the id of the client |
+| global.platform.console.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
+| global.platform.console.oauth.client.secret | string | `"changeMe3"` | is the secret of the client |
+| global.platform.console.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.console.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
 | global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
 | global.platform.consoleV3.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
@@ -179,6 +185,10 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.enabled | bool | `false` |  |
+| global.platform.console.enabled | bool | `false` |  |
+| global.platform.console.oauth.client.existingSecret | string | `""` |  |
+| global.platform.console.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/logout\n"` |  |
+| global.platform.console.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.console.scheme .Values.global.platform.console.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.consoleV3.enabled | bool | `true` |  |
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
