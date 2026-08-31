@@ -1,4 +1,4 @@
-{{- if and .Values.tags.EntrepriseEdition (index .Values "global" "platform" "membership" "enabled" | default true) }}
+{{- if and (include "formance.enterpriseEnabled" .) (index .Values "global" "platform" "membership" "enabled" | default true) }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:

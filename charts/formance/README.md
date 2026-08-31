@@ -1,6 +1,6 @@
 # formance
 
-![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.3.0](https://img.shields.io/badge/Version-2.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -181,13 +181,15 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| tags | object | `{"CommunityEdition":true,"EntrepriseEdition":false}` | Tags |
+| tags | object | `{"CommunityEdition":true,"Demo":false,"EnterpriseEdition":false,"EntrepriseEdition":false}` | Tags |
 
 ### Edition
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| tags.EntrepriseEdition | bool | `false` | Choose deployment edition - EE: Entreprise (requires Licence) - CE: Community |
+| tags.Demo | bool | `false` | Enable demo mode, which adds sample configuration hints to the install notes |
+| tags.EnterpriseEdition | bool | `false` | Choose deployment edition - EE: Enterprise (requires a Licence) - CE: Community |
+| tags.EntrepriseEdition | bool | `false` | Deprecated misspelling of `tags.EnterpriseEdition`, still honoured. Will be removed in the next major. Prefer `tags.EnterpriseEdition`. |
 
 ### Migration configuration
 

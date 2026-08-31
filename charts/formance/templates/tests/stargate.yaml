@@ -1,4 +1,4 @@
-{{- if and .Values.tags.EntrepriseEdition .Values.global.platform.stargate.enabled }}
+{{- if and (include "formance.enterpriseEnabled" .) .Values.global.platform.stargate.enabled }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:

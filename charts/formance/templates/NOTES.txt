@@ -1,3 +1,4 @@
+{{- include "formance.validateTags" . -}}
 {{- include "formance.validateEE" . -}}
 
 ================================================================================
@@ -9,8 +10,13 @@
 
   {{ include "formance.edition" . }}
 ================================================================================
-
-{{- if .Values.tags.EntrepriseEdition }}
+{{ if and .Values.tags.EntrepriseEdition (not .Values.tags.EnterpriseEdition) }}
+WARNING: tags.EntrepriseEdition is deprecated (it is a misspelling).
+         Use tags.EnterpriseEdition instead. The old key still works for now
+         and will be removed in the next major version of this chart.
+================================================================================
+{{ end }}
+{{- if include "formance.enterpriseEnabled" . }}
 ================================================================================
 CONTROL PLANE
 ================================================================================
@@ -103,7 +109,7 @@ Region: Private (self-hosted)
 List all stacks:
   kubectl get stacks
 
-{{- if and .Values.regions.stacks (not .Values.tags.EntrepriseEdition) }}
+{{- if and .Values.regions.stacks (not (include "formance.enterpriseEnabled" .)) }}
 
 Port-forward:
 {{- range $name, $config := .Values.regions.stacks }}
