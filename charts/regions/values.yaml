@@ -75,6 +75,17 @@ operator:
   operator-crds:
     create: false
 
+ledger-operator:
+  # -- Enable the Ledger v3 Operator
+  # @section -- Ledger Operator configuration
+  enabled: false
+
+  image:
+    tag: "v3.0.0-beta.1"
+
+  ledgerImage:
+    tag: "v3.0.0-beta.1"
+
 agent:
   enabled: false
 

@@ -471,6 +471,14 @@
                         }
                     }
                 },
+                "ledger-operator": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "operator": {
                     "type": "object",
                     "properties": {

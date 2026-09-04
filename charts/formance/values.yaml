@@ -270,6 +270,13 @@ global:
 # REGIONS CONFIGURATION (Data Plane - Always installed)
 # =============================================================================
 regions:
+  # -- Ledger v3 Operator configuration
+  # @section -- Regions configuration
+  ledger-operator:
+    # -- Enable the Ledger v3 Operator
+    # @section -- Regions configuration
+    enabled: false
+
   # -- Operator configuration
   # @section -- Regions configuration
   operator:
