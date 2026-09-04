@@ -1,6 +1,6 @@
 # formance
 
-![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 2.5.0](https://img.shields.io/badge/Version-2.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -171,8 +171,9 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.address | string | `"app.formance.cloud:443"` | Formance Cloud server address |
 | regions.agent.server.tls.enabled | bool | `true` | Enable TLS |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` | Skip TLS verification |
-| regions.operator | object | `{"enabled":true,"operator-crds":{"create":false}}` | Operator configuration |
-| regions.operator.enabled | bool | `true` | Enable operator (always true) |
+| regions.operator | object | `{"enabled":true,"ledger":{"enabled":false},"operator-crds":{"create":false}}` | Operator configuration |
+| regions.operator.enabled | bool | `true` | Enable the Formance Operator |
+| regions.operator.ledger.enabled | bool | `false` | Enable the Ledger v3 Operator (requires operator.enabled) |
 | regions.versions | object | `{"allowDefaultVersion":false,"create":true}` | Stack versions configuration |
 | regions.versions.allowDefaultVersion | bool | `false` | Allow default version |
 | regions.versions.create | bool | `true` | Create version CRDs |
@@ -273,6 +274,13 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | cloudprem.portal.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Ledger Operator configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| regions.operator.enabled | bool | `true` | Enable the Formance Operator |
+| regions.operator.ledger.enabled | bool | `false` | Enable the Ledger v3 Operator (requires operator.enabled) |
 
 ### Other Values
 
@@ -519,8 +527,9 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.tls.enabled | bool | `true` |  |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | regions.fullnameOverride | string | `""` |  |
+| regions.ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
+| regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |
 | regions.nameOverride | string | `""` |  |
-| regions.operator.enabled | bool | `true` |  |
 | regions.operator.fullnameOverride | string | `"operator"` |  |
 | regions.operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
 | regions.operator.image.tag | string | `""` |  |

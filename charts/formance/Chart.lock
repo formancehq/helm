@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 18.8.13
+  version: 18.8.17
 - name: regions
   repository: file://../regions
-  version: 3.16.0
+  version: 3.17.0
 - name: cloudprem
   repository: file://../cloudprem
   version: 5.2.0
-digest: sha256:01bd5286750bd47e7a9d79700ccd8011e4b90f510a991840de32956dc5f1c803
-generated: "2026-09-02T11:53:32.294897+02:00"
+digest: sha256:e931de4e00a2354b681526260c447a3e0fd20428c9a7515fed8e77787e45cdfe
+generated: "2026-09-04T14:49:11.570498+02:00"

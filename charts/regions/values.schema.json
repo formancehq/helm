@@ -148,6 +148,27 @@
                 }
             }
         },
+        "ledger-operator": {
+            "type": "object",
+            "properties": {
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "ledgerImage": {
+                    "type": "object",
+                    "properties": {
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "nameOverride": {
             "type": "string"
         },
@@ -168,6 +189,14 @@
                         },
                         "tag": {
                             "type": "string"
+                        }
+                    }
+                },
+                "ledger": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
                         }
                     }
                 },

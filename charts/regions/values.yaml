@@ -50,7 +50,14 @@ global:
       token: "token"
 
 operator:
+  # -- Enable the Formance Operator
+  # @section -- Ledger Operator configuration
   enabled: true
+
+  ledger:
+    # -- Enable the Ledger v3 Operator (requires operator.enabled)
+    # @section -- Ledger Operator configuration
+    enabled: false
 
   fullnameOverride: "operator"
   nameOverride: "operator"
@@ -74,6 +81,13 @@ operator:
   # If using Helm Release, you will need to set `meta.helm.sh/release-name` and `meta.helm.sh/release-namespace` to the new relase name and namespace on all CRDs from Group: formance.com
   operator-crds:
     create: false
+
+ledger-operator:
+  image:
+    tag: "v3.0.0-beta.1"
+
+  ledgerImage:
+    tag: "v3.0.0-beta.1"
 
 agent:
   enabled: false

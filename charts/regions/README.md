@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.16.0](https://img.shields.io/badge/Version-3.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.17.0](https://img.shields.io/badge/Version-3.17.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -9,6 +9,7 @@ Formance Private Regions Helm Chart
 |------------|------|---------|
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
+| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-beta.1 |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
 ## Maintainers
@@ -70,6 +71,13 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | global.monitoring.support.resourceAttributes | object | `{}` | Resource attributes added to all signals sent to this endpoint |
 | global.monitoring.support.stackSelector | object | `{"matchExpressions":[{"key":"formance.com/stack","operator":"Exists"}]}` | Stack selector for the support OtelExporterEndpoint |
 
+### Ledger Operator configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| operator.enabled | bool | `true` | Enable the Formance Operator |
+| operator.ledger.enabled | bool | `false` | Enable the Ledger v3 Operator (requires operator.enabled) |
+
 ### Other Values
 
 | Key | Type | Default | Description |
@@ -88,8 +96,9 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
+| ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
+| ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |
 | nameOverride | string | `""` |  |
-| operator.enabled | bool | `true` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
 | operator.image.tag | string | `""` |  |

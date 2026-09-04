@@ -273,9 +273,13 @@ regions:
   # -- Operator configuration
   # @section -- Regions configuration
   operator:
-    # -- Enable operator (always true)
+    # -- Enable the Formance Operator
     # @section -- Regions configuration
     enabled: true
+    ledger:
+      # -- Enable the Ledger v3 Operator (requires operator.enabled)
+      # @section -- Regions configuration
+      enabled: false
     operator-crds:
       create: false
 

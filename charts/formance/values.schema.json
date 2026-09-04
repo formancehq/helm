@@ -477,6 +477,14 @@
                         "enabled": {
                             "type": "boolean"
                         },
+                        "ledger": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
                         "operator-crds": {
                             "type": "object",
                             "properties": {
