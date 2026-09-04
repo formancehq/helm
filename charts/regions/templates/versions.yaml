@@ -1,6 +1,7 @@
 {{- $allowDefaultVersion := .Values.versions.allowDefaultVersion | default false -}}
 {{- if and .Values.versions.create }}
 {{- range $key, $version := .Values.versions.files }}
+{{- if or (ne $key "v4.0-beta") $.Values.operator.ledger.enabled }}
 apiVersion: formance.com/v1beta1
 kind: Versions
 metadata:
@@ -23,5 +24,6 @@ spec:
   {{ $k }}: {{ $v }}
   {{- end }}
 ---
+{{- end }}
 {{- end }}
 {{- end }}
