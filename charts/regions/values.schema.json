@@ -151,9 +151,6 @@
         "ledger-operator": {
             "type": "object",
             "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
                 "image": {
                     "type": "object",
                     "properties": {
@@ -192,6 +189,14 @@
                         },
                         "tag": {
                             "type": "string"
+                        }
+                    }
+                },
+                "ledger": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
                         }
                     }
                 },

@@ -1,0 +1,3 @@
+{{- if and .Values.operator.ledger.enabled (not .Values.operator.enabled) }}
+{{- fail "operator.ledger.enabled requires operator.enabled=true" }}
+{{- end }}

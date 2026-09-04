@@ -471,19 +471,19 @@
                         }
                     }
                 },
-                "ledger-operator": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        }
-                    }
-                },
                 "operator": {
                     "type": "object",
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "ledger": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
                         },
                         "operator-crds": {
                             "type": "object",

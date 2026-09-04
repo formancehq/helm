@@ -75,7 +75,8 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ledger-operator.enabled | bool | `false` | Enable the Ledger v3 Operator |
+| operator.enabled | bool | `true` | Enable the Formance Operator |
+| operator.ledger.enabled | bool | `false` | Enable the Ledger v3 Operator (requires operator.enabled) |
 
 ### Other Values
 
@@ -98,7 +99,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
 | ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |
 | nameOverride | string | `""` |  |
-| operator.enabled | bool | `true` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
 | operator.image.tag | string | `""` |  |

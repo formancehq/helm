@@ -270,19 +270,16 @@ global:
 # REGIONS CONFIGURATION (Data Plane - Always installed)
 # =============================================================================
 regions:
-  # -- Ledger v3 Operator configuration
-  # @section -- Regions configuration
-  ledger-operator:
-    # -- Enable the Ledger v3 Operator
-    # @section -- Regions configuration
-    enabled: false
-
   # -- Operator configuration
   # @section -- Regions configuration
   operator:
-    # -- Enable operator (always true)
+    # -- Enable the Formance Operator
     # @section -- Regions configuration
     enabled: true
+    ledger:
+      # -- Enable the Ledger v3 Operator (requires operator.enabled)
+      # @section -- Regions configuration
+      enabled: false
     operator-crds:
       create: false
 
