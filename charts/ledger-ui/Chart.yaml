@@ -1,7 +1,13 @@
 apiVersion: v2
-name: cloudprem
-description: |-
-  Formance control-plane
+name: ledger-ui
+description: Formance Ledger UI
+
+annotations:
+  formance.com/monorepo: "apps/ledger"
+  artifacthub.io/images: |
+    - name: ledger-ui
+      image: ghcr.io/formancehq/ledger-ui
+      whitelisted: true
 
 home: "https://formance.com"
 
@@ -9,14 +15,6 @@ maintainers:
 - name: "Formance Team"
   email: "support@formance.com"
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
-
-keywords:
-- cloudprem
-- oidc
-- portal
-- membership
-- dex
-- portal
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -31,36 +29,27 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 5.3.0
+version: 0.1.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "latest"
-
 # The "-0" suffix is required for GKE compatibility. GKE versions contain
 # build metadata like "v1.33.5-gke.2392000" which semver treats as pre-release.
 # Without "-0", Helm rejects these versions as incompatible.
 # See: https://codeengineered.com/blog/2022/helm-kubeversion-gke/
 kubeVersion: ">=1.14.0-0"
 sources:
-- "https://github.com/formancehq/helm/tree/main/charts/cloudprem"
+- "https://github.com/formancehq/helm/tree/main/charts/ledger-ui"
+- "https://github.com/formancehq/platform-ui"
 
 dependencies:
-- name: membership
-  version: 3.X
-  repository: file://../membership
-  condition: global.platform.membership.enabled
-- name: portal
-  version: 4.X
-  repository: file://../portal
-  condition: global.platform.portal.enabled
-- name: console-v3
-  version: 4.X
-  repository: file://../console-v3
-  condition: global.platform.consoleV3.enabled
-- name: ledger-ui
-  version: 0.X
-  repository: file://../ledger-ui
-  condition: global.platform.ledgerUi.enabled
+- name: core
+  version: "1.X"
+  repository: file://../core
+- name: postgresql
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 18.X
+  condition: postgresql.enabled

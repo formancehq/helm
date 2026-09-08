@@ -51,6 +51,16 @@ global:
       # -- is the host for the portal
       # @section -- Global configuration
       host: "portal.{{ .Values.global.serviceHost }}"
+    ledgerUi:
+      # -- Enable ledger-ui
+      # @section -- Global configuration
+      enabled: false
+      # -- is the scheme for the ledger UI
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the ledger UI
+      # @section -- Global configuration
+      host: "ledger.{{ .Values.global.serviceHost }}"
     stargate:
       # -- if enabled, the stackApiUrl is not required
       # It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}`
