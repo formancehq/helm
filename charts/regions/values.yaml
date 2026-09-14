@@ -190,7 +190,7 @@ versions:
       mcp: v0.3.0
       orchestration: v2.6.2
       payments: v3.4.1
-      reconciliation: v2.4.1
+      reconciliation: v2.5.0
       search: v2.1.0
       stargate: v2.2.2
       transactionplane: v0.11.1
@@ -203,7 +203,7 @@ versions:
       mcp: v0.3.0
       orchestration: v2.6.2
       payments: v3.4.1
-      reconciliation: v2.4.1
+      reconciliation: v2.5.0
       search: v2.1.0
       stargate: v2.2.2
       transactionplane: v0.11.1
