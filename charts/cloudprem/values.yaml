@@ -33,6 +33,47 @@ global:
     # @section -- Global AWS configuration
     elb: false
   platform:
+    identity:
+      # -- Enable the Identity service and its Membership connector.
+      # @section -- Global configuration
+      enabled: false
+      # -- Public Identity URL scheme.
+      # @section -- Global configuration
+      scheme: "https"
+      # -- Public Identity host.
+      # @section -- Global configuration
+      host: "identity.{{ .Values.global.serviceHost }}"
+      # -- OIDC issuer path exposed by Identity.
+      # @section -- Global configuration
+      issuerPath: "/api/auth"
+      connector:
+        # -- Identity connector ID.
+        # @section -- Global configuration
+        id: identity
+        # -- Identity connector display name.
+        # @section -- Global configuration
+        name: Identity
+        # -- Membership authentication policy applied to the connector.
+        # @section -- Global configuration
+        authenticationPolicy: identity
+      membership:
+        # -- Exact Membership callback URL registered in Identity.
+        # @section -- Global configuration
+        callbackURL: ""
+        client:
+          # -- Membership client ID registered in Identity.
+          # @section -- Global configuration
+          id: membership
+          # -- Membership client secret. Prefer existingSecret in production.
+          # @section -- Global configuration
+          secret: ""
+          # -- Existing Secret containing the Membership client secret.
+          # @section -- Global configuration
+          existingSecret: ""
+          secretKeys:
+            # -- Key containing the Membership client secret.
+            # @section -- Global configuration
+            secret: ""
     consoleV3:
       # -- Enable console-v3
       # @section -- Global configuration

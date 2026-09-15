@@ -1,0 +1,352 @@
+global:
+  # -- Base domain used by Formance services.
+  # @section -- Global configuration
+  serviceHost: ""
+  platform:
+    identity:
+      # -- Enable Identity when this chart is consumed by CloudPrem.
+      # @section -- Global Identity configuration
+      enabled: true
+      # -- Public Identity URL scheme.
+      # @section -- Global Identity configuration
+      scheme: https
+      # -- Public Identity host.
+      # @section -- Global Identity configuration
+      host: "identity.{{ .Values.global.serviceHost }}"
+      # -- OIDC issuer path exposed by Identity.
+      # @section -- Global Identity configuration
+      issuerPath: /api/auth
+      connector:
+        # -- Identity connector ID exposed by Membership.
+        # @section -- Global Identity configuration
+        id: identity
+        # -- Identity connector display name.
+        # @section -- Global Identity configuration
+        name: Identity
+        # -- Membership authentication policy applied to the connector.
+        # @section -- Global Identity configuration
+        authenticationPolicy: identity
+      membership:
+        # -- Exact Membership OAuth callback URL. Defaults to the public Membership callback.
+        # @section -- Global Identity configuration
+        callbackURL: ""
+        client:
+          # -- Membership confidential client ID registered in Identity.
+          # @section -- Global Identity configuration
+          id: membership
+          # -- Membership confidential client secret. Prefer existingSecret in production.
+          # @section -- Global Identity configuration
+          secret: ""
+          # -- Existing Secret containing the Membership client secret.
+          # @section -- Global Identity configuration
+          existingSecret: ""
+          secretKeys:
+            # -- Key containing the Membership client secret.
+            # @section -- Global Identity configuration
+            secret: ""
+    membership:
+      # -- Public Membership URL scheme.
+      # @section -- Global Membership configuration
+      scheme: https
+      # -- Public Membership host.
+      # @section -- Global Membership configuration
+      host: "membership.{{ .Values.global.serviceHost }}"
+
+# -- Number of Identity replicas.
+replicaCount: 1
+
+image:
+  # -- Identity image repository.
+  repository: ghcr.io/formancehq/identity
+  # -- Identity image pull policy.
+  pullPolicy: IfNotPresent
+  # -- Identity image tag. Defaults to the chart appVersion.
+  tag: ""
+  # -- Optional image digest, for example sha256:abcdef.
+  digest: ""
+
+# -- Image pull secrets.
+imagePullSecrets: []
+
+# -- Override the chart name.
+nameOverride: ""
+# -- Override the fully qualified application name.
+fullnameOverride: ""
+
+selectorLabels:
+  # -- Include app.kubernetes.io/instance in immutable workload selectors. Disable only when adopting a legacy Deployment whose selector omitted it.
+  includeInstance: true
+  # -- Additional immutable selector labels.
+  extra:
+    app.kubernetes.io/component: runtime
+
+# -- Extra labels added to resources and pods, outside immutable selectors.
+commonLabels: {}
+# -- Annotations added to the Deployment.
+annotations: {}
+# -- Annotations added to Identity pods.
+podAnnotations: {}
+# -- Extra labels added to Identity pods.
+podLabels: {}
+
+serviceAccount:
+  # -- Create the runtime ServiceAccount.
+  create: true
+  # -- Runtime ServiceAccount name.
+  name: ""
+  # -- Runtime ServiceAccount annotations.
+  annotations: {}
+  # -- Mount the Kubernetes API token in runtime pods.
+  automountServiceAccountToken: false
+
+# -- Pod security context.
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  seccompProfile:
+    type: RuntimeDefault
+
+# -- Container security context.
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+# -- Identity container resources.
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 512Mi
+
+deployment:
+  # -- Deployment revision history limit.
+  revisionHistoryLimit: 3
+  # -- Deployment progress deadline.
+  progressDeadlineSeconds: 300
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
+config:
+  # -- Node environment.
+  nodeEnv: production
+  # -- Listen address.
+  hostname: 0.0.0.0
+  # -- Listen port.
+  port: 3000
+  # -- Public Identity URL. Defaults to global.platform.identity scheme and host.
+  publicURL: ""
+  # -- WebAuthn relying-party ID. Defaults to global.platform.identity.host.
+  relyingPartyID: ""
+  identitySecret:
+    # -- Better Auth secret. Prefer existingSecret in production.
+    value: ""
+    # -- Existing Secret containing the Better Auth secret.
+    existingSecret: ""
+    secretKeys:
+      # -- Key containing the Better Auth secret.
+      secret: ""
+  mail:
+    # -- Mail transport: file, smtp, or mailgun.
+    transport: file
+    # -- Sender address.
+    from: "noreply@example.com"
+    smtp:
+      # -- SMTP host.
+      host: ""
+      # -- SMTP port.
+      port: 587
+      # -- Use implicit SMTP TLS.
+      secure: false
+      # -- SMTP username.
+      username: ""
+      # -- SMTP password. Prefer existingSecret in production.
+      password: ""
+      # -- Existing Secret containing the SMTP password.
+      existingSecret: ""
+      secretKeys:
+        # -- Key containing the SMTP password.
+        password: ""
+    mailgun:
+      # -- Mailgun domain.
+      domain: ""
+      # -- Mailgun region: us or eu.
+      region: us
+      # -- Mailgun API key. Prefer existingSecret in production.
+      apiKey: ""
+      # -- Existing Secret containing the Mailgun API key.
+      existingSecret: ""
+      secretKeys:
+        # -- Key containing the Mailgun API key.
+        apiKey: ""
+  # -- Additional literal ConfigMap entries.
+  additional: {}
+  # -- Additional runtime envFrom sources.
+  additionalEnvFrom: []
+  # -- Additional runtime environment variables.
+  additionalEnv: []
+
+database:
+  runtime:
+    # -- Runtime PostgreSQL URI. Prefer existingSecret in production.
+    uri: ""
+    # -- Existing Secret containing the runtime PostgreSQL URI.
+    existingSecret: ""
+    secretKeys:
+      # -- Key containing the runtime PostgreSQL URI.
+      uri: postgres.uri
+  migration:
+    # -- Migration PostgreSQL URI. Prefer existingSecret in production.
+    uri: ""
+    # -- Existing Secret containing the migration PostgreSQL URI.
+    existingSecret: ""
+    secretKeys:
+      # -- Key containing the migration PostgreSQL URI.
+      uri: postgres.uri
+
+hooks:
+  serviceAccount:
+    # -- Create a hook ServiceAccount before migration and bootstrap Jobs.
+    create: true
+    # -- Hook ServiceAccount name.
+    name: ""
+    # -- Hook ServiceAccount annotations.
+    annotations: {}
+  migration:
+    # -- Run database migrations before installs and upgrades.
+    enabled: true
+    # -- Hook annotations merged with the Helm defaults.
+    annotations: {}
+    # -- Maximum migration runtime.
+    activeDeadlineSeconds: 300
+    # -- Migration retry count.
+    backoffLimit: 0
+    # -- Successful/failed Job retention.
+    ttlSecondsAfterFinished: 86400
+    # -- Migration Job resources.
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: "1"
+        memory: 512Mi
+  bootstrap:
+    # -- Register or update Membership's confidential OAuth client after migrations.
+    enabled: true
+    # -- Hook annotations merged with the Helm defaults.
+    annotations: {}
+    # -- Maximum bootstrap runtime.
+    activeDeadlineSeconds: 180
+    # -- Bootstrap retry count.
+    backoffLimit: 0
+    # -- Successful/failed Job retention.
+    ttlSecondsAfterFinished: 86400
+    # -- Bootstrap Job resources.
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: "1"
+        memory: 512Mi
+
+service:
+  # -- Service type.
+  type: ClusterIP
+  # -- Service annotations.
+  annotations: {}
+  # -- Service ClusterIP.
+  clusterIP: ""
+  ports:
+    http:
+      # -- Service HTTP port.
+      port: 3000
+      # -- Optional HTTP NodePort.
+      nodePort: ""
+
+ingress:
+  # -- Enable the Identity Ingress.
+  enabled: false
+  # -- Ingress class name.
+  className: ""
+  # -- Ingress annotations.
+  annotations: {}
+  # -- Extra Ingress labels.
+  labels:
+    app.kubernetes.io/component: runtime
+  hosts:
+    - host: "{{ .Values.global.platform.identity.host }}"
+      paths:
+        - path: /
+          pathType: Prefix
+  # -- Ingress TLS configuration.
+  tls: []
+
+networkPolicy:
+  # -- Enable an ingress NetworkPolicy for Identity pods.
+  enabled: false
+  # -- NetworkPolicy policy types.
+  policyTypes:
+    - Ingress
+  # -- NetworkPolicy ingress rules.
+  ingress: []
+
+probes:
+  startup:
+    enabled: true
+    tcpSocket:
+      port: http
+    periodSeconds: 5
+    failureThreshold: 36
+  readiness:
+    enabled: true
+    httpGet:
+      path: /_info
+      port: http
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+  liveness:
+    enabled: true
+    tcpSocket:
+      port: http
+    periodSeconds: 30
+    timeoutSeconds: 2
+    failureThreshold: 3
+
+# -- Additional volumes mounted by the runtime and hook Jobs.
+volumes:
+  - name: temporary
+    emptyDir:
+      sizeLimit: 64Mi
+  - name: next-cache
+    emptyDir:
+      sizeLimit: 128Mi
+# -- Additional runtime volume mounts.
+volumeMounts:
+  - name: temporary
+    mountPath: /tmp
+  - name: next-cache
+    mountPath: /app/apps/identity/.next/cache
+# -- Additional migration volume mounts.
+migrationVolumeMounts: []
+# -- Additional bootstrap volume mounts.
+bootstrapVolumeMounts: []
+
+# -- Additional init containers.
+initContainers: []
+# -- Node selector.
+nodeSelector: {}
+# -- Tolerations.
+tolerations: []
+# -- Affinity rules.
+affinity: {}

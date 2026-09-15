@@ -1,0 +1,15 @@
+{{ template "chart.header" . }}
+
+{{ template "chart.description" . }}
+
+Identity requires an existing PostgreSQL database and three independent
+credentials: the runtime URI, the migration URI, and the Identity application
+secret. The migration and bootstrap Jobs run as pre-install/pre-upgrade hooks
+by default. They use the exact same immutable image as the runtime, while only
+the migration Job receives the privileged migration URI.
+
+For production deployments, reference existing Kubernetes Secrets rather than
+putting credentials in values. The chart intentionally does not create a
+database, ExternalSecrets, or a provider-specific CA ConfigMap.
+
+{{ template "chart.valuesSection" . }}

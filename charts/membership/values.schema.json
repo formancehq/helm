@@ -784,6 +784,67 @@
                                 }
                             }
                         },
+                        "identity": {
+                            "type": "object",
+                            "properties": {
+                                "connector": {
+                                    "type": "object",
+                                    "properties": {
+                                        "authenticationPolicy": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "host": {
+                                    "type": "string"
+                                },
+                                "issuerPath": {
+                                    "type": "string"
+                                },
+                                "membership": {
+                                    "type": "object",
+                                    "properties": {
+                                        "callbackURL": {
+                                            "type": "string"
+                                        },
+                                        "client": {
+                                            "type": "object",
+                                            "properties": {
+                                                "existingSecret": {
+                                                    "type": "string"
+                                                },
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "secret": {
+                                                    "type": "string"
+                                                },
+                                                "secretKeys": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "secret": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "scheme": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "membership": {
                             "type": "object",
                             "properties": {

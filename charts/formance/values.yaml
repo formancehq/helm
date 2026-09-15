@@ -72,6 +72,47 @@ global:
   # -- Platform services configuration (EE only)
   # @section -- Platform configuration
   platform:
+    identity:
+      # -- Enable the Identity service and its Membership connector.
+      # @section -- Platform configuration
+      enabled: false
+      # -- Public Identity URL scheme.
+      # @section -- Platform configuration
+      scheme: "https"
+      # -- Public Identity host.
+      # @section -- Platform configuration
+      host: "identity.{{ .Values.global.serviceHost }}"
+      # -- OIDC issuer path exposed by Identity.
+      # @section -- Platform configuration
+      issuerPath: "/api/auth"
+      connector:
+        # -- Identity connector ID.
+        # @section -- Platform configuration
+        id: identity
+        # -- Identity connector display name.
+        # @section -- Platform configuration
+        name: Identity
+        # -- Membership authentication policy applied to the connector.
+        # @section -- Platform configuration
+        authenticationPolicy: identity
+      membership:
+        # -- Exact Membership callback URL registered in Identity.
+        # @section -- Platform configuration
+        callbackURL: ""
+        client:
+          # -- Membership client ID registered in Identity.
+          # @section -- Platform configuration
+          id: membership
+          # -- Membership client secret. Prefer existingSecret in production.
+          # @section -- Platform configuration
+          secret: ""
+          # -- Existing Secret containing the Membership client secret.
+          # @section -- Platform configuration
+          existingSecret: ""
+          secretKeys:
+            # -- Key containing the Membership client secret.
+            # @section -- Platform configuration
+            secret: ""
     membership:
       # -- Membership URL scheme
       # @section -- Platform configuration
