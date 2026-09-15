@@ -105,10 +105,27 @@
 {{- include "core.nats.env" .  }}
 {{- end }}
 {{- include "membership.auth.tokenValidities" . }}
+{{- include "membership.identity.env" . }}
 {{ with .Values.config.additionalEnv }}
 {{- tpl (toYaml .) $ }}
 {{- end }}
 {{- end -}}
+
+{{- define "membership.identity.env" -}}
+{{- if .Values.global.platform.identity.enabled }}
+- name: IDENTITY_CLIENT_ID
+  value: {{ tpl .Values.global.platform.identity.membership.client.id . | quote }}
+- name: IDENTITY_CLIENT_SECRET
+  {{- if .Values.global.platform.identity.membership.client.existingSecret }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ tpl .Values.global.platform.identity.membership.client.existingSecret . | quote }}
+      key: {{ .Values.global.platform.identity.membership.client.secretKeys.secret | quote }}
+  {{- else }}
+  value: {{ .Values.global.platform.identity.membership.client.secret | quote }}
+  {{- end }}
+{{- end }}
+{{- end }}
 
 {{- define "dex-values" }}
 issuer: "{{ tpl (printf "%s://%s%s" .Values.global.platform.membership.relyingParty.scheme .Values.global.platform.membership.relyingParty.host .Values.global.platform.membership.relyingParty.path) $ }}"

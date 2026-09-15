@@ -2,6 +2,7 @@ VERSION --wildcard-builds --wildcard-copy 0.8
 
 IMPORT ../console AS console
 IMPORT ../console-v3 AS console-v3
+IMPORT ../identity AS identity
 IMPORT ../membership AS membership
 IMPORT ../portal AS portal
 IMPORT ../core AS core
@@ -20,6 +21,8 @@ readme:
   COPY --dir (console+dependencies/*) .
   WORKDIR /src/console-v3
   COPY --dir (console-v3+dependencies/*) .
+  WORKDIR /src/identity
+  COPY --dir (identity+dependencies/*) .
   WORKDIR /src/membership
   COPY --dir (membership+dependencies/*) .
   WORKDIR /src/portal
@@ -43,6 +46,8 @@ dependencies:
   COPY --dir (console+validate/*) .
   WORKDIR /src/console-v3
   COPY --dir (console-v3+validate/*) .
+  WORKDIR /src/identity
+  COPY --dir (identity+validate/*) .
   WORKDIR /src/membership
   COPY --dir (membership+validate/*) .
   WORKDIR /src/portal
