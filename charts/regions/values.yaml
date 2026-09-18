@@ -59,6 +59,11 @@ operator:
     # @section -- Ledger Operator configuration
     enabled: false
 
+  connectivity:
+    # -- Enable the Connectivity Operator (requires operator.enabled and operator.ledger.enabled)
+    # @section -- Connectivity Operator configuration
+    enabled: false
+
   fullnameOverride: "operator"
   nameOverride: "operator"
 
@@ -88,6 +93,16 @@ ledger-operator:
 
   ledgerImage:
     tag: "v3.0.0-beta.1"
+
+# Chart 0.2.0 is the only published connectivity-operator chart; it matches the
+# operator source at tag v1.0.0-alpha.1, whose images are tagged without the
+# leading "v". The Formance Operator requires Connectivity v1.0.0-alpha.1 or later.
+connectivity-operator:
+  image:
+    tag: "1.0.0-alpha.1"
+
+  defaultConnectivityImage:
+    tag: "1.0.0-alpha.1"
 
 agent:
   enabled: false
