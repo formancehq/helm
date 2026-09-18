@@ -321,6 +321,10 @@ regions:
       # -- Enable the Ledger v3 Operator (requires operator.enabled)
       # @section -- Regions configuration
       enabled: false
+    connectivity:
+      # -- Enable the Connectivity Operator (requires operator.enabled and operator.ledger.enabled)
+      # @section -- Regions configuration
+      enabled: false
     operator-crds:
       create: false
 
