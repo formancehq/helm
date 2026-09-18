@@ -65,6 +65,27 @@
                 }
             }
         },
+        "connectivity-operator": {
+            "type": "object",
+            "properties": {
+                "defaultConnectivityImage": {
+                    "type": "object",
+                    "properties": {
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "fullnameOverride": {
             "type": "string"
         },
@@ -175,6 +196,14 @@
         "operator": {
             "type": "object",
             "properties": {
+                "connectivity": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "enabled": {
                     "type": "boolean"
                 },

@@ -1,6 +1,12 @@
 {{- if and .Values.operator.ledger.enabled (not .Values.operator.enabled) }}
 {{- fail "operator.ledger.enabled requires operator.enabled=true" }}
 {{- end }}
+{{- if and .Values.operator.connectivity.enabled (not .Values.operator.enabled) }}
+{{- fail "operator.connectivity.enabled requires operator.enabled=true" }}
+{{- end }}
+{{- if and .Values.operator.connectivity.enabled (not .Values.operator.ledger.enabled) }}
+{{- fail "operator.connectivity.enabled requires operator.ledger.enabled=true" }}
+{{- end }}
 {{- range $name, $stack := .Values.stacks }}
 {{- if and (eq ($stack.versionsFromFile | default "") "v4.0-beta") (not $.Values.operator.ledger.enabled) }}
 {{- fail (printf "stack %q requires operator.ledger.enabled=true to use versionsFromFile=v4.0-beta" $name) }}
