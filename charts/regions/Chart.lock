@@ -4,7 +4,7 @@ dependencies:
   version: 2.17.0
 - name: operator
   repository: oci://ghcr.io/formancehq/helm
-  version: 3.15.1
+  version: 3.16.0
 - name: ledger-operator
   repository: oci://ghcr.io/formancehq/helm
   version: 3.0.0-beta.1
@@ -14,5 +14,5 @@ dependencies:
 - name: core
   repository: file://../core
   version: 1.6.0
-digest: sha256:42a4a077f13b3f13d2f2ad023b8e5802ca8edceee28dc6f999b14746bc25d878
-generated: "2026-09-18T16:02:25.499899+02:00"
+digest: sha256:6aeeec2015d8fa22e21301971f8dea61a15c7c32b708f340b2de5d876e3af8e7
+generated: "2026-09-18T16:19:28.323809+02:00"
