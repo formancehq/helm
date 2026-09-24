@@ -4,15 +4,15 @@ dependencies:
   version: 0.1.0
 - name: membership
   repository: file://../membership
-  version: 3.7.1
+  version: 3.7.2
 - name: portal
   repository: file://../portal
-  version: 5.0.2
+  version: 5.0.3
 - name: console-v3
   repository: file://../console-v3
-  version: 5.0.2
+  version: 5.0.3
 - name: ledger-ui
   repository: file://../ledger-ui
   version: 0.1.0
-digest: sha256:3860f7379fc26133edf0909b2ffb450077acc621c63ad440133eb0ae34dd077d
-generated: "2026-09-24T10:19:25.257763+02:00"
+digest: sha256:9c1c3594325ca89d7aa7a201680ebdb9b8aeb9840548529996a6622b5190ddf3
+generated: "2026-09-24T15:44:43.461388+02:00"

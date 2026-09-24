@@ -103,6 +103,40 @@ global:
             - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login-by-org
           postLogoutRedirectUris: |
             - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout
+    ledgerUi:
+      enabled: false
+      # -- is the scheme for the ledger UI
+      # @section -- Global configuration
+      scheme: "https"
+      # -- is the host for the ledger UI
+      # @section -- Global configuration
+      host: "ledger.{{ .Values.global.serviceHost }}"
+      oauth:
+        client:
+          # -- is the id of the client
+          # @section -- Global configuration
+          id: "ledger-ui"
+          # -- is the secret of the client
+          # @section -- Global configuration
+          secret: "changeMe2"
+          # -- is the name of the secret
+          # @section -- Global configuration
+          scopes:
+            - accesses
+            - remember_me
+            - keep_refresh_token
+            - on_behalf
+          existingSecret: ""
+          # -- is the key contained within the secret
+          # @section -- Global configuration
+          secretKeys:
+            secret: ""
+
+          redirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login
+            - {{ tpl (printf "%s://%s" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org
+          postLogoutRedirectUris: |
+            - {{ tpl (printf "%s://%s" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout
     membership:
       # -- is the scheme for the membership
       # @section -- Global configuration

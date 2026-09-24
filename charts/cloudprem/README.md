@@ -446,6 +446,7 @@ Dex:
 | global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
 | global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
 | global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
+| global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
 | global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
@@ -601,6 +602,8 @@ Dex:
 | global.nats.requestTimeout | string | `"60s"` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
+| global.platform.ledgerUi.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n"` |  |
+| global.platform.ledgerUi.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the oidc |
 | global.platform.membership.oidc.scheme | string | `"https"` | is the scheme for the issuer |
 | global.platform.portal.enabled | bool | `true` |  |
@@ -785,8 +788,8 @@ Dex:
 | identity.tolerations | list | `[]` | Tolerations. |
 | identity.volumeMounts | list | `[{"mountPath":"/tmp","name":"temporary"},{"mountPath":"/app/apps/identity/.next/cache","name":"next-cache"}]` | Additional runtime volume mounts. |
 | identity.volumes | list | `[{"emptyDir":{"sizeLimit":"64Mi"},"name":"temporary"},{"emptyDir":{"sizeLimit":"128Mi"},"name":"next-cache"}]` | Additional volumes mounted by the runtime and hook Jobs. |
-| ledger-ui.affinity | object | `{}` | Console affinity |
-| ledger-ui.annotations | object | `{}` | Console annotations  |
+| ledger-ui.affinity | object | `{}` | Ledger UI affinity |
+| ledger-ui.annotations | object | `{}` | Ledger UI annotations |
 | ledger-ui.autoscaling.enabled | bool | `false` |  |
 | ledger-ui.autoscaling.maxReplicas | int | `100` |  |
 | ledger-ui.autoscaling.minReplicas | int | `1` |  |
@@ -801,7 +804,7 @@ Dex:
 | ledger-ui.config.cookie.existingSecret | string | `""` | is the name of the secret |
 | ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | ledger-ui.config.environment | string | `"production"` | Ledger UI environment |
-| ledger-ui.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| ledger-ui.config.migration.annotations | object | `{}` | Ledger UI job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | ledger-ui.config.migration.serviceAccount.annotations | object | `{}` |  |
 | ledger-ui.config.migration.serviceAccount.create | bool | `true` |  |
 | ledger-ui.config.migration.serviceAccount.name | string | `""` |  |
@@ -826,15 +829,15 @@ Dex:
 | ledger-ui.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ledger-ui.ingress.labels | object | `{}` | ingress labels |
 | ledger-ui.ingress.tls | list | `[]` | ingress tls |
-| ledger-ui.livenessProbe | object | `{}` | Console liveness probe |
-| ledger-ui.nodeSelector | object | `{}` | Console node selector |
+| ledger-ui.livenessProbe | object | `{}` | Ledger UI liveness probe |
+| ledger-ui.nodeSelector | object | `{}` | Ledger UI node selector |
 | ledger-ui.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | ledger-ui.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | ledger-ui.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | ledger-ui.podSecurityContext | object | `{}` | Pod Security Context |
-| ledger-ui.readinessProbe | object | `{}` | Console readiness probe |
+| ledger-ui.readinessProbe | object | `{}` | Ledger UI readiness probe |
 | ledger-ui.replicas | int | `1` | Number of replicas |
-| ledger-ui.resources | object | `{}` | Console resources |
+| ledger-ui.resources | object | `{}` | Ledger UI resources |
 | ledger-ui.securityContext | object | `{}` | Container Security Context |
 | ledger-ui.service.annotations | object | `{}` | service annotations |
 | ledger-ui.service.clusterIP | string | `""` | service cluster IP |
@@ -843,9 +846,9 @@ Dex:
 | ledger-ui.serviceAccount.annotations | object | `{}` | Service account annotations |
 | ledger-ui.serviceAccount.create | bool | `true` | Service account creation |
 | ledger-ui.serviceAccount.name | string | `""` | Service account name |
-| ledger-ui.tolerations | list | `[]` | Console tolerations |
-| ledger-ui.volumeMounts | list | `[]` | Console volume mounts |
-| ledger-ui.volumes | list | `[]` | Console volumes |
+| ledger-ui.tolerations | list | `[]` | Ledger UI tolerations |
+| ledger-ui.volumeMounts | list | `[]` | Ledger UI volume mounts |
+| ledger-ui.volumes | list | `[]` | Ledger UI volumes |
 | membership.affinity | object | `{}` | Membership affinity |
 | membership.annotations | object | `{}` | Membership annotations |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
