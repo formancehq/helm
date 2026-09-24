@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.0.2](https://img.shields.io/badge/Version-6.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.1.0](https://img.shields.io/badge/Version-6.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -15,6 +15,7 @@ Kubernetes: `>=1.14.0-0`
 |------------|------|---------|
 | file://../console-v3 | console-v3 | 5.X |
 | file://../identity | identity | 0.X |
+| file://../ledger-ui | ledger-ui | 0.X |
 | file://../membership | membership | 3.X |
 | file://../portal | portal | 5.X |
 
@@ -440,6 +441,14 @@ Dex:
 | global.platform.identity.membership.client.secret | string | `""` | Membership client secret. Prefer existingSecret in production. |
 | global.platform.identity.membership.client.secretKeys.secret | string | `""` | Key containing the Membership client secret. |
 | global.platform.identity.scheme | string | `"https"` | Public Identity URL scheme. |
+| global.platform.ledgerUi | object | `{"host":"ledger.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"ledger-ui","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Ledger UI |
+| global.platform.ledgerUi.enabled | bool | `false` | Enable ledger-ui |
+| global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
+| global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
+| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
@@ -493,6 +502,7 @@ Dex:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
+| ledger-ui.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 | portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
 ### Console configuration
@@ -507,6 +517,8 @@ Dex:
 |-----|------|---------|-------------|
 | console-v3.config.publisher.clientID | string | `"console-v3"` | NATS client ID |
 | console-v3.config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
+| ledger-ui.config.publisher.clientID | string | `"ledger-ui"` | NATS client ID |
+| ledger-ui.config.publisher.topicMapping | string | `"ledger-ui"` | NATS topic mapping |
 | portal.config.publisher.clientID | string | `"portal"` | NATS client ID |
 | portal.config.publisher.topicMapping | string | `"portal"` | NATS topic mapping |
 
@@ -525,8 +537,22 @@ Dex:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | console-v3.postgresql.enabled | bool | `false` | Enable postgresql |
+| ledger-ui.postgresql.enabled | bool | `false` | Enable postgresql |
 | membership.postgresql.enabled | bool | `true` | Enable postgresql |
 | portal.postgresql.enabled | bool | `false` | Enable postgresql |
+
+### Ledger UI configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ledger-ui.config.authenticationEnabled | string | `"1"` | Toggle OAuth/DB sessions on the app. `"1"` = stack mode (default): the app uses Membership/OAuth and reaches the ledger API through API_STACK_URL. `"0"` = micro-stack / auth-less mode: the app skips OAuth and reads LEDGER_API_URL directly. |
+| ledger-ui.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Ledger UI Feature
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ledger-ui.feature.migrationHooks | bool | `true` | Run migration in a hook |
 
 ### Dex configuration
 
@@ -759,6 +785,67 @@ Dex:
 | identity.tolerations | list | `[]` | Tolerations. |
 | identity.volumeMounts | list | `[{"mountPath":"/tmp","name":"temporary"},{"mountPath":"/app/apps/identity/.next/cache","name":"next-cache"}]` | Additional runtime volume mounts. |
 | identity.volumes | list | `[{"emptyDir":{"sizeLimit":"64Mi"},"name":"temporary"},{"emptyDir":{"sizeLimit":"128Mi"},"name":"next-cache"}]` | Additional volumes mounted by the runtime and hook Jobs. |
+| ledger-ui.affinity | object | `{}` | Console affinity |
+| ledger-ui.annotations | object | `{}` | Console annotations  |
+| ledger-ui.autoscaling.enabled | bool | `false` |  |
+| ledger-ui.autoscaling.maxReplicas | int | `100` |  |
+| ledger-ui.autoscaling.minReplicas | int | `1` |  |
+| ledger-ui.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| ledger-ui.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
+| ledger-ui.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
+| ledger-ui.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
+| ledger-ui.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
+| ledger-ui.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| ledger-ui.config.additionalEnv | list | `[]` | Ledger UI additional environment variables |
+| ledger-ui.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
+| ledger-ui.config.cookie.existingSecret | string | `""` | is the name of the secret |
+| ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+| ledger-ui.config.environment | string | `"production"` | Ledger UI environment |
+| ledger-ui.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| ledger-ui.config.migration.serviceAccount.annotations | object | `{}` |  |
+| ledger-ui.config.migration.serviceAccount.create | bool | `true` |  |
+| ledger-ui.config.migration.serviceAccount.name | string | `""` |  |
+| ledger-ui.config.migration.ttlSecondsAfterFinished | string | `""` |  |
+| ledger-ui.config.migration.volumeMounts | list | `[]` |  |
+| ledger-ui.config.migration.volumes | list | `[]` |  |
+| ledger-ui.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
+| ledger-ui.config.sentry.dsn | string | `""` | Sentry DSN |
+| ledger-ui.config.sentry.enabled | bool | `false` | Sentry enabled |
+| ledger-ui.config.sentry.environment | string | `""` | Sentry environment |
+| ledger-ui.config.sentry.release | string | `""` | Sentry release |
+| ledger-ui.config.stargate_url | string | `""` | Deprecated |
+| ledger-ui.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
+| ledger-ui.image.repository | string | `"ghcr.io/formancehq/ledger-ui"` | image repository |
+| ledger-ui.image.tag | string | `""` | image tag |
+| ledger-ui.imagePullSecrets | list | `[]` | image pull secrets |
+| ledger-ui.ingress.annotations | object | `{}` | ingress annotations |
+| ledger-ui.ingress.className | string | `""` | ingress class name |
+| ledger-ui.ingress.enabled | bool | `true` | ingress enabled |
+| ledger-ui.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.ledgerUi.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| ledger-ui.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
+| ledger-ui.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| ledger-ui.ingress.labels | object | `{}` | ingress labels |
+| ledger-ui.ingress.tls | list | `[]` | ingress tls |
+| ledger-ui.livenessProbe | object | `{}` | Console liveness probe |
+| ledger-ui.nodeSelector | object | `{}` | Console node selector |
+| ledger-ui.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| ledger-ui.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| ledger-ui.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| ledger-ui.podSecurityContext | object | `{}` | Pod Security Context |
+| ledger-ui.readinessProbe | object | `{}` | Console readiness probe |
+| ledger-ui.replicas | int | `1` | Number of replicas |
+| ledger-ui.resources | object | `{}` | Console resources |
+| ledger-ui.securityContext | object | `{}` | Container Security Context |
+| ledger-ui.service.annotations | object | `{}` | service annotations |
+| ledger-ui.service.clusterIP | string | `""` | service cluster IP |
+| ledger-ui.service.ports.http | object | `{"port":3000}` | service http port |
+| ledger-ui.service.type | string | `"ClusterIP"` | service type |
+| ledger-ui.serviceAccount.annotations | object | `{}` | Service account annotations |
+| ledger-ui.serviceAccount.create | bool | `true` | Service account creation |
+| ledger-ui.serviceAccount.name | string | `""` | Service account name |
+| ledger-ui.tolerations | list | `[]` | Console tolerations |
+| ledger-ui.volumeMounts | list | `[]` | Console volume mounts |
+| ledger-ui.volumes | list | `[]` | Console volumes |
 | membership.affinity | object | `{}` | Membership affinity |
 | membership.annotations | object | `{}` | Membership annotations |
 | membership.autoscaling | object | `{}` | Membership autoscaling |
