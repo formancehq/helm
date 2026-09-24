@@ -285,8 +285,8 @@ affinity: {}
 # https://helm.sh/docs/chart_template_guide/variables/#tags
 feature:
   # -- Run migration in a hook
-  # @section -- Membership Feature
-  migrationHooks: false
+  # @section -- Ledger UI Feature
+  migrationHooks: true
 
 config:
   # -- Toggle OAuth/DB sessions on the app.
