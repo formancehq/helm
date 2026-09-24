@@ -1,6 +1,6 @@
 # formance
 
-![Version: 2.6.0](https://img.shields.io/badge/Version-2.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.0.2](https://img.shields.io/badge/Version-3.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -22,7 +22,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../cloudprem | cloudprem | 5.X |
+| file://../cloudprem | cloudprem | 6.X |
 | file://../regions | regions | 3.X |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
 
@@ -111,10 +111,22 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.platform | object | `{"consoleV3":{"enabled":true,"host":"console.{{ .Values.global.serviceHost }}","scheme":"https"},"membership":{"host":"membership.{{ .Values.global.serviceHost }}","oidc":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"relyingParty":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"scheme":"https"},"portal":{"enabled":true,"host":"portal.{{ .Values.global.serviceHost }}","scheme":"https"},"stargate":{"enabled":false,"stackApiUrl":""}}` | Platform services configuration (EE only) |
+| global.platform | object | `{"consoleV3":{"enabled":true,"host":"console.{{ .Values.global.serviceHost }}","scheme":"https"},"identity":{"connector":{"authenticationPolicy":"identity","id":"identity","name":"Identity"},"enabled":false,"host":"identity.{{ .Values.global.serviceHost }}","issuerPath":"/api/auth","membership":{"callbackURL":"","client":{"existingSecret":"","id":"membership","secret":"","secretKeys":{"secret":""}}},"scheme":"https"},"membership":{"host":"membership.{{ .Values.global.serviceHost }}","oidc":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"relyingParty":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"scheme":"https"},"portal":{"enabled":true,"host":"portal.{{ .Values.global.serviceHost }}","scheme":"https"},"stargate":{"enabled":false,"stackApiUrl":""}}` | Platform services configuration (EE only) |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console v3 |
 | global.platform.consoleV3.host | string | `"console.{{ .Values.global.serviceHost }}"` | Console host |
 | global.platform.consoleV3.scheme | string | `"https"` | Console URL scheme |
+| global.platform.identity.connector.authenticationPolicy | string | `"identity"` | Membership authentication policy applied to the connector. |
+| global.platform.identity.connector.id | string | `"identity"` | Identity connector ID. |
+| global.platform.identity.connector.name | string | `"Identity"` | Identity connector display name. |
+| global.platform.identity.enabled | bool | `false` | Enable the Identity service and its Membership connector. |
+| global.platform.identity.host | string | `"identity.{{ .Values.global.serviceHost }}"` | Public Identity host. |
+| global.platform.identity.issuerPath | string | `"/api/auth"` | OIDC issuer path exposed by Identity. |
+| global.platform.identity.membership.callbackURL | string | `""` | Exact Membership callback URL registered in Identity. |
+| global.platform.identity.membership.client.existingSecret | string | `""` | Existing Secret containing the Membership client secret. |
+| global.platform.identity.membership.client.id | string | `"membership"` | Membership client ID registered in Identity. |
+| global.platform.identity.membership.client.secret | string | `""` | Membership client secret. Prefer existingSecret in production. |
+| global.platform.identity.membership.client.secretKeys.secret | string | `""` | Key containing the Membership client secret. |
+| global.platform.identity.scheme | string | `"https"` | Public Identity URL scheme. |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | Membership host |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | OIDC issuer host |
 | global.platform.membership.oidc.scheme | string | `"https"` | OIDC issuer scheme |
@@ -369,6 +381,116 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.console-v3.tolerations | list | `[]` | Console tolerations |
 | cloudprem.console-v3.volumeMounts | list | `[]` | Console volume mounts |
 | cloudprem.console-v3.volumes | list | `[]` | Console volumes |
+| cloudprem.identity.affinity | object | `{}` | Affinity rules. |
+| cloudprem.identity.annotations | object | `{}` | Annotations added to the Deployment. |
+| cloudprem.identity.bootstrapVolumeMounts | list | `[]` | Additional bootstrap volume mounts. |
+| cloudprem.identity.commonLabels | object | `{}` | Extra labels added to resources and pods, outside immutable selectors. |
+| cloudprem.identity.config.additional | object | `{}` | Additional literal ConfigMap entries. |
+| cloudprem.identity.config.additionalEnv | list | `[]` | Additional runtime environment variables. |
+| cloudprem.identity.config.additionalEnvFrom | list | `[]` | Additional runtime envFrom sources. |
+| cloudprem.identity.config.hostname | string | `"0.0.0.0"` | Listen address. |
+| cloudprem.identity.config.identitySecret.existingSecret | string | `""` | Existing Secret containing the Better Auth secret. |
+| cloudprem.identity.config.identitySecret.secretKeys.secret | string | `""` | Key containing the Better Auth secret. |
+| cloudprem.identity.config.identitySecret.value | string | `""` | Better Auth secret. Prefer existingSecret in production. |
+| cloudprem.identity.config.mail.from | string | `"noreply@example.com"` | Sender address. |
+| cloudprem.identity.config.mail.mailgun.apiKey | string | `""` | Mailgun API key. Prefer existingSecret in production. |
+| cloudprem.identity.config.mail.mailgun.domain | string | `""` | Mailgun domain. |
+| cloudprem.identity.config.mail.mailgun.existingSecret | string | `""` | Existing Secret containing the Mailgun API key. |
+| cloudprem.identity.config.mail.mailgun.region | string | `"us"` | Mailgun region: us or eu. |
+| cloudprem.identity.config.mail.mailgun.secretKeys.apiKey | string | `""` | Key containing the Mailgun API key. |
+| cloudprem.identity.config.mail.smtp.existingSecret | string | `""` | Existing Secret containing the SMTP password. |
+| cloudprem.identity.config.mail.smtp.host | string | `""` | SMTP host. |
+| cloudprem.identity.config.mail.smtp.password | string | `""` | SMTP password. Prefer existingSecret in production. |
+| cloudprem.identity.config.mail.smtp.port | int | `587` | SMTP port. |
+| cloudprem.identity.config.mail.smtp.secretKeys.password | string | `""` | Key containing the SMTP password. |
+| cloudprem.identity.config.mail.smtp.secure | bool | `false` | Use implicit SMTP TLS. |
+| cloudprem.identity.config.mail.smtp.username | string | `""` | SMTP username. |
+| cloudprem.identity.config.mail.transport | string | `"file"` | Mail transport: file, smtp, or mailgun. |
+| cloudprem.identity.config.nodeEnv | string | `"production"` | Node environment. |
+| cloudprem.identity.config.port | int | `3000` | Listen port. |
+| cloudprem.identity.config.publicURL | string | `""` | Public Identity URL. Defaults to global.platform.identity scheme and host. |
+| cloudprem.identity.config.relyingPartyID | string | `""` | WebAuthn relying-party ID. Defaults to global.platform.identity.host. |
+| cloudprem.identity.database.migration.existingSecret | string | `""` | Existing Secret containing the migration PostgreSQL URI. |
+| cloudprem.identity.database.migration.secretKeys.uri | string | `"postgres.uri"` | Key containing the migration PostgreSQL URI. |
+| cloudprem.identity.database.migration.uri | string | `""` | Migration PostgreSQL URI. Prefer existingSecret in production. |
+| cloudprem.identity.database.runtime.existingSecret | string | `""` | Existing Secret containing the runtime PostgreSQL URI. |
+| cloudprem.identity.database.runtime.secretKeys.uri | string | `"postgres.uri"` | Key containing the runtime PostgreSQL URI. |
+| cloudprem.identity.database.runtime.uri | string | `""` | Runtime PostgreSQL URI. Prefer existingSecret in production. |
+| cloudprem.identity.deployment.progressDeadlineSeconds | int | `300` | Deployment progress deadline. |
+| cloudprem.identity.deployment.revisionHistoryLimit | int | `3` | Deployment revision history limit. |
+| cloudprem.identity.deployment.strategy.rollingUpdate.maxSurge | int | `1` |  |
+| cloudprem.identity.deployment.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
+| cloudprem.identity.fullnameOverride | string | `""` | Override the fully qualified application name. |
+| cloudprem.identity.hooks.bootstrap.activeDeadlineSeconds | int | `180` | Maximum bootstrap runtime. |
+| cloudprem.identity.hooks.bootstrap.annotations | object | `{}` | Hook annotations merged with the Helm defaults. |
+| cloudprem.identity.hooks.bootstrap.backoffLimit | int | `0` | Bootstrap retry count. |
+| cloudprem.identity.hooks.bootstrap.enabled | bool | `true` | Register or update Membership's confidential OAuth client after migrations. |
+| cloudprem.identity.hooks.bootstrap.resources | object | `{"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Bootstrap Job resources. |
+| cloudprem.identity.hooks.bootstrap.ttlSecondsAfterFinished | int | `86400` | Successful/failed Job retention. |
+| cloudprem.identity.hooks.migration.activeDeadlineSeconds | int | `300` | Maximum migration runtime. |
+| cloudprem.identity.hooks.migration.annotations | object | `{}` | Hook annotations merged with the Helm defaults. |
+| cloudprem.identity.hooks.migration.backoffLimit | int | `0` | Migration retry count. |
+| cloudprem.identity.hooks.migration.enabled | bool | `true` | Run database migrations before installs and upgrades. |
+| cloudprem.identity.hooks.migration.resources | object | `{"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Migration Job resources. |
+| cloudprem.identity.hooks.migration.ttlSecondsAfterFinished | int | `86400` | Successful/failed Job retention. |
+| cloudprem.identity.hooks.serviceAccount.annotations | object | `{}` | Hook ServiceAccount annotations. |
+| cloudprem.identity.hooks.serviceAccount.create | bool | `true` | Create a hook ServiceAccount before migration and bootstrap Jobs. |
+| cloudprem.identity.hooks.serviceAccount.name | string | `""` | Hook ServiceAccount name. |
+| cloudprem.identity.image.digest | string | `""` | Optional image digest, for example sha256:abcdef. |
+| cloudprem.identity.image.pullPolicy | string | `"IfNotPresent"` | Identity image pull policy. |
+| cloudprem.identity.image.repository | string | `"ghcr.io/formancehq/identity"` | Identity image repository. |
+| cloudprem.identity.image.tag | string | `""` | Identity image tag. Defaults to the chart appVersion. |
+| cloudprem.identity.imagePullSecrets | list | `[]` | Image pull secrets. |
+| cloudprem.identity.ingress.annotations | object | `{}` | Ingress annotations. |
+| cloudprem.identity.ingress.className | string | `""` | Ingress class name. |
+| cloudprem.identity.ingress.enabled | bool | `false` | Enable the Identity Ingress. |
+| cloudprem.identity.ingress.hosts[0].host | string | `"{{ .Values.global.platform.identity.host }}"` |  |
+| cloudprem.identity.ingress.hosts[0].paths[0].path | string | `"/"` |  |
+| cloudprem.identity.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
+| cloudprem.identity.ingress.labels | object | `{"app.kubernetes.io/component":"runtime"}` | Extra Ingress labels. |
+| cloudprem.identity.ingress.tls | list | `[]` | Ingress TLS configuration. |
+| cloudprem.identity.initContainers | list | `[]` | Additional init containers. |
+| cloudprem.identity.migrationVolumeMounts | list | `[]` | Additional migration volume mounts. |
+| cloudprem.identity.nameOverride | string | `""` | Override the chart name. |
+| cloudprem.identity.networkPolicy.enabled | bool | `false` | Enable an ingress NetworkPolicy for Identity pods. |
+| cloudprem.identity.networkPolicy.ingress | list | `[]` | NetworkPolicy ingress rules. |
+| cloudprem.identity.networkPolicy.policyTypes | list | `["Ingress"]` | NetworkPolicy policy types. |
+| cloudprem.identity.nodeSelector | object | `{}` | Node selector. |
+| cloudprem.identity.podAnnotations | object | `{}` | Annotations added to Identity pods. |
+| cloudprem.identity.podLabels | object | `{}` | Extra labels added to Identity pods. |
+| cloudprem.identity.podSecurityContext | object | `{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}` | Pod security context. |
+| cloudprem.identity.probes.liveness.enabled | bool | `true` |  |
+| cloudprem.identity.probes.liveness.failureThreshold | int | `3` |  |
+| cloudprem.identity.probes.liveness.periodSeconds | int | `30` |  |
+| cloudprem.identity.probes.liveness.tcpSocket.port | string | `"http"` |  |
+| cloudprem.identity.probes.liveness.timeoutSeconds | int | `2` |  |
+| cloudprem.identity.probes.readiness.enabled | bool | `true` |  |
+| cloudprem.identity.probes.readiness.failureThreshold | int | `3` |  |
+| cloudprem.identity.probes.readiness.httpGet.path | string | `"/_info"` |  |
+| cloudprem.identity.probes.readiness.httpGet.port | string | `"http"` |  |
+| cloudprem.identity.probes.readiness.periodSeconds | int | `10` |  |
+| cloudprem.identity.probes.readiness.timeoutSeconds | int | `3` |  |
+| cloudprem.identity.probes.startup.enabled | bool | `true` |  |
+| cloudprem.identity.probes.startup.failureThreshold | int | `36` |  |
+| cloudprem.identity.probes.startup.periodSeconds | int | `5` |  |
+| cloudprem.identity.probes.startup.tcpSocket.port | string | `"http"` |  |
+| cloudprem.identity.replicaCount | int | `1` | Number of Identity replicas. |
+| cloudprem.identity.resources | object | `{"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | Identity container resources. |
+| cloudprem.identity.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true}` | Container security context. |
+| cloudprem.identity.selectorLabels.extra | object | `{"app.kubernetes.io/component":"runtime"}` | Additional immutable selector labels. |
+| cloudprem.identity.selectorLabels.includeInstance | bool | `true` | Include app.kubernetes.io/instance in immutable workload selectors. Disable only when adopting a legacy Deployment whose selector omitted it. |
+| cloudprem.identity.service.annotations | object | `{}` | Service annotations. |
+| cloudprem.identity.service.clusterIP | string | `""` | Service ClusterIP. |
+| cloudprem.identity.service.ports.http.nodePort | string | `""` | Optional HTTP NodePort. |
+| cloudprem.identity.service.ports.http.port | int | `3000` | Service HTTP port. |
+| cloudprem.identity.service.type | string | `"ClusterIP"` | Service type. |
+| cloudprem.identity.serviceAccount.annotations | object | `{}` | Runtime ServiceAccount annotations. |
+| cloudprem.identity.serviceAccount.automountServiceAccountToken | bool | `false` | Mount the Kubernetes API token in runtime pods. |
+| cloudprem.identity.serviceAccount.create | bool | `true` | Create the runtime ServiceAccount. |
+| cloudprem.identity.serviceAccount.name | string | `""` | Runtime ServiceAccount name. |
+| cloudprem.identity.tolerations | list | `[]` | Tolerations. |
+| cloudprem.identity.volumeMounts | list | `[{"mountPath":"/tmp","name":"temporary"},{"mountPath":"/app/apps/identity/.next/cache","name":"next-cache"}]` | Additional runtime volume mounts. |
+| cloudprem.identity.volumes | list | `[{"emptyDir":{"sizeLimit":"64Mi"},"name":"temporary"},{"emptyDir":{"sizeLimit":"128Mi"},"name":"next-cache"}]` | Additional volumes mounted by the runtime and hook Jobs. |
 | cloudprem.membership.affinity | object | `{}` | Membership affinity |
 | cloudprem.membership.annotations | object | `{}` | Membership annotations |
 | cloudprem.membership.autoscaling | object | `{}` | Membership autoscaling |

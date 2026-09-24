@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.6.3](https://img.shields.io/badge/Version-3.6.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 3.7.1](https://img.shields.io/badge/Version-3.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -125,6 +125,23 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.licence.issuer | string | `"https://license.formance.cloud/keys"` | Licence Environment |
 | global.licence.secretKeys.token | string | `""` | Key in existing secret to use for Licence Client Token |
 | global.licence.token | string | `""` | Licence Client Token delivered by contacting [Formance](https://formance.com) |
+
+### Global Identity configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| global.platform.identity.connector.authenticationPolicy | string | `"identity"` | Membership authentication policy applied to the connector. |
+| global.platform.identity.connector.id | string | `"identity"` | Identity connector ID. |
+| global.platform.identity.connector.name | string | `"Identity"` | Identity connector display name. |
+| global.platform.identity.enabled | bool | `false` | Enable Identity as Membership's primary external connector. |
+| global.platform.identity.host | string | `"identity.{{ .Values.global.serviceHost }}"` | Public Identity host. |
+| global.platform.identity.issuerPath | string | `"/api/auth"` | OIDC issuer path exposed by Identity. |
+| global.platform.identity.membership.callbackURL | string | `""` | Exact Membership callback URL registered in Identity. |
+| global.platform.identity.membership.client.existingSecret | string | `""` | Existing Secret containing the Membership client secret. |
+| global.platform.identity.membership.client.id | string | `"membership"` | Membership client ID registered in Identity. |
+| global.platform.identity.membership.client.secret | string | `""` | Membership client secret. Prefer existingSecret in production. |
+| global.platform.identity.membership.client.secretKeys.secret | string | `""` | Key containing the Membership client secret. |
+| global.platform.identity.scheme | string | `"https"` | Public Identity URL scheme. |
 
 ### Dex configuration
 

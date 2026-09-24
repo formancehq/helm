@@ -30,11 +30,20 @@ data:
       {{- with .Values.config.auth.additionalOAuthClients }}
       {{- tpl (toYaml .) $ | nindent 6 }}
       {{- end }}
-    {{ if gt (.Values.config.oidc.connectors | len ) 0 }}
+    {{ if or .Values.global.platform.identity.enabled (gt (.Values.config.oidc.connectors | len ) 0) }}
     connectors:
     {{- with .Values.config.oidc.connectors }}
     {{- tpl (toYaml .) $ | nindent 6 }}
     {{- end }}
+    {{- if .Values.global.platform.identity.enabled }}
+      - authenticationPolicy: {{ .Values.global.platform.identity.connector.authenticationPolicy | quote }}
+        clientID: $IDENTITY_CLIENT_ID
+        clientSecret: $IDENTITY_CLIENT_SECRET
+        config:
+          issuer: {{ tpl (printf "%s://%s%s" .Values.global.platform.identity.scheme .Values.global.platform.identity.host .Values.global.platform.identity.issuerPath) . | quote }}
+        id: {{ .Values.global.platform.identity.connector.id | quote }}
+        name: {{ .Values.global.platform.identity.connector.name | quote }}
+        type: oidc
     {{- end }}
-
+    {{- end }}
 

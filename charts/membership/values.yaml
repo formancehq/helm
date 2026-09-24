@@ -123,6 +123,47 @@ global:
         # -- is the path for the relying party issuer
         # @section -- Global configuration
         path: ""
+    identity:
+      # -- Enable Identity as Membership's primary external connector.
+      # @section -- Global Identity configuration
+      enabled: false
+      # -- Public Identity URL scheme.
+      # @section -- Global Identity configuration
+      scheme: "https"
+      # -- Public Identity host.
+      # @section -- Global Identity configuration
+      host: "identity.{{ .Values.global.serviceHost }}"
+      # -- OIDC issuer path exposed by Identity.
+      # @section -- Global Identity configuration
+      issuerPath: "/api/auth"
+      connector:
+        # -- Identity connector ID.
+        # @section -- Global Identity configuration
+        id: identity
+        # -- Identity connector display name.
+        # @section -- Global Identity configuration
+        name: Identity
+        # -- Membership authentication policy applied to the connector.
+        # @section -- Global Identity configuration
+        authenticationPolicy: identity
+      membership:
+        # -- Exact Membership callback URL registered in Identity.
+        # @section -- Global Identity configuration
+        callbackURL: ""
+        client:
+          # -- Membership client ID registered in Identity.
+          # @section -- Global Identity configuration
+          id: membership
+          # -- Membership client secret. Prefer existingSecret in production.
+          # @section -- Global Identity configuration
+          secret: ""
+          # -- Existing Secret containing the Membership client secret.
+          # @section -- Global Identity configuration
+          existingSecret: ""
+          secretKeys:
+            # -- Key containing the Membership client secret.
+            # @section -- Global Identity configuration
+            secret: ""
     stargate:
       serverURL: ""
       tls:

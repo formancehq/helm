@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 5.2.0](https://img.shields.io/badge/Version-5.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.0.2](https://img.shields.io/badge/Version-6.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -13,9 +13,10 @@ Kubernetes: `>=1.14.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../console-v3 | console-v3 | 4.X |
+| file://../console-v3 | console-v3 | 5.X |
+| file://../identity | identity | 0.X |
 | file://../membership | membership | 3.X |
-| file://../portal | portal | 4.X |
+| file://../portal | portal | 5.X |
 
 > [!IMPORTANT]
 > You need to obtain a licence from the Formance team. (See [EE Licence](#ee-licence))
@@ -44,7 +45,7 @@ helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
 
 ## Introduction
 
-This chart bootstraps 5 different components that form the Formance Control Plane, additionally you will need to install the Formance Data Plane composed of a Kubernetes Operator.
+This chart bootstraps the components that form the Formance Control Plane, including the optional Identity service. You will additionally need to install the Formance Data Plane composed of a Kubernetes Operator.
 
 In order to deploy the 5 different components, you must have a Kubernetes cluster with an Ingress Controller and valid SSL certificates for the different domains.
 
@@ -427,6 +428,18 @@ Dex:
 | global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.identity.connector.authenticationPolicy | string | `"identity"` | Membership authentication policy applied to the connector. |
+| global.platform.identity.connector.id | string | `"identity"` | Identity connector ID. |
+| global.platform.identity.connector.name | string | `"Identity"` | Identity connector display name. |
+| global.platform.identity.enabled | bool | `false` | Enable the Identity service and its Membership connector. |
+| global.platform.identity.host | string | `"identity.{{ .Values.global.serviceHost }}"` | Public Identity host. |
+| global.platform.identity.issuerPath | string | `"/api/auth"` | OIDC issuer path exposed by Identity. |
+| global.platform.identity.membership.callbackURL | string | `""` | Exact Membership callback URL registered in Identity. |
+| global.platform.identity.membership.client.existingSecret | string | `""` | Existing Secret containing the Membership client secret. |
+| global.platform.identity.membership.client.id | string | `"membership"` | Membership client ID registered in Identity. |
+| global.platform.identity.membership.client.secret | string | `""` | Membership client secret. Prefer existingSecret in production. |
+| global.platform.identity.membership.client.secretKeys.secret | string | `""` | Key containing the Membership client secret. |
+| global.platform.identity.scheme | string | `"https"` | Public Identity URL scheme. |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
@@ -636,6 +649,116 @@ Dex:
 | console-v3.tolerations | list | `[]` | Console tolerations |
 | console-v3.volumeMounts | list | `[]` | Console volume mounts |
 | console-v3.volumes | list | `[]` | Console volumes |
+| identity.affinity | object | `{}` | Affinity rules. |
+| identity.annotations | object | `{}` | Annotations added to the Deployment. |
+| identity.bootstrapVolumeMounts | list | `[]` | Additional bootstrap volume mounts. |
+| identity.commonLabels | object | `{}` | Extra labels added to resources and pods, outside immutable selectors. |
+| identity.config.additional | object | `{}` | Additional literal ConfigMap entries. |
+| identity.config.additionalEnv | list | `[]` | Additional runtime environment variables. |
+| identity.config.additionalEnvFrom | list | `[]` | Additional runtime envFrom sources. |
+| identity.config.hostname | string | `"0.0.0.0"` | Listen address. |
+| identity.config.identitySecret.existingSecret | string | `""` | Existing Secret containing the Better Auth secret. |
+| identity.config.identitySecret.secretKeys.secret | string | `""` | Key containing the Better Auth secret. |
+| identity.config.identitySecret.value | string | `""` | Better Auth secret. Prefer existingSecret in production. |
+| identity.config.mail.from | string | `"noreply@example.com"` | Sender address. |
+| identity.config.mail.mailgun.apiKey | string | `""` | Mailgun API key. Prefer existingSecret in production. |
+| identity.config.mail.mailgun.domain | string | `""` | Mailgun domain. |
+| identity.config.mail.mailgun.existingSecret | string | `""` | Existing Secret containing the Mailgun API key. |
+| identity.config.mail.mailgun.region | string | `"us"` | Mailgun region: us or eu. |
+| identity.config.mail.mailgun.secretKeys.apiKey | string | `""` | Key containing the Mailgun API key. |
+| identity.config.mail.smtp.existingSecret | string | `""` | Existing Secret containing the SMTP password. |
+| identity.config.mail.smtp.host | string | `""` | SMTP host. |
+| identity.config.mail.smtp.password | string | `""` | SMTP password. Prefer existingSecret in production. |
+| identity.config.mail.smtp.port | int | `587` | SMTP port. |
+| identity.config.mail.smtp.secretKeys.password | string | `""` | Key containing the SMTP password. |
+| identity.config.mail.smtp.secure | bool | `false` | Use implicit SMTP TLS. |
+| identity.config.mail.smtp.username | string | `""` | SMTP username. |
+| identity.config.mail.transport | string | `"file"` | Mail transport: file, smtp, or mailgun. |
+| identity.config.nodeEnv | string | `"production"` | Node environment. |
+| identity.config.port | int | `3000` | Listen port. |
+| identity.config.publicURL | string | `""` | Public Identity URL. Defaults to global.platform.identity scheme and host. |
+| identity.config.relyingPartyID | string | `""` | WebAuthn relying-party ID. Defaults to global.platform.identity.host. |
+| identity.database.migration.existingSecret | string | `""` | Existing Secret containing the migration PostgreSQL URI. |
+| identity.database.migration.secretKeys.uri | string | `"postgres.uri"` | Key containing the migration PostgreSQL URI. |
+| identity.database.migration.uri | string | `""` | Migration PostgreSQL URI. Prefer existingSecret in production. |
+| identity.database.runtime.existingSecret | string | `""` | Existing Secret containing the runtime PostgreSQL URI. |
+| identity.database.runtime.secretKeys.uri | string | `"postgres.uri"` | Key containing the runtime PostgreSQL URI. |
+| identity.database.runtime.uri | string | `""` | Runtime PostgreSQL URI. Prefer existingSecret in production. |
+| identity.deployment.progressDeadlineSeconds | int | `300` | Deployment progress deadline. |
+| identity.deployment.revisionHistoryLimit | int | `3` | Deployment revision history limit. |
+| identity.deployment.strategy.rollingUpdate.maxSurge | int | `1` |  |
+| identity.deployment.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
+| identity.fullnameOverride | string | `""` | Override the fully qualified application name. |
+| identity.hooks.bootstrap.activeDeadlineSeconds | int | `180` | Maximum bootstrap runtime. |
+| identity.hooks.bootstrap.annotations | object | `{}` | Hook annotations merged with the Helm defaults. |
+| identity.hooks.bootstrap.backoffLimit | int | `0` | Bootstrap retry count. |
+| identity.hooks.bootstrap.enabled | bool | `true` | Register or update Membership's confidential OAuth client after migrations. |
+| identity.hooks.bootstrap.resources | object | `{"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Bootstrap Job resources. |
+| identity.hooks.bootstrap.ttlSecondsAfterFinished | int | `86400` | Successful/failed Job retention. |
+| identity.hooks.migration.activeDeadlineSeconds | int | `300` | Maximum migration runtime. |
+| identity.hooks.migration.annotations | object | `{}` | Hook annotations merged with the Helm defaults. |
+| identity.hooks.migration.backoffLimit | int | `0` | Migration retry count. |
+| identity.hooks.migration.enabled | bool | `true` | Run database migrations before installs and upgrades. |
+| identity.hooks.migration.resources | object | `{"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Migration Job resources. |
+| identity.hooks.migration.ttlSecondsAfterFinished | int | `86400` | Successful/failed Job retention. |
+| identity.hooks.serviceAccount.annotations | object | `{}` | Hook ServiceAccount annotations. |
+| identity.hooks.serviceAccount.create | bool | `true` | Create a hook ServiceAccount before migration and bootstrap Jobs. |
+| identity.hooks.serviceAccount.name | string | `""` | Hook ServiceAccount name. |
+| identity.image.digest | string | `""` | Optional image digest, for example sha256:abcdef. |
+| identity.image.pullPolicy | string | `"IfNotPresent"` | Identity image pull policy. |
+| identity.image.repository | string | `"ghcr.io/formancehq/identity"` | Identity image repository. |
+| identity.image.tag | string | `""` | Identity image tag. Defaults to the chart appVersion. |
+| identity.imagePullSecrets | list | `[]` | Image pull secrets. |
+| identity.ingress.annotations | object | `{}` | Ingress annotations. |
+| identity.ingress.className | string | `""` | Ingress class name. |
+| identity.ingress.enabled | bool | `false` | Enable the Identity Ingress. |
+| identity.ingress.hosts[0].host | string | `"{{ .Values.global.platform.identity.host }}"` |  |
+| identity.ingress.hosts[0].paths[0].path | string | `"/"` |  |
+| identity.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
+| identity.ingress.labels | object | `{"app.kubernetes.io/component":"runtime"}` | Extra Ingress labels. |
+| identity.ingress.tls | list | `[]` | Ingress TLS configuration. |
+| identity.initContainers | list | `[]` | Additional init containers. |
+| identity.migrationVolumeMounts | list | `[]` | Additional migration volume mounts. |
+| identity.nameOverride | string | `""` | Override the chart name. |
+| identity.networkPolicy.enabled | bool | `false` | Enable an ingress NetworkPolicy for Identity pods. |
+| identity.networkPolicy.ingress | list | `[]` | NetworkPolicy ingress rules. |
+| identity.networkPolicy.policyTypes | list | `["Ingress"]` | NetworkPolicy policy types. |
+| identity.nodeSelector | object | `{}` | Node selector. |
+| identity.podAnnotations | object | `{}` | Annotations added to Identity pods. |
+| identity.podLabels | object | `{}` | Extra labels added to Identity pods. |
+| identity.podSecurityContext | object | `{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000,"seccompProfile":{"type":"RuntimeDefault"}}` | Pod security context. |
+| identity.probes.liveness.enabled | bool | `true` |  |
+| identity.probes.liveness.failureThreshold | int | `3` |  |
+| identity.probes.liveness.periodSeconds | int | `30` |  |
+| identity.probes.liveness.tcpSocket.port | string | `"http"` |  |
+| identity.probes.liveness.timeoutSeconds | int | `2` |  |
+| identity.probes.readiness.enabled | bool | `true` |  |
+| identity.probes.readiness.failureThreshold | int | `3` |  |
+| identity.probes.readiness.httpGet.path | string | `"/_info"` |  |
+| identity.probes.readiness.httpGet.port | string | `"http"` |  |
+| identity.probes.readiness.periodSeconds | int | `10` |  |
+| identity.probes.readiness.timeoutSeconds | int | `3` |  |
+| identity.probes.startup.enabled | bool | `true` |  |
+| identity.probes.startup.failureThreshold | int | `36` |  |
+| identity.probes.startup.periodSeconds | int | `5` |  |
+| identity.probes.startup.tcpSocket.port | string | `"http"` |  |
+| identity.replicaCount | int | `1` | Number of Identity replicas. |
+| identity.resources | object | `{"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"100m","memory":"256Mi"}}` | Identity container resources. |
+| identity.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true}` | Container security context. |
+| identity.selectorLabels.extra | object | `{"app.kubernetes.io/component":"runtime"}` | Additional immutable selector labels. |
+| identity.selectorLabels.includeInstance | bool | `true` | Include app.kubernetes.io/instance in immutable workload selectors. Disable only when adopting a legacy Deployment whose selector omitted it. |
+| identity.service.annotations | object | `{}` | Service annotations. |
+| identity.service.clusterIP | string | `""` | Service ClusterIP. |
+| identity.service.ports.http.nodePort | string | `""` | Optional HTTP NodePort. |
+| identity.service.ports.http.port | int | `3000` | Service HTTP port. |
+| identity.service.type | string | `"ClusterIP"` | Service type. |
+| identity.serviceAccount.annotations | object | `{}` | Runtime ServiceAccount annotations. |
+| identity.serviceAccount.automountServiceAccountToken | bool | `false` | Mount the Kubernetes API token in runtime pods. |
+| identity.serviceAccount.create | bool | `true` | Create the runtime ServiceAccount. |
+| identity.serviceAccount.name | string | `""` | Runtime ServiceAccount name. |
+| identity.tolerations | list | `[]` | Tolerations. |
+| identity.volumeMounts | list | `[{"mountPath":"/tmp","name":"temporary"},{"mountPath":"/app/apps/identity/.next/cache","name":"next-cache"}]` | Additional runtime volume mounts. |
+| identity.volumes | list | `[{"emptyDir":{"sizeLimit":"64Mi"},"name":"temporary"},{"emptyDir":{"sizeLimit":"128Mi"},"name":"next-cache"}]` | Additional volumes mounted by the runtime and hook Jobs. |
 | membership.affinity | object | `{}` | Membership affinity |
 | membership.annotations | object | `{}` | Membership annotations |
 | membership.autoscaling | object | `{}` | Membership autoscaling |

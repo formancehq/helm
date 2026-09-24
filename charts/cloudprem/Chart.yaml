@@ -15,6 +15,7 @@ keywords:
 - oidc
 - portal
 - membership
+- identity
 - dex
 - portal
 
@@ -31,7 +32,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 5.3.0
+version: 6.0.2
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -48,16 +49,20 @@ sources:
 - "https://github.com/formancehq/helm/tree/main/charts/cloudprem"
 
 dependencies:
+- name: identity
+  version: 0.X
+  repository: file://../identity
+  condition: global.platform.identity.enabled
 - name: membership
   version: 3.X
   repository: file://../membership
   condition: global.platform.membership.enabled
 - name: portal
-  version: 4.X
+  version: 5.X
   repository: file://../portal
   condition: global.platform.portal.enabled
 - name: console-v3
-  version: 4.X
+  version: 5.X
   repository: file://../console-v3
   condition: global.platform.consoleV3.enabled
 - name: ledger-ui
