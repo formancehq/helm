@@ -126,8 +126,8 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.requestTimeout | string | `"60s"` |  |
-| affinity | object | `{}` | Console affinity |
-| annotations | object | `{}` | Console annotations  |
+| affinity | object | `{}` | Ledger UI affinity |
+| annotations | object | `{}` | Ledger UI annotations |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
@@ -142,7 +142,7 @@ Kubernetes: `>=1.14.0-0`
 | config.cookie.existingSecret | string | `""` | is the name of the secret |
 | config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
 | config.environment | string | `"production"` | Ledger UI environment |
-| config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| config.migration.annotations | object | `{}` | Ledger UI job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | config.migration.serviceAccount.annotations | object | `{}` |  |
 | config.migration.serviceAccount.create | bool | `true` |  |
 | config.migration.serviceAccount.name | string | `""` |  |
@@ -167,15 +167,15 @@ Kubernetes: `>=1.14.0-0`
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.labels | object | `{}` | ingress labels |
 | ingress.tls | list | `[]` | ingress tls |
-| livenessProbe | object | `{}` | Console liveness probe |
-| nodeSelector | object | `{}` | Console node selector |
+| livenessProbe | object | `{}` | Ledger UI liveness probe |
+| nodeSelector | object | `{}` | Ledger UI node selector |
 | podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | podSecurityContext | object | `{}` | Pod Security Context |
-| readinessProbe | object | `{}` | Console readiness probe |
+| readinessProbe | object | `{}` | Ledger UI readiness probe |
 | replicas | int | `1` | Number of replicas |
-| resources | object | `{}` | Console resources |
+| resources | object | `{}` | Ledger UI resources |
 | securityContext | object | `{}` | Container Security Context |
 | service.annotations | object | `{}` | service annotations |
 | service.clusterIP | string | `""` | service cluster IP |
@@ -184,6 +184,6 @@ Kubernetes: `>=1.14.0-0`
 | serviceAccount.annotations | object | `{}` | Service account annotations |
 | serviceAccount.create | bool | `true` | Service account creation |
 | serviceAccount.name | string | `""` | Service account name |
-| tolerations | list | `[]` | Console tolerations |
-| volumeMounts | list | `[]` | Console volume mounts |
-| volumes | list | `[]` | Console volumes |
+| tolerations | list | `[]` | Ledger UI tolerations |
+| volumeMounts | list | `[]` | Ledger UI volume mounts |
+| volumes | list | `[]` | Ledger UI volumes |

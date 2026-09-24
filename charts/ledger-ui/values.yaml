@@ -195,7 +195,7 @@ image:
 # -- image pull secrets
 imagePullSecrets: []
 
-# -- Console resources
+# -- Ledger UI resources
 resources: {}
   # requests:
   #   cpu: 250m
@@ -204,10 +204,10 @@ resources: {}
   #   cpu: 500m
   #   memory: 2048Mi
 
-# -- Console readiness probe
+# -- Ledger UI readiness probe
 readinessProbe: {}
 
-# -- Console liveness probe
+# -- Ledger UI liveness probe
 livenessProbe: {}
 
 service:
@@ -263,22 +263,22 @@ ingress:
     # -- ingress tls secret name
     # - secretName: YOUR_TLS_SECRET_NAME
 
-# -- Console volume mounts
+# -- Ledger UI volume mounts
 volumeMounts: []
 
-# -- Console annotations 
+# -- Ledger UI annotations
 annotations: {}
 
-# -- Console volumes
+# -- Ledger UI volumes
 volumes: []
 
-# -- Console node selector
+# -- Ledger UI node selector
 nodeSelector: {}
 
-# -- Console tolerations
+# -- Ledger UI tolerations
 tolerations: []
 
-# -- Console affinity
+# -- Ledger UI affinity
 affinity: {}
 
 # TODO: See helm tags for more information
@@ -330,7 +330,7 @@ config:
       name: ""
       annotations: {}
 
-    # -- Membership job migration annotations
+    # -- Ledger UI job migration annotations
     # Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync
     annotations: {}
 
