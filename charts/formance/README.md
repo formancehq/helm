@@ -52,7 +52,7 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
 | global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
 | global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
-| global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | are the scopes of the client |
 | global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |

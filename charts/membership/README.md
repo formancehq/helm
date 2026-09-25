@@ -92,9 +92,11 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.ledgerUi.enabled | bool | `false` | Enable ledger-ui |
 | global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
 | global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
-| global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | are the scopes of the client |
 | global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
@@ -206,8 +208,6 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
-| global.platform.ledgerUi.enabled | bool | `false` |  |
-| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` |  |
 | global.platform.ledgerUi.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n"` |  |
 | global.platform.ledgerUi.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.portal.enabled | bool | `true` |  |
