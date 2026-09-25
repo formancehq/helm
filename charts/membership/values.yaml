@@ -104,6 +104,8 @@ global:
           postLogoutRedirectUris: |
             - {{ tpl (printf "%s://%s" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout
     ledgerUi:
+      # -- Enable ledger-ui
+      # @section -- Global configuration
       enabled: false
       # -- is the scheme for the ledger UI
       # @section -- Global configuration
@@ -119,13 +121,15 @@ global:
           # -- is the secret of the client
           # @section -- Global configuration
           secret: "changeMe2"
-          # -- is the name of the secret
+          # -- are the scopes of the client
           # @section -- Global configuration
           scopes:
             - accesses
             - remember_me
             - keep_refresh_token
             - on_behalf
+          # -- is the name of the secret
+          # @section -- Global configuration
           existingSecret: ""
           # -- is the key contained within the secret
           # @section -- Global configuration
