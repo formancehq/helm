@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.7.1](https://img.shields.io/badge/Version-3.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
+![Version: 3.7.2](https://img.shields.io/badge/Version-3.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.5.0](https://img.shields.io/badge/AppVersion-v2.5.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -92,6 +92,14 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.ledgerUi.enabled | bool | `false` | Enable ledger-ui |
+| global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
+| global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | are the scopes of the client |
+| global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
+| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the relying party issuer |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
@@ -200,6 +208,8 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.consoleV3.oauth.client.existingSecret | string | `""` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
+| global.platform.ledgerUi.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n"` |  |
+| global.platform.ledgerUi.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.portal.enabled | bool | `true` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |
 | global.platform.portal.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout\n"` |  |

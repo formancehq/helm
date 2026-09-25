@@ -1,8 +1,8 @@
-# console-v3
+# ledger-ui
 
-![Version: 5.0.3](https://img.shields.io/badge/Version-5.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v4.0.2](https://img.shields.io/badge/AppVersion-v4.0.2-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
-Formance Console
+Formance Ledger UI
 
 **Homepage:** <https://formance.com>
 
@@ -14,7 +14,7 @@ Formance Console
 
 ## Source Code
 
-* <https://github.com/formancehq/helm/tree/main/charts/console-v3>
+* <https://github.com/formancehq/helm/tree/main/charts/ledger-ui>
 * <https://github.com/formancehq/platform-ui>
 
 ## Requirements
@@ -47,13 +47,13 @@ Kubernetes: `>=1.14.0-0`
 | global.monitoring.traces.insecure | bool | `true` | Insecure |
 | global.monitoring.traces.mode | string | `"grpc"` | Mode |
 | global.monitoring.traces.port | int | `4317` | Port |
-| global.platform.consoleV3 | object | `{"host":"console.v3.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"console-v3","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Console V3: EXPERIMENTAL |
-| global.platform.consoleV3.host | string | `"console.v3.{{ .Values.global.serviceHost }}"` | is the host for the console |
-| global.platform.consoleV3.oauth.client.existingSecret | string | `""` | is the name of the secret |
-| global.platform.consoleV3.oauth.client.id | string | `"console-v3"` | is the id of the client |
-| global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
-| global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
-| global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
+| global.platform.ledgerUi | object | `{"host":"ledger.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"ledger-ui","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Ledger UI |
+| global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
+| global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
+| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.scheme | string | `"https"` | is the scheme for the membership |
 | global.platform.portal.host | string | `"portal.{{ .Values.global.serviceHost }}"` | is the host for the portal |
@@ -84,30 +84,31 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.stargate.enabled | bool | `false` | if enabled, the stackApiUrl is not required It will be templated with `{{ printf "http://%s-%s:8080/#{organizationId}/#{stackId}/api" .Release.Name "stargate" -}}` |
 | global.platform.stargate.stackApiUrl | string | `""` | if stargate is disabled, the stackApiUrl is defaulted to the `http://gateway.#{organizationId}-#{stackId}.svc:8080/api` To allow external access sets the stackApiUrl to an external url |
 
+### Ledger UI configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| config.authenticationEnabled | string | `"1"` | Toggle OAuth/DB sessions on the app. `"1"` = stack mode (default): the app uses Membership/OAuth and reaches the ledger API through API_STACK_URL. `"0"` = micro-stack / auth-less mode: the app skips OAuth and reads LEDGER_API_URL directly. |
+| config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
 ### Migration configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
-### Console configuration
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
-
 ### Publisher configuration
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| config.publisher.clientID | string | `"console-v3"` | NATS client ID |
-| config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
+| config.publisher.clientID | string | `"ledger-ui"` | NATS client ID |
+| config.publisher.topicMapping | string | `"ledger-ui"` | NATS topic mapping |
 
-### Membership Feature
+### Ledger UI Feature
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| feature.migrationHooks | bool | `false` | Run migration in a hook |
+| feature.migrationHooks | bool | `true` | Run migration in a hook |
 
 ### Postgresql configuration
 
@@ -125,8 +126,8 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.auth.secretKeys.username | string | `"username"` |  |
 | global.nats.auth.user | string | `""` |  |
 | global.nats.requestTimeout | string | `"60s"` |  |
-| affinity | object | `{}` | Console affinity |
-| annotations | object | `{}` | Console annotations  |
+| affinity | object | `{}` | Ledger UI affinity |
+| annotations | object | `{}` | Ledger UI annotations |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
@@ -136,13 +137,12 @@ Kubernetes: `>=1.14.0-0`
 | aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
 | aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
-| config.additionalEnv | list | `[{"name":"FEATURES_DISABLED","value":"sessions"}]` | Console additional environment variables |
+| config.additionalEnv | list | `[]` | Ledger UI additional environment variables |
 | config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
 | config.cookie.existingSecret | string | `""` | is the name of the secret |
 | config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
-| config.environment | string | `"production"` | Console environment |
-| config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
-| config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| config.environment | string | `"production"` | Ledger UI environment |
+| config.migration.annotations | object | `{}` | Ledger UI job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | config.migration.serviceAccount.annotations | object | `{}` |  |
 | config.migration.serviceAccount.create | bool | `true` |  |
 | config.migration.serviceAccount.name | string | `""` |  |
@@ -156,26 +156,26 @@ Kubernetes: `>=1.14.0-0`
 | config.sentry.release | string | `""` | Sentry release |
 | config.stargate_url | string | `""` | Deprecated |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
-| image.repository | string | `"ghcr.io/formancehq/console-v3"` | image repository |
+| image.repository | string | `"ghcr.io/formancehq/ledger-ui"` | image repository |
 | image.tag | string | `""` | image tag |
 | imagePullSecrets | list | `[]` | image pull secrets |
 | ingress.annotations | object | `{}` | ingress annotations |
 | ingress.className | string | `""` | ingress class name |
 | ingress.enabled | bool | `true` | ingress enabled |
-| ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.consoleV3.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.ledgerUi.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
 | ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
 | ingress.labels | object | `{}` | ingress labels |
 | ingress.tls | list | `[]` | ingress tls |
-| livenessProbe | object | `{}` | Console liveness probe |
-| nodeSelector | object | `{}` | Console node selector |
+| livenessProbe | object | `{}` | Ledger UI liveness probe |
+| nodeSelector | object | `{}` | Ledger UI node selector |
 | podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
 | podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
 | podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
 | podSecurityContext | object | `{}` | Pod Security Context |
-| readinessProbe | object | `{}` | Console readiness probe |
+| readinessProbe | object | `{}` | Ledger UI readiness probe |
 | replicas | int | `1` | Number of replicas |
-| resources | object | `{}` | Console resources |
+| resources | object | `{}` | Ledger UI resources |
 | securityContext | object | `{}` | Container Security Context |
 | service.annotations | object | `{}` | service annotations |
 | service.clusterIP | string | `""` | service cluster IP |
@@ -184,6 +184,6 @@ Kubernetes: `>=1.14.0-0`
 | serviceAccount.annotations | object | `{}` | Service account annotations |
 | serviceAccount.create | bool | `true` | Service account creation |
 | serviceAccount.name | string | `""` | Service account name |
-| tolerations | list | `[]` | Console tolerations |
-| volumeMounts | list | `[]` | Console volume mounts |
-| volumes | list | `[]` | Console volumes |
+| tolerations | list | `[]` | Ledger UI tolerations |
+| volumeMounts | list | `[]` | Ledger UI volume mounts |
+| volumes | list | `[]` | Ledger UI volumes |

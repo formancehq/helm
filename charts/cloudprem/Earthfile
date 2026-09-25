@@ -5,6 +5,7 @@ IMPORT ../console-v3 AS console-v3
 IMPORT ../identity AS identity
 IMPORT ../membership AS membership
 IMPORT ../portal AS portal
+IMPORT ../ledger-ui AS ledger-ui
 IMPORT ../core AS core
 IMPORT .. AS charts
 
@@ -27,6 +28,8 @@ readme:
   COPY --dir (membership+dependencies/*) .
   WORKDIR /src/portal
   COPY --dir (portal+dependencies/*) .
+  WORKDIR /src/ledger-ui
+  COPY --dir (ledger-ui+dependencies/*) .
 
   WORKDIR /src/cloudprem
   COPY (+sources/*) .
@@ -52,6 +55,8 @@ dependencies:
   COPY --dir (membership+validate/*) .
   WORKDIR /src/portal
   COPY --dir (portal+validate/*) .
+  WORKDIR /src/ledger-ui
+  COPY --dir (ledger-ui+validate/*) .
   WORKDIR /src/cloudprem
   DO --pass-args charts+DEPENDENCIES
 

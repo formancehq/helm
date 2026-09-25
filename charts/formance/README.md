@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.0.2](https://img.shields.io/badge/Version-3.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.1.0](https://img.shields.io/badge/Version-3.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -47,6 +47,15 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.consoleV3.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
 | global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi | object | `{"host":"ledger.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"ledger-ui","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Ledger UI |
+| global.platform.ledgerUi.enabled | bool | `false` | Enable ledger-ui |
+| global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
+| global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | are the scopes of the client |
+| global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
+| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
 | global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
 | global.platform.portal.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
@@ -209,6 +218,7 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | cloudprem.console-v3.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
+| cloudprem.ledger-ui.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 | cloudprem.portal.config.migration.enabled | bool | `true` | Enable migration job with a separated user |
 
 ### Console configuration
@@ -223,6 +233,8 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | cloudprem.console-v3.config.publisher.clientID | string | `"console-v3"` | NATS client ID |
 | cloudprem.console-v3.config.publisher.topicMapping | string | `"console-v3"` | NATS topic mapping |
+| cloudprem.ledger-ui.config.publisher.clientID | string | `"ledger-ui"` | NATS client ID |
+| cloudprem.ledger-ui.config.publisher.topicMapping | string | `"ledger-ui"` | NATS topic mapping |
 | cloudprem.portal.config.publisher.clientID | string | `"portal"` | NATS client ID |
 | cloudprem.portal.config.publisher.topicMapping | string | `"portal"` | NATS topic mapping |
 
@@ -241,8 +253,22 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | cloudprem.console-v3.postgresql.enabled | bool | `false` | Enable postgresql |
+| cloudprem.ledger-ui.postgresql.enabled | bool | `false` | Enable postgresql |
 | cloudprem.membership.postgresql.enabled | bool | `true` | Enable postgresql |
 | cloudprem.portal.postgresql.enabled | bool | `false` | Enable postgresql |
+
+### Ledger UI configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| cloudprem.ledger-ui.config.authenticationEnabled | string | `"1"` | Toggle OAuth/DB sessions on the app. `"1"` = stack mode (default): the app uses Membership/OAuth and reaches the ledger API through API_STACK_URL. `"0"` = micro-stack / auth-less mode: the app skips OAuth and reads LEDGER_API_URL directly. |
+| cloudprem.ledger-ui.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Ledger UI Feature
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| cloudprem.ledger-ui.feature.migrationHooks | bool | `true` | Run migration in a hook |
 
 ### Global AWS configuration
 
@@ -302,6 +328,8 @@ Kubernetes: `>=1.14.0-0`
 | global.nats.requestTimeout | string | `"60s"` |  |
 | global.platform.consoleV3.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/logout\n"` |  |
 | global.platform.consoleV3.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host) $ }}/auth/login-by-org\n"` |  |
+| global.platform.ledgerUi.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n"` |  |
+| global.platform.ledgerUi.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n"` |  |
 | global.platform.portal.oauth.client.existingSecret | string | `""` |  |
 | global.platform.portal.oauth.client.postLogoutRedirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/logout\n"` |  |
 | global.platform.portal.oauth.client.redirectUris | string | `"- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.portal.scheme .Values.global.platform.portal.host) $ }}/auth/login-by-org\n"` |  |
@@ -491,6 +519,67 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.identity.tolerations | list | `[]` | Tolerations. |
 | cloudprem.identity.volumeMounts | list | `[{"mountPath":"/tmp","name":"temporary"},{"mountPath":"/app/apps/identity/.next/cache","name":"next-cache"}]` | Additional runtime volume mounts. |
 | cloudprem.identity.volumes | list | `[{"emptyDir":{"sizeLimit":"64Mi"},"name":"temporary"},{"emptyDir":{"sizeLimit":"128Mi"},"name":"next-cache"}]` | Additional volumes mounted by the runtime and hook Jobs. |
+| cloudprem.ledger-ui.affinity | object | `{}` | Ledger UI affinity |
+| cloudprem.ledger-ui.annotations | object | `{}` | Ledger UI annotations |
+| cloudprem.ledger-ui.autoscaling.enabled | bool | `false` |  |
+| cloudprem.ledger-ui.autoscaling.maxReplicas | int | `100` |  |
+| cloudprem.ledger-ui.autoscaling.minReplicas | int | `1` |  |
+| cloudprem.ledger-ui.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| cloudprem.ledger-ui.aws.targetGroups.http.ipAddressType | string | `"ipv4"` | Target group IP address type |
+| cloudprem.ledger-ui.aws.targetGroups.http.serviceRef.name | string | `"{{ include \"core.fullname\" $ }}"` | Target group service reference name |
+| cloudprem.ledger-ui.aws.targetGroups.http.serviceRef.port | string | `"{{ .Values.service.ports.http.port }}"` | Target group service reference port |
+| cloudprem.ledger-ui.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
+| cloudprem.ledger-ui.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
+| cloudprem.ledger-ui.config.additionalEnv | list | `[]` | Ledger UI additional environment variables |
+| cloudprem.ledger-ui.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
+| cloudprem.ledger-ui.config.cookie.existingSecret | string | `""` | is the name of the secret |
+| cloudprem.ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+| cloudprem.ledger-ui.config.environment | string | `"production"` | Ledger UI environment |
+| cloudprem.ledger-ui.config.migration.annotations | object | `{}` | Ledger UI job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
+| cloudprem.ledger-ui.config.migration.serviceAccount.annotations | object | `{}` |  |
+| cloudprem.ledger-ui.config.migration.serviceAccount.create | bool | `true` |  |
+| cloudprem.ledger-ui.config.migration.serviceAccount.name | string | `""` |  |
+| cloudprem.ledger-ui.config.migration.ttlSecondsAfterFinished | string | `""` |  |
+| cloudprem.ledger-ui.config.migration.volumeMounts | list | `[]` |  |
+| cloudprem.ledger-ui.config.migration.volumes | list | `[]` |  |
+| cloudprem.ledger-ui.config.sentry.authToken | object | `{"existingSecret":"","secretKeys":{"value":""},"value":""}` | Sentry Auth Token |
+| cloudprem.ledger-ui.config.sentry.dsn | string | `""` | Sentry DSN |
+| cloudprem.ledger-ui.config.sentry.enabled | bool | `false` | Sentry enabled |
+| cloudprem.ledger-ui.config.sentry.environment | string | `""` | Sentry environment |
+| cloudprem.ledger-ui.config.sentry.release | string | `""` | Sentry release |
+| cloudprem.ledger-ui.config.stargate_url | string | `""` | Deprecated |
+| cloudprem.ledger-ui.image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
+| cloudprem.ledger-ui.image.repository | string | `"ghcr.io/formancehq/ledger-ui"` | image repository |
+| cloudprem.ledger-ui.image.tag | string | `""` | image tag |
+| cloudprem.ledger-ui.imagePullSecrets | list | `[]` | image pull secrets |
+| cloudprem.ledger-ui.ingress.annotations | object | `{}` | ingress annotations |
+| cloudprem.ledger-ui.ingress.className | string | `""` | ingress class name |
+| cloudprem.ledger-ui.ingress.enabled | bool | `true` | ingress enabled |
+| cloudprem.ledger-ui.ingress.hosts[0] | object | `{"host":"{{ tpl .Values.global.platform.ledgerUi.host $ }}","paths":[{"path":"/","pathType":"Prefix"}]}` | ingress host |
+| cloudprem.ledger-ui.ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"Prefix"}` | ingress path |
+| cloudprem.ledger-ui.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` | ingress path type |
+| cloudprem.ledger-ui.ingress.labels | object | `{}` | ingress labels |
+| cloudprem.ledger-ui.ingress.tls | list | `[]` | ingress tls |
+| cloudprem.ledger-ui.livenessProbe | object | `{}` | Ledger UI liveness probe |
+| cloudprem.ledger-ui.nodeSelector | object | `{}` | Ledger UI node selector |
+| cloudprem.ledger-ui.podDisruptionBudget.enabled | bool | `false` | Enable pod disruption budget |
+| cloudprem.ledger-ui.podDisruptionBudget.maxUnavailable | int | `0` | Maximum unavailable pods |
+| cloudprem.ledger-ui.podDisruptionBudget.minAvailable | int | `1` | Minimum available pods |
+| cloudprem.ledger-ui.podSecurityContext | object | `{}` | Pod Security Context |
+| cloudprem.ledger-ui.readinessProbe | object | `{}` | Ledger UI readiness probe |
+| cloudprem.ledger-ui.replicas | int | `1` | Number of replicas |
+| cloudprem.ledger-ui.resources | object | `{}` | Ledger UI resources |
+| cloudprem.ledger-ui.securityContext | object | `{}` | Container Security Context |
+| cloudprem.ledger-ui.service.annotations | object | `{}` | service annotations |
+| cloudprem.ledger-ui.service.clusterIP | string | `""` | service cluster IP |
+| cloudprem.ledger-ui.service.ports.http | object | `{"port":3000}` | service http port |
+| cloudprem.ledger-ui.service.type | string | `"ClusterIP"` | service type |
+| cloudprem.ledger-ui.serviceAccount.annotations | object | `{}` | Service account annotations |
+| cloudprem.ledger-ui.serviceAccount.create | bool | `true` | Service account creation |
+| cloudprem.ledger-ui.serviceAccount.name | string | `""` | Service account name |
+| cloudprem.ledger-ui.tolerations | list | `[]` | Ledger UI tolerations |
+| cloudprem.ledger-ui.volumeMounts | list | `[]` | Ledger UI volume mounts |
+| cloudprem.ledger-ui.volumes | list | `[]` | Ledger UI volumes |
 | cloudprem.membership.affinity | object | `{}` | Membership affinity |
 | cloudprem.membership.annotations | object | `{}` | Membership annotations |
 | cloudprem.membership.autoscaling | object | `{}` | Membership autoscaling |
