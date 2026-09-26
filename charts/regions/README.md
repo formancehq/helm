@@ -167,7 +167,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2".auth | string | `"v2.5.1"` |  |
 | versions.files."v3.2".gateway | string | `"v2.3.2"` |  |
 | versions.files."v3.2".ledger | string | `"v2.4.12"` |  |
-| versions.files."v3.2".mcp | string | `"v0.5.0"` |  |
+| versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
 | versions.files."v3.2".orchestration | string | `"v2.6.4"` |  |
 | versions.files."v3.2".payments | string | `"v3.4.6"` |  |
 | versions.files."v3.2".reconciliation | string | `"v2.5.0"` |  |
@@ -179,7 +179,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v4.0-beta".auth | string | `"v2.5.1"` |  |
 | versions.files."v4.0-beta".gateway | string | `"v2.3.2"` |  |
 | versions.files."v4.0-beta".ledger | string | `"v3.0.0-beta.5"` |  |
-| versions.files."v4.0-beta".mcp | string | `"v0.5.0"` |  |
+| versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
 | versions.files."v4.0-beta".orchestration | string | `"v2.6.4"` |  |
 | versions.files."v4.0-beta".payments | string | `"v3.4.6"` |  |
 | versions.files."v4.0-beta".reconciliation | string | `"v2.5.0"` |  |

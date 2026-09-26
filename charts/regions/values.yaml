@@ -187,7 +187,7 @@ versions:
       auth: v2.5.1
       gateway: v2.3.2
       ledger: v2.4.12
-      mcp: v0.5.0
+      mcp: v0.3.0
       orchestration: v2.6.4
       payments: v3.4.6
       reconciliation: v2.5.0
@@ -200,7 +200,7 @@ versions:
       auth: v2.5.1
       gateway: v2.3.2
       ledger: v3.0.0-beta.5
-      mcp: v0.5.0
+      mcp: v0.3.0
       orchestration: v2.6.4
       payments: v3.4.6
       reconciliation: v2.5.0
