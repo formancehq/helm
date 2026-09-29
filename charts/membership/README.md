@@ -94,11 +94,11 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.consoleV3.scheme | string | `"https"` | is the scheme for the console |
 | global.platform.ledgerUi.enabled | bool | `false` | Enable ledger-ui |
 | global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
-| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `"ledger-ui-secrets"` | is the name of the secret |
 | global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
 | global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | are the scopes of the client |
-| global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
-| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi.oauth.client.secret | string | `""` | is the secret of the client |
+| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":"oauth"}` | is the key contained within the secret |
 | global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the relying party issuer |

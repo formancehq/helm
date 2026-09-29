@@ -116,14 +116,14 @@ global:
           id: "ledger-ui"
           # -- is the secret of the client
           # @section -- Global configuration
-          secret: "changeMe2"
+          secret: ""
           # -- is the name of the secret
           # @section -- Global configuration
-          existingSecret: ""
+          existingSecret: "ledger-ui-secrets"
           # -- is the key contained within the secret
           # @section -- Global configuration
           secretKeys:
-            secret: ""
+            secret: "oauth"
           scopes:
           - accesses
           - remember_me
@@ -344,12 +344,12 @@ config:
 
   cookie:
     # -- is used to encrypt a cookie value
-    encryptionKey: "changeMe00"
+    encryptionKey: ""
     # -- is the name of the secret
-    existingSecret: ""
+    existingSecret: "ledger-ui-secrets"
     # -- is the key contained within the secret
     secretKeys:
-      encryptionKey: ""
+      encryptionKey: "cookie"
 
   # -- Ledger UI environment
   environment: production

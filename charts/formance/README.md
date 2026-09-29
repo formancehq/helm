@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.1.2](https://img.shields.io/badge/Version-3.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.2.0](https://img.shields.io/badge/Version-3.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -47,14 +47,14 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.consoleV3.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | is the name of the secret |
 | global.platform.consoleV3.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
 | global.platform.consoleV3.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
-| global.platform.ledgerUi | object | `{"host":"ledger.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"ledger-ui","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Ledger UI |
+| global.platform.ledgerUi | object | `{"host":"ledger.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"ledger-ui-secrets","id":"ledger-ui","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"","secretKeys":{"secret":"oauth"}}},"scheme":"https"}` | Ledger UI |
 | global.platform.ledgerUi.enabled | bool | `false` | Enable ledger-ui |
 | global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
-| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `"ledger-ui-secrets"` | is the name of the secret |
 | global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
 | global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | are the scopes of the client |
-| global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
-| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi.oauth.client.secret | string | `""` | is the secret of the client |
+| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":"oauth"}` | is the key contained within the secret |
 | global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
 | global.platform.portal.oauth.client.id | string | `"portal"` | is the id of the client |
@@ -531,9 +531,9 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.ledger-ui.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | cloudprem.ledger-ui.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | cloudprem.ledger-ui.config.additionalEnv | list | `[]` | Ledger UI additional environment variables |
-| cloudprem.ledger-ui.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
-| cloudprem.ledger-ui.config.cookie.existingSecret | string | `""` | is the name of the secret |
-| cloudprem.ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+| cloudprem.ledger-ui.config.cookie.encryptionKey | string | `""` | is used to encrypt a cookie value |
+| cloudprem.ledger-ui.config.cookie.existingSecret | string | `"ledger-ui-secrets"` | is the name of the secret |
+| cloudprem.ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":"cookie"}` | is the key contained within the secret |
 | cloudprem.ledger-ui.config.environment | string | `"production"` | Ledger UI environment |
 | cloudprem.ledger-ui.config.migration.annotations | object | `{}` | Ledger UI job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | cloudprem.ledger-ui.config.migration.serviceAccount.annotations | object | `{}` |  |

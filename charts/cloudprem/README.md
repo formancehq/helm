@@ -441,14 +441,14 @@ Dex:
 | global.platform.identity.membership.client.secret | string | `""` | Membership client secret. Prefer existingSecret in production. |
 | global.platform.identity.membership.client.secretKeys.secret | string | `""` | Key containing the Membership client secret. |
 | global.platform.identity.scheme | string | `"https"` | Public Identity URL scheme. |
-| global.platform.ledgerUi | object | `{"host":"ledger.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"","id":"ledger-ui","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"changeMe2","secretKeys":{"secret":""}}},"scheme":"https"}` | Ledger UI |
+| global.platform.ledgerUi | object | `{"host":"ledger.{{ .Values.global.serviceHost }}","oauth":{"client":{"existingSecret":"ledger-ui-secrets","id":"ledger-ui","postLogoutRedirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout\n","redirectUris":"- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login\n- {{ tpl (printf \"%s://%s\" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/login-by-org\n","scopes":["accesses","remember_me","keep_refresh_token","on_behalf"],"secret":"","secretKeys":{"secret":"oauth"}}},"scheme":"https"}` | Ledger UI |
 | global.platform.ledgerUi.enabled | bool | `false` | Enable ledger-ui |
 | global.platform.ledgerUi.host | string | `"ledger.{{ .Values.global.serviceHost }}"` | is the host for the ledger UI |
-| global.platform.ledgerUi.oauth.client.existingSecret | string | `""` | is the name of the secret |
+| global.platform.ledgerUi.oauth.client.existingSecret | string | `"ledger-ui-secrets"` | is the name of the secret |
 | global.platform.ledgerUi.oauth.client.id | string | `"ledger-ui"` | is the id of the client |
 | global.platform.ledgerUi.oauth.client.scopes | list | `["accesses","remember_me","keep_refresh_token","on_behalf"]` | are the scopes of the client |
-| global.platform.ledgerUi.oauth.client.secret | string | `"changeMe2"` | is the secret of the client |
-| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":""}` | is the key contained within the secret |
+| global.platform.ledgerUi.oauth.client.secret | string | `""` | is the secret of the client |
+| global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":"oauth"}` | is the key contained within the secret |
 | global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the membership |
@@ -800,9 +800,9 @@ Dex:
 | ledger-ui.aws.targetGroups.http.targetGroupARN | string | `""` | Target group ARN |
 | ledger-ui.aws.targetGroups.http.targetType | string | `"ip"` | Target group target type |
 | ledger-ui.config.additionalEnv | list | `[]` | Ledger UI additional environment variables |
-| ledger-ui.config.cookie.encryptionKey | string | `"changeMe00"` | is used to encrypt a cookie value |
-| ledger-ui.config.cookie.existingSecret | string | `""` | is the name of the secret |
-| ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":""}` | is the key contained within the secret |
+| ledger-ui.config.cookie.encryptionKey | string | `""` | is used to encrypt a cookie value |
+| ledger-ui.config.cookie.existingSecret | string | `"ledger-ui-secrets"` | is the name of the secret |
+| ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":"cookie"}` | is the key contained within the secret |
 | ledger-ui.config.environment | string | `"production"` | Ledger UI environment |
 | ledger-ui.config.migration.annotations | object | `{}` | Ledger UI job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | ledger-ui.config.migration.serviceAccount.annotations | object | `{}` |  |
