@@ -32,7 +32,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 6.0.2
+version: 6.1.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -65,3 +65,7 @@ dependencies:
   version: 5.X
   repository: file://../console-v3
   condition: global.platform.consoleV3.enabled
+- name: ledger-ui
+  version: 0.X
+  repository: file://../ledger-ui
+  condition: global.platform.ledgerUi.enabled
