@@ -189,7 +189,7 @@ versions:
       ledger: v2.4.13
       mcp: v0.3.0
       orchestration: v2.6.4
-      payments: v3.4.6
+      payments: v3.4.7
       reconciliation: v2.5.0
       search: v2.1.0
       stargate: v2.2.3
@@ -202,7 +202,7 @@ versions:
       ledger: v3.0.0-beta.5
       mcp: v0.3.0
       orchestration: v2.6.4
-      payments: v3.4.6
+      payments: v3.4.7
       reconciliation: v2.5.0
       search: v2.1.0
       stargate: v2.2.3
