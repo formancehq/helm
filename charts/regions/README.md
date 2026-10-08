@@ -28,7 +28,8 @@ Formance Private Regions Helm Chart
 Set `operator.connectivity.enabled=true` together with `operator.enabled=true`
 and `operator.ledger.enabled=true` to install the Connectivity Operator and its
 CRDs. The opt-in is disabled by default. The dependency and Operator image are
-pinned to `1.0.0-beta.2`; the chart includes the matching CRDs.
+pinned to `1.0.0-beta.2`; the image uses the packaged `appVersion` default.
+The chart includes the matching CRDs.
 
 Core and API are separate published components. Their images are selected by the
 Stack Operator from the Connectivity module version, not from this Operator
@@ -120,7 +121,6 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.address | string | `"app.formance.cloud:443"` |  |
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
-| connectivity-operator.image.tag | string | `"1.0.0-beta.2"` |  |
 | fullnameOverride | string | `""` |  |
 | ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
 | ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |

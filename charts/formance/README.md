@@ -744,7 +744,6 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.address | string | `"app.formance.cloud:443"` |  |
 | regions.agent.server.tls.enabled | bool | `true` |  |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` |  |
-| regions.connectivity-operator.image.tag | string | `"1.0.0-beta.2"` |  |
 | regions.fullnameOverride | string | `""` |  |
 | regions.ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
 | regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |

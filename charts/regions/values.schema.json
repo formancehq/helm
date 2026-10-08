@@ -65,19 +65,6 @@
                 }
             }
         },
-        "connectivity-operator": {
-            "type": "object",
-            "properties": {
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "fullnameOverride": {
             "type": "string"
         },
