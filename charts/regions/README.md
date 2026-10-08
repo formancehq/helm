@@ -23,34 +23,6 @@ Formance Private Regions Helm Chart
 
 * <https://github.com/formancehq/helm/tree/main/charts/regions>
 
-## Connectivity Operator
-
-Set `operator.connectivity.enabled=true` together with `operator.enabled=true`
-and `operator.ledger.enabled=true` to install the Connectivity Operator and its
-CRDs. The opt-in is disabled by default. The dependency and Operator image are
-pinned to `1.0.0-beta.2`; the image uses the packaged `appVersion` default.
-The chart includes the matching CRDs.
-
-Core and API are separate published components. Their images are selected by the
-Stack Operator from the Connectivity module version, not from this Operator
-chart. Select `1.0.0-beta.2` explicitly for the target Connectivity module or its
-Versions resource. Stack Operator `3.16.0` uses the same module version for both
-images and overwrites delegated image fields during reconciliation.
-
-The `v4.0-beta` Versions profile selects Ledger `v3.0.0-beta.10` together with
-Connectivity `1.0.0-beta.2`. Ledger Operator chart and images also select beta.10;
-its published chart uses `latest` image defaults, so these tags remain explicit.
-Both components use Ledger protocol `20`; this alone does not establish descriptor
-or credential compatibility. Ledger Operator beta.10 replaces `Credentials.spec.god`
-with `superuser`. Qualify the Stack producer's credential contract before rollout.
-This profile change can affect existing consumers using the shared Versions resource,
-independently of this chart's Connectivity Operator installation opt-in.
-
-Before enabling the module, qualify the target Ledger, Credentials CRD, and key
-registration contract. Core `1.0.0-beta.2` requires Ledger protocol `20` and
-matching reflected BucketService descriptors before each Apply. Installing this
-chart does not establish runtime compatibility or change Ledger defaults.
-
 ## Migration
 
 #### EE Licence
