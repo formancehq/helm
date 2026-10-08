@@ -28,7 +28,7 @@ dependencies:
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.ledger.enabled
   - name: connectivity-operator
-    version: 0.2.0
+    version: 1.0.0-beta.2
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.connectivity.enabled
   - name: core

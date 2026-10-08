@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.20.6](https://img.shields.io/badge/Version-3.20.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.21.0](https://img.shields.io/badge/Version-3.21.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -9,6 +9,7 @@ Formance Private Regions Helm Chart
 |------------|------|---------|
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
+| oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.2 |
 | oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-beta.1 |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
@@ -21,6 +22,24 @@ Formance Private Regions Helm Chart
 ## Source Code
 
 * <https://github.com/formancehq/helm/tree/main/charts/regions>
+
+## Connectivity Operator
+
+Set `operator.connectivity.enabled=true` together with `operator.enabled=true`
+and `operator.ledger.enabled=true` to install the Connectivity Operator and its
+CRDs. The opt-in is disabled by default. The dependency and Operator image are
+pinned to `1.0.0-beta.2`; the chart includes the matching CRDs.
+
+Core and API are separate published components. Their images are selected by the
+Stack Operator from the Connectivity module version, not from this Operator
+chart. Select `1.0.0-beta.2` explicitly for the target Connectivity module or its
+Versions resource. Stack Operator `3.16.0` uses the same module version for both
+images and overwrites delegated image fields during reconciliation.
+
+Before enabling the module, qualify the target Ledger, Credentials CRD, and key
+registration contract. Core `1.0.0-beta.2` requires Ledger protocol `20` and
+matching reflected BucketService descriptors before each Apply. Installing this
+chart does not establish runtime compatibility or change Ledger defaults.
 
 ## Migration
 
@@ -71,6 +90,12 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | global.monitoring.support.resourceAttributes | object | `{}` | Resource attributes added to all signals sent to this endpoint |
 | global.monitoring.support.stackSelector | object | `{"matchExpressions":[{"key":"formance.com/stack","operator":"Exists"}]}` | Stack selector for the support OtelExporterEndpoint |
 
+### Connectivity Operator configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| operator.connectivity.enabled | bool | `false` | Enable the Connectivity Operator (requires operator.enabled and operator.ledger.enabled) |
+
 ### Ledger Operator configuration
 
 | Key | Type | Default | Description |
@@ -95,6 +120,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.address | string | `"app.formance.cloud:443"` |  |
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
+| connectivity-operator.image.tag | string | `"1.0.0-beta.2"` |  |
 | fullnameOverride | string | `""` |  |
 | ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
 | ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |

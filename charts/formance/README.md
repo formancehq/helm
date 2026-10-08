@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.2.4](https://img.shields.io/badge/Version-3.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -192,7 +192,8 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.address | string | `"app.formance.cloud:443"` | Formance Cloud server address |
 | regions.agent.server.tls.enabled | bool | `true` | Enable TLS |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` | Skip TLS verification |
-| regions.operator | object | `{"enabled":true,"ledger":{"enabled":false},"operator-crds":{"create":false}}` | Operator configuration |
+| regions.operator | object | `{"connectivity":{"enabled":false},"enabled":true,"ledger":{"enabled":false},"operator-crds":{"create":false}}` | Operator configuration |
+| regions.operator.connectivity.enabled | bool | `false` | Enable the Connectivity Operator (requires operator.enabled and operator.ledger.enabled) |
 | regions.operator.enabled | bool | `true` | Enable the Formance Operator |
 | regions.operator.ledger.enabled | bool | `false` | Enable the Ledger v3 Operator (requires operator.enabled) |
 | regions.versions | object | `{"allowDefaultVersion":false,"create":true}` | Stack versions configuration |
@@ -312,6 +313,12 @@ Kubernetes: `>=1.14.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | cloudprem.portal.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
+
+### Connectivity Operator configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| regions.operator.connectivity.enabled | bool | `false` | Enable the Connectivity Operator (requires operator.enabled and operator.ledger.enabled) |
 
 ### Ledger Operator configuration
 
@@ -737,6 +744,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.address | string | `"app.formance.cloud:443"` |  |
 | regions.agent.server.tls.enabled | bool | `true` |  |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` |  |
+| regions.connectivity-operator.image.tag | string | `"1.0.0-beta.2"` |  |
 | regions.fullnameOverride | string | `""` |  |
 | regions.ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
 | regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |

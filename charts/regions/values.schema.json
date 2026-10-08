@@ -68,14 +68,6 @@
         "connectivity-operator": {
             "type": "object",
             "properties": {
-                "defaultConnectivityImage": {
-                    "type": "object",
-                    "properties": {
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
                 "image": {
                     "type": "object",
                     "properties": {

@@ -94,15 +94,12 @@ ledger-operator:
   ledgerImage:
     tag: "v3.0.0-beta.1"
 
-# Chart 0.2.0 is the only published connectivity-operator chart; it matches the
-# operator source at tag v1.0.0-alpha.1, whose images are tagged without the
-# leading "v". The Formance Operator requires Connectivity v1.0.0-alpha.1 or later.
+# Operator chart and image are independently published component artifacts.
+# Core and API images are selected by the Stack Operator from the Connectivity
+# module version; configure that module explicitly to avoid floating images.
 connectivity-operator:
   image:
-    tag: "1.0.0-alpha.1"
-
-  defaultConnectivityImage:
-    tag: "1.0.0-alpha.1"
+    tag: "1.0.0-beta.2"
 
 agent:
   enabled: false

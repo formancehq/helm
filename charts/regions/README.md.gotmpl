@@ -9,6 +9,24 @@
 
 {{ template "chart.sourcesSection" . }}
 
+## Connectivity Operator
+
+Set `operator.connectivity.enabled=true` together with `operator.enabled=true`
+and `operator.ledger.enabled=true` to install the Connectivity Operator and its
+CRDs. The opt-in is disabled by default. The dependency and Operator image are
+pinned to `1.0.0-beta.2`; the chart includes the matching CRDs.
+
+Core and API are separate published components. Their images are selected by the
+Stack Operator from the Connectivity module version, not from this Operator
+chart. Select `1.0.0-beta.2` explicitly for the target Connectivity module or its
+Versions resource. Stack Operator `3.16.0` uses the same module version for both
+images and overwrites delegated image fields during reconciliation.
+
+Before enabling the module, qualify the target Ledger, Credentials CRD, and key
+registration contract. Core `1.0.0-beta.2` requires Ledger protocol `20` and
+matching reflected BucketService descriptors before each Apply. Installing this
+chart does not establish runtime compatibility or change Ledger defaults.
+
 ## Migration
 
 #### EE Licence
