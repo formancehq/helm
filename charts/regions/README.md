@@ -10,7 +10,7 @@ Formance Private Regions Helm Chart
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
 | oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.2 |
-| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-beta.1 |
+| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-beta.10 |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
 ## Maintainers
@@ -36,6 +36,15 @@ Stack Operator from the Connectivity module version, not from this Operator
 chart. Select `1.0.0-beta.2` explicitly for the target Connectivity module or its
 Versions resource. Stack Operator `3.16.0` uses the same module version for both
 images and overwrites delegated image fields during reconciliation.
+
+The `v4.0-beta` Versions profile selects Ledger `v3.0.0-beta.10` together with
+Connectivity `1.0.0-beta.2`. Ledger Operator chart and images also select beta.10;
+its published chart uses `latest` image defaults, so these tags remain explicit.
+Both components use Ledger protocol `20`; this alone does not establish descriptor
+or credential compatibility. Ledger Operator beta.10 replaces `Credentials.spec.god`
+with `superuser`. Qualify the Stack producer's credential contract before rollout.
+This profile change can affect existing consumers using the shared Versions resource,
+independently of this chart's Connectivity Operator installation opt-in.
 
 Before enabling the module, qualify the target Ledger, Credentials CRD, and key
 registration contract. Core `1.0.0-beta.2` requires Ledger protocol `20` and
@@ -122,8 +131,8 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
-| ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |
+| ledger-operator.image.tag | string | `"v3.0.0-beta.10"` |  |
+| ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.10"` |  |
 | nameOverride | string | `""` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
@@ -205,7 +214,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v4.0-beta".auth | string | `"v2.5.1"` |  |
 | versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.2"` |  |
 | versions.files."v4.0-beta".gateway | string | `"v2.3.2"` |  |
-| versions.files."v4.0-beta".ledger | string | `"v3.0.0-beta.5"` |  |
+| versions.files."v4.0-beta".ledger | string | `"v3.0.0-beta.10"` |  |
 | versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
 | versions.files."v4.0-beta".orchestration | string | `"v2.7.0"` |  |
 | versions.files."v4.0-beta".payments | string | `"v3.4.8"` |  |

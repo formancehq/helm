@@ -24,7 +24,7 @@ dependencies:
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.enabled
   - name: ledger-operator
-    version: 3.0.0-beta.1
+    version: 3.0.0-beta.10
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.ledger.enabled
   - name: connectivity-operator

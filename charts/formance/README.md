@@ -745,8 +745,8 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.tls.enabled | bool | `true` |  |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | regions.fullnameOverride | string | `""` |  |
-| regions.ledger-operator.image.tag | string | `"v3.0.0-beta.1"` |  |
-| regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.1"` |  |
+| regions.ledger-operator.image.tag | string | `"v3.0.0-beta.10"` |  |
+| regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.10"` |  |
 | regions.nameOverride | string | `""` |  |
 | regions.operator.fullnameOverride | string | `"operator"` |  |
 | regions.operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
@@ -828,7 +828,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v4.0-beta".auth | string | `"v2.5.1"` |  |
 | regions.versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.2"` |  |
 | regions.versions.files."v4.0-beta".gateway | string | `"v2.3.2"` |  |
-| regions.versions.files."v4.0-beta".ledger | string | `"v3.0.0-beta.5"` |  |
+| regions.versions.files."v4.0-beta".ledger | string | `"v3.0.0-beta.10"` |  |
 | regions.versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
 | regions.versions.files."v4.0-beta".orchestration | string | `"v2.7.0"` |  |
 | regions.versions.files."v4.0-beta".payments | string | `"v3.4.8"` |  |
