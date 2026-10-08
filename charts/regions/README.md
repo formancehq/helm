@@ -203,6 +203,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2".wallets | string | `"v2.2.1"` |  |
 | versions.files."v3.2".webhooks | string | `"v2.5.4"` |  |
 | versions.files."v4.0-beta".auth | string | `"v2.5.1"` |  |
+| versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.2"` |  |
 | versions.files."v4.0-beta".gateway | string | `"v2.3.2"` |  |
 | versions.files."v4.0-beta".ledger | string | `"v3.0.0-beta.5"` |  |
 | versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |

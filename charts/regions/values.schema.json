@@ -532,6 +532,9 @@
                                 "auth": {
                                     "type": "string"
                                 },
+                                "connectivity": {
+                                    "type": "string"
+                                },
                                 "gateway": {
                                     "type": "string"
                                 },
