@@ -59,6 +59,11 @@ operator:
     # @section -- Ledger Operator configuration
     enabled: false
 
+  connectivity:
+    # -- Enable the Connectivity Operator (requires operator.enabled and operator.ledger.enabled)
+    # @section -- Connectivity Operator configuration
+    enabled: false
+
   fullnameOverride: "operator"
   nameOverride: "operator"
 
@@ -82,12 +87,14 @@ operator:
   operator-crds:
     create: false
 
+# The published beta.10 chart uses latest for both image tags, not appVersion.
+# Keep explicit release tags until the upstream chart defaults are versioned.
 ledger-operator:
   image:
-    tag: "v3.0.0-beta.1"
+    tag: "v3.0.0-beta.10"
 
   ledgerImage:
-    tag: "v3.0.0-beta.1"
+    tag: "v3.0.0-beta.10"
 
 agent:
   enabled: false
@@ -198,8 +205,9 @@ versions:
       webhooks: v2.5.4
     v4.0-beta:
       auth: v2.5.1
+      connectivity: 1.0.0-beta.2
       gateway: v2.3.2
-      ledger: v3.0.0-beta.5
+      ledger: v3.0.0-beta.10
       mcp: v0.3.0
       orchestration: v2.7.0
       payments: v3.4.8
