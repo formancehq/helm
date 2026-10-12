@@ -14,5 +14,8 @@ dependencies:
 - name: ledger-ui
   repository: file://../ledger-ui
   version: 0.1.0
-digest: sha256:940feee67523dace4d6ca9840a2e7b834ec16b17334c9b8ce7d7574fb72066bd
-generated: "2026-09-29T14:13:43.392383+02:00"
+- name: console
+  repository: file://../console
+  version: 0.1.0
+digest: sha256:84384e334a053ba46c5012dfcfd5021a36f04a2fd5cad17f1fd8b09aa2460569
+generated: "2026-10-12T20:13:31.52604768+02:00"
