@@ -35,7 +35,7 @@
       name: {{ .Values.config.cookie.existingSecret }}
       key: {{ .Values.config.cookie.secretKeys.encryptionKey }}
   {{- else }}
-  value: {{ .Values.config.cookie.encryptionKey }}
+  value: {{ .Values.config.cookie.encryptionKey | quote }}
   {{- end }}
 - name: COOKIE_DOMAIN
   value: {{ tpl .Values.global.platform.console.host $ }}
