@@ -1,0 +1,23 @@
+{{- if .Values.global.aws.elb }}
+{{- range $name, $group := .Values.aws.targetGroups }}
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: {{ include "core.fullname" $ }}-{{ $name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "core.labels" $ | nindent 4 }}
+spec:
+  ipAddressType: {{ $group.ipAddressType }}
+  serviceRef:
+    name: {{ tpl $group.serviceRef.name $ }}
+    port: {{ tpl $group.serviceRef.port $ }}
+  {{- if $group.targetGroupARN }}
+  targetGroupARN: {{ $group.targetGroupARN }}
+  {{- else }}
+  targetGroupName: {{ required "console requires a targetGroupARN or targetGroupName when global.aws.elb is enabled" $group.targetGroupName }}
+  {{- end }}
+  targetType: {{ $group.targetType }}
+---
+{{- end }}
+{{- end }}

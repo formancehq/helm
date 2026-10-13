@@ -74,6 +74,16 @@ global:
             # -- Key containing the Membership client secret.
             # @section -- Global configuration
             secret: ""
+    console:
+      # -- Enable the Console for v4 stacks
+      # @section -- Global configuration
+      enabled: false
+      # -- Public Console URL scheme
+      # @section -- Global configuration
+      scheme: "https"
+      # -- Public Console host
+      # @section -- Global configuration
+      host: "console.{{ .Values.global.serviceHost }}"
     consoleV3:
       # -- Enable console-v3
       # @section -- Global configuration
