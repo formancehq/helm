@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.21.0](https://img.shields.io/badge/Version-3.21.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.21.2](https://img.shields.io/badge/Version-3.21.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -10,7 +10,7 @@ Formance Private Regions Helm Chart
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
 | oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.2 |
-| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-beta.10 |
+| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.1 |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
 ## Maintainers
@@ -103,8 +103,8 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| ledger-operator.image.tag | string | `"v3.0.0-beta.10"` |  |
-| ledger-operator.ledgerImage.tag | string | `"v3.0.0-beta.10"` |  |
+| ledger-operator.image.tag | string | `"v3.0.0-rc.1"` |  |
+| ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.1"` |  |
 | nameOverride | string | `""` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
@@ -186,7 +186,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v4.0-beta".auth | string | `"v2.5.1"` |  |
 | versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.2"` |  |
 | versions.files."v4.0-beta".gateway | string | `"v2.3.2"` |  |
-| versions.files."v4.0-beta".ledger | string | `"v3.0.0-beta.10"` |  |
+| versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.1"` |  |
 | versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
 | versions.files."v4.0-beta".orchestration | string | `"v2.7.0"` |  |
 | versions.files."v4.0-beta".payments | string | `"v3.4.8"` |  |
