@@ -846,7 +846,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.stacks | object | `{}` |  |
 | regions.versions.allowDefaultVersion | bool | `false` |  |
 | regions.versions.create | bool | `true` |  |
-| regions.versions.files."v2.0".auth | string | `"v2.4.3"` |  |
+| regions.versions.files."v2.0".auth | string | `"v2.6.0"` |  |
 | regions.versions.files."v2.0".gateway | string | `"v2.3.1"` |  |
 | regions.versions.files."v2.0".ledger | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.0".orchestration | string | `"v2.0.33"` |  |
@@ -856,7 +856,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.0".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v2.0".wallets | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.0".webhooks | string | `"v2.0.33"` |  |
-| regions.versions.files."v2.1".auth | string | `"v2.4.3"` |  |
+| regions.versions.files."v2.1".auth | string | `"v2.6.0"` |  |
 | regions.versions.files."v2.1".gateway | string | `"v2.3.1"` |  |
 | regions.versions.files."v2.1".ledger | string | `"v2.1.7"` |  |
 | regions.versions.files."v2.1".orchestration | string | `"v2.0.33"` |  |
@@ -866,7 +866,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.1".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v2.1".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v2.1".webhooks | string | `"v2.4.1"` |  |
-| regions.versions.files."v2.2".auth | string | `"v2.4.3"` |  |
+| regions.versions.files."v2.2".auth | string | `"v2.6.0"` |  |
 | regions.versions.files."v2.2".gateway | string | `"v2.3.1"` |  |
 | regions.versions.files."v2.2".ledger | string | `"v2.2.59"` |  |
 | regions.versions.files."v2.2".orchestration | string | `"v2.0.33"` |  |
@@ -876,7 +876,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.2".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v2.2".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v2.2".webhooks | string | `"v2.4.1"` |  |
-| regions.versions.files."v3.0".auth | string | `"v2.4.3"` |  |
+| regions.versions.files."v3.0".auth | string | `"v2.6.0"` |  |
 | regions.versions.files."v3.0".gateway | string | `"v2.3.1"` |  |
 | regions.versions.files."v3.0".ledger | string | `"v2.2.59"` |  |
 | regions.versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
@@ -886,7 +886,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.0".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.0".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v3.0".webhooks | string | `"v2.4.1"` |  |
-| regions.versions.files."v3.1".auth | string | `"v2.4.3"` |  |
+| regions.versions.files."v3.1".auth | string | `"v2.6.0"` |  |
 | regions.versions.files."v3.1".gateway | string | `"v2.3.1"` |  |
 | regions.versions.files."v3.1".ledger | string | `"v2.3.22"` |  |
 | regions.versions.files."v3.1".orchestration | string | `"v2.4.1"` |  |
@@ -896,7 +896,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.1".stargate | string | `"v2.2.2"` |  |
 | regions.versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v3.1".webhooks | string | `"v2.4.1"` |  |
-| regions.versions.files."v3.2".auth | string | `"v2.5.1"` |  |
+| regions.versions.files."v3.2".auth | string | `"v2.6.0"` |  |
 | regions.versions.files."v3.2".gateway | string | `"v2.3.2"` |  |
 | regions.versions.files."v3.2".ledger | string | `"v2.4.15"` |  |
 | regions.versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
@@ -908,7 +908,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.2".transactionplane | string | `"v0.11.1"` |  |
 | regions.versions.files."v3.2".wallets | string | `"v2.2.1"` |  |
 | regions.versions.files."v3.2".webhooks | string | `"v2.5.4"` |  |
-| regions.versions.files."v4.0-beta".auth | string | `"v2.5.1"` |  |
+| regions.versions.files."v4.0-beta".auth | string | `"v2.6.0"` |  |
 | regions.versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.2"` |  |
 | regions.versions.files."v4.0-beta".gateway | string | `"v2.3.2"` |  |
 | regions.versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.1"` |  |

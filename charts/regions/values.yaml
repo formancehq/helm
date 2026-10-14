@@ -136,7 +136,7 @@ versions:
       wallets: v0.4.6
       webhooks: v2.0.18
     v2.0:
-      auth: v2.4.3
+      auth: v2.6.0
       gateway: v2.3.1
       ledger: v2.0.33
       orchestration: v2.0.33
@@ -147,7 +147,7 @@ versions:
       wallets: v2.0.33
       webhooks: v2.0.33
     v2.1:
-      auth: v2.4.3
+      auth: v2.6.0
       gateway: v2.3.1
       ledger: v2.1.7
       orchestration: v2.0.33
@@ -158,7 +158,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.4.1
     v2.2:
-      auth: v2.4.3
+      auth: v2.6.0
       gateway: v2.3.1
       ledger: v2.2.59
       orchestration: v2.0.33
@@ -169,7 +169,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.4.1
     v3.0:
-      auth: v2.4.3
+      auth: v2.6.0
       gateway: v2.3.1
       ledger: v2.2.59
       orchestration: v2.1.1
@@ -180,7 +180,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.4.1
     v3.1:
-      auth: v2.4.3
+      auth: v2.6.0
       gateway: v2.3.1
       ledger: v2.3.22
       orchestration: v2.4.1
@@ -191,7 +191,7 @@ versions:
       wallets: v2.1.5
       webhooks: v2.4.1
     v3.2:
-      auth: v2.5.1
+      auth: v2.6.0
       gateway: v2.3.2
       ledger: v2.4.15
       mcp: v0.3.0
@@ -204,7 +204,7 @@ versions:
       wallets: v2.2.1
       webhooks: v2.5.4
     v4.0-beta:
-      auth: v2.5.1
+      auth: v2.6.0
       connectivity: 1.0.0-beta.2
       gateway: v2.3.2
       ledger: v3.0.0-rc.1
