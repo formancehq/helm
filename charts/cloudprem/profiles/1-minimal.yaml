@@ -2,6 +2,12 @@ global:
   serviceHost: "example.com"
 
 membership:
+  config:
+    auth:
+      signingKey:
+        # Provision this Secret in the release namespace before installation.
+        existingSecret: membership-signing-key
+        key: signing.key
   ingress:
     enabled: true
     tls:

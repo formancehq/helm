@@ -5,6 +5,20 @@
   value: "{{ .Values.config.auth.tokenValidity.refreshToken }}"
 {{- end }}
 
+{{- define "membership.auth.signingKey" -}}
+{{- $signingKey := .Values.config.auth.signingKey | default dict -}}
+- name: SIGNING_KEY
+{{- if $signingKey.existingSecret }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "config.auth.signingKey.existingSecret must not be blank" (trim $signingKey.existingSecret) | quote }}
+      key: {{ required "config.auth.signingKey.key is required when existingSecret is configured" (trim (default "" $signingKey.key)) | quote }}
+{{- else }}
+  {{- $_ := required "config.auth.signingKey.value or config.auth.signingKey.existingSecret is required" (trim (default "" $signingKey.value)) }}
+  value: {{ $signingKey.value | quote }}
+{{- end }}
+{{- end }}
+
 {{- define "membership.stack.cycle" }}
 - name: STACK_PRUNING_DELAY
   value: "{{.Values.config.stack.cycle.delay.prune}}"
@@ -44,6 +58,7 @@
 {{- end }}
 
 {{- define "membership.env" -}}
+{{- include "membership.auth.signingKey" . }}
 {{- if and .Values.global.platform.consoleV3.host .Values.global.platform.consoleV3.scheme }}
 - name: CONSOLE_PUBLIC_BASEURL
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host)) $ }}

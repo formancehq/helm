@@ -536,6 +536,13 @@ config:
   auth:
     # -- Enable login with sso (email selector on login page)
     loginWithSSO: false
+    signingKey:
+      # -- Required PKCS#1 RSA private key as PEM text, unless existingSecret is configured. Prefer existingSecret in production.
+      value: ""
+      # -- Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty.
+      existingSecret: ""
+      # -- Required key within existingSecret containing the PEM text.
+      key: "signing.key"
     # -- Membership additional oauth clients
     additionalOAuthClients: []
     # -- According to "nsuµmh"

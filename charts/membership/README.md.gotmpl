@@ -15,6 +15,45 @@
 
 {{ template "chart.sourcesSection" . }}
 
+## Token signing
+
+Membership `v2.8.0` requires a PKCS#1 RSA private key. Configure
+`config.auth.signingKey` with either PEM text in `value` or the name of an
+existing Kubernetes Secret in `existingSecret`. Helm refuses to render when
+both are empty. `existingSecret` takes precedence over `value`; `key` defaults
+to `signing.key` and must not be empty when using a Secret.
+
+```yaml
+config:
+  auth:
+    signingKey:
+      value: ""
+      existingSecret: membership-signing-key
+      key: signing.key
+```
+
+The Secret must exist in the release namespace and contain the PEM text at
+the selected key. Membership receives it through `SIGNING_KEY`. To supply a
+local PEM file instead, pass `--set-file config.auth.signingKey.value=/path/to/key.pem`.
+Keep private keys outside version control. The chart validates configuration
+presence; Membership validates the PEM format and rejects the compromised legacy key.
+
+Generate a new key with OpenSSL 3:
+
+```sh
+umask 077
+openssl genrsa -traditional -out membership-signing-key.pem 4096
+```
+
+### Upgrade to Membership v2.8.0
+
+Before upgrading, provision a new key and configure the values above. Apply the
+`bind-access-tokens-to-signed-jwt` migration before replacing Membership.
+Existing access tokens must be issued again and downstream validators must
+refresh their JWKS caches. Follow the
+[Membership signing and rotation guide](https://github.com/formancehq/membership-api/blob/v2.8.0/docs/token-signing.md)
+for the rollout order. Rolling back the chart does not restore old tokens.
+
 ## Migration
 
 ### From v0.38 To v1.0.0

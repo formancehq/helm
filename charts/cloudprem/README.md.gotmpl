@@ -27,14 +27,42 @@ export BASE_DOMAIN=example.com
 export BASE_DOMAIN_WILDCARD_CERTIFICATE=example-com-wildcard-certificate-tls
 
 helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
-  --set global.licence.token=$YOUR_LICENCE_KEY
-  --set global.licence.clusterID=$YOUR_CLUSTER_ID
+  --set global.licence.token=$YOUR_LICENCE_KEY \
+  --set global.licence.clusterID=$YOUR_CLUSTER_ID \
   --set global.serviceHost=$BASE_DOMAIN \
+  --set membership.config.auth.signingKey.existingSecret=membership-signing-key \
   --set membership.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set portal.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set console.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set dex.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE
 ```
+
+## Membership signing key
+
+Cloudprem includes Membership `v2.8.0`. When Membership is enabled, configure
+`membership.config.auth.signingKey` before rendering or installing the chart:
+
+```yaml
+membership:
+  config:
+    auth:
+      signingKey:
+        value: ""
+        existingSecret: membership-signing-key
+        key: signing.key
+```
+
+Provision that Secret in the release namespace first. Alternatively, supply
+PEM text with `--set-file membership.config.auth.signingKey.value=/path/to/key.pem`.
+There is no default private key. An empty configuration fails rendering.
+For the unified Formance chart, prefix this path with `cloudprem.`; Community
+Edition and installations with Membership disabled do not require a key.
+
+On upgrade, configure the signing key as shown above. Apply the access-token
+binding migration before deploying Membership, refresh downstream JWKS
+caches and issue new access tokens. See the
+[Membership chart guide](../membership/README.md#token-signing) and the
+[upstream rollout order](https://github.com/formancehq/membership-api/blob/v2.8.0/docs/token-signing.md).
 
 ## Introduction
 

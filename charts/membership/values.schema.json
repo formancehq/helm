@@ -89,6 +89,20 @@
                         "loginWithSSO": {
                             "type": "boolean"
                         },
+                        "signingKey": {
+                            "type": "object",
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "key": {
+                                    "type": "string"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "tokenValidity": {
                             "type": "object",
                             "properties": {
