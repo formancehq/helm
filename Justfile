@@ -4,8 +4,15 @@ set positional-arguments
 default:
   @just --list
 
-pre-commit: helm-all template-readme
+pre-commit: helm-all test-signing-key template-readme
 pc: pre-commit
+
+# Render-only fixtures reference a synthetic Secret; deployed defaults stay empty.
+_helm-validation-args path:
+  @case "$(basename {{path}})" in membership|cloudprem|formance) echo '--values tests/values/signing-key.yaml' ;; esac
+
+test-signing-key:
+  bash tests/membership-signing-key.sh
 
 lint:
   @cd ./tools/readme && golangci-lint run --fix --timeout 5m
@@ -37,10 +44,11 @@ helm-all package="false" publish='false' packageArgs="": helm-docs helm-schema-i
   # Phase 2: Lint, template, and package in parallel (dependencies are already resolved)
   for chart in $charts; do
     (
+      validation_args=$(just _helm-validation-args "$chart")
       if [ "{{package}}" = "true" ]; then
-        just helm-package-only "$chart" {{packageArgs}}
+        just helm-package-only "$chart" "{{packageArgs}}" "$validation_args"
       else
-        just helm-template-only "$chart"
+        just helm-template-only "$chart" "$validation_args"
       fi
     ) &
   done
@@ -99,12 +107,12 @@ helm-lint path='' args="":
   set -euo pipefail
   just helm-update {{path}}
   echo "📝 Linting chart {{path}}"
-  helm lint {{path}} --strict
+  helm lint {{path}} --strict {{args}}
 
 helm-template path='' args='' output='/dev/null':
   #!/bin/bash
   set -euo pipefail
-  just helm-lint {{path}}
+  just helm-lint {{path}} "{{args}}"
 
   isLibrary=$(yq -r '.type' {{path}}/Chart.yaml)
   echo "Chart type: $isLibrary"
@@ -119,7 +127,7 @@ helm-template-only path='' args='' output='/dev/null':
   #!/bin/bash
   set -euo pipefail
   echo "📝 Linting chart {{path}}"
-  helm lint {{path}} --strict
+  helm lint {{path}} --strict {{args}}
 
   isLibrary=$(yq -r '.type' {{path}}/Chart.yaml)
   echo "Chart type: $isLibrary"
@@ -134,11 +142,11 @@ helm-package path='' args='':
   just helm-template {{path}}
   helm package {{path}} --destination ./build {{args}}
 
-helm-package-only path='' args='':
+helm-package-only path='' args='' validationArgs='':
   #!/bin/bash
   set -euo pipefail
   echo "📝 Linting chart {{path}}"
-  helm lint {{path}} --strict
+  helm lint {{path}} --strict {{validationArgs}}
 
   isLibrary=$(yq -r '.type' {{path}}/Chart.yaml)
   echo "Chart type: $isLibrary"
@@ -146,7 +154,7 @@ helm-package-only path='' args='':
     echo "❌ Skipping template for library chart"
   else
     echo "✨ Rendering chart {{path}}"
-    helm template {{path}} > /dev/null
+    helm template {{path}} {{validationArgs}} > /dev/null
   fi
   helm package {{path}} --destination ./build {{args}}
 

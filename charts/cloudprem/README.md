@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.3.0](https://img.shields.io/badge/Version-6.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.4.0](https://img.shields.io/badge/Version-6.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -36,14 +36,42 @@ export BASE_DOMAIN=example.com
 export BASE_DOMAIN_WILDCARD_CERTIFICATE=example-com-wildcard-certificate-tls
 
 helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
-  --set global.licence.token=$YOUR_LICENCE_KEY
-  --set global.licence.clusterID=$YOUR_CLUSTER_ID
+  --set global.licence.token=$YOUR_LICENCE_KEY \
+  --set global.licence.clusterID=$YOUR_CLUSTER_ID \
   --set global.serviceHost=$BASE_DOMAIN \
+  --set membership.config.auth.signingKey.existingSecret=membership-signing-key \
   --set membership.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set portal.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set console.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set dex.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE
 ```
+
+## Membership signing key
+
+Cloudprem includes Membership `v2.8.0`. When Membership is enabled, configure
+`membership.config.auth.signingKey` before rendering or installing the chart:
+
+```yaml
+membership:
+  config:
+    auth:
+      signingKey:
+        value: ""
+        existingSecret: membership-signing-key
+        key: signing.key
+```
+
+Provision that Secret in the release namespace first. Alternatively, supply
+PEM text with `--set-file membership.config.auth.signingKey.value=/path/to/key.pem`.
+There is no default private key. An empty configuration fails rendering.
+For the unified Formance chart, prefix this path with `cloudprem.`; Community
+Edition and installations with Membership disabled do not require a key.
+
+On upgrade, configure the signing key as shown above. Apply the access-token
+binding migration before deploying Membership, refresh downstream JWKS
+caches and issue new access tokens. See the
+[Membership chart guide](../membership/README.md#token-signing) and the
+[upstream rollout order](https://github.com/formancehq/membership-api/blob/v2.8.0/docs/token-signing.md).
 
 ## Introduction
 
@@ -940,6 +968,9 @@ Dex:
 | membership.config.additionalEnv | list | `[]` |  |
 | membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | membership.config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
+| membership.config.auth.signingKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty. |
+| membership.config.auth.signingKey.key | string | `"signing.key"` | Required key within existingSecret containing the PEM text. |
+| membership.config.auth.signingKey.value | string | `""` | Required PKCS#1 RSA private key as PEM text, unless existingSecret is configured. Prefer existingSecret in production. |
 | membership.config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | membership.config.fctl | bool | `true` | Enable Fctl |
 | membership.config.grpc.existingSecret | string | `""` |  |

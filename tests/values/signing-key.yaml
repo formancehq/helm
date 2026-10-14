@@ -1,0 +1,16 @@
+# Render-only fixture. No actual Secret or private key is generated.
+config:
+  auth:
+    signingKey:
+      existingSecret: render-test-membership-signing-key
+membership:
+  config:
+    auth:
+      signingKey:
+        existingSecret: render-test-membership-signing-key
+cloudprem:
+  membership:
+    config:
+      auth:
+        signingKey:
+          existingSecret: render-test-membership-signing-key

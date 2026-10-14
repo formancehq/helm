@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.6.0](https://img.shields.io/badge/Version-3.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.7.0](https://img.shields.io/badge/Version-3.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -677,6 +677,9 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.config.additionalEnv | list | `[]` |  |
 | cloudprem.membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | cloudprem.membership.config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
+| cloudprem.membership.config.auth.signingKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty. |
+| cloudprem.membership.config.auth.signingKey.key | string | `"signing.key"` | Required key within existingSecret containing the PEM text. |
+| cloudprem.membership.config.auth.signingKey.value | string | `""` | Required PKCS#1 RSA private key as PEM text, unless existingSecret is configured. Prefer existingSecret in production. |
 | cloudprem.membership.config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | cloudprem.membership.config.fctl | bool | `true` | Enable Fctl |
 | cloudprem.membership.config.grpc.existingSecret | string | `""` |  |

@@ -85,6 +85,11 @@ cloudprem:
             userID: 08a8684b-user-admn-90a9-3cd1661f5466
             role: USER
     config:
+      auth:
+        signingKey:
+          # Provision this Secret in the release namespace before installation.
+          existingSecret: membership-signing-key
+          key: signing.key
       minimalStackModules: []
       wizard:
         setup: |-

@@ -10,6 +10,7 @@
 #   --set global.serviceHost=<your-domain>
 #   --set global.licence.clusterID=<cluster-id>
 #   --set global.licence.token=<licence-token>
+#   Provision membership-signing-key with a signing.key entry in the release namespace.
 #
 # Get your cluster ID:
 #   kubectl get ns kube-system -o jsonpath='{.metadata.uid}'
@@ -35,6 +36,14 @@ global:
     token: ""
 
 # Operator configuration
+cloudprem:
+  membership:
+    config:
+      auth:
+        signingKey:
+          existingSecret: membership-signing-key
+          key: signing.key
+
 regions:
   operator:
     enabled: true
