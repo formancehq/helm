@@ -12,9 +12,6 @@ metadata:
   {{- . | toYaml | nindent 4 }}
   {{- end}}
 spec:
-  stack: {{ $name }}
-  {{- with $stackValues }}
-  {{ tpl (. | toYaml) $ | nindent 2 }}
-  {{- end }}
+  {{- tpl ($stackValues | toYaml) $ | nindent 2 }}
 ---
 {{- end }}
