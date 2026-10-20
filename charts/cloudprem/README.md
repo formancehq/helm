@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.4.2](https://img.shields.io/badge/Version-6.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.5.0](https://img.shields.io/badge/Version-6.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -303,6 +303,16 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### From v6.4.X To v6.5.0
+
+Portal and Console-v3 move to v4.2.0. Their migration jobs change:
+
+- They migrate the database named in `portal.config.postgresql.auth.database` and `console-v3.config.postgresql.auth.database`, so names other than `portal` and `console` now work.
+- A database created beforehand needs neither `CREATEDB` nor `CONNECT` on `postgres`. The jobs only need these privileges to create a missing database, and fail with `Database "<name>" does not exist and this user cannot create it` when they lack them.
+- They refuse a database that already holds the other app's migrations, with `Database "<name>" already holds another application's migrations`, before writing anything. See [Recovering from a shared database](#recovering-from-a-shared-database).
+
+The upgrade adds no migration and no setting.
+
 ### From v4.X To v6.4.2
 
 #### Portal and Console-v3 databases
@@ -334,7 +344,7 @@ If you upgraded from 3.X to 4.0.0 or later with both apps on one database (the d
 
 - the migration job fails with `permission denied to create database` (4.0.0 to 6.4.2);
 - the migration job succeeds, but login fails with `Failed query: insert into "session" ... on conflict ("id","organization_id")`;
-- once the chart ships Portal and Console-v3 v4.2.0, the migration job fails with `Database "<name>" already holds another application's migrations`. It stops before writing anything.
+- from 6.5.0 (Portal and Console-v3 v4.2.0), the migration job fails with `Database "<name>" already holds another application's migrations`. It stops before writing anything.
 
 To fix it:
 
