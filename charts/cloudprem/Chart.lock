@@ -7,15 +7,15 @@ dependencies:
   version: 3.8.0
 - name: portal
   repository: file://../portal
-  version: 5.1.2
+  version: 5.2.0
 - name: console-v3
   repository: file://../console-v3
-  version: 5.1.2
+  version: 5.2.0
 - name: ledger-ui
   repository: file://../ledger-ui
   version: 0.1.0
 - name: console
   repository: file://../console
   version: 0.1.0
-digest: sha256:8009eb67dcae034359f96ba5eb04a62c1424fc0f483685e86c7ad330470306a9
-generated: "2026-10-20T11:14:14.179559+02:00"
+digest: sha256:44dfefc15b10f83c674f6ec14f1a875ab5dae60aae91cef49517bedc998e50e7
+generated: "2026-10-20T17:47:04.484703+02:00"
