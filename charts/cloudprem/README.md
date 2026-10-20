@@ -321,7 +321,35 @@ With Portal and Console-v3 v4.1.1 and earlier:
 - Keep the names `portal` and `console`: the migration jobs look for a database with these exact names before migrating, whatever `auth.database` says.
 - The migration jobs connect to the `postgres` database to check that these databases exist, so the user needs `CONNECT` on it.
 
-If both apps already migrated into a shared database, point each one at its own database and upgrade: the migrations run from scratch there, and users log in again. The tables they left in the shared database (`public.session`, `public.user_preferences`, `public.user_favorites`, `public.user_saved_filters` and the `drizzle` schema) are no longer read and can be dropped at any time.
+#### Recovering from a shared database
+
+If you upgraded from 1.x with both apps on one database, you see one of these:
+
+- the migration job fails with `permission denied to create database` (Portal and Console-v3 v2.6.0 to v4.1.1);
+- the migration job succeeds, but login fails with `Failed query: insert into "session" ... on conflict ("id","organization_id")`;
+- with later versions, the migration job fails with `Database "<name>" already holds another application's migrations`. It stops before writing anything.
+
+To fix it:
+
+1. Create one database per app, owned by the application user (see above), or let the migration jobs create them if the user has `CREATEDB`.
+2. Point each app at its own database. From cloudprem 6.4.2 this is the default; on earlier charts, set `portal.config.postgresql.auth.database: portal` and `console-v3.config.postgresql.auth.database: console`. Keep `global.postgresql.auth.database` as it is: the other services, Membership included, still use it.
+3. Upgrade the release. The migrations run from scratch in the new databases, and users log in again.
+
+Once both apps run on their own databases, nothing reads the tables they left in the shared one. You can keep them, or drop them by running this in the shared database. It works whichever app migrated first:
+
+```sql
+BEGIN;
+DROP TABLE IF EXISTS public.session;
+DROP TABLE IF EXISTS public.user_preferences;
+DROP TABLE IF EXISTS public.user_favorites;
+DROP TABLE IF EXISTS public.user_saved_filters;
+DROP TABLE IF EXISTS public.notification_user_status;
+DROP TABLE IF EXISTS public.notification;
+DROP SCHEMA IF EXISTS drizzle CASCADE;
+COMMIT;
+```
+
+These tables hold nothing worth keeping if login never worked after the upgrade: in 1.x, favorites and saved filters lived in the browser's local storage and are not imported. Before running the script, check that no other application of yours uses these table names in the `public` schema of that database. Don't drop the shared database itself.
 
 ### From v3.X.X To v4.0.0
 
