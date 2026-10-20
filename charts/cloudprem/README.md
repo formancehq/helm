@@ -305,19 +305,23 @@ See [profiles](./profiles) for more examples.
 
 ### Portal and Console-v3 databases (from 6.4.2)
 
-Since Portal and Console-v3 v4, each app keeps its sessions in PostgreSQL, in its own database. They must not share one: both create a `session` table, with different primary keys.
+Since Portal and Console-v3 v2.0.0, each app keeps its sessions in PostgreSQL. The two apps must not share a database: both create a `session` table, with different primary keys, and both record their migrations in the same `drizzle.__drizzle_migrations` table, so the app that migrates second skips its own migrations.
 
-The charts now default to `portal.config.postgresql.auth.database: portal` and `console-v3.config.postgresql.auth.database: console`, instead of `global.postgresql.auth.database`.
+Before cloudprem 6.4.2, both apps took their database from `global.postgresql.auth.database` (`formance` by default). The charts now default to `portal.config.postgresql.auth.database: portal` and `console-v3.config.postgresql.auth.database: console`. A shared database shows up as a login failing with `Failed query: insert into "session" ... on conflict ("id","organization_id")`.
 
-- The migration jobs create these databases when they are missing, which needs the `CREATEDB` privilege. Without it, create them beforehand, owned by the application user:
+With Portal and Console-v3 v4.1.1 and earlier:
+
+- The migration jobs create the `portal` and `console` databases when they are missing, which needs the `CREATEDB` privilege. Without it, create them beforehand, owned by the application user:
 
   ```sql
   CREATE DATABASE portal OWNER <user>;
   CREATE DATABASE console OWNER <user>;
   ```
 
-- Keep the names `portal` and `console`: the migration jobs look for a database with these exact names before migrating.
+- Keep the names `portal` and `console`: the migration jobs look for a database with these exact names before migrating, whatever `auth.database` says.
 - The migration jobs connect to the `postgres` database to check that these databases exist, so the user needs `CONNECT` on it.
+
+If both apps already migrated into a shared database, point each one at its own database and upgrade: the migrations run from scratch there, and users log in again. The tables they left in the shared database (`public.session`, `public.user_preferences`, `public.user_favorites`, `public.user_saved_filters` and the `drizzle` schema) are no longer read and can be dropped at any time.
 
 ### From v3.X.X To v4.0.0
 
