@@ -86,6 +86,20 @@
                         "additionalOAuthClients": {
                             "type": "array"
                         },
+                        "cryptoKey": {
+                            "type": "object",
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                },
+                                "key": {
+                                    "type": "string"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "loginWithSSO": {
                             "type": "boolean"
                         },

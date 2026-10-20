@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.8.0](https://img.shields.io/badge/Version-3.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.0](https://img.shields.io/badge/AppVersion-v2.8.0-informational?style=flat-square)
+![Version: 3.9.0](https://img.shields.io/badge/Version-3.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.0](https://img.shields.io/badge/AppVersion-v2.8.0-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -68,6 +68,69 @@ Existing access tokens must be issued again and downstream validators must
 refresh their JWKS caches. Follow the
 [Membership signing and rotation guide](https://github.com/formancehq/membership-api/blob/v2.8.0/docs/token-signing.md)
 for the rollout order. Rolling back the chart does not restore old tokens.
+
+## Cookie and OIDC-state encryption
+
+Configure `config.auth.cryptoKey` with a stable value that is independent from
+the JWT signing key. Membership uses `CRYPTO_KEY` for cookies and OIDC state;
+it does not use this value to sign JWTs. The chart does not generate or own a
+Secret, and it refuses to render when the value is absent or equals the legacy
+insecure value `default`.
+
+Use an existing Secret in production. Preserve the existing signing Secret and
+provision a separate crypto Secret. If both values share one Kubernetes Secret,
+`crypto.key` and `signing.key` must still contain different key material:
+
+```yaml
+config:
+  auth:
+    cryptoKey:
+      value: "" # Local development only.
+      existingSecret: membership-crypto-key
+      key: crypto.key
+    signingKey:
+      value: ""
+      existingSecret: membership-signing-key
+      key: signing.key
+```
+
+For local development, pass a stable file with
+`--set-file config.auth.cryptoKey.value=/path/to/crypto.key`. Reuse that value
+for every replica and every upgrade. Do not derive it from the signing key.
+
+### Two-phase rollout
+
+1. While the current Membership release is still running, provision the Secret
+   and configure `config.auth.cryptoKey`. Upgrade this chart first and verify
+   that every Membership pod is ready with the same `CRYPTO_KEY` reference.
+2. Only then upgrade Membership to the release that rejects an absent key or
+   the legacy `default` value. A direct application upgrade before phase 1 can
+   make Membership fail at startup.
+
+This chart release keeps the default Membership `appVersion` at `v2.8.0`, so it
+can perform phase 1. Phase 2 uses the later chart release that pins the enforcing
+Membership version, or an explicit `image.tag` override after that image is
+published and validated.
+
+Keep the old Secret until the application upgrade and its rollback window are
+complete. Rolling the chart back does not recreate or recover key material.
+
+### Rotation and restarts
+
+Rotating `CRYPTO_KEY` invalidates existing login cookies and OIDC state. Users
+must authenticate again, and in-flight OIDC requests can fail. This chart gives
+each pod one key, so a rolling rotation temporarily overlaps old and new
+replicas. Perform rotation in a maintenance window and ensure that all replicas
+converge on one value.
+
+Changing `existingSecret` or `key`, or changing an inline `value`, changes the
+pod template and triggers a Kubernetes rollout. Changing only the contents of
+an external Secret does not change the pod template. The chart's
+`checksum/config` annotation covers the Membership ConfigMap, not external
+Secrets. If a Secret reloader watches the Deployment, it can initiate the
+restart; otherwise run an explicit rollout restart and wait for every replica.
+The chart does not use `lookup`, `randAlphaNum`, `randBytes`, or any other
+render-time key generation.
 
 ## Migration
 
@@ -261,6 +324,9 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | commonLabels | object | `{}` | DEPRECATED Membership service |
 | config.additionalEnv | list | `[]` |  |
 | config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
+| config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |
+| config.auth.cryptoKey.key | string | `"crypto.key"` | Required key within existingSecret containing the crypto key. |
+| config.auth.cryptoKey.value | string | `""` | Required stable key used to encrypt cookies and OIDC state, unless existingSecret is configured. Keep this independent from signingKey. Inline values are intended for local development only. |
 | config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | config.auth.signingKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty. |
 | config.auth.signingKey.key | string | `"signing.key"` | Required key within existingSecret containing the PEM text. |

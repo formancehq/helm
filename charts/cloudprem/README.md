@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.5.0](https://img.shields.io/badge/Version-6.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.6.0](https://img.shields.io/badge/Version-6.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -40,36 +40,54 @@ helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
   --set global.licence.clusterID=$YOUR_CLUSTER_ID \
   --set global.serviceHost=$BASE_DOMAIN \
   --set membership.config.auth.signingKey.existingSecret=membership-signing-key \
+  --set membership.config.auth.cryptoKey.existingSecret=membership-crypto-key \
   --set membership.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set portal.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set console.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE \
   --set dex.ingress.tls[0].secretName=$BASE_DOMAIN_WILDCARD_CERTIFICATE
 ```
 
-## Membership signing key
+## Membership authentication keys
 
 Cloudprem includes Membership `v2.8.0`. When Membership is enabled, configure
-`membership.config.auth.signingKey` before rendering or installing the chart:
+both independent keys before rendering or installing the chart:
 
 ```yaml
 membership:
   config:
     auth:
+      cryptoKey:
+        value: "" # Local development only.
+        existingSecret: membership-crypto-key
+        key: crypto.key
       signingKey:
         value: ""
         existingSecret: membership-signing-key
         key: signing.key
 ```
 
-Provision that Secret in the release namespace first. Alternatively, supply
-PEM text with `--set-file membership.config.auth.signingKey.value=/path/to/key.pem`.
-There is no default private key. An empty configuration fails rendering.
+Provision the Secret in the release namespace first. `crypto.key` encrypts
+cookies and OIDC state; `signing.key` signs JWTs. They must contain different
+key material. Alternatively, supply stable local-development files with
+`--set-file membership.config.auth.cryptoKey.value=/path/to/crypto.key` and
+`--set-file membership.config.auth.signingKey.value=/path/to/key.pem`.
+There is no generated or chart-owned key. Empty key configuration and the
+legacy crypto value `default` fail rendering.
 For the unified Formance chart, prefix this path with `cloudprem.`; Community
 Edition and installations with Membership disabled do not require a key.
 
-On upgrade, configure the signing key as shown above. Apply the access-token
-binding migration before deploying Membership, refresh downstream JWKS
-caches and issue new access tokens. See the
+For STRIX-5, first provision and configure the crypto key on the current
+Membership release. Verify that all replicas use the same Secret reference,
+then upgrade to the Membership release that requires the key. Keep the old
+Secret through the rollback window. Rotating the crypto key invalidates login
+cookies and in-flight OIDC state and requires every replica to restart. A
+Secret name/key change or inline value change triggers a rollout. An in-place
+external Secret content change does not: use a configured Secret reloader or
+an explicit rollout restart. `checksum/config` does not cover external Secrets.
+
+For the signing-key upgrade, apply the access-token binding migration before
+deploying Membership, refresh downstream JWKS caches and issue new access
+tokens. See the
 [Membership chart guide](../membership/README.md#token-signing) and the
 [upstream rollout order](https://github.com/formancehq/membership-api/blob/v2.8.0/docs/token-signing.md).
 
@@ -1056,6 +1074,9 @@ Dex:
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | membership.config.additionalEnv | list | `[]` |  |
 | membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
+| membership.config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |
+| membership.config.auth.cryptoKey.key | string | `"crypto.key"` | Required key within existingSecret containing the crypto key. |
+| membership.config.auth.cryptoKey.value | string | `""` | Required stable key used to encrypt cookies and OIDC state, unless existingSecret is configured. Keep this independent from signingKey. Inline values are intended for local development only. |
 | membership.config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | membership.config.auth.signingKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty. |
 | membership.config.auth.signingKey.key | string | `"signing.key"` | Required key within existingSecret containing the PEM text. |

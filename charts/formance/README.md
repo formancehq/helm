@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.8.0](https://img.shields.io/badge/Version-3.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.9.0](https://img.shields.io/badge/Version-3.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -678,6 +678,9 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | cloudprem.membership.config.additionalEnv | list | `[]` |  |
 | cloudprem.membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
+| cloudprem.membership.config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |
+| cloudprem.membership.config.auth.cryptoKey.key | string | `"crypto.key"` | Required key within existingSecret containing the crypto key. |
+| cloudprem.membership.config.auth.cryptoKey.value | string | `""` | Required stable key used to encrypt cookies and OIDC state, unless existingSecret is configured. Keep this independent from signingKey. Inline values are intended for local development only. |
 | cloudprem.membership.config.auth.loginWithSSO | bool | `false` | Enable login with sso (email selector on login page) |
 | cloudprem.membership.config.auth.signingKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty. |
 | cloudprem.membership.config.auth.signingKey.key | string | `"signing.key"` | Required key within existingSecret containing the PEM text. |
