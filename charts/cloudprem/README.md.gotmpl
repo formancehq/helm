@@ -326,9 +326,9 @@ To fix it:
 
 1. Create one database per app, owned by the application user (see above), or let the migration jobs create them if the user has `CREATEDB`.
 2. Point each app at its own database. From cloudprem 6.4.2 this is the default; on earlier charts, set `portal.config.postgresql.auth.database: portal` and `console-v3.config.postgresql.auth.database: console`. Keep `global.postgresql.auth.database` as it is: the other services, Membership included, still use it.
-3. Upgrade the release. The migrations run from scratch in the new databases, and users log in again.
+3. Upgrade the release. The migrations run from scratch in the new databases, and users log in again. Nothing is transferred automatically: if one app worked on the shared database, its users' preferences, favorites and saved filters stay there. Copy the tables you want to keep into the new database first (`pg_dump -t <table> <shared_db> | psql <new_db>`).
 
-Once both apps run on their own databases, nothing reads the tables they left in the shared one. You can keep them, or drop them by running this in the shared database. It works whichever app migrated first:
+Once both apps run on their own databases, nothing reads the tables they left in the shared one. Keep them until the upgrade is validated and you no longer need to roll back to the shared database, and until you have copied any data you want to keep. Then you can drop them by running this in the shared database. It works whichever app migrated first:
 
 ```sql
 BEGIN;
