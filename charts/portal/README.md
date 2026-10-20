@@ -1,6 +1,6 @@
 # portal
 
-![Version: 5.1.1](https://img.shields.io/badge/Version-5.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v4.1.1](https://img.shields.io/badge/AppVersion-v4.1.1-informational?style=flat-square)
+![Version: 5.1.2](https://img.shields.io/badge/Version-5.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v4.1.1](https://img.shields.io/badge/AppVersion-v4.1.1-informational?style=flat-square)
 
 Formance Portal
 
@@ -95,6 +95,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| config.postgresql.auth.database | string | `"portal"` | Database for Portal (overrides `global.postgresql.auth.database`). Portal and Console-v3 must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. With images v4.1.1 and earlier, keep the name `portal`: the migration job only creates and checks a database with that exact name. |
 | config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
 ### Publisher configuration

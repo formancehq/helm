@@ -296,6 +296,83 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### From v4.X To v6.4.2
+
+#### Portal and Console-v3 databases
+
+Since 4.0.0 (Portal and Console-v3 v2.0.0), each app keeps its sessions in PostgreSQL. The two apps must not share a database: both create a `session` table, with different primary keys, and both record their migrations in the same `drizzle.__drizzle_migrations` table, so the app that migrates second skips some or all of its own migrations:
+
+- Console-v3 first, then Portal: Portal skips all its migrations and runs against Console-v3's `session` table, so login fails with the `on conflict` error below.
+- Portal first, then Console-v3: Console-v3 applies only four of its migrations and keeps Portal's `session` table, which does not match its own.
+
+Before 6.4.2, both apps took their database from `global.postgresql.auth.database` (`formance` by default). The charts now default to `portal.config.postgresql.auth.database: portal` and `console-v3.config.postgresql.auth.database: console`. A shared database shows up as a login failing with `Failed query: insert into "session" ... on conflict ("id","organization_id")`.
+
+This only concerns cloudprem installed on its own. The `formance` chart has set `portal` and `console` since its first version, so its installs never shared a database and have nothing to recover.
+
+Up to 6.4.2 (Portal and Console-v3 v4.1.1):
+
+- The migration jobs create the `portal` and `console` databases when they are missing, which needs the `CREATEDB` privilege. Without it, create them beforehand, owned by the application user:
+
+  ```sql
+  CREATE DATABASE portal OWNER <user>;
+  CREATE DATABASE console OWNER <user>;
+  ```
+
+- Keep the names `portal` and `console`: the migration jobs look for a database with these exact names before migrating, whatever `auth.database` says.
+- The migration jobs connect to the `postgres` database to check that these databases exist, so the user needs `CONNECT` on it.
+
+#### Recovering from a shared database
+
+If you upgraded from 3.X to 4.0.0 or later with both apps on one database (the default before 6.4.2), you see one of these:
+
+- the migration job fails with `permission denied to create database` (4.0.0 to 6.4.2);
+- the migration job succeeds, but login fails with `Failed query: insert into "session" ... on conflict ("id","organization_id")`;
+- once the chart ships Portal and Console-v3 v4.2.0, the migration job fails with `Database "<name>" already holds another application's migrations`. It stops before writing anything.
+
+To fix it:
+
+1. Create one database per app, owned by the application user (see above), or let the migration jobs create them if the user has `CREATEDB`.
+2. Point each app at its own database. From 6.4.2 this is the default; on earlier versions, set `portal.config.postgresql.auth.database: portal` and `console-v3.config.postgresql.auth.database: console`. Keep `global.postgresql.auth.database` as it is: the other services, Membership included, still use it.
+3. Upgrade the release. The migrations run from scratch in the new databases, and users log in again.
+
+Nothing is transferred automatically: if one app worked on the shared database, its users' preferences, favorites and saved filters stay there. To keep them, copy them while that app cannot write, so that nothing saved after the copy is left behind:
+
+1. Upgrade the release with both apps stopped, for example with `--set portal.replicas=0 --set console-v3.replicas=0` (prefix with `cloudprem.` for the unified chart; keep `autoscaling.enabled: false`). The migration jobs create the tables in the new databases, and no pod writes to either database.
+2. Copy the data of the working app's tables into its new database. The example copies Console-v3's tables; for Portal, replace the `--table` lines with Portal's tables. The copy stops at the first error and leaves the target untouched:
+
+   ```sh
+   set -o pipefail
+   # Console-v3 worked: user_preferences, user_favorites, user_saved_filters
+   # Portal worked:     user_preferences, notification, notification_user_status
+   pg_dump --data-only \
+     --table=public.user_preferences \
+     --table=public.user_favorites \
+     --table=public.user_saved_filters \
+     "$SHARED_DB_URL" \
+     | psql -v ON_ERROR_STOP=1 --single-transaction "$NEW_DB_URL" \
+     && echo "copy OK"
+   ```
+
+   Don't copy `session` (its schema differs between the apps) nor the `drizzle` schema. An error about an unknown column means the other app's migrations altered the table in the shared database: copy only the columns the new table has, with `COPY (SELECT <columns> FROM <table>) TO STDOUT` and `COPY <table> (<columns>) FROM STDIN`.
+3. Check the copy: for each table, `SELECT count(*)` returns the same number in both databases.
+4. Upgrade the release again without the `replicas` overrides.
+
+Once both apps run on their own databases, nothing reads the tables they left in the shared one. Keep them until the upgrade is validated and you no longer need to roll back to the shared database, and until you have copied any data you want to keep. Then you can drop them by running this in the shared database. It works whichever app migrated first:
+
+```sql
+BEGIN;
+DROP TABLE IF EXISTS public.session;
+DROP TABLE IF EXISTS public.user_preferences;
+DROP TABLE IF EXISTS public.user_favorites;
+DROP TABLE IF EXISTS public.user_saved_filters;
+DROP TABLE IF EXISTS public.notification_user_status;
+DROP TABLE IF EXISTS public.notification;
+DROP SCHEMA IF EXISTS drizzle CASCADE;
+COMMIT;
+```
+
+These tables hold nothing worth keeping if login never worked after the upgrade: before 4.0.0 (Portal and Console-v3 1.x), favorites and saved filters lived in the browser's local storage and are not imported. Membership and Dex, which use this database by default, create none of these tables: Membership keeps its tables in the `membership` schema, and Dex's tables have other names. Before running the script, check that no other application of yours uses these table names in the `public` schema of that database. Don't drop the shared database itself.
+
 ### From v3.X.X To v4.0.0
 
 #### Breaking changes
