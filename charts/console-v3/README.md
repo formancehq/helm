@@ -94,7 +94,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| config.postgresql.auth.database | string | `"console"` | Database for Console-v3 (overrides `global.postgresql.auth.database`). Console-v3 and Portal must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. |
+| config.postgresql.auth.database | string | `"console"` | Database for Console-v3 (overrides `global.postgresql.auth.database`). Console-v3 and Portal must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. With images v4.1.1 and earlier, keep the name `console`: the migration job only creates and checks a database with that exact name. |
 | config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
 ### Publisher configuration

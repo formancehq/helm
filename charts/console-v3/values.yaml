@@ -336,7 +336,7 @@ config:
 
   postgresql:
     auth:
-      # -- Database for Console-v3 (overrides `global.postgresql.auth.database`). Console-v3 and Portal must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand.
+      # -- Database for Console-v3 (overrides `global.postgresql.auth.database`). Console-v3 and Portal must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. With images v4.1.1 and earlier, keep the name `console`: the migration job only creates and checks a database with that exact name.
       # @section -- Console configuration
       database: console
 

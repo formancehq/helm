@@ -228,7 +228,7 @@ Kubernetes: `>=1.14.0-0`
 |-----|------|---------|-------------|
 | cloudprem.console.config.authenticationEnabled | string | `"1"` | Toggle OAuth/DB sessions on the app. `"1"` = stack mode (default): the app uses Membership/OAuth and reaches the stack API through API_STACK_URL. `"0"` = micro-stack / auth-less mode: the app skips OAuth and reads API_STACK_URL directly. |
 | cloudprem.console.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
-| cloudprem.console-v3.config.postgresql.auth.database | string | `"console"` | Database for Console-v3 (overrides `global.postgresql.auth.database`). Console-v3 and Portal must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. |
+| cloudprem.console-v3.config.postgresql.auth.database | string | `"console"` | Database for Console-v3 (overrides `global.postgresql.auth.database`). Console-v3 and Portal must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. With images v4.1.1 and earlier, keep the name `console`: the migration job only creates and checks a database with that exact name. |
 | cloudprem.console-v3.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
 ### Migration configuration
@@ -333,7 +333,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| cloudprem.portal.config.postgresql.auth.database | string | `"portal"` | Database for Portal (overrides `global.postgresql.auth.database`). Portal and Console-v3 must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. |
+| cloudprem.portal.config.postgresql.auth.database | string | `"portal"` | Database for Portal (overrides `global.postgresql.auth.database`). Portal and Console-v3 must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand. With images v4.1.1 and earlier, keep the name `portal`: the migration job only creates and checks a database with that exact name. |
 | cloudprem.portal.config.postgresqlUrl | string | `""` | PostgreSQL connection URL override (if not set, will be generated from global.postgresql) |
 
 ### Connectivity Operator configuration
