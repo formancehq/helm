@@ -536,6 +536,13 @@ config:
   auth:
     # -- Enable login with sso (email selector on login page)
     loginWithSSO: false
+    cryptoKey:
+      # -- Required stable key used to encrypt cookies and OIDC state, unless existingSecret is configured. Keep this independent from signingKey. Inline values are intended for local development only.
+      value: ""
+      # -- Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production.
+      existingSecret: ""
+      # -- Required key within existingSecret containing the crypto key.
+      key: "crypto.key"
     signingKey:
       # -- Required PKCS#1 RSA private key as PEM text, unless existingSecret is configured. Prefer existingSecret in production.
       value: ""

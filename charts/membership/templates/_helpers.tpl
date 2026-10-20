@@ -19,6 +19,23 @@
 {{- end }}
 {{- end }}
 
+{{- define "membership.auth.cryptoKey" -}}
+{{- $cryptoKey := .Values.config.auth.cryptoKey | default dict -}}
+- name: CRYPTO_KEY
+{{- if $cryptoKey.existingSecret }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "config.auth.cryptoKey.existingSecret must not be blank" (trim $cryptoKey.existingSecret) | quote }}
+      key: {{ required "config.auth.cryptoKey.key is required when existingSecret is configured" (trim (default "" $cryptoKey.key)) | quote }}
+{{- else }}
+  {{- $value := required "config.auth.cryptoKey.value or config.auth.cryptoKey.existingSecret is required" (trim (default "" $cryptoKey.value)) }}
+  {{- if eq $value "default" }}
+  {{- fail "config.auth.cryptoKey.value must not use the insecure default value \"default\"" }}
+  {{- end }}
+  value: {{ $cryptoKey.value | quote }}
+{{- end }}
+{{- end }}
+
 {{- define "membership.stack.cycle" }}
 - name: STACK_PRUNING_DELAY
   value: "{{.Values.config.stack.cycle.delay.prune}}"
@@ -59,6 +76,7 @@
 
 {{- define "membership.env" -}}
 {{- include "membership.auth.signingKey" . }}
+{{ include "membership.auth.cryptoKey" . }}
 {{- if and .Values.global.platform.consoleV3.host .Values.global.platform.consoleV3.scheme }}
 - name: CONSOLE_PUBLIC_BASEURL
   value: {{ tpl (default (printf "%s://%s" .Values.global.platform.consoleV3.scheme .Values.global.platform.consoleV3.host)) $ }}

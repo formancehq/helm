@@ -86,6 +86,10 @@ cloudprem:
             role: USER
     config:
       auth:
+        cryptoKey:
+          # Provision this Secret in the release namespace before installation.
+          existingSecret: membership-crypto-key
+          key: crypto.key
         signingKey:
           # Provision this Secret in the release namespace before installation.
           existingSecret: membership-signing-key
