@@ -249,6 +249,12 @@ config:
   # -- Enable managed stack mode (1 = enabled, 0 = disabled)
   managedStack: "1"
 
+  postgresql:
+    auth:
+      # -- Database for Portal (overrides `global.postgresql.auth.database`). Portal and Console-v3 must not share a database: both create a `session` table, with different primary keys. The migration job creates this database when it is missing, which needs the `CREATEDB` privilege; without it, create the database beforehand.
+      # @section -- Portal configuration
+      database: portal
+
   # -- PostgreSQL connection URL override (if not set, will be generated from global.postgresql)
   # @section -- Portal configuration
   postgresqlUrl: ""

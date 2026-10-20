@@ -296,6 +296,22 @@ See [profiles](./profiles) for more examples.
 
 ## Migration
 
+### Portal and Console-v3 databases (from 6.4.2)
+
+Since Portal and Console-v3 v4, each app keeps its sessions in PostgreSQL, in its own database. They must not share one: both create a `session` table, with different primary keys.
+
+The charts now default to `portal.config.postgresql.auth.database: portal` and `console-v3.config.postgresql.auth.database: console`, instead of `global.postgresql.auth.database`.
+
+- The migration jobs create these databases when they are missing, which needs the `CREATEDB` privilege. Without it, create them beforehand, owned by the application user:
+
+  ```sql
+  CREATE DATABASE portal OWNER <user>;
+  CREATE DATABASE console OWNER <user>;
+  ```
+
+- Keep the names `portal` and `console`: the migration jobs look for a database with these exact names before migrating.
+- The migration jobs connect to the `postgres` database to check that these databases exist, so the user needs `CONNECT` on it.
+
 ### From v3.X.X To v4.0.0
 
 #### Breaking changes

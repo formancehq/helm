@@ -136,6 +136,19 @@
                         }
                     }
                 },
+                "postgresql": {
+                    "type": "object",
+                    "properties": {
+                        "auth": {
+                            "type": "object",
+                            "properties": {
+                                "database": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
                 "postgresqlUrl": {
                     "type": "string"
                 },
