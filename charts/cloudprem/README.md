@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.6.0](https://img.shields.io/badge/Version-6.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.6.1](https://img.shields.io/badge/Version-6.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -49,7 +49,7 @@ helm install cloudprem oci://ghcr.io/formancehq/helm/cloudprem \
 
 ## Membership authentication keys
 
-Cloudprem includes Membership `v2.8.0`. When Membership is enabled, configure
+Cloudprem includes Membership `v2.8.2`. When Membership is enabled, configure
 both independent keys before rendering or installing the chart:
 
 ```yaml
@@ -78,7 +78,9 @@ Edition and installations with Membership disabled do not require a key.
 
 For STRIX-5, first provision and configure the crypto key on the current
 Membership release. Verify that all replicas use the same Secret reference,
-then upgrade to the Membership release that requires the key. Keep the old
+then upgrade to this chart, which pins Membership `v2.8.2` and requires the key.
+Cloudprem `6.6.0` (or Formance `3.9.0`) supports this preparation with Membership
+`v2.8.0`. Preserve both keys when upgrading. Keep the old
 Secret through the rollback window. Rotating the crypto key invalidates login
 cookies and in-flight OIDC state and requires every replica to restart. A
 Secret name/key change or inline value change triggers a rollout. An in-place
