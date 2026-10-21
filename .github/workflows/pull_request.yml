@@ -94,7 +94,7 @@ jobs:
         with:
           token: ${{ secrets.NUMARY_GITHUB_TOKEN }}
       - name: Package
-        run: nix develop --impure --command just helm-all true true '--version=0.0.0-build.${{ github.sha }}'
+        run: nix develop --impure --command just helm-all true false '--version=0.0.0-build.${{ github.sha }}'
         env:
           GITHUB_TOKEN: ${{ secrets.NUMARY_GITHUB_TOKEN }}
       - name: Archive chart
