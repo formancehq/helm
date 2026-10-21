@@ -62,7 +62,8 @@ README_GENERATOR:
 
 readme-base:
   DO --pass-args +BASE
-  RUN apk add go
+  COPY (+go-toolchain/go) /usr/local/go
+  ENV GOROOT=/usr/local/go
   ENV GOPATH /go
   ENV GOTOOLCHAIN=local
   ARG GOCACHE=/go-cache
@@ -81,3 +82,8 @@ schema-base:
   DO --pass-args +BASE
   RUN apk add --no-cache git
   RUN helm plugin install https://github.com/losisin/helm-values-schema-json.git --version v1.9.2
+
+# Compile helm-docs with the same exact compiler as the Nix tooling.
+go-toolchain:
+  FROM golang:1.27.3-alpine
+  SAVE ARTIFACT /usr/local/go

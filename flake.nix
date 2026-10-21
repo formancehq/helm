@@ -40,8 +40,8 @@
     {
       overlays.default = final: prev:
         let
-          go = prev.callPackage "${go-tooling}/pkgs/development/compilers/go/1.26.nix" {
-            buildGo126Module = buildGoModule;
+          go = prev.callPackage "${go-tooling}/pkgs/development/compilers/go/1.27.nix" {
+            buildGo127Module = buildGoModule;
           };
           buildGoModule = prev.buildGoModule.override { inherit go; };
           go127 = prev.callPackage "${go-tooling}/pkgs/development/compilers/go/1.27.nix" {
