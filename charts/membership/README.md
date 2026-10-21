@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.9.0](https://img.shields.io/badge/Version-3.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.0](https://img.shields.io/badge/AppVersion-v2.8.0-informational?style=flat-square)
+![Version: 3.9.1](https://img.shields.io/badge/Version-3.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.2](https://img.shields.io/badge/AppVersion-v2.8.2-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -101,16 +101,16 @@ for every replica and every upgrade. Do not derive it from the signing key.
 ### Two-phase rollout
 
 1. While the current Membership release is still running, provision the Secret
-   and configure `config.auth.cryptoKey`. Upgrade this chart first and verify
+   and configure `config.auth.cryptoKey`. Upgrade to chart `3.9.0` first and verify
    that every Membership pod is ready with the same `CRYPTO_KEY` reference.
 2. Only then upgrade Membership to the release that rejects an absent key or
    the legacy `default` value. A direct application upgrade before phase 1 can
    make Membership fail at startup.
 
-This chart release keeps the default Membership `appVersion` at `v2.8.0`, so it
-can perform phase 1. Phase 2 uses the later chart release that pins the enforcing
-Membership version, or an explicit `image.tag` override after that image is
-published and validated.
+This chart release pins Membership `v2.8.2`, which requires a secure crypto key.
+For phase 1, use chart `3.9.0` with Membership `v2.8.0` and configure the stable
+crypto key. Verify that all replicas use it before upgrading to this chart for
+phase 2. Preserve the same signing and crypto keys during the upgrade.
 
 Keep the old Secret until the application upgrade and its rollback window are
 complete. Rolling the chart back does not recreate or recover key material.

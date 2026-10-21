@@ -104,7 +104,7 @@ for chart in membership cloudprem formance; do
   assert_secret_env Deployment membership CRYPTO_KEY render-test-crypto-key cookie.key
   yq -s -e '
     [.[] | select(.kind == "Deployment") | .spec.template.spec.containers[]
-     | select(.name == "membership") | .image] == ["ghcr.io/formancehq/membership:v2.8.0"]
+     | select(.name == "membership") | .image] == ["ghcr.io/formancehq/membership:v2.8.2"]
   ' "$test_dir/output.yaml" >/dev/null
 
   expect_failure 'config.auth.cryptoKey.key is required' "${render[@]}" \
