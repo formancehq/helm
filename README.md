@@ -14,7 +14,7 @@
 | [Ledger-Ui](./charts/ledger-ui/README.md) | 0.1.0 | latest | Formance Ledger UI | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/ledger-ui)](https://artifacthub.io/packages/search?repo=ledger-ui) |
 | [Membership](./charts/membership/README.md) | 3.9.1 | v2.8.2 | Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions. | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/membership)](https://artifacthub.io/packages/search?repo=membership) |
 | [Portal](./charts/portal/README.md) | 5.2.1 | v4.2.1 | Formance Portal | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/portal)](https://artifacthub.io/packages/search?repo=portal) |
-| [Regions](./charts/regions/README.md) | 3.22.3 | latest | Formance Private Regions Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/regions)](https://artifacthub.io/packages/search?repo=regions) |
+| [Regions](./charts/regions/README.md) | 3.22.4 | latest | Formance Private Regions Helm Chart | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/regions)](https://artifacthub.io/packages/search?repo=regions) |
 | [Stargate](./charts/stargate/README.md) | 0.11.0 | latest | Formance EE Stargate gRPC Gateway | [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/stargate)](https://artifacthub.io/packages/search?repo=stargate) |
 
 ## How to contribute
