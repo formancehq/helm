@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.22.3](https://img.shields.io/badge/Version-3.22.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.23.0](https://img.shields.io/badge/Version-3.23.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -171,31 +171,31 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".stargate | string | `"v2.2.2"` |  |
 | versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
 | versions.files."v3.1".webhooks | string | `"v2.4.1"` |  |
-| versions.files."v3.2".auth | string | `"v2.6.1"` |  |
-| versions.files."v3.2".gateway | string | `"v2.3.2"` |  |
+| versions.files."v3.2".auth | string | `"v2.6.2"` |  |
+| versions.files."v3.2".gateway | string | `"v2.3.3"` |  |
 | versions.files."v3.2".ledger | string | `"v2.4.15"` |  |
 | versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
-| versions.files."v3.2".orchestration | string | `"v2.7.0"` |  |
-| versions.files."v3.2".payments | string | `"v3.4.8"` |  |
-| versions.files."v3.2".reconciliation | string | `"v2.5.0"` |  |
+| versions.files."v3.2".orchestration | string | `"v2.7.1"` |  |
+| versions.files."v3.2".payments | string | `"v3.4.9"` |  |
+| versions.files."v3.2".reconciliation | string | `"v2.5.1"` |  |
 | versions.files."v3.2".search | string | `"v2.1.0"` |  |
-| versions.files."v3.2".stargate | string | `"v2.2.3"` |  |
-| versions.files."v3.2".transactionplane | string | `"v0.11.1"` |  |
-| versions.files."v3.2".wallets | string | `"v2.2.1"` |  |
-| versions.files."v3.2".webhooks | string | `"v2.5.4"` |  |
-| versions.files."v4.0-beta".auth | string | `"v2.6.1"` |  |
+| versions.files."v3.2".stargate | string | `"v2.2.4"` |  |
+| versions.files."v3.2".transactionplane | string | `"v0.12.1"` |  |
+| versions.files."v3.2".wallets | string | `"v2.2.2"` |  |
+| versions.files."v3.2".webhooks | string | `"v2.5.5"` |  |
+| versions.files."v4.0-beta".auth | string | `"v2.6.2"` |  |
 | versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.2"` |  |
-| versions.files."v4.0-beta".gateway | string | `"v2.3.2"` |  |
+| versions.files."v4.0-beta".gateway | string | `"v2.3.3"` |  |
 | versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.1"` |  |
 | versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
-| versions.files."v4.0-beta".orchestration | string | `"v2.7.0"` |  |
-| versions.files."v4.0-beta".payments | string | `"v3.4.8"` |  |
-| versions.files."v4.0-beta".reconciliation | string | `"v2.5.0"` |  |
+| versions.files."v4.0-beta".orchestration | string | `"v2.7.1"` |  |
+| versions.files."v4.0-beta".payments | string | `"v3.4.9"` |  |
+| versions.files."v4.0-beta".reconciliation | string | `"v2.5.1"` |  |
 | versions.files."v4.0-beta".search | string | `"v2.1.0"` |  |
-| versions.files."v4.0-beta".stargate | string | `"v2.2.3"` |  |
-| versions.files."v4.0-beta".transactionplane | string | `"v0.11.1"` |  |
-| versions.files."v4.0-beta".wallets | string | `"v2.2.1"` |  |
-| versions.files."v4.0-beta".webhooks | string | `"v2.5.4"` |  |
+| versions.files."v4.0-beta".stargate | string | `"v2.2.4"` |  |
+| versions.files."v4.0-beta".transactionplane | string | `"v0.12.1"` |  |
+| versions.files."v4.0-beta".wallets | string | `"v2.2.2"` |  |
+| versions.files."v4.0-beta".webhooks | string | `"v2.5.5"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
 | versions.files.default.gateway | string | `"v2.0.18"` |  |
 | versions.files.default.ledger | string | `"v1.10.14"` |  |
