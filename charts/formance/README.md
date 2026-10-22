@@ -896,7 +896,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.0".webhooks | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.1".auth | string | `"v2.6.1"` |  |
 | regions.versions.files."v3.1".gateway | string | `"v2.3.1"` |  |
-| regions.versions.files."v3.1".ledger | string | `"v2.3.23"` |  |
+| regions.versions.files."v3.1".ledger | string | `"v2.3.24"` |  |
 | regions.versions.files."v3.1".orchestration | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.1".payments | string | `"v3.0.19"` |  |
 | regions.versions.files."v3.1".reconciliation | string | `"v2.3.1"` |  |
@@ -906,7 +906,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.1".webhooks | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.2".auth | string | `"v2.6.2"` |  |
 | regions.versions.files."v3.2".gateway | string | `"v2.3.3"` |  |
-| regions.versions.files."v3.2".ledger | string | `"v2.4.15"` |  |
+| regions.versions.files."v3.2".ledger | string | `"v2.4.16"` |  |
 | regions.versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
 | regions.versions.files."v3.2".orchestration | string | `"v2.7.1"` |  |
 | regions.versions.files."v3.2".payments | string | `"v3.4.9"` |  |

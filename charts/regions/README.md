@@ -163,7 +163,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.0".webhooks | string | `"v2.4.1"` |  |
 | versions.files."v3.1".auth | string | `"v2.6.1"` |  |
 | versions.files."v3.1".gateway | string | `"v2.3.1"` |  |
-| versions.files."v3.1".ledger | string | `"v2.3.23"` |  |
+| versions.files."v3.1".ledger | string | `"v2.3.24"` |  |
 | versions.files."v3.1".orchestration | string | `"v2.4.1"` |  |
 | versions.files."v3.1".payments | string | `"v3.0.19"` |  |
 | versions.files."v3.1".reconciliation | string | `"v2.3.1"` |  |
@@ -173,7 +173,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.1".webhooks | string | `"v2.4.1"` |  |
 | versions.files."v3.2".auth | string | `"v2.6.2"` |  |
 | versions.files."v3.2".gateway | string | `"v2.3.3"` |  |
-| versions.files."v3.2".ledger | string | `"v2.4.15"` |  |
+| versions.files."v3.2".ledger | string | `"v2.4.16"` |  |
 | versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
 | versions.files."v3.2".orchestration | string | `"v2.7.1"` |  |
 | versions.files."v3.2".payments | string | `"v3.4.9"` |  |
