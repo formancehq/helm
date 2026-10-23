@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.23.1](https://img.shields.io/badge/Version-3.23.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.23.2](https://img.shields.io/badge/Version-3.23.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -9,7 +9,7 @@ Formance Private Regions Helm Chart
 |------------|------|---------|
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
-| oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.2 |
+| oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.3 |
 | oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.1 |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
@@ -184,7 +184,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v3.2".wallets | string | `"v2.2.2"` |  |
 | versions.files."v3.2".webhooks | string | `"v2.5.5"` |  |
 | versions.files."v4.0-beta".auth | string | `"v2.6.2"` |  |
-| versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.2"` |  |
+| versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.3"` |  |
 | versions.files."v4.0-beta".gateway | string | `"v2.3.3"` |  |
 | versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.1"` |  |
 | versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
