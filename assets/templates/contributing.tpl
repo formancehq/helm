@@ -109,3 +109,14 @@ The helm repository is `ghcr.io/formancehq/helm` and can be used to deploy the c
 ```bash
 helm upgrade --install regions ghcr.io/formancehq/helm/regions --version v2.0.18
 ```
+
+### Reproducible dependency validation
+
+`just pre-commit` and chart packaging rebuild dependencies with `helm dependency build`
+from the committed `Chart.lock` files. Helm validates lock digests and downloads the
+locked versions, so publishing a new version within a dependency range does not
+change the validated charts.
+
+For an intentional dependency upgrade, run `just helm-update charts/<chart>` to
+resolve the ranges and regenerate locks with Helm, then follow the chart version
+cascade in `CLAUDE.md` and run `just pre-commit`. Do not edit locks by hand.
