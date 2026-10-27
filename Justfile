@@ -35,10 +35,10 @@ helm-all package="false" publish='false' packageArgs="": helm-docs helm-schema-i
 
   charts=$(find ./charts -name Chart.yaml | xargs -n1 dirname)
 
-  # Phase 1: Update dependencies sequentially to avoid race conditions on shared subcharts
+  # Phase 1: Build locked dependencies sequentially to avoid races on shared subcharts
   for chart in $charts; do
     just helm-schema "$chart"
-    just helm-update "$chart"
+    just helm-build "$chart"
   done
 
   # Phase 2: Lint, template, and package in parallel (dependencies are already resolved)
@@ -70,7 +70,15 @@ template-readme: tidy
     --template-file contributing.tpl > ../../CONTRIBUTING.md
   popd
 
-helm-update path='' args='': helm-login
+# Resolve new versions explicitly when intentionally updating chart dependencies.
+helm-update path='' args='':
+  just _helm-dependencies {{path}} "{{args}}" update
+
+# Reconstruct and validate the committed locks for lint, rendering and packaging.
+helm-build path='' args='':
+  just _helm-dependencies {{path}} "{{args}}" build
+
+_helm-dependencies path args command: helm-login
   #!/bin/bash
   set -e
 
@@ -85,7 +93,7 @@ helm-update path='' args='': helm-login
     fi
 
     local deps
-    deps=$(helm dependency list "$chart_dir" 2>/dev/null | grep 'file://' | awk '{print $1, $2, $3}' || true)
+    deps=$(helm dependency list "$chart_dir" 2>/dev/null | awk 'NR > 1 {print $1, $2, $3}' || true)
 
     while read -r name version repo; do
       if [[ "$repo" == file://* ]]; then
@@ -93,11 +101,14 @@ helm-update path='' args='': helm-login
         subchart_path=$(echo "$repo" | sed 's|file://||')
         local full_path="$chart_dir/$subchart_path"
         update_chart "$full_path"
+      elif [[ "$repo" == https://* || "$repo" == http://* ]]; then
+        # Build requires HTTP repositories to be registered in a fresh Helm home.
+        helm repo add "formance-$name" "$repo" > /dev/null
       fi
     done <<< "$deps"
 
-    echo "🔗 helm dependency update $chart_dir {{args}}"
-    helm dependency update "$chart_dir" {{args}} > /dev/null
+    echo "🔗 helm dependency {{command}} $chart_dir {{args}}"
+    helm dependency {{command}} "$chart_dir" {{args}} > /dev/null
   }
 
   update_chart {{path}}
@@ -105,7 +116,7 @@ helm-update path='' args='': helm-login
 helm-lint path='' args="":
   #!/bin/bash
   set -euo pipefail
-  just helm-update {{path}}
+  just helm-build {{path}}
   echo "📝 Linting chart {{path}}"
   helm lint {{path}} --strict {{args}}
 
