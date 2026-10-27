@@ -388,9 +388,6 @@
                                 "reconciliation": {
                                     "type": "string"
                                 },
-                                "search": {
-                                    "type": "string"
-                                },
                                 "stargate": {
                                     "type": "string"
                                 },
@@ -423,9 +420,6 @@
                                 "reconciliation": {
                                     "type": "string"
                                 },
-                                "search": {
-                                    "type": "string"
-                                },
                                 "stargate": {
                                     "type": "string"
                                 },
@@ -456,9 +450,6 @@
                                     "type": "string"
                                 },
                                 "reconciliation": {
-                                    "type": "string"
-                                },
-                                "search": {
                                     "type": "string"
                                 },
                                 "stargate": {
@@ -496,9 +487,6 @@
                                 "reconciliation": {
                                     "type": "string"
                                 },
-                                "search": {
-                                    "type": "string"
-                                },
                                 "stargate": {
                                     "type": "string"
                                 },
@@ -528,31 +516,7 @@
                                 "ledger": {
                                     "type": "string"
                                 },
-                                "mcp": {
-                                    "type": "string"
-                                },
-                                "orchestration": {
-                                    "type": "string"
-                                },
-                                "payments": {
-                                    "type": "string"
-                                },
-                                "reconciliation": {
-                                    "type": "string"
-                                },
-                                "search": {
-                                    "type": "string"
-                                },
                                 "stargate": {
-                                    "type": "string"
-                                },
-                                "transactionplane": {
-                                    "type": "string"
-                                },
-                                "wallets": {
-                                    "type": "string"
-                                },
-                                "webhooks": {
                                     "type": "string"
                                 }
                             }
