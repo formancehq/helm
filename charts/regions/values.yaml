@@ -191,7 +191,7 @@ versions:
       auth: v2.6.2
       gateway: v2.3.3
       ledger: v2.4.17
-      mcp: v0.3.0
+      mcp: v0.6.0
       orchestration: v2.7.1
       payments: v3.4.9
       reconciliation: v2.5.1
