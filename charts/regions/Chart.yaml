@@ -11,7 +11,7 @@ maintainers:
 icon: "https://avatars.githubusercontent.com/u/84325077?s=200&v=4"
 
 type: application
-version: 3.26.0
+version: 3.26.1
 appVersion: "latest"
 
 dependencies:
@@ -28,7 +28,7 @@ dependencies:
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.ledger.enabled
   - name: connectivity-operator
-    version: 1.0.0-beta.5
+    version: 1.0.0-beta.6
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.connectivity.enabled
   - name: core

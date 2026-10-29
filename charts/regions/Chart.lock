@@ -10,9 +10,9 @@ dependencies:
   version: 3.0.0-rc.1
 - name: connectivity-operator
   repository: oci://ghcr.io/formancehq/helm
-  version: 1.0.0-beta.5
+  version: 1.0.0-beta.6
 - name: core
   repository: file://../core
   version: 1.6.0
-digest: sha256:a5e437fdd014f28e03a4cb47c9972de8f24338c32d394c8bb0a633d2ba0ac94e
-generated: "2026-10-28T16:49:26.95141+01:00"
+digest: sha256:7ca75c0e87f0b891437cc19ff9ccfab80168388f2eec5d03147c97a195ab3370
+generated: "2026-10-29T15:17:07.380649+01:00"
