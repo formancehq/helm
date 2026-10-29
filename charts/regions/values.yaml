@@ -201,7 +201,7 @@ versions:
       webhooks: v2.5.5
     v4.0-beta:
       auth: v2.6.2
-      connectivity: 1.0.0-beta.3
+      connectivity: v1.0.0-beta.4
       gateway: v2.3.3
       ledger: v3.0.0-rc.1
       stargate: v2.2.4
