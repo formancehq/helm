@@ -34,7 +34,7 @@ dependencies:
   version: 15.5.X
   condition: postgresql.enabled
 - name: dex
-  version: 0.17.X
+  version: 0.26.0
   repository: https://charts.dexidp.io
   condition: dex.enabled
 - name: core
