@@ -20,7 +20,7 @@ Formance Private Regions Demo
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://nats-io.github.io/k8s/helm/charts/ | nats | 1.1.4 |
+| https://nats-io.github.io/k8s/helm/charts/ | nats | 2.15.2 |
 | oci://registry-1.docker.io/bitnamicharts | opensearch | 0.6.1 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 13.2.24 |
 
