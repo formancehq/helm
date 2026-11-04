@@ -14,10 +14,10 @@ jobs:
       pull-requests: write
     runs-on: shipfox-2vcpu-ubuntu-2404
     steps:
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
         with:
           fetch-depth: 0
-      - uses: actions/labeler@v6
+      - uses: actions/labeler@v7
         with:
           sync-labels: true
       - name: Retrieve chart changes
@@ -28,7 +28,7 @@ jobs:
           echo "::set-output name=changed_charts::$CHARTS"
       - name: Label PR based on chart changes
         if: steps.chart_changes.outputs.changed_charts != ''
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           CHARTS: ${{ steps.chart_changes.outputs.changed_charts }}
         with:
@@ -60,7 +60,7 @@ jobs:
   Dirty:
     runs-on: shipfox-4vcpu-ubuntu-2404
     steps:
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
         with:
           fetch-depth: 0
       - name: Setup Nix
@@ -86,7 +86,7 @@ jobs:
   Artifacts:
     runs-on: shipfox-2vcpu-ubuntu-2404
     steps:
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
         with:
           fetch-depth: 0
       - name: Setup Nix
