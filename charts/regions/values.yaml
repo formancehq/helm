@@ -200,10 +200,10 @@ versions:
       wallets: v2.2.2
       webhooks: v2.5.5
     v4.0-beta:
-      auth: v2.6.2
-      connectivity: v1.0.0-beta.4
+      auth: v2.6.3
+      connectivity: v1.0.0-beta.5
       gateway: v2.3.3
-      ledger: v3.0.0-rc.1
+      ledger: v3.0.0-rc.3
       stargate: v2.2.4
 
 settings: {}
