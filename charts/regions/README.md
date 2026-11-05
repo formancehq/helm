@@ -103,8 +103,8 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| ledger-operator.image.tag | string | `"v3.0.0-rc.1"` |  |
-| ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.1"` |  |
+| ledger-operator.image.tag | string | `"v3.0.0-rc.3"` |  |
+| ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.3"` |  |
 | nameOverride | string | `""` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |

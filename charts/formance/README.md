@@ -836,8 +836,8 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.tls.enabled | bool | `true` |  |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | regions.fullnameOverride | string | `""` |  |
-| regions.ledger-operator.image.tag | string | `"v3.0.0-rc.1"` |  |
-| regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.1"` |  |
+| regions.ledger-operator.image.tag | string | `"v3.0.0-rc.3"` |  |
+| regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.3"` |  |
 | regions.nameOverride | string | `""` |  |
 | regions.operator.fullnameOverride | string | `"operator"` |  |
 | regions.operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |

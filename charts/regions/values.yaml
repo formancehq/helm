@@ -87,14 +87,14 @@ operator:
   operator-crds:
     create: false
 
-# The published rc.1 chart uses latest for both image tags, not appVersion.
+# Pin both image tags to the ledger-operator chart release (Ledger images are gated by operator release).
 # Keep explicit release tags until the upstream chart defaults are versioned.
 ledger-operator:
   image:
-    tag: "v3.0.0-rc.1"
+    tag: "v3.0.0-rc.3"
 
   ledgerImage:
-    tag: "v3.0.0-rc.1"
+    tag: "v3.0.0-rc.3"
 
 agent:
   enabled: false
