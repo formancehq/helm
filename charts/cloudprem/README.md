@@ -76,11 +76,18 @@ legacy crypto value `default` fail rendering.
 For the unified Formance chart, prefix this path with `cloudprem.`; Community
 Edition and installations with Membership disabled do not require a key.
 
-For STRIX-5, first provision and configure the crypto key on the current
-Membership release. Verify that all replicas use the same Secret reference,
-then upgrade to this chart, which pins Membership `v2.8.2` and requires the key.
-Cloudprem `6.6.0` (or Formance `3.9.0`) supports this preparation with Membership
-`v2.8.0`. Preserve both keys when upgrading. Keep the old
+For STRIX-5, roll out in two phases. In terms of the unified `formance` chart:
+
+1. **Phase 1: `formance` chart `3.9.0`.** It bundles cloudprem `6.6.0` and the
+   Membership chart `3.9.0` (Membership `v2.8.0`). Provision the crypto key,
+   configure `cloudprem.membership.config.auth.cryptoKey`, upgrade, and verify
+   that every Membership replica uses the same Secret reference.
+2. **Phase 2: any later `formance` chart release (`3.9.1` and above).** These
+   bundle Membership `v2.8.2`, which refuses to start without a secure crypto
+   key. Upgrade only after phase 1 is verified.
+
+When installing this chart directly, phase 1 is cloudprem `6.6.0` and phase 2
+is cloudprem `6.6.1` or later. Preserve both keys when upgrading. Keep the old
 Secret through the rollback window. Rotating the crypto key invalidates login
 cookies and in-flight OIDC state and requires every replica to restart. A
 Secret name/key change or inline value change triggers a rollout. An in-place
@@ -90,8 +97,8 @@ an explicit rollout restart. `checksum/config` does not cover external Secrets.
 For the signing-key upgrade, apply the access-token binding migration before
 deploying Membership, refresh downstream JWKS caches and issue new access
 tokens. See the
-[Membership chart guide](../membership/README.md#token-signing) and the
-[upstream rollout order](https://github.com/formancehq/membership-api/blob/v2.8.0/docs/token-signing.md).
+[Membership chart guide](../membership/README.md#token-signing) and its
+[rollout order](../membership/README.md#token-signing-and-rotation).
 
 ## Introduction
 
