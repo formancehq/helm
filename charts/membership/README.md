@@ -65,9 +65,53 @@ openssl genrsa -traditional -out membership-signing-key.pem 4096
 Before upgrading, provision a new key and configure the values above. Apply the
 `bind-access-tokens-to-signed-jwt` migration before replacing Membership.
 Existing access tokens must be issued again and downstream validators must
-refresh their JWKS caches. Follow the
-[Membership signing and rotation guide](https://github.com/formancehq/membership-api/blob/v2.8.0/docs/token-signing.md)
-for the rollout order. Rolling back the chart does not restore old tokens.
+refresh their JWKS caches. Follow the rollout order in
+[Token signing and rotation](#token-signing-and-rotation). Rolling back the
+chart does not restore old tokens.
+
+### Token signing and rotation
+
+#### Signing key
+
+Membership requires a PKCS#1 RSA private key, supplied as PEM text. Generate
+one with OpenSSL 3:
+
+```sh
+openssl genrsa -traditional -out membership-signing-key.pem 4096
+```
+
+Store the PEM in your secret manager, not in version control, a container
+image, or deployment logs. Membership refuses to start when the key is empty,
+the PEM can't be decoded, the key isn't a PKCS#1 RSA private key, or the key
+matches the compromised legacy key.
+
+#### Key rotation and JWKS
+
+Membership derives the JWKS `kid` from the SHA-256 digest of the public key.
+Rotating the signing key therefore publishes a new `kid` and invalidates
+tokens signed with the previous key. Downstream validators must refresh their
+JWKS cache during the rollout.
+
+#### Access-token binding migration
+
+Migration `bind-access-tokens-to-signed-jwt` adds the nullable
+`membership.access_tokens.token_hash` column. Access tokens issued before this
+release have no digest and are rejected once the new version starts, so they
+must be issued again. The default access-token lifetime is five minutes.
+
+#### Rollout order
+
+1. Generate a new PKCS#1 RSA private key and store it in your secret manager.
+2. Get the new Membership image.
+3. Run `membership storage migrations up` before replacing the running
+   application.
+4. Deploy Membership with the new secret.
+5. Confirm that the JWKS endpoint publishes the new `kid` and that downstream
+   validators have refreshed their cache.
+6. Issue new access tokens for clients whose existing tokens were invalidated.
+
+Never deploy the application before the migration: the new version reads and
+writes `access_tokens.token_hash`.
 
 ## Cookie and OIDC-state encryption
 
@@ -111,6 +155,10 @@ This chart release pins Membership `v2.8.2`, which requires a secure crypto key.
 For phase 1, use chart `3.9.0` with Membership `v2.8.0` and configure the stable
 crypto key. Verify that all replicas use it before upgrading to this chart for
 phase 2. Preserve the same signing and crypto keys during the upgrade.
+
+With the unified `formance` chart, phase 1 is `formance` chart `3.9.0` (which
+bundles this chart at `3.9.0` with Membership `v2.8.0`), and phase 2 is any
+later `formance` release, which bundles Membership `v2.8.2`.
 
 Keep the old Secret until the application upgrade and its rollback window are
 complete. Rolling the chart back does not recreate or recover key material.
