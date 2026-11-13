@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.11.1](https://img.shields.io/badge/Version-3.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.11.2](https://img.shields.io/badge/Version-3.11.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -837,7 +837,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | regions.fullnameOverride | string | `""` |  |
 | regions.ledger-operator.image.tag | string | `"v3.0.0-rc.2"` |  |
-| regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.1"` |  |
+| regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.2"` |  |
 | regions.nameOverride | string | `""` |  |
 | regions.operator.fullnameOverride | string | `"operator"` |  |
 | regions.operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
@@ -919,7 +919,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v4.0-beta".auth | string | `"v2.6.2"` |  |
 | regions.versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.3"` |  |
 | regions.versions.files."v4.0-beta".gateway | string | `"v2.3.3"` |  |
-| regions.versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.1"` |  |
+| regions.versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.2"` |  |
 | regions.versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
 | regions.versions.files."v4.0-beta".orchestration | string | `"v2.7.1"` |  |
 | regions.versions.files."v4.0-beta".payments | string | `"v3.4.9"` |  |

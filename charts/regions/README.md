@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.24.1](https://img.shields.io/badge/Version-3.24.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.24.2](https://img.shields.io/badge/Version-3.24.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -104,7 +104,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
 | ledger-operator.image.tag | string | `"v3.0.0-rc.2"` |  |
-| ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.1"` |  |
+| ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.2"` |  |
 | nameOverride | string | `""` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
@@ -186,7 +186,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v4.0-beta".auth | string | `"v2.6.2"` |  |
 | versions.files."v4.0-beta".connectivity | string | `"1.0.0-beta.3"` |  |
 | versions.files."v4.0-beta".gateway | string | `"v2.3.3"` |  |
-| versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.1"` |  |
+| versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.2"` |  |
 | versions.files."v4.0-beta".mcp | string | `"v0.3.0"` |  |
 | versions.files."v4.0-beta".orchestration | string | `"v2.7.1"` |  |
 | versions.files."v4.0-beta".payments | string | `"v3.4.9"` |  |
