@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.11.0](https://img.shields.io/badge/Version-3.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.11.1](https://img.shields.io/badge/Version-3.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -24,7 +24,7 @@ Kubernetes: `>=1.14.0-0`
 |------------|------|---------|
 | file://../cloudprem | cloudprem | 6.X |
 | file://../regions | regions | 3.X |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.12.14 |
 
 ## Values
 
@@ -836,7 +836,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.agent.server.tls.enabled | bool | `true` |  |
 | regions.agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | regions.fullnameOverride | string | `""` |  |
-| regions.ledger-operator.image.tag | string | `"v3.0.0-rc.1"` |  |
+| regions.ledger-operator.image.tag | string | `"v3.0.0-rc.2"` |  |
 | regions.ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.1"` |  |
 | regions.nameOverride | string | `""` |  |
 | regions.operator.fullnameOverride | string | `"operator"` |  |

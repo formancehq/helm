@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.24.0](https://img.shields.io/badge/Version-3.24.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.24.1](https://img.shields.io/badge/Version-3.24.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -10,8 +10,8 @@ Formance Private Regions Helm Chart
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
 | oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.3 |
-| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.1 |
-| oci://ghcr.io/formancehq/helm | operator | 3.X |
+| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.2 |
+| oci://ghcr.io/formancehq/helm | operator | 3.19.0 |
 
 ## Maintainers
 
@@ -103,7 +103,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| ledger-operator.image.tag | string | `"v3.0.0-rc.1"` |  |
+| ledger-operator.image.tag | string | `"v3.0.0-rc.2"` |  |
 | ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.1"` |  |
 | nameOverride | string | `""` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
