@@ -34,7 +34,7 @@ spec:
             mountPath: "/config"
             readOnly: true
           {{- with .Values.volumeMounts }}
-            {{- toYaml . | nindent 12 }}
+          {{- toYaml . | nindent 10 }}
           {{- end }}
           args:
             - admin
@@ -57,6 +57,6 @@ spec:
       - name: config
         configMap:
           name: {{ include "core.fullname" . }}-wizard
-      {{- with .Values.volumes}}
-        {{- toYaml . | nindent 8 }}
+      {{- with .Values.volumes }}
+      {{- toYaml . | nindent 6 }}
       {{- end }}
