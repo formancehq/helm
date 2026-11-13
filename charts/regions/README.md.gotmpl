@@ -11,6 +11,10 @@
 
 ## Migration
 
+#### Ledger v3.0.0-rc.3 to rc.4
+
+Drain the cluster and stop every RC.3 Ledger node before starting any RC.4 node. Retain the WAL and data volumes; do not run RC.3 and RC.4 voters together. The first native RC.4 proposal payload appended to the WAL closes the RC.3 rollback window. Follow the [Ledger upgrade procedure](https://github.com/formancehq/ledger/blob/v3.0.0-rc.4/docs/ops/upgrades.md#proposal-payload-cutover) before deploying this chart to an existing RC.3 cluster.
+
 #### EE Licence
 
 Membership now need a EE licence. You can get a licence from the Formance team. The licence is valid for 1 cluster.

@@ -91,10 +91,10 @@ operator:
 # Keep explicit release tags until the upstream chart defaults are versioned.
 ledger-operator:
   image:
-    tag: "v3.0.0-rc.3"
+    tag: "v3.0.0-rc.4"
 
   ledgerImage:
-    tag: "v3.0.0-rc.3"
+    tag: "v3.0.0-rc.4"
 
 agent:
   enabled: false
@@ -203,7 +203,7 @@ versions:
       auth: v2.6.3
       connectivity: v1.0.0-beta.6
       gateway: v2.3.3
-      ledger: v3.0.0-rc.3
+      ledger: v3.0.0-rc.4
       stargate: v2.2.4
 
 settings: {}
