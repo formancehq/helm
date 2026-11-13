@@ -20,7 +20,7 @@ dependencies:
     repository: "file://../agent"
     condition: agent.enabled
   - name: operator
-    version: 3.19.0
+    version: 3.X
     repository: "oci://ghcr.io/formancehq/helm"
     condition: operator.enabled
   - name: ledger-operator

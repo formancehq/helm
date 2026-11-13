@@ -21,7 +21,7 @@ kubeVersion: ">=1.14.0-0"
 dependencies:
 - name: postgresql
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 18.12.14
+  version: 18.X
   condition: postgresql.enabled
 - name: regions
   version: 3.X

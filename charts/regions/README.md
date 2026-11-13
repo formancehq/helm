@@ -11,7 +11,7 @@ Formance Private Regions Helm Chart
 | file://../core | core | 1.X |
 | oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.3 |
 | oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.2 |
-| oci://ghcr.io/formancehq/helm | operator | 3.19.0 |
+| oci://ghcr.io/formancehq/helm | operator | 3.X |
 
 ## Maintainers
 

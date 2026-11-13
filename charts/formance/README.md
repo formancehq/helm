@@ -24,7 +24,7 @@ Kubernetes: `>=1.14.0-0`
 |------------|------|---------|
 | file://../cloudprem | cloudprem | 6.X |
 | file://../regions | regions | 3.X |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.12.14 |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 18.X |
 
 ## Values
 
