@@ -137,7 +137,7 @@ versions:
       webhooks: v2.0.18
     v2.0:
       auth: v2.6.3
-      gateway: v2.3.1
+      gateway: v2.4.0
       ledger: v2.0.33
       orchestration: v2.0.33
       payments: v2.0.33
@@ -148,7 +148,7 @@ versions:
       webhooks: v2.0.33
     v2.1:
       auth: v2.6.3
-      gateway: v2.3.1
+      gateway: v2.4.0
       ledger: v2.1.7
       orchestration: v2.0.33
       payments: v2.0.33
@@ -159,7 +159,7 @@ versions:
       webhooks: v2.4.1
     v2.2:
       auth: v2.6.3
-      gateway: v2.3.1
+      gateway: v2.4.0
       ledger: v2.2.59
       orchestration: v2.0.33
       payments: v2.0.33
@@ -169,7 +169,7 @@ versions:
       webhooks: v2.4.1
     v3.0:
       auth: v2.6.3
-      gateway: v2.3.1
+      gateway: v2.4.0
       ledger: v2.2.59
       orchestration: v2.1.1
       payments: v3.0.19
@@ -179,7 +179,7 @@ versions:
       webhooks: v2.4.1
     v3.1:
       auth: v2.6.3
-      gateway: v2.3.1
+      gateway: v2.4.0
       ledger: v2.3.24
       orchestration: v2.4.1
       payments: v3.0.19
@@ -189,9 +189,9 @@ versions:
       webhooks: v2.4.1
     v3.2:
       auth: v2.6.2
-      gateway: v2.3.3
+      gateway: v2.4.0
       ledger: v2.4.18
-      mcp: v0.3.0
+      mcp: v0.6.1
       orchestration: v2.7.1
       payments: v3.4.9
       reconciliation: v2.5.1
@@ -202,7 +202,7 @@ versions:
     v4.0-beta:
       auth: v2.6.3
       connectivity: v1.0.0-beta.6
-      gateway: v2.3.3
+      gateway: v2.4.0
       ledger: v3.0.0-rc.3
       stargate: v2.2.4
 
