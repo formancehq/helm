@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.26.4](https://img.shields.io/badge/Version-3.26.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.26.5](https://img.shields.io/badge/Version-3.26.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -10,7 +10,7 @@ Formance Private Regions Helm Chart
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
 | oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.6 |
-| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.3 |
+| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.4 |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
 ## Maintainers
@@ -24,6 +24,10 @@ Formance Private Regions Helm Chart
 * <https://github.com/formancehq/helm/tree/main/charts/regions>
 
 ## Migration
+
+#### Ledger v3.0.0-rc.3 to rc.4
+
+Drain the cluster and stop every RC.3 Ledger node before starting any RC.4 node. Retain the WAL and data volumes; do not run RC.3 and RC.4 voters together. The first native RC.4 proposal payload appended to the WAL closes the RC.3 rollback window. Follow the [Ledger upgrade procedure](https://github.com/formancehq/ledger/blob/v3.0.0-rc.4/docs/ops/upgrades.md#proposal-payload-cutover) before deploying this chart to an existing RC.3 cluster.
 
 #### EE Licence
 
@@ -103,8 +107,8 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| ledger-operator.image.tag | string | `"v3.0.0-rc.3"` |  |
-| ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.3"` |  |
+| ledger-operator.image.tag | string | `"v3.0.0-rc.4"` |  |
+| ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.4"` |  |
 | nameOverride | string | `""` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
 | operator.image.repository | string | `"ghcr.io/formancehq/operator"` |  |
@@ -182,7 +186,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | versions.files."v4.0-beta".auth | string | `"v2.6.3"` |  |
 | versions.files."v4.0-beta".connectivity | string | `"v1.0.0-beta.6"` |  |
 | versions.files."v4.0-beta".gateway | string | `"v2.3.3"` |  |
-| versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.3"` |  |
+| versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.4"` |  |
 | versions.files."v4.0-beta".stargate | string | `"v2.2.4"` |  |
 | versions.files.default.auth | string | `"v0.4.4"` |  |
 | versions.files.default.gateway | string | `"v2.0.18"` |  |
