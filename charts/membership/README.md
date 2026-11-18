@@ -101,9 +101,11 @@ lifetime is five minutes.
 
 1. Generate a new PKCS#1 RSA private key and store it in your secret manager.
 2. Get the new Membership image.
-3. Run `membership storage migrations up` before replacing the running
-   application.
-4. Deploy Membership with the new secret.
+3. Run `membership storage migrations up` and wait for it to succeed before
+   running `helm upgrade` to deploy the new Membership version. Helm migration
+   hooks are disabled by default, so a standard upgrade does not guarantee
+   this order.
+4. Run `helm upgrade` with the new signing-key Secret.
 5. Confirm that the JWKS endpoint publishes the new `kid` and that downstream
    validators have refreshed their cache.
 6. Issue new access tokens for clients whose existing tokens were invalidated.

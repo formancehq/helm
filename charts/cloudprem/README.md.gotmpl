@@ -86,9 +86,9 @@ Secret name/key change or inline value change triggers a rollout. An in-place
 external Secret content change does not: use a configured Secret reloader or
 an explicit rollout restart. `checksum/config` does not cover external Secrets.
 
-For the signing-key upgrade, apply the access-token binding migration before
-deploying Membership, refresh downstream JWKS caches and issue new access
-tokens. See the
+For the signing-key upgrade, run the access-token migration and wait for it
+to succeed before running `helm upgrade`. After deploying Membership, refresh
+downstream JWKS caches and issue new access tokens. See the
 [Membership chart guide](../membership/README.md#token-signing) and its
 [rollout order](../membership/README.md#token-signing-and-rotation).
 
