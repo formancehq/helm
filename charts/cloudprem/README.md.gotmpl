@@ -67,15 +67,16 @@ legacy crypto value `default` fail rendering.
 For the unified Formance chart, prefix this path with `cloudprem.`; Community
 Edition and installations with Membership disabled do not require a key.
 
-For STRIX-5, roll out in two phases. In terms of the unified `formance` chart:
+Roll out the cookie and OIDC-state encryption key in two phases.
+For the unified `formance` chart:
 
 1. **Phase 1: `formance` chart `3.9.0`.** It bundles cloudprem `6.6.0` and the
    Membership chart `3.9.0` (Membership `v2.8.0`). Provision the crypto key,
    configure `cloudprem.membership.config.auth.cryptoKey`, upgrade, and verify
    that every Membership replica uses the same Secret reference.
-2. **Phase 2: any later `formance` chart release (`3.9.1` and above).** These
-   bundle Membership `v2.8.2`, which refuses to start without a secure crypto
-   key. Upgrade only after phase 1 is verified.
+2. **Phase 2: `formance` chart `3.9.1` or later.** Chart `3.9.1` introduces
+   Membership `v2.8.2`, which refuses to start without a secure crypto key.
+   Upgrade only after you verify phase 1.
 
 When installing this chart directly, phase 1 is cloudprem `6.6.0` and phase 2
 is cloudprem `6.6.1` or later. Preserve both keys when upgrading. Keep the old
