@@ -87,7 +87,7 @@ spec:
       topologySpreadConstraints:
           {{- range $constraint := . }}
         - {{ toYaml $constraint | nindent 10 | trim }}
-          {{- if not $constraint.labelSelector }}
+          {{- if not (hasKey $constraint "labelSelector") }}
           labelSelector:
             matchLabels:
               {{- include "core.selectorLabels" $ | nindent 14 }}
