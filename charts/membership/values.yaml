@@ -390,6 +390,13 @@ tolerations: []
 # -- Membership affinity
 affinity: {}
 
+# -- Membership topology spread constraints (Deployment only). A constraint without
+# labelSelector selects the membership pods.
+topologySpreadConstraints: []
+  #   - maxSkew: 1
+  #     topologyKey: kubernetes.io/hostname
+  #     whenUnsatisfiable: DoNotSchedule
+
 # -- DEPRECATED Membership service
 commonLabels: {}
 

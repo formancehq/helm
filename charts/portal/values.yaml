@@ -374,6 +374,13 @@ tolerations: []
 # -- Portal affinity
 affinity: {}
 
+# -- Portal topology spread constraints (Deployment only). A constraint without
+# labelSelector selects the portal pods.
+topologySpreadConstraints: []
+  #   - maxSkew: 1
+  #     topologyKey: kubernetes.io/hostname
+  #     whenUnsatisfiable: DoNotSchedule
+
 postgresql:
   # -- Enable postgresql
   # @section -- Postgresql configuration

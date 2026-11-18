@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.8.1](https://img.shields.io/badge/Version-6.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.8.2](https://img.shields.io/badge/Version-6.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -1162,6 +1162,7 @@ Dex:
 | membership.serviceAccount.create | bool | `true` | Service account creation |
 | membership.serviceAccount.name | string | `""` | Service account name |
 | membership.tolerations | list | `[]` | Membership tolerations |
+| membership.topologySpreadConstraints | list | `[]` | Membership topology spread constraints (Deployment only). A constraint without labelSelector selects the membership pods. |
 | membership.volumeMounts | list | `[]` | Membership volume mounts |
 | membership.volumes | list | `[]` | Membership volumes |
 | portal.affinity | object | `{}` | Portal affinity |
@@ -1220,5 +1221,6 @@ Dex:
 | portal.serviceAccount.create | bool | `true` | Service account creation |
 | portal.serviceAccount.name | string | `""` | Service account name |
 | portal.tolerations | list | `[]` | Portal tolerations |
+| portal.topologySpreadConstraints | list | `[]` | Portal topology spread constraints (Deployment only). A constraint without labelSelector selects the portal pods. |
 | portal.volumeMounts | list | `[]` |  |
 | portal.volumes | list | `[]` | Portal volumes |

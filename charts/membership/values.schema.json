@@ -1261,6 +1261,9 @@
         "tolerations": {
             "type": "array"
         },
+        "topologySpreadConstraints": {
+            "type": "array"
+        },
         "volumeMounts": {
             "type": "array"
         },

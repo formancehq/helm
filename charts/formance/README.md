@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.15.2](https://img.shields.io/badge/Version-3.15.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.15.3](https://img.shields.io/badge/Version-3.15.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -764,6 +764,7 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.serviceAccount.create | bool | `true` | Service account creation |
 | cloudprem.membership.serviceAccount.name | string | `""` | Service account name |
 | cloudprem.membership.tolerations | list | `[]` | Membership tolerations |
+| cloudprem.membership.topologySpreadConstraints | list | `[]` | Membership topology spread constraints (Deployment only). A constraint without labelSelector selects the membership pods. |
 | cloudprem.membership.volumeMounts | list | `[]` | Membership volume mounts |
 | cloudprem.membership.volumes | list | `[]` | Membership volumes |
 | cloudprem.portal.affinity | object | `{}` | Portal affinity |
@@ -822,6 +823,7 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.portal.serviceAccount.create | bool | `true` | Service account creation |
 | cloudprem.portal.serviceAccount.name | string | `""` | Service account name |
 | cloudprem.portal.tolerations | list | `[]` | Portal tolerations |
+| cloudprem.portal.topologySpreadConstraints | list | `[]` | Portal topology spread constraints (Deployment only). A constraint without labelSelector selects the portal pods. |
 | cloudprem.portal.volumeMounts | list | `[]` |  |
 | cloudprem.portal.volumes | list | `[]` | Portal volumes |
 | regions.agent.agent.authentication.clientID | string | `"REGION_ID"` |  |
