@@ -1187,7 +1187,7 @@ Dex:
 | portal.config.featuresDisabled[0] | string | `"notifications"` |  |
 | portal.config.featuresDisabled[1] | string | `"sessions"` |  |
 | portal.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
-| portal.config.migration.additionalEnv | list | `[]` | Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA |
+| portal.config.migration.additionalEnv | list | `[]` | Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA. `config.additionalEnv` is not inherited by the migration job |
 | portal.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | portal.config.migration.serviceAccount.annotations | object | `{}` |  |
 | portal.config.migration.serviceAccount.create | bool | `true` |  |

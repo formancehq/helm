@@ -293,7 +293,7 @@ config:
     ttlSecondsAfterFinished: ""
     volumes: []
     volumeMounts: []
-    # -- Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA
+    # -- Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA. `config.additionalEnv` is not inherited by the migration job
     additionalEnv: []
   cookie:
     # -- Cookie secret

@@ -147,7 +147,7 @@ Kubernetes: `>=1.14.0-0`
 | config.featuresDisabled[0] | string | `"notifications"` |  |
 | config.featuresDisabled[1] | string | `"sessions"` |  |
 | config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
-| config.migration.additionalEnv | list | `[]` | Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA |
+| config.migration.additionalEnv | list | `[]` | Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA. `config.additionalEnv` is not inherited by the migration job |
 | config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | config.migration.serviceAccount.annotations | object | `{}` |  |
 | config.migration.serviceAccount.create | bool | `true` |  |
