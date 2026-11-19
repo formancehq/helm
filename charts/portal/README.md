@@ -1,6 +1,6 @@
 # portal
 
-![Version: 5.4.0](https://img.shields.io/badge/Version-5.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v4.4.0](https://img.shields.io/badge/AppVersion-v4.4.0-informational?style=flat-square)
+![Version: 5.4.1](https://img.shields.io/badge/Version-5.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v4.4.0](https://img.shields.io/badge/AppVersion-v4.4.0-informational?style=flat-square)
 
 Formance Portal
 
@@ -189,5 +189,6 @@ Kubernetes: `>=1.14.0-0`
 | serviceAccount.create | bool | `true` | Service account creation |
 | serviceAccount.name | string | `""` | Service account name |
 | tolerations | list | `[]` | Portal tolerations |
+| topologySpreadConstraints | list | `[]` | Portal topology spread constraints (Deployment only). A constraint without labelSelector selects the portal pods. |
 | volumeMounts | list | `[]` |  |
 | volumes | list | `[]` | Portal volumes |

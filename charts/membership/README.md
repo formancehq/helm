@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.9.2](https://img.shields.io/badge/Version-3.9.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.2](https://img.shields.io/badge/AppVersion-v2.8.2-informational?style=flat-square)
+![Version: 3.9.3](https://img.shields.io/badge/Version-3.9.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.2](https://img.shields.io/badge/AppVersion-v2.8.2-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -455,5 +455,6 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | serviceAccount.create | bool | `true` | Service account creation |
 | serviceAccount.name | string | `""` | Service account name |
 | tolerations | list | `[]` | Membership tolerations |
+| topologySpreadConstraints | list | `[]` | Membership topology spread constraints (Deployment only). A constraint without labelSelector selects the membership pods. |
 | volumeMounts | list | `[]` | Membership volume mounts |
 | volumes | list | `[]` | Membership volumes |

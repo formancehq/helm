@@ -4,7 +4,7 @@ set positional-arguments
 default:
   @just --list
 
-pre-commit: helm-all test-signing-key template-readme
+pre-commit: helm-all test-signing-key test-topology-spread-constraints template-readme
 pc: pre-commit
 
 # Render-only fixtures reference a synthetic Secret; deployed defaults stay empty.
@@ -13,6 +13,9 @@ _helm-validation-args path:
 
 test-signing-key:
   bash tests/membership-signing-key.sh
+
+test-topology-spread-constraints:
+  bash tests/topology-spread-constraints.sh
 
 lint:
   @cd ./tools/readme && golangci-lint run --fix --timeout 5m
