@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.8.2](https://img.shields.io/badge/Version-6.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.8.3](https://img.shields.io/badge/Version-6.8.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -1187,6 +1187,7 @@ Dex:
 | portal.config.featuresDisabled[0] | string | `"notifications"` |  |
 | portal.config.featuresDisabled[1] | string | `"sessions"` |  |
 | portal.config.managedStack | string | `"1"` | Enable managed stack mode (1 = enabled, 0 = disabled) |
+| portal.config.migration.additionalEnv | list | `[]` | Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA. `config.additionalEnv` is not inherited by the migration job |
 | portal.config.migration.annotations | object | `{}` | Membership job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | portal.config.migration.serviceAccount.annotations | object | `{}` |  |
 | portal.config.migration.serviceAccount.create | bool | `true` |  |

@@ -4,7 +4,7 @@ set positional-arguments
 default:
   @just --list
 
-pre-commit: helm-all test-signing-key test-topology-spread-constraints template-readme
+pre-commit: helm-all test-signing-key test-topology-spread-constraints test-portal-migration-env template-readme
 pc: pre-commit
 
 # Render-only fixtures reference a synthetic Secret; deployed defaults stay empty.
@@ -16,6 +16,9 @@ test-signing-key:
 
 test-topology-spread-constraints:
   bash tests/topology-spread-constraints.sh
+
+test-portal-migration-env:
+  bash tests/portal-migration-env.sh
 
 lint:
   @cd ./tools/readme && golangci-lint run --fix --timeout 5m
