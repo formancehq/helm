@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.15.4](https://img.shields.io/badge/Version-3.15.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.16.0](https://img.shields.io/badge/Version-3.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -858,7 +858,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.allowDefaultVersion | bool | `false` |  |
 | regions.versions.create | bool | `true` |  |
 | regions.versions.files."v2.0".auth | string | `"v2.6.3"` |  |
-| regions.versions.files."v2.0".gateway | string | `"v2.3.1"` |  |
+| regions.versions.files."v2.0".gateway | string | `"v2.4.0"` |  |
 | regions.versions.files."v2.0".ledger | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.0".orchestration | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.0".payments | string | `"v2.0.33"` |  |
@@ -868,7 +868,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.0".wallets | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.0".webhooks | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.1".auth | string | `"v2.6.3"` |  |
-| regions.versions.files."v2.1".gateway | string | `"v2.3.1"` |  |
+| regions.versions.files."v2.1".gateway | string | `"v2.4.0"` |  |
 | regions.versions.files."v2.1".ledger | string | `"v2.1.7"` |  |
 | regions.versions.files."v2.1".orchestration | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.1".payments | string | `"v2.0.33"` |  |
@@ -878,7 +878,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.1".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v2.1".webhooks | string | `"v2.4.1"` |  |
 | regions.versions.files."v2.2".auth | string | `"v2.6.3"` |  |
-| regions.versions.files."v2.2".gateway | string | `"v2.3.1"` |  |
+| regions.versions.files."v2.2".gateway | string | `"v2.4.0"` |  |
 | regions.versions.files."v2.2".ledger | string | `"v2.2.59"` |  |
 | regions.versions.files."v2.2".orchestration | string | `"v2.0.33"` |  |
 | regions.versions.files."v2.2".payments | string | `"v2.0.33"` |  |
@@ -887,7 +887,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v2.2".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v2.2".webhooks | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.0".auth | string | `"v2.6.3"` |  |
-| regions.versions.files."v3.0".gateway | string | `"v2.3.1"` |  |
+| regions.versions.files."v3.0".gateway | string | `"v2.4.0"` |  |
 | regions.versions.files."v3.0".ledger | string | `"v2.2.59"` |  |
 | regions.versions.files."v3.0".orchestration | string | `"v2.1.1"` |  |
 | regions.versions.files."v3.0".payments | string | `"v3.0.19"` |  |
@@ -896,7 +896,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.0".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v3.0".webhooks | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.1".auth | string | `"v2.6.3"` |  |
-| regions.versions.files."v3.1".gateway | string | `"v2.3.1"` |  |
+| regions.versions.files."v3.1".gateway | string | `"v2.4.0"` |  |
 | regions.versions.files."v3.1".ledger | string | `"v2.3.24"` |  |
 | regions.versions.files."v3.1".orchestration | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.1".payments | string | `"v3.0.19"` |  |
@@ -905,9 +905,9 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.1".wallets | string | `"v2.1.5"` |  |
 | regions.versions.files."v3.1".webhooks | string | `"v2.4.1"` |  |
 | regions.versions.files."v3.2".auth | string | `"v2.6.2"` |  |
-| regions.versions.files."v3.2".gateway | string | `"v2.3.3"` |  |
+| regions.versions.files."v3.2".gateway | string | `"v2.4.0"` |  |
 | regions.versions.files."v3.2".ledger | string | `"v2.4.18"` |  |
-| regions.versions.files."v3.2".mcp | string | `"v0.3.0"` |  |
+| regions.versions.files."v3.2".mcp | string | `"v0.6.1"` |  |
 | regions.versions.files."v3.2".orchestration | string | `"v2.7.1"` |  |
 | regions.versions.files."v3.2".payments | string | `"v3.4.9"` |  |
 | regions.versions.files."v3.2".reconciliation | string | `"v2.5.1"` |  |
@@ -917,7 +917,7 @@ Kubernetes: `>=1.14.0-0`
 | regions.versions.files."v3.2".webhooks | string | `"v2.5.5"` |  |
 | regions.versions.files."v4.0-beta".auth | string | `"v2.6.3"` |  |
 | regions.versions.files."v4.0-beta".connectivity | string | `"v1.0.0-beta.6"` |  |
-| regions.versions.files."v4.0-beta".gateway | string | `"v2.3.3"` |  |
+| regions.versions.files."v4.0-beta".gateway | string | `"v2.4.0"` |  |
 | regions.versions.files."v4.0-beta".ledger | string | `"v3.0.0-rc.4"` |  |
 | regions.versions.files."v4.0-beta".stargate | string | `"v2.2.4"` |  |
 | regions.versions.files.default.auth | string | `"v0.4.4"` |  |
