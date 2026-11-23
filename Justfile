@@ -4,7 +4,7 @@ set positional-arguments
 default:
   @just --list
 
-pre-commit: helm-all test-signing-key test-topology-spread-constraints test-portal-migration-env template-readme
+pre-commit: helm-all test-signing-key test-membership-admin test-topology-spread-constraints test-portal-migration-env template-readme
 pc: pre-commit
 
 # Render-only fixtures reference a synthetic Secret; deployed defaults stay empty.
@@ -13,6 +13,9 @@ _helm-validation-args path:
 
 test-signing-key:
   bash tests/membership-signing-key.sh
+
+test-membership-admin:
+  bash tests/membership-admin.sh
 
 test-topology-spread-constraints:
   bash tests/topology-spread-constraints.sh

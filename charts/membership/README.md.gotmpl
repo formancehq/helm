@@ -162,6 +162,11 @@ restart; otherwise run an explicit rollout restart and wait for every replica.
 The chart does not use `lookup`, `randAlphaNum`, `randBytes`, or any other
 render-time key generation.
 
+## Private admin API
+
+The admin Deployment is opt-in and requires a Membership image with
+`serve-admin`. See the [configuration and rollout guide](../../docs/membership-admin.md).
+
 ## Migration
 
 ### From v0.38 To v1.0.0

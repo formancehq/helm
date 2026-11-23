@@ -122,6 +122,13 @@ global:
       # @section -- Stargate configuration
       stackApiUrl: ""
     membership:
+      admin:
+        # -- Enable the private Membership admin API. Requires an image with serve-admin.
+        # @section -- Global configuration
+        enabled: false
+        # -- Allowed admin callers. Each entry requires a namespace name and non-empty podLabels.
+        # @section -- Global configuration
+        allowedCallers: [] # @schema item: object
       # -- is the scheme for the membership
       # @section -- Global configuration
       scheme: "https"

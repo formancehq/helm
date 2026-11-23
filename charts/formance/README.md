@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.16.0](https://img.shields.io/badge/Version-3.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.17.0](https://img.shields.io/badge/Version-3.17.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -128,7 +128,7 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| global.platform | object | `{"consoleV3":{"enabled":true,"host":"console.{{ .Values.global.serviceHost }}","scheme":"https"},"identity":{"connector":{"authenticationPolicy":"identity","id":"identity","name":"Identity"},"enabled":false,"host":"identity.{{ .Values.global.serviceHost }}","issuerPath":"/api/auth","membership":{"callbackURL":"","client":{"existingSecret":"","id":"membership","secret":"","secretKeys":{"secret":""}}},"scheme":"https"},"membership":{"host":"membership.{{ .Values.global.serviceHost }}","oidc":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"relyingParty":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"scheme":"https"},"portal":{"enabled":true,"host":"portal.{{ .Values.global.serviceHost }}","scheme":"https"},"stargate":{"enabled":false,"stackApiUrl":""}}` | Platform services configuration (EE only) |
+| global.platform | object | `{"consoleV3":{"enabled":true,"host":"console.{{ .Values.global.serviceHost }}","scheme":"https"},"identity":{"connector":{"authenticationPolicy":"identity","id":"identity","name":"Identity"},"enabled":false,"host":"identity.{{ .Values.global.serviceHost }}","issuerPath":"/api/auth","membership":{"callbackURL":"","client":{"existingSecret":"","id":"membership","secret":"","secretKeys":{"secret":""}}},"scheme":"https"},"membership":{"admin":{"allowedCallers":[],"enabled":false},"host":"membership.{{ .Values.global.serviceHost }}","oidc":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"relyingParty":{"host":"dex.{{ .Values.global.serviceHost }}","scheme":"https"},"scheme":"https"},"portal":{"enabled":true,"host":"portal.{{ .Values.global.serviceHost }}","scheme":"https"},"stargate":{"enabled":false,"stackApiUrl":""}}` | Platform services configuration (EE only) |
 | global.platform.consoleV3.enabled | bool | `true` | Enable console v3 |
 | global.platform.consoleV3.host | string | `"console.{{ .Values.global.serviceHost }}"` | Console host |
 | global.platform.consoleV3.scheme | string | `"https"` | Console URL scheme |
@@ -144,6 +144,8 @@ Kubernetes: `>=1.14.0-0`
 | global.platform.identity.membership.client.secret | string | `""` | Membership client secret. Prefer existingSecret in production. |
 | global.platform.identity.membership.client.secretKeys.secret | string | `""` | Key containing the Membership client secret. |
 | global.platform.identity.scheme | string | `"https"` | Public Identity URL scheme. |
+| global.platform.membership.admin.allowedCallers | list | `[]` | Allowed admin callers. Each entry requires a namespace name and non-empty podLabels. |
+| global.platform.membership.admin.enabled | bool | `false` | Enable the private Membership admin API. Requires an image with serve-admin. |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | Membership host |
 | global.platform.membership.oidc.host | string | `"dex.{{ .Values.global.serviceHost }}"` | OIDC issuer host |
 | global.platform.membership.oidc.scheme | string | `"https"` | OIDC issuer scheme |
@@ -685,6 +687,8 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.config.auth.signingKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty. |
 | cloudprem.membership.config.auth.signingKey.key | string | `"signing.key"` | Required key within existingSecret containing the PEM text. |
 | cloudprem.membership.config.auth.signingKey.value | string | `""` | Required PKCS#1 RSA private key as PEM text, unless existingSecret is configured. Prefer existingSecret in production. |
+| cloudprem.membership.config.auth.signingPublicKey.existingSecret | string | `""` | Existing Secret holding the PEM-encoded RSA public key for the admin API. |
+| cloudprem.membership.config.auth.signingPublicKey.key | string | `"signing.pub"` | Key in existingSecret holding the PEM-encoded RSA public key. |
 | cloudprem.membership.config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | cloudprem.membership.config.fctl | bool | `true` | Enable Fctl |
 | cloudprem.membership.config.grpc.existingSecret | string | `""` |  |

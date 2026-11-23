@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.9.3](https://img.shields.io/badge/Version-3.9.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.2](https://img.shields.io/badge/AppVersion-v2.8.2-informational?style=flat-square)
+![Version: 3.10.0](https://img.shields.io/badge/Version-3.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.2](https://img.shields.io/badge/AppVersion-v2.8.2-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -177,6 +177,11 @@ restart; otherwise run an explicit rollout restart and wait for every replica.
 The chart does not use `lookup`, `randAlphaNum`, `randBytes`, or any other
 render-time key generation.
 
+## Private admin API
+
+The admin Deployment is opt-in and requires a Membership image with
+`serve-admin`. See the [configuration and rollout guide](../../docs/membership-admin.md).
+
 ## Migration
 
 ### From v0.38 To v1.0.0
@@ -247,6 +252,8 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | global.platform.ledgerUi.oauth.client.secret | string | `""` | is the secret of the client |
 | global.platform.ledgerUi.oauth.client.secretKeys | object | `{"secret":"oauth"}` | is the key contained within the secret |
 | global.platform.ledgerUi.scheme | string | `"https"` | is the scheme for the ledger UI |
+| global.platform.membership.admin.allowedCallers | list | `[]` | Allowed admin callers. Each entry requires a namespace name and non-empty podLabels. |
+| global.platform.membership.admin.enabled | bool | `false` | Enable the private Membership admin API. Requires an image with serve-admin. |
 | global.platform.membership.host | string | `"membership.{{ .Values.global.serviceHost }}"` | is the host for the membership |
 | global.platform.membership.relyingParty.host | string | `"dex.{{ .Values.global.serviceHost }}"` | is the host for the relying party issuer |
 | global.platform.membership.relyingParty.path | string | `""` | is the path for the relying party issuer |
@@ -376,6 +383,8 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | config.auth.signingKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the signing key. Takes precedence over value; required when value is empty. |
 | config.auth.signingKey.key | string | `"signing.key"` | Required key within existingSecret containing the PEM text. |
 | config.auth.signingKey.value | string | `""` | Required PKCS#1 RSA private key as PEM text, unless existingSecret is configured. Prefer existingSecret in production. |
+| config.auth.signingPublicKey.existingSecret | string | `""` | Existing Secret holding the PEM-encoded RSA public key for the admin API. |
+| config.auth.signingPublicKey.key | string | `"signing.pub"` | Key in existingSecret holding the PEM-encoded RSA public key. |
 | config.auth.tokenValidity | object | `{"accessToken":"5m","refreshToken":"72h"}` | According to "nsuµmh" And https://github.com/spf13/cast/blob/e9ba3ce83919192b29c67da5bec158ce024fdcdb/caste.go#L61C3-L61C3 |
 | config.fctl | bool | `true` | Enable Fctl |
 | config.grpc.existingSecret | string | `""` |  |

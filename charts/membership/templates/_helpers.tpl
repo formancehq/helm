@@ -108,12 +108,7 @@
 - name: RP_SCOPES
   value: "{{ join " " .Values.config.oidc.scopes }}"
 {{- end }}
-- name: SERVICE_URL
-  value: "{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}"
-- name: MANAGED_STACKS
-  value: "{{.Values.feature.managedStacks}}"
-- name: DISABLE_EVENTS
-  value: "{{.Values.feature.disableEvents}}"
+{{- include "membership.issuerAndEventFlags" . | nindent 0 }}
 {{- range $serviceName, $service := .Values.global.platform }}
 {{- if and (and (hasKey $service "oauth") (hasKey $service.oauth "client")) $service.enabled }}
 - name: {{ printf "%s_OAUTH_CLIENT_SECRET" (upper $serviceName) }}
@@ -205,4 +200,81 @@ staticClients:
 
 {{- define "membership.wizard.env" -}}
 {{- include "membership.env" . }}
+{{- end }}
+
+{{- define "membership.issuerAndEventFlags" -}}
+- name: SERVICE_URL
+  value: "{{ tpl (printf "%s://%s/api" .Values.global.platform.membership.scheme .Values.global.platform.membership.host) $ }}"
+- name: MANAGED_STACKS
+  value: "{{.Values.feature.managedStacks}}"
+- name: DISABLE_EVENTS
+  value: "{{.Values.feature.disableEvents}}"
+{{- end }}
+
+{{- define "membership.admin.fullname" -}}
+{{- printf "%s-admin" (include "core.fullname" . | trunc 57 | trimSuffix "-") -}}
+{{- end }}
+
+{{- /* Omit the public app name so existing Services cannot select admin pods. */}}
+{{- define "membership.admin.selectorLabels" -}}
+app.kubernetes.io/component: membership-admin
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{- define "membership.admin.defaultEnv" -}}
+- name: CONFIG
+  value: /config/config.yaml
+- name: SIGNING_PUBLIC_KEY
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "config.auth.signingPublicKey.existingSecret is required for the Membership admin API" (trim .Values.config.auth.signingPublicKey.existingSecret) | quote }}
+      key: {{ required "config.auth.signingPublicKey.key is required for the Membership admin API" (trim .Values.config.auth.signingPublicKey.key) | quote }}
+{{- include "membership.issuerAndEventFlags" . | nindent 0 }}
+{{- include "core.env.common" . | nindent 0 }}
+{{- include "core.postgres.uri" . | nindent 0 }}
+{{- include "core.monitoring" . | nindent 0 }}
+{{- if not .Values.feature.managedStacks }}
+{{- include "core.nats.env" . | nindent 0 }}
+{{- end }}
+{{- end }}
+
+{{- define "membership.admin.env" -}}
+{{- /* Keep dependency order for variable references such as POSTGRES_URI. */ -}}
+{{- $defaults := include "membership.admin.defaultEnv" . | fromYamlArray -}}
+{{- $entries := dict -}}
+{{- $names := list -}}
+{{- range $defaults -}}
+  {{- $names = append $names .name -}}
+  {{- $_ := set $entries .name . -}}
+{{- end -}}
+{{- with .Values.config.additionalEnv -}}
+  {{- range tpl (toYaml .) $ | fromYamlArray -}}
+    {{- if regexMatch "^(AUDIT_ACTOR_CLIENTS|SERVICE_URL|MANAGED_STACKS|DISABLE_EVENTS|POSTGRES_.+|PUBLISHER_NATS_.+|PUBLISHER_TOPIC_MAPPING)$" .name -}}
+      {{- if not (hasKey $entries .name) -}}
+        {{- $names = append $names .name -}}
+      {{- end -}}
+      {{- $_ := set $entries .name . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $env := list -}}
+{{- range $names -}}
+  {{- $env = append $env (index $entries .) -}}
+{{- end -}}
+{{- toYaml $env -}}
+{{- end }}
+
+{{- define "membership.aws.targetGroups" -}}
+{{- $context := index . 0 -}}
+{{- $bindings := include "aws.tgb.generics" . -}}
+{{- if $context.Values.global.platform.membership.admin.enabled -}}
+  {{- $adminName := include "membership.admin.fullname" $context -}}
+  {{- range splitList "\n---" $bindings -}}
+    {{- $binding := fromYaml . -}}
+    {{- if and $binding.spec (eq $binding.spec.serviceRef.name $adminName) -}}
+      {{- fail "Membership and Dex AWS target groups cannot reference the Membership admin Service" -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $bindings -}}
 {{- end }}
