@@ -59,7 +59,9 @@ or `system:Admin` token. Mutations require `system:Admin`.
 The Service appends `-admin` to the public Membership resource name (the chart
 shortens the prefix if needed). `ADMIN_SERVICE_URL` contains the Service
 origin without a path. Membership adds `/internal` to the routes and the
-OpenAPI server URL. Both probes still use `GET /_healthcheck` at the root.
+OpenAPI server URL. The readiness probe uses `GET /_healthcheck` at the root
+to check PostgreSQL. The liveness probe checks the TCP listener, so a
+PostgreSQL outage removes the pod from the Service without restarting it.
 `SERVICE_URL` remains the canonical token issuer, such as
 `https://membership.example.com/api`.
 

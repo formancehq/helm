@@ -70,13 +70,13 @@ spec:
               containerPort: 8080
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /_healthcheck
+            tcpSocket:
               port: http
           readinessProbe:
             httpGet:
               path: /_healthcheck
               port: http
+            timeoutSeconds: 2
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
