@@ -375,6 +375,8 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | autoscaling | object | `{}` | Membership autoscaling |
 | commonLabels | object | `{}` | DEPRECATED Membership service |
 | config.additionalEnv | list | `[]` |  |
+| config.admin.tls.existingSecret | string | `""` | Existing kubernetes.io/tls Secret for the private admin Service. Required when admin is enabled. |
+| config.admin.validation | object | `{}` | Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden. |
 | config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |
 | config.auth.cryptoKey.key | string | `"crypto.key"` | Required key within existingSecret containing the crypto key. |

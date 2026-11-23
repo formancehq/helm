@@ -80,6 +80,22 @@
                 "additionalEnv": {
                     "type": "array"
                 },
+                "admin": {
+                    "type": "object",
+                    "properties": {
+                        "tls": {
+                            "type": "object",
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "validation": {
+                            "type": "object"
+                        }
+                    }
+                },
                 "auth": {
                     "type": "object",
                     "properties": {

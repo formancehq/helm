@@ -30,6 +30,16 @@ read -r -d '' extra_env <<'JSON' || true
 ]
 JSON
 
+custom_config='[{"name":"{{ print \"CONFIG\" }}","valueFrom":{"configMapKeyRef":{"name":"external-membership","key":"configPath"}}}]'
+read -r -d '' validation <<'JSON' || true
+{
+  "staticClients":[{"id":"custom-ops","public":false,"internal":true,"secrets":["synthetic"],"redirectUris":["https://example.test"]}],
+  "organizationSSOTrust":{"destination":["source@00000000-0000-4000-8000-000000000001"]},
+  "signingKey":"synthetic",
+  "connectors":[{"id":"ignored"}]
+}
+JSON
+
 for chart in membership cloudprem formance; do
   edition=()
   identity=()
@@ -53,24 +63,32 @@ for chart in membership cloudprem formance; do
     --set global.nats.enabled=true --set global.nats.auth.existingSecret=render-test-nats
     --set "${prefix}feature.managedStacks=false" --set "${prefix}feature.disableEvents=false")
   public_key=(--set "${prefix}config.auth.signingPublicKey.existingSecret=render-test-public-key")
+  tls_secret=(--set "${prefix}config.admin.tls.existingSecret=render-test-admin-tls")
+  admin=("$enabled" "${public_key[@]}" "${tls_secret[@]}")
 
   "${render[@]}" >"$output"
   assert_manifest 'all(.[] | select(. != null); (.metadata.name // "" | endswith("-membership-admin") | not))'
 
-  if "${render[@]}" "$enabled" >"$output" 2>"$test_dir/error.log"; then
+  if "${render[@]}" "$enabled" "${public_key[@]}" >"$output" 2>"$test_dir/error.log"; then
+    echo "$chart: enabling admin without a TLS Secret should fail" >&2
+    exit 1
+  fi
+  grep -Fq 'config.admin.tls.existingSecret is required' "$test_dir/error.log"
+
+  if "${render[@]}" "$enabled" "${tls_secret[@]}" >"$output" 2>"$test_dir/error.log"; then
     echo "$chart: enabling admin without a public key Secret should fail" >&2
     exit 1
   fi
   grep -Fq 'config.auth.signingPublicKey.existingSecret is required' "$test_dir/error.log"
 
-  "${render[@]}" "$enabled" "${public_key[@]}" >"$output"
+  "${render[@]}" "${admin[@]}" >"$output"
   assert_manifest '
     [.[] | select(.kind == "NetworkPolicy" and .metadata.name == "admin-test-membership-admin")
       | .spec.ingress] == [[]]
   '
 
   # Exercise both the public ingress and AWS IP targets with admin enabled.
-  "${render[@]}" "$enabled" "${public_key[@]}" --set global.aws.elb=true \
+  "${render[@]}" "${admin[@]}" --set global.aws.elb=true \
     --set-json "${prefix}config.additionalEnv=$extra_env" \
     --values "$test_dir/callers.yaml" >"$output"
   assert_manifest '
@@ -90,7 +108,10 @@ for chart in membership cloudprem formance; do
     | ($publicDeployment.spec.template.spec.containers[] | select(.name == "membership")) as $publicContainer
     | ($adminContainer | envs) as $adminEnv
     | ($publicContainer | envs) as $publicEnv
-    | [$adminDeployment.spec.template.spec.volumes[].configMap.name] == [$admin]
+    | [$adminDeployment.spec.template.spec.volumes[].configMap.name // empty] == [$admin]
+      and ([$adminDeployment.spec.template.spec.volumes[] | select(.name == "tls") | .secret]
+        == [{secretName:"render-test-admin-tls", items:[{key:"tls.crt",path:"tls.crt"},{key:"tls.key",path:"tls.key"}]}])
+      and ([$adminContainer.volumeMounts[] | select(.name == "tls")] == [{name:"tls",mountPath:"/tls",readOnly:true}])
       and ($adminDeployment.spec.selector.matchLabels | selects($adminLabels))
       and ($adminService.spec.type == "ClusterIP")
       and ($adminService.spec.selector | selects($adminLabels))
@@ -98,15 +119,15 @@ for chart in membership cloudprem formance; do
       and ($publicService.spec.selector | selects($adminLabels) | not)
       and ([.[] | select(.kind == "Service" and .metadata.namespace == "control" and .spec.selector)
             | select(.spec.selector | selects($adminLabels)) | .metadata.name] == [$admin])
-      and ($adminService.spec.ports == [{name:"http", port:8080, targetPort:"http", protocol:"TCP"}])
+      and ($adminService.spec.ports == [{name:"https", port:8080, targetPort:"http", protocol:"TCP"}])
       and ($adminContainer.ports == [{name:"http", containerPort:8080, protocol:"TCP"}])
       and ($adminContainer.livenessProbe == {tcpSocket:{port:"http"}})
-      and ($adminContainer.readinessProbe.httpGet == {port:"http", path:"/_healthcheck"})
+      and ($adminContainer.readinessProbe.httpGet == {port:"http", path:"/_healthcheck", scheme:"HTTPS"})
       and ($adminContainer.image == $publicContainer.image)
-      and ($adminContainer.args == ["serve-admin", "--bind-address=0.0.0.0:8080"])
+      and ($adminContainer.args == ["serve-admin", "--bind-address=0.0.0.0:8080", "--tls-cert-file=/tls/tls.crt", "--tls-key-file=/tls/tls.key"])
       and ([$adminContainer.env[].name] | length == (unique | length))
       and ($adminEnv.SERVICE_URL == $publicEnv.SERVICE_URL and $adminEnv.SERVICE_URL.value == "https://issuer.example.test/api")
-      and ($adminEnv.ADMIN_SERVICE_URL.value == "http://admin-test-membership-admin.control.svc:8080")
+      and ($adminEnv.ADMIN_SERVICE_URL.value == "https://admin-test-membership-admin.control.svc:8080")
       and ($adminEnv.SIGNING_PUBLIC_KEY.valueFrom.secretKeyRef == {name:"render-test-public-key", key:"signing.pub"})
       and ($adminEnv | has("SIGNING_KEY") or has("CRYPTO_KEY") or has("GRPC_TOKEN") | not)
       and ($adminEnv.POSTGRES_URI == $publicEnv.POSTGRES_URI)
@@ -133,8 +154,28 @@ for chart in membership cloudprem formance; do
       and (all(.[] | select(.kind == "Job" or .kind == "CronJob"); .metadata.name != $admin))
   '
 
+  if "${render[@]}" "${admin[@]}" --set-json "${prefix}config.additionalEnv=$custom_config" \
+      >"$output" 2>"$test_dir/error.log"; then
+    echo "$chart: overriding the public CONFIG without explicit admin validation must fail" >&2
+    exit 1
+  fi
+  grep -Fq 'config.admin.validation must set staticClients' "$test_dir/error.log"
+
+  "${render[@]}" "${admin[@]}" --set-json "${prefix}config.additionalEnv=$custom_config" \
+    --set-json "${prefix}config.admin.validation=$validation" >"$output"
+  assert_manifest '
+    [.[] | select(.kind == "Deployment" and .metadata.name == "admin-test-membership-admin")
+      | .spec.template.spec.containers[0].env[] | select(.name == "CONFIG")]
+    == [{name:"CONFIG",value:"/config/config.yaml"}]
+  '
+  yq -sr '.[] | select(.kind == "ConfigMap" and .metadata.name == "admin-test-membership-admin") | .data["config.yaml"]' "$output" \
+    | yq -e '. == {
+        staticClients:[{id:"custom-ops",public:false,internal:true}],
+        organizationSSOTrust:{"destination":["source@00000000-0000-4000-8000-000000000001"]}
+      }' >/dev/null
+
   for target in aws.targetGroups.http dex.aws.targetGroups.dex-http; do
-    if "${render[@]}" "$enabled" "${public_key[@]}" --set global.aws.elb=true --set "${prefix}dex.enabled=true" \
+    if "${render[@]}" "${admin[@]}" --set global.aws.elb=true --set "${prefix}dex.enabled=true" \
         --set-string "${prefix}${target}.serviceRef.name=\"admin-test-membership-admin\"" \
         >"$output" 2>"$test_dir/error.log"; then
       echo "$chart: $target must not be able to target the admin Service" >&2
@@ -143,7 +184,7 @@ for chart in membership cloudprem formance; do
     grep -Fq 'AWS target groups cannot reference the Membership admin Service' "$test_dir/error.log"
   done
 
-  if "${render[@]}" "$enabled" "${public_key[@]}" \
+  if "${render[@]}" "${admin[@]}" \
       --set-json 'global.platform.membership.admin.allowedCallers=[{"namespace":"ops","podLabels":{}}]' \
       >"$output" 2>"$test_dir/error.log"; then
     echo "$chart: an empty pod selector would grant the whole namespace" >&2

@@ -679,6 +679,8 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.autoscaling | object | `{}` | Membership autoscaling |
 | cloudprem.membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | cloudprem.membership.config.additionalEnv | list | `[]` |  |
+| cloudprem.membership.config.admin.tls.existingSecret | string | `""` | Existing kubernetes.io/tls Secret for the private admin Service. Required when admin is enabled. |
+| cloudprem.membership.config.admin.validation | object | `{}` | Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden. |
 | cloudprem.membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | cloudprem.membership.config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |
 | cloudprem.membership.config.auth.cryptoKey.key | string | `"crypto.key"` | Required key within existingSecret containing the crypto key. |

@@ -499,6 +499,12 @@ feature:
   migrationHooks: false
 
 config:
+  admin:
+    tls:
+      # -- Existing kubernetes.io/tls Secret for the private admin Service. Required when admin is enabled.
+      existingSecret: ""
+    # -- Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden.
+    validation: {}
   wizard:
     job:
       annotations: {}

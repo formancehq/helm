@@ -1085,6 +1085,8 @@ Dex:
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | membership.config.additionalEnv | list | `[]` |  |
+| membership.config.admin.tls.existingSecret | string | `""` | Existing kubernetes.io/tls Secret for the private admin Service. Required when admin is enabled. |
+| membership.config.admin.validation | object | `{}` | Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden. |
 | membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | membership.config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |
 | membership.config.auth.cryptoKey.key | string | `"crypto.key"` | Required key within existingSecret containing the crypto key. |

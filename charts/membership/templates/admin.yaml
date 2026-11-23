@@ -6,14 +6,9 @@
 {{- fail "Membership admin name collides with the public name; choose a shorter fullnameOverride" }}
 {{- end }}
 {{- $labels := include "membership.admin.selectorLabels" . }}
-{{- /* Copy validation metadata without mounting OAuth client or connector credentials. */}}
-{{- $publicConfigMap := include (print $.Template.BasePath "/configmap.yaml") . | fromYaml }}
-{{- $publicConfig := index $publicConfigMap.data "config.yaml" | fromYaml }}
-{{- $adminConfig := pick $publicConfig "staticClients" "organizationSSOTrust" }}
-{{- range $adminConfig.staticClients }}
-{{- $_ := unset . "secrets" }}
-{{- end }}
-{{- $config := toYaml $adminConfig }}
+{{- $tlsSecret := required "config.admin.tls.existingSecret is required for the Membership admin API" (trim .Values.config.admin.tls.existingSecret) }}
+{{- $extraEnv := tpl (toYaml .Values.config.additionalEnv) . | fromYamlArray }}
+{{- $config := include "membership.admin.validationConfig" (dict "context" . "extraEnv" $extraEnv) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -54,16 +49,23 @@ spec:
         - name: membership-admin
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          args: ["serve-admin", "--bind-address=0.0.0.0:8080"]
+          args:
+            - serve-admin
+            - --bind-address=0.0.0.0:8080
+            - --tls-cert-file=/tls/tls.crt
+            - --tls-key-file=/tls/tls.key
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           env:
             - name: ADMIN_SERVICE_URL
-              value: {{ printf "http://%s.%s.svc:8080" $name .Release.Namespace | quote }}
-            {{- include "membership.admin.env" . | nindent 12 }}
+              value: {{ printf "https://%s.%s.svc:8080" $name .Release.Namespace | quote }}
+            {{- include "membership.admin.env" (dict "context" . "extraEnv" $extraEnv) | nindent 12 }}
           volumeMounts:
             - name: config
               mountPath: /config
+              readOnly: true
+            - name: tls
+              mountPath: /tls
               readOnly: true
           ports:
             - name: http
@@ -76,6 +78,7 @@ spec:
             httpGet:
               path: /_healthcheck
               port: http
+              scheme: HTTPS
             timeoutSeconds: 2
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -83,6 +86,14 @@ spec:
         - name: config
           configMap:
             name: {{ $name }}
+        - name: tls
+          secret:
+            secretName: {{ $tlsSecret | quote }}
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -104,7 +115,7 @@ spec:
   selector:
     {{- $labels | nindent 4 }}
   ports:
-    - name: http
+    - name: https
       port: 8080
       targetPort: http
       protocol: TCP

@@ -240,21 +240,19 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{- define "membership.admin.env" -}}
 {{- /* Keep dependency order for variable references such as POSTGRES_URI. */ -}}
-{{- $defaults := include "membership.admin.defaultEnv" . | fromYamlArray -}}
+{{- $defaults := include "membership.admin.defaultEnv" .context | fromYamlArray -}}
 {{- $entries := dict -}}
 {{- $names := list -}}
 {{- range $defaults -}}
   {{- $names = append $names .name -}}
   {{- $_ := set $entries .name . -}}
 {{- end -}}
-{{- with .Values.config.additionalEnv -}}
-  {{- range tpl (toYaml .) $ | fromYamlArray -}}
-    {{- if regexMatch "^(AUDIT_ACTOR_CLIENTS|SERVICE_URL|MANAGED_STACKS|DISABLE_EVENTS|POSTGRES_.+|PUBLISHER_NATS_.+|PUBLISHER_TOPIC_MAPPING)$" .name -}}
-      {{- if not (hasKey $entries .name) -}}
-        {{- $names = append $names .name -}}
-      {{- end -}}
-      {{- $_ := set $entries .name . -}}
+{{- range .extraEnv -}}
+  {{- if regexMatch "^(AUDIT_ACTOR_CLIENTS|SERVICE_URL|MANAGED_STACKS|DISABLE_EVENTS|POSTGRES_.+|PUBLISHER_NATS_.+|PUBLISHER_TOPIC_MAPPING)$" .name -}}
+    {{- if not (hasKey $entries .name) -}}
+      {{- $names = append $names .name -}}
     {{- end -}}
+    {{- $_ := set $entries .name . -}}
   {{- end -}}
 {{- end -}}
 {{- $env := list -}}
@@ -262,6 +260,49 @@ app.kubernetes.io/instance: {{ .Release.Name }}
   {{- $env = append $env (index $entries .) -}}
 {{- end -}}
 {{- toYaml $env -}}
+{{- end }}
+
+{{- define "membership.admin.validationConfig" -}}
+{{- $validation := .context.Values.config.admin.validation -}}
+{{- $configOverridden := false -}}
+{{- range .extraEnv -}}
+  {{- if eq .name "CONFIG" -}}
+    {{- $configOverridden = ne .value "/config/config.yaml" -}}
+  {{- end -}}
+{{- end -}}
+{{- if or $validation $configOverridden -}}
+  {{- if not (and (kindIs "slice" $validation.staticClients) (kindIs "map" $validation.organizationSSOTrust)) -}}
+    {{- fail "config.admin.validation must set staticClients (list) and organizationSSOTrust (map) when using explicit validation metadata or overriding the public CONFIG" -}}
+  {{- end -}}
+{{- else -}}
+  {{- $publicConfigMap := include (print .context.Template.BasePath "/configmap.yaml") .context | fromYaml -}}
+  {{- $validation = index $publicConfigMap.data "config.yaml" | fromYaml -}}
+{{- end -}}
+{{- /* Audit actor validation needs the static client's ID and public/internal flags only. */ -}}
+{{- $clients := list -}}
+{{- range $client := $validation.staticClients -}}
+  {{- if not (and (kindIs "string" $client.id) $client.id) -}}
+    {{- fail "Membership admin validation staticClients entries must have a nonempty string id" -}}
+  {{- end -}}
+  {{- range $flag := list "public" "internal" -}}
+    {{- if and (hasKey $client $flag) (not (kindIs "bool" (index $client $flag))) -}}
+      {{- fail "Membership admin validation staticClients public and internal fields must be boolean" -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $clients = append $clients (pick $client "id" "public" "internal") -}}
+{{- end -}}
+{{- $trust := default dict $validation.organizationSSOTrust -}}
+{{- range $sources := $trust -}}
+  {{- if not (kindIs "slice" $sources) -}}
+    {{- fail "Membership admin validation organizationSSOTrust entries must be lists of source identifiers" -}}
+  {{- end -}}
+  {{- range $sources -}}
+    {{- if not (kindIs "string" .) -}}
+      {{- fail "Membership admin validation organizationSSOTrust source identifiers must be strings" -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- toYaml (dict "staticClients" $clients "organizationSSOTrust" $trust) -}}
 {{- end }}
 
 {{- define "membership.aws.targetGroups" -}}
