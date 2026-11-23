@@ -188,21 +188,20 @@ versions:
       wallets: v2.1.5
       webhooks: v2.4.1
     v3.2:
-      auth: v2.6.2
-      gateway: v2.3.3
+      auth: v2.6.3
+      gateway: v2.5.0
       ledger: v2.4.18
-      mcp: v0.3.0
+      # mcp: v0.3.0 #deprecated: Do not enable this module.
       orchestration: v2.7.1
       payments: v3.4.9
       reconciliation: v2.5.1
       stargate: v2.2.4
-      transactionplane: v0.12.1
       wallets: v2.2.2
       webhooks: v2.5.5
     v4.0-beta:
       auth: v2.6.3
       connectivity: v1.0.0-beta.6
-      gateway: v2.3.3
+      gateway: v2.5.0
       ledger: v3.0.0-rc.4
       stargate: v2.2.4
 
