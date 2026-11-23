@@ -4,8 +4,9 @@ The Membership chart can run a separate HTTP Deployment for administrative
 calls. The Deployment uses the same Membership image as the public Deployment,
 with the `serve-admin` command. The option defaults to `false` in the
 `membership`, `cloudprem`, and Formance Enterprise Edition charts. Leave it off
-until the shared image contains `serve-admin`. The default Membership image in
-this chart does not contain that command.
+until the shared image contains the HTTP-only `serve-admin` from
+[Membership #954](https://github.com/formancehq/membership-api/pull/954).
+Set a compatible image tag before enabling the Deployment.
 
 ## Configure the Service
 
@@ -36,9 +37,6 @@ reference as follows for the standalone chart:
 
 ```yaml
 config:
-  admin:
-    tls:
-      existingSecret: membership-admin-tls
   auth:
     signingPublicKey:
       existingSecret: membership-signing-public-key
@@ -52,23 +50,13 @@ PostgreSQL and event settings.
 After rotating the signing key, update the matching public key and restart the
 admin Deployment; changing a Secret's contents does not restart its pods.
 
-TLS is enabled by default. The TLS Secret must exist in the release namespace and contain `tls.crt` and
-`tls.key` in the standard `kubernetes.io/tls` format. The certificate SAN must
-include the exact Service hostname that callers use. For the example below,
-that name is `formance-membership-admin.control.svc`. Include any additional
-DNS names callers use, such as the cluster's fully qualified Service name.
-Configure callers to trust the CA that signed the certificate, and include
-the intermediate certificates in `tls.crt` when needed. The Kubernetes HTTPS
-probe checks readiness without verifying the certificate's trust chain or
-hostname. Verify both from an allowed caller before switching traffic.
-Restart the admin Deployment after updating the TLS Secret so Membership
-loads the new certificate.
-
-To run the admin listener over plain HTTP on an isolated test network, set
-`config.admin.tls.enabled: false`. No TLS Secret is required or mounted in
-this mode. The Service URL and readiness probe use HTTP. The ClusterIP,
-NetworkPolicy, signing public key and token scopes still apply; bearer
-tokens are transmitted in cleartext between the caller and the listener.
+The Service uses HTTP. Keep it on a private network and keep the allowlist
+enabled. Bearer tokens are sent in cleartext on the direct connection; use
+network-level encryption or a private proxy if callers require encryption.
+When upgrading an existing deployment, remove the `config.admin.tls` values
+and change direct callers from HTTPS to HTTP. Update the chart and the
+Membership image together: an older binary requires TLS on non-loopback
+addresses, and the new binary does not accept the old TLS flags.
 
 Set `config.admin.networkPolicy.enabled: false` to have the chart omit the
 admin NetworkPolicy. In that case, `allowedCallers` has no effect. Pods that
@@ -104,14 +92,14 @@ in these values. The admin pod mounts its own ConfigMap.
 ## Call the API
 
 For a release named `formance` in namespace `control`, the API base URL is
-`https://formance-membership-admin.control.svc:8080/internal`. From an allowed
+`http://formance-membership-admin.control.svc:8080/internal`. From an allowed
 pod, get the OpenAPI document at `GET /internal/openapi` with a `system:Read`
 or `system:Admin` token. Mutations require `system:Admin`.
 
 The Service appends `-admin` to the public Membership resource name (the chart
 shortens the prefix if needed). `ADMIN_SERVICE_URL` contains the Service
 origin without a path. Membership adds `/internal` to the routes and the
-OpenAPI server URL. The readiness probe uses `GET /_healthcheck` with the configured scheme at
+OpenAPI server URL. The readiness probe uses `GET /_healthcheck` over HTTP at
 the root to check PostgreSQL. The liveness probe checks the TCP listener, so a
 PostgreSQL outage removes the pod from the Service without restarting it.
 `SERVICE_URL` remains the canonical token issuer, such as
@@ -128,12 +116,10 @@ and Dex. Restrict who can assign the caller labels in allowed namespaces.
 
 ## Roll out in order
 
-1. The Membership maintainer publishes an image with `serve-admin` that keeps
+1. The Membership maintainer publishes an image with HTTP-only `serve-admin` that keeps
    the existing public operations during the caller migration.
 2. The operator configures that image for Membership, provisions the matching
-   public key, and provisions the TLS certificate and caller trust when TLS
-   is enabled. The operator checks ingress policy, then enables the admin
-   Deployment.
+   public key, checks ingress policy, and enables the admin Deployment.
    The existing Membership migration workflow still owns database migrations.
 3. The operator verifies readiness, fetches `/internal/openapi` from an allowed
    pod with an authorized token, and checks that unlisted pods cannot connect.

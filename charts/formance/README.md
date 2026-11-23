@@ -1,6 +1,6 @@
 # formance
 
-![Version: 3.18.0](https://img.shields.io/badge/Version-3.18.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.19.0](https://img.shields.io/badge/Version-3.19.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance Platform - Unified Helm Chart
 
@@ -680,8 +680,6 @@ Kubernetes: `>=1.14.0-0`
 | cloudprem.membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | cloudprem.membership.config.additionalEnv | list | `[]` |  |
 | cloudprem.membership.config.admin.networkPolicy.enabled | bool | `true` | Restrict ingress to allowedCallers. Disable only if cluster reachability is intended. |
-| cloudprem.membership.config.admin.tls.enabled | bool | `true` | Serve the private admin API over HTTPS. Disable only on an isolated network that permits plaintext bearer tokens. |
-| cloudprem.membership.config.admin.tls.existingSecret | string | `""` | Existing kubernetes.io/tls Secret for the private admin Service. Required when admin and TLS are enabled. |
 | cloudprem.membership.config.admin.validation | object | `{}` | Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden. |
 | cloudprem.membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | cloudprem.membership.config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |

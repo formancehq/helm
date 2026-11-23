@@ -1,6 +1,6 @@
 # Formance membership Helm chart
 
-![Version: 3.11.0](https://img.shields.io/badge/Version-3.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.2](https://img.shields.io/badge/AppVersion-v2.8.2-informational?style=flat-square)
+![Version: 3.12.0](https://img.shields.io/badge/Version-3.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.8.2](https://img.shields.io/badge/AppVersion-v2.8.2-informational?style=flat-square)
 Formance EE Membership API. Manage stacks, organizations, regions, invitations, users, roles, and permissions.
 
 ## Requirements
@@ -376,8 +376,6 @@ Membership chart now use `.global.platform.<service>.oauth.client` to generate a
 | commonLabels | object | `{}` | DEPRECATED Membership service |
 | config.additionalEnv | list | `[]` |  |
 | config.admin.networkPolicy.enabled | bool | `true` | Restrict ingress to allowedCallers. Disable only if cluster reachability is intended. |
-| config.admin.tls.enabled | bool | `true` | Serve the private admin API over HTTPS. Disable only on an isolated network that permits plaintext bearer tokens. |
-| config.admin.tls.existingSecret | string | `""` | Existing kubernetes.io/tls Secret for the private admin Service. Required when admin and TLS are enabled. |
 | config.admin.validation | object | `{}` | Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden. |
 | config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |
