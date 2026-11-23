@@ -88,6 +88,35 @@ for chart in membership cloudprem formance; do
       | .spec.ingress] == [[]]
   '
 
+  # An explicit HTTP opt-out needs no TLS Secret and retains the private boundary.
+  "${render[@]}" "$enabled" "${public_key[@]}" --set "${prefix}config.admin.tls.enabled=false" \
+    --values "$test_dir/callers.yaml" >"$output"
+  assert_manifest '
+    "admin-test-membership-admin" as $name
+    | ([.[] | select(.kind == "Deployment" and .metadata.name == $name)] | .[0]) as $deployment
+    | ($deployment.spec.template.spec.containers[0]) as $container
+    | ([.[] | select(.kind == "Deployment" and .metadata.name == "admin-test-membership")][0].spec.template.spec.containers[0]) as $public
+    | ($container.args == ["serve-admin", "--bind-address=0.0.0.0:8080"])
+      and (all($container.volumeMounts[]; .name != "tls"))
+      and (all($deployment.spec.template.spec.volumes[]; .name != "tls"))
+      and ($container.readinessProbe.httpGet == {port:"http", path:"/_healthcheck", scheme:"HTTP"})
+      and (any($container.env[]; .name == "ADMIN_SERVICE_URL" and .value == "http://admin-test-membership-admin.control.svc:8080"))
+      and ([$container.env[] | select(.name == "SERVICE_URL")] == [$public.env[] | select(.name == "SERVICE_URL")])
+      and (any(.[]; .kind == "Service" and .metadata.name == $name and .spec.type == "ClusterIP" and .spec.ports[0].name == "http"))
+      and (any(.[]; .kind == "NetworkPolicy" and .metadata.name == $name and (.spec.ingress | length) == 1))
+  '
+
+  "${render[@]}" "$enabled" "${public_key[@]}" \
+    --set "${prefix}config.admin.tls.enabled=false" --set "${prefix}config.admin.networkPolicy.enabled=false" \
+    --values "$test_dir/callers.yaml" >"$output"
+  assert_manifest '
+    "admin-test-membership-admin" as $name
+    | (all(.[]; .kind != "NetworkPolicy" or .metadata.name != $name))
+      and (any(.[]; .kind == "Service" and .metadata.name == $name and .spec.type == "ClusterIP"))
+      and (any(.[]; .kind == "Deployment" and .metadata.name == $name
+        and (any(.spec.template.spec.containers[0].env[]; .name == "SIGNING_PUBLIC_KEY"))))
+  '
+
   # Exercise both the public ingress and AWS IP targets with admin enabled.
   "${render[@]}" "${admin[@]}" --set global.aws.elb=true \
     --set-json "${prefix}config.additionalEnv=$extra_env" \

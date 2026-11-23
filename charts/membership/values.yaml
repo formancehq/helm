@@ -500,8 +500,13 @@ feature:
 
 config:
   admin:
+    networkPolicy:
+      # -- Restrict ingress to allowedCallers. Disable only if cluster reachability is intended.
+      enabled: true
     tls:
-      # -- Existing kubernetes.io/tls Secret for the private admin Service. Required when admin is enabled.
+      # -- Serve the private admin API over HTTPS. Disable only on an isolated network that permits plaintext bearer tokens.
+      enabled: true
+      # -- Existing kubernetes.io/tls Secret for the private admin Service. Required when admin and TLS are enabled.
       existingSecret: ""
     # -- Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden.
     validation: {}

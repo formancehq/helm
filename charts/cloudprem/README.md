@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.9.1](https://img.shields.io/badge/Version-6.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.10.0](https://img.shields.io/badge/Version-6.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -1085,7 +1085,9 @@ Dex:
 | membership.autoscaling | object | `{}` | Membership autoscaling |
 | membership.commonLabels | object | `{}` | DEPRECATED Membership service |
 | membership.config.additionalEnv | list | `[]` |  |
-| membership.config.admin.tls.existingSecret | string | `""` | Existing kubernetes.io/tls Secret for the private admin Service. Required when admin is enabled. |
+| membership.config.admin.networkPolicy.enabled | bool | `true` | Restrict ingress to allowedCallers. Disable only if cluster reachability is intended. |
+| membership.config.admin.tls.enabled | bool | `true` | Serve the private admin API over HTTPS. Disable only on an isolated network that permits plaintext bearer tokens. |
+| membership.config.admin.tls.existingSecret | string | `""` | Existing kubernetes.io/tls Secret for the private admin Service. Required when admin and TLS are enabled. |
 | membership.config.admin.validation | object | `{}` | Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden. |
 | membership.config.auth.additionalOAuthClients | list | `[]` | Membership additional oauth clients |
 | membership.config.auth.cryptoKey.existingSecret | string | `""` | Existing Kubernetes Secret containing the crypto key. Takes precedence over value; required in production. |

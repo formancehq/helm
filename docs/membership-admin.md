@@ -52,7 +52,7 @@ PostgreSQL and event settings.
 After rotating the signing key, update the matching public key and restart the
 admin Deployment; changing a Secret's contents does not restart its pods.
 
-The TLS Secret must exist in the release namespace and contain `tls.crt` and
+TLS is enabled by default. The TLS Secret must exist in the release namespace and contain `tls.crt` and
 `tls.key` in the standard `kubernetes.io/tls` format. The certificate SAN must
 include the exact Service hostname that callers use. For the example below,
 that name is `formance-membership-admin.control.svc`. Include any additional
@@ -63,6 +63,18 @@ probe checks readiness without verifying the certificate's trust chain or
 hostname. Verify both from an allowed caller before switching traffic.
 Restart the admin Deployment after updating the TLS Secret so Membership
 loads the new certificate.
+
+To run the admin listener over plain HTTP on an isolated test network, set
+`config.admin.tls.enabled: false`. No TLS Secret is required or mounted in
+this mode. The Service URL and readiness probe use HTTP. The ClusterIP,
+NetworkPolicy, signing public key and token scopes still apply; bearer
+tokens are transmitted in cleartext between the caller and the listener.
+
+Set `config.admin.networkPolicy.enabled: false` to have the chart omit the
+admin NetworkPolicy. In that case, `allowedCallers` has no effect. Pods that
+can reach the ClusterIP can attempt to authenticate from any namespace
+unless another policy restricts ingress. The Service still has no public
+route and still requires the configured token scopes.
 
 ## Use a custom public CONFIG
 
@@ -99,8 +111,8 @@ or `system:Admin` token. Mutations require `system:Admin`.
 The Service appends `-admin` to the public Membership resource name (the chart
 shortens the prefix if needed). `ADMIN_SERVICE_URL` contains the Service
 origin without a path. Membership adds `/internal` to the routes and the
-OpenAPI server URL. The readiness probe uses HTTPS `GET /_healthcheck` at the root
-to check PostgreSQL. The liveness probe checks the TCP listener, so a
+OpenAPI server URL. The readiness probe uses `GET /_healthcheck` with the configured scheme at
+the root to check PostgreSQL. The liveness probe checks the TCP listener, so a
 PostgreSQL outage removes the pod from the Service without restarting it.
 `SERVICE_URL` remains the canonical token issuer, such as
 `https://membership.example.com/api`.
@@ -119,8 +131,9 @@ and Dex. Restrict who can assign the caller labels in allowed namespaces.
 1. The Membership maintainer publishes an image with `serve-admin` that keeps
    the existing public operations during the caller migration.
 2. The operator configures that image for Membership, provisions the matching
-   public key and TLS certificate, configures caller trust, checks ingress
-   policy overlaps, and enables the admin Deployment.
+   public key, and provisions the TLS certificate and caller trust when TLS
+   is enabled. The operator checks ingress policy, then enables the admin
+   Deployment.
    The existing Membership migration workflow still owns database migrations.
 3. The operator verifies readiness, fetches `/internal/openapi` from an allowed
    pod with an authorized token, and checks that unlisted pods cannot connect.
