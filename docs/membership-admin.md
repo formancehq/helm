@@ -47,8 +47,8 @@ config:
 
 Nest this `config` block under `membership` in `cloudprem` and under
 `cloudprem.membership` in `formance`. The admin Deployment reads the public key
-through `SIGNING_PUBLIC_KEY`. It shares PostgreSQL and event settings with
-Membership.
+through `SIGNING_PUBLIC_KEY`. It shares the Membership licence configuration,
+PostgreSQL and event settings.
 After rotating the signing key, update the matching public key and restart the
 admin Deployment; changing a Secret's contents does not restart its pods.
 
