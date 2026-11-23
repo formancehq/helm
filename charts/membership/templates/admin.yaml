@@ -6,14 +6,7 @@
 {{- fail "Membership admin name collides with the public name; choose a shorter fullnameOverride" }}
 {{- end }}
 {{- $labels := include "membership.admin.selectorLabels" . }}
-{{- $tls := .Values.config.admin.tls | default dict }}
-{{- $tlsEnabled := dig "enabled" true $tls }}
-{{- $scheme := ternary "https" "http" $tlsEnabled }}
 {{- $networkPolicyEnabled := dig "enabled" true (.Values.config.admin.networkPolicy | default dict) }}
-{{- $tlsSecret := "" }}
-{{- if $tlsEnabled }}
-{{- $tlsSecret = required "config.admin.tls.existingSecret is required for the Membership admin API when TLS is enabled" (trim ($tls.existingSecret | default "")) }}
-{{- end }}
 {{- $extraEnv := tpl (toYaml .Values.config.additionalEnv) . | fromYamlArray }}
 {{- $config := include "membership.admin.validationConfig" (dict "context" . "extraEnv" $extraEnv) }}
 apiVersion: v1
@@ -59,25 +52,16 @@ spec:
           args:
             - serve-admin
             - --bind-address=0.0.0.0:8080
-            {{- if $tlsEnabled }}
-            - --tls-cert-file=/tls/tls.crt
-            - --tls-key-file=/tls/tls.key
-            {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           env:
             - name: ADMIN_SERVICE_URL
-              value: {{ printf "%s://%s.%s.svc:8080" $scheme $name .Release.Namespace | quote }}
+              value: {{ printf "http://%s.%s.svc:8080" $name .Release.Namespace | quote }}
             {{- include "membership.admin.env" (dict "context" . "extraEnv" $extraEnv) | nindent 12 }}
           volumeMounts:
             - name: config
               mountPath: /config
               readOnly: true
-            {{- if $tlsEnabled }}
-            - name: tls
-              mountPath: /tls
-              readOnly: true
-            {{- end }}
           ports:
             - name: http
               containerPort: 8080
@@ -89,7 +73,7 @@ spec:
             httpGet:
               path: /_healthcheck
               port: http
-              scheme: {{ $scheme | upper }}
+              scheme: HTTP
             timeoutSeconds: 2
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -97,16 +81,6 @@ spec:
         - name: config
           configMap:
             name: {{ $name }}
-      {{- if $tlsEnabled }}
-        - name: tls
-          secret:
-            secretName: {{ $tlsSecret | quote }}
-            items:
-              - key: tls.crt
-                path: tls.crt
-              - key: tls.key
-                path: tls.key
-      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -128,7 +102,7 @@ spec:
   selector:
     {{- $labels | nindent 4 }}
   ports:
-    - name: {{ $scheme }}
+    - name: http
       port: 8080
       targetPort: http
       protocol: TCP

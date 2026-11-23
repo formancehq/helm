@@ -64,19 +64,12 @@ for chart in membership cloudprem formance; do
     --set global.nats.enabled=true --set global.nats.auth.existingSecret=render-test-nats
     --set "${prefix}feature.managedStacks=false" --set "${prefix}feature.disableEvents=false")
   public_key=(--set "${prefix}config.auth.signingPublicKey.existingSecret=render-test-public-key")
-  tls_secret=(--set "${prefix}config.admin.tls.existingSecret=render-test-admin-tls")
-  admin=("$enabled" "${public_key[@]}" "${tls_secret[@]}")
+  admin=("$enabled" "${public_key[@]}")
 
   "${render[@]}" >"$output"
   assert_manifest 'all(.[] | select(. != null); (.metadata.name // "" | endswith("-membership-admin") | not))'
 
-  if "${render[@]}" "$enabled" "${public_key[@]}" >"$output" 2>"$test_dir/error.log"; then
-    echo "$chart: enabling admin without a TLS Secret should fail" >&2
-    exit 1
-  fi
-  grep -Fq 'config.admin.tls.existingSecret is required' "$test_dir/error.log"
-
-  if "${render[@]}" "$enabled" "${tls_secret[@]}" >"$output" 2>"$test_dir/error.log"; then
+  if "${render[@]}" "$enabled" >"$output" 2>"$test_dir/error.log"; then
     echo "$chart: enabling admin without a public key Secret should fail" >&2
     exit 1
   fi
@@ -88,26 +81,7 @@ for chart in membership cloudprem formance; do
       | .spec.ingress] == [[]]
   '
 
-  # An explicit HTTP opt-out needs no TLS Secret and retains the private boundary.
-  "${render[@]}" "$enabled" "${public_key[@]}" --set "${prefix}config.admin.tls.enabled=false" \
-    --values "$test_dir/callers.yaml" >"$output"
-  assert_manifest '
-    "admin-test-membership-admin" as $name
-    | ([.[] | select(.kind == "Deployment" and .metadata.name == $name)] | .[0]) as $deployment
-    | ($deployment.spec.template.spec.containers[0]) as $container
-    | ([.[] | select(.kind == "Deployment" and .metadata.name == "admin-test-membership")][0].spec.template.spec.containers[0]) as $public
-    | ($container.args == ["serve-admin", "--bind-address=0.0.0.0:8080"])
-      and (all($container.volumeMounts[]; .name != "tls"))
-      and (all($deployment.spec.template.spec.volumes[]; .name != "tls"))
-      and ($container.readinessProbe.httpGet == {port:"http", path:"/_healthcheck", scheme:"HTTP"})
-      and (any($container.env[]; .name == "ADMIN_SERVICE_URL" and .value == "http://admin-test-membership-admin.control.svc:8080"))
-      and ([$container.env[] | select(.name == "SERVICE_URL")] == [$public.env[] | select(.name == "SERVICE_URL")])
-      and (any(.[]; .kind == "Service" and .metadata.name == $name and .spec.type == "ClusterIP" and .spec.ports[0].name == "http"))
-      and (any(.[]; .kind == "NetworkPolicy" and .metadata.name == $name and (.spec.ingress | length) == 1))
-  '
-
-  "${render[@]}" "$enabled" "${public_key[@]}" \
-    --set "${prefix}config.admin.tls.enabled=false" --set "${prefix}config.admin.networkPolicy.enabled=false" \
+  "${render[@]}" "${admin[@]}" --set "${prefix}config.admin.networkPolicy.enabled=false" \
     --values "$test_dir/callers.yaml" >"$output"
   assert_manifest '
     "admin-test-membership-admin" as $name
@@ -139,9 +113,8 @@ for chart in membership cloudprem formance; do
     | ($adminContainer | envs) as $adminEnv
     | ($publicContainer | envs) as $publicEnv
     | [$adminDeployment.spec.template.spec.volumes[].configMap.name // empty] == [$admin]
-      and ([$adminDeployment.spec.template.spec.volumes[] | select(.name == "tls") | .secret]
-        == [{secretName:"render-test-admin-tls", items:[{key:"tls.crt",path:"tls.crt"},{key:"tls.key",path:"tls.key"}]}])
-      and ([$adminContainer.volumeMounts[] | select(.name == "tls")] == [{name:"tls",mountPath:"/tls",readOnly:true}])
+      and (all($adminDeployment.spec.template.spec.volumes[]; .name != "tls"))
+      and (all($adminContainer.volumeMounts[]; .name != "tls"))
       and ($adminDeployment.spec.selector.matchLabels | selects($adminLabels))
       and ($adminService.spec.type == "ClusterIP")
       and ($adminService.spec.selector | selects($adminLabels))
@@ -149,15 +122,15 @@ for chart in membership cloudprem formance; do
       and ($publicService.spec.selector | selects($adminLabels) | not)
       and ([.[] | select(.kind == "Service" and .metadata.namespace == "control" and .spec.selector)
             | select(.spec.selector | selects($adminLabels)) | .metadata.name] == [$admin])
-      and ($adminService.spec.ports == [{name:"https", port:8080, targetPort:"http", protocol:"TCP"}])
+      and ($adminService.spec.ports == [{name:"http", port:8080, targetPort:"http", protocol:"TCP"}])
       and ($adminContainer.ports == [{name:"http", containerPort:8080, protocol:"TCP"}])
       and ($adminContainer.livenessProbe == {tcpSocket:{port:"http"}})
-      and ($adminContainer.readinessProbe.httpGet == {port:"http", path:"/_healthcheck", scheme:"HTTPS"})
+      and ($adminContainer.readinessProbe.httpGet == {port:"http", path:"/_healthcheck", scheme:"HTTP"})
       and ($adminContainer.image == $publicContainer.image)
-      and ($adminContainer.args == ["serve-admin", "--bind-address=0.0.0.0:8080", "--tls-cert-file=/tls/tls.crt", "--tls-key-file=/tls/tls.key"])
+      and ($adminContainer.args == ["serve-admin", "--bind-address=0.0.0.0:8080"])
       and ([$adminContainer.env[].name] | length == (unique | length))
       and ($adminEnv.SERVICE_URL == $publicEnv.SERVICE_URL and $adminEnv.SERVICE_URL.value == "https://issuer.example.test/api")
-      and ($adminEnv.ADMIN_SERVICE_URL.value == "https://admin-test-membership-admin.control.svc:8080")
+      and ($adminEnv.ADMIN_SERVICE_URL.value == "http://admin-test-membership-admin.control.svc:8080")
       and ($adminEnv.SIGNING_PUBLIC_KEY.valueFrom.secretKeyRef == {name:"render-test-public-key", key:"signing.pub"})
       and ($adminEnv.LICENCE_TOKEN.valueFrom.secretKeyRef == {name:"render-test-licence", key:"licence.token"})
       and ($adminEnv.LICENCE_TOKEN == $publicEnv.LICENCE_TOKEN)
