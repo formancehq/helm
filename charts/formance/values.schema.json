@@ -332,6 +332,20 @@
                         "membership": {
                             "type": "object",
                             "properties": {
+                                "admin": {
+                                    "type": "object",
+                                    "properties": {
+                                        "allowedCallers": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "enabled": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
                                 "host": {
                                     "type": "string"
                                 },

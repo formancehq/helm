@@ -114,6 +114,13 @@ global:
             # @section -- Platform configuration
             secret: ""
     membership:
+      admin:
+        # -- Enable the private Membership admin API. Requires an image with serve-admin.
+        # @section -- Platform configuration
+        enabled: false
+        # -- Allowed admin callers. Each entry requires a namespace name and non-empty podLabels.
+        # @section -- Platform configuration
+        allowedCallers: [] # @schema item: object
       # -- Membership URL scheme
       # @section -- Platform configuration
       scheme: "https"

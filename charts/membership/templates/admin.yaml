@@ -1,0 +1,155 @@
+{{- $admin := .Values.global.platform.membership.admin }}
+{{- if $admin.enabled }}
+{{- $publicName := include "core.fullname" . }}
+{{- $name := include "membership.admin.fullname" . }}
+{{- if eq $name $publicName }}
+{{- fail "Membership admin name collides with the public name; choose a shorter fullnameOverride" }}
+{{- end }}
+{{- $labels := include "membership.admin.selectorLabels" . }}
+{{- $tlsSecret := required "config.admin.tls.existingSecret is required for the Membership admin API" (trim .Values.config.admin.tls.existingSecret) }}
+{{- $extraEnv := tpl (toYaml .Values.config.additionalEnv) . | fromYamlArray }}
+{{- $config := include "membership.admin.validationConfig" (dict "context" . "extraEnv" $extraEnv) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- $labels | nindent 4 }}
+data:
+  config.yaml: |
+    {{- $config | nindent 4 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- $labels | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ $config | sha256sum }}
+      labels:
+        {{- $labels | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "core.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: membership-admin
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - serve-admin
+            - --bind-address=0.0.0.0:8080
+            - --tls-cert-file=/tls/tls.crt
+            - --tls-key-file=/tls/tls.key
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: ADMIN_SERVICE_URL
+              value: {{ printf "https://%s.%s.svc:8080" $name .Release.Namespace | quote }}
+            {{- include "membership.admin.env" (dict "context" . "extraEnv" $extraEnv) | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+            - name: tls
+              mountPath: /tls
+              readOnly: true
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /_healthcheck
+              port: http
+              scheme: HTTPS
+            timeoutSeconds: 2
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ $name }}
+        - name: tls
+          secret:
+            secretName: {{ $tlsSecret | quote }}
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- $labels | nindent 4 }}
+  ports:
+    - name: https
+      port: 8080
+      targetPort: http
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ $name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- $labels | nindent 6 }}
+  policyTypes: [Ingress]
+  {{- with $admin.allowedCallers }}
+  ingress:
+    - ports:
+        - port: 8080
+          protocol: TCP
+      from:
+        {{- range . }}
+        {{- if not (and (kindIs "map" .podLabels) .podLabels) }}
+        {{- fail "Membership admin allowedCallers[].podLabels must be a non-empty map" }}
+        {{- end }}
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ required "Membership admin allowedCallers[].namespace must not be blank" (trim (default "" .namespace)) | quote }}
+          podSelector:
+            matchLabels:
+              {{- toYaml .podLabels | nindent 14 }}
+        {{- end }}
+  {{- else }}
+  ingress: []
+  {{- end }}
+{{- end }}

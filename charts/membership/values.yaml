@@ -142,6 +142,13 @@ global:
           postLogoutRedirectUris: |
             - {{ tpl (printf "%s://%s" .Values.global.platform.ledgerUi.scheme .Values.global.platform.ledgerUi.host) $ }}/auth/logout
     membership:
+      admin:
+        # -- Enable the private Membership admin API. Requires an image with serve-admin.
+        # @section -- Global configuration
+        enabled: false
+        # -- Allowed admin callers. Each entry requires a namespace name and non-empty podLabels.
+        # @section -- Global configuration
+        allowedCallers: [] # @schema item: object
       # -- is the scheme for the membership
       # @section -- Global configuration
       scheme: "https"
@@ -492,6 +499,12 @@ feature:
   migrationHooks: false
 
 config:
+  admin:
+    tls:
+      # -- Existing kubernetes.io/tls Secret for the private admin Service. Required when admin is enabled.
+      existingSecret: ""
+    # -- Explicit staticClients and organizationSSOTrust metadata for admin validation. Required when the public CONFIG is overridden.
+    validation: {}
   wizard:
     job:
       annotations: {}
@@ -557,6 +570,11 @@ config:
       existingSecret: ""
       # -- Required key within existingSecret containing the PEM text.
       key: "signing.key"
+    signingPublicKey:
+      # -- Existing Secret holding the PEM-encoded RSA public key for the admin API.
+      existingSecret: ""
+      # -- Key in existingSecret holding the PEM-encoded RSA public key.
+      key: "signing.pub"
     # -- Membership additional oauth clients
     additionalOAuthClients: []
     # -- According to "nsuµmh"
