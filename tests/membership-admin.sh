@@ -51,8 +51,7 @@ for chart in membership cloudprem formance; do
       ;;
     formance)
       prefix=cloudprem.membership.
-      edition=(--set tags.EnterpriseEdition=true --set tags.CommunityEdition=false
-        --set global.licence.existingSecret=render-test-licence --set global.licence.clusterID=render-test-cluster)
+      edition=(--set tags.EnterpriseEdition=true --set tags.CommunityEdition=false)
       identity=(--set global.platform.identity.enabled=true --set cloudprem.identity.networkPolicy.enabled=true)
       ;;
   esac
@@ -60,6 +59,8 @@ for chart in membership cloudprem formance; do
   render=(helm template admin-test "charts/$chart" --namespace control
     --values tests/values/signing-key.yaml "${edition[@]}" "${identity[@]}"
     --set global.serviceHost=example.test
+    --set global.licence.existingSecret=render-test-licence --set global.licence.secretKeys.token=licence.token
+    --set global.licence.clusterID=render-test-cluster
     --set global.nats.enabled=true --set global.nats.auth.existingSecret=render-test-nats
     --set "${prefix}feature.managedStacks=false" --set "${prefix}feature.disableEvents=false")
   public_key=(--set "${prefix}config.auth.signingPublicKey.existingSecret=render-test-public-key")
@@ -129,6 +130,10 @@ for chart in membership cloudprem formance; do
       and ($adminEnv.SERVICE_URL == $publicEnv.SERVICE_URL and $adminEnv.SERVICE_URL.value == "https://issuer.example.test/api")
       and ($adminEnv.ADMIN_SERVICE_URL.value == "https://admin-test-membership-admin.control.svc:8080")
       and ($adminEnv.SIGNING_PUBLIC_KEY.valueFrom.secretKeyRef == {name:"render-test-public-key", key:"signing.pub"})
+      and ($adminEnv.LICENCE_TOKEN.valueFrom.secretKeyRef == {name:"render-test-licence", key:"licence.token"})
+      and ($adminEnv.LICENCE_TOKEN == $publicEnv.LICENCE_TOKEN)
+      and ($adminEnv.LICENCE_CLUSTER_ID == $publicEnv.LICENCE_CLUSTER_ID)
+      and ($adminEnv.LICENCE_ISSUER == $publicEnv.LICENCE_ISSUER)
       and ($adminEnv | has("SIGNING_KEY") or has("CRYPTO_KEY") or has("GRPC_TOKEN") | not)
       and ($adminEnv.POSTGRES_URI == $publicEnv.POSTGRES_URI)
       and ($adminEnv.POSTGRES_MAX_OPEN_CONNS == {value:"3"} and $adminEnv.POSTGRES_MAX_OPEN_CONNS == $publicEnv.POSTGRES_MAX_OPEN_CONNS)

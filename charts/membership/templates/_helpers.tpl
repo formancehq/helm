@@ -231,6 +231,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
       key: {{ required "config.auth.signingPublicKey.key is required for the Membership admin API" (trim .Values.config.auth.signingPublicKey.key) | quote }}
 {{- include "membership.issuerAndEventFlags" . | nindent 0 }}
 {{- include "core.env.common" . | nindent 0 }}
+{{- include "core.licence.env" . | nindent 0 }}
 {{- include "core.postgres.uri" . | nindent 0 }}
 {{- include "core.monitoring" . | nindent 0 }}
 {{- if not .Values.feature.managedStacks }}
