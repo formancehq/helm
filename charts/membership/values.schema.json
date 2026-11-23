@@ -83,9 +83,20 @@
                 "admin": {
                     "type": "object",
                     "properties": {
+                        "networkPolicy": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
                         "tls": {
                             "type": "object",
                             "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "existingSecret": {
                                     "type": "string"
                                 }
