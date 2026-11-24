@@ -29,7 +29,7 @@ yq -s -e '
 helm template volumes-test charts/stargate >"$test_dir/output.yaml"
 yq -s -e '
   [.[] | select(.kind == "Deployment") | .spec.template.spec | (has("volumes") or (.containers[0] | has("volumeMounts")))]
-  | all(. == false)
+  | length == 1 and all(. == false)
 ' "$test_dir/output.yaml" >/dev/null
 
 echo "stargate: volumes, volumeMounts and default passed"
