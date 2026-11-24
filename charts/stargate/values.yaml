@@ -213,6 +213,12 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# -- Volume mounts of the stargate container, e.g. a database CA for the postgres URI's sslrootcert
+volumeMounts: []
+
+# -- Volumes of the stargate pods
+volumes: []
+
 autoscaling:
   enabled: false
   minReplicas: 1

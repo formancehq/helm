@@ -1,6 +1,6 @@
 # Formance stargate Helm chart
 
-![Version: 0.11.0](https://img.shields.io/badge/Version-0.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.11.1](https://img.shields.io/badge/Version-0.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance EE Stargate gRPC Gateway
 
 ## Requirements
@@ -137,3 +137,5 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | serviceAccount.name | string | `""` |  |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | topologySpreadConstraints | list | `[]` | Topology spread constraints |
+| volumeMounts | list | `[]` | Volume mounts of the stargate container, e.g. a database CA for the postgres URI's sslrootcert |
+| volumes | list | `[]` | Volumes of the stargate pods |
