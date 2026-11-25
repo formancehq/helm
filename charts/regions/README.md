@@ -1,6 +1,6 @@
 # Formance regions Helm chart
 
-![Version: 3.27.0](https://img.shields.io/badge/Version-3.27.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 3.27.1](https://img.shields.io/badge/Version-3.27.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 Formance Private Regions Helm Chart
 
 ## Requirements
@@ -10,7 +10,7 @@ Formance Private Regions Helm Chart
 | file://../agent | agent | 2.X |
 | file://../core | core | 1.X |
 | oci://ghcr.io/formancehq/helm | connectivity-operator | 1.0.0-beta.6 |
-| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.4 |
+| oci://ghcr.io/formancehq/helm | ledger-operator | 3.0.0-rc.5 |
 | oci://ghcr.io/formancehq/helm | operator | 3.X |
 
 ## Maintainers
@@ -24,6 +24,10 @@ Formance Private Regions Helm Chart
 * <https://github.com/formancehq/helm/tree/main/charts/regions>
 
 ## Migration
+
+#### Ledger v3.0.0-rc.4 to rc.5
+
+The chart upgrades the Ledger Operator to RC.5 while keeping the implicit Ledger image and Stack profile at RC.4 so clusters can be upgraded one at a time. RC.4 to RC.5 requires a complete, operator-managed stop. Drain every RC.4 Ledger node and retain its WAL and data volumes before starting RC.5; do not run RC.4 and RC.5 voters together. The service gRPC revision remains 40, but clients reading aggregate volumes must upgrade with the servers because `AggregatedVolume.input` and `.output` now use `BigUint`. RC.5 cannot restore incremental backup artifacts from earlier RCs. Before upgrading the operator, stop it, finish backup Jobs, delete the old `BackupRun` and `Backup` resources, install the new CRDs, recreate `Backup` resources with the single `spec.schedule` string, and then start the new operator. Create and verify a new RC.5 checkpoint. Binary rollback to RC.4 closes when storage schema migration commits. Follow the [Ledger upgrade procedure](https://github.com/formancehq/ledger/blob/v3.0.0-rc.5/docs/ops/upgrades.md#rc4--rc5-peer-service-migration) and [Backup CRD migration](https://github.com/formancehq/ledger/blob/v3.0.0-rc.5/docs/ops/backup-restore.md#crd-migration-for-checkpoint-only-scheduling) before deploying this chart to an existing RC.4 cluster.
 
 #### Ledger v3.0.0-rc.3 to rc.4
 
@@ -107,7 +111,7 @@ Then configure it through the `global.licence.token` and `global.licence.cluster
 | agent.server.tls.enabled | bool | `true` |  |
 | agent.server.tls.insecureSkipVerify | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| ledger-operator.image.tag | string | `"v3.0.0-rc.4"` |  |
+| ledger-operator.image.tag | string | `"v3.0.0-rc.5"` |  |
 | ledger-operator.ledgerImage.tag | string | `"v3.0.0-rc.4"` |  |
 | nameOverride | string | `""` |  |
 | operator.fullnameOverride | string | `"operator"` |  |
