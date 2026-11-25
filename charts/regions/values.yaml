@@ -87,11 +87,11 @@ operator:
   operator-crds:
     create: false
 
-# Pin both image tags to the ledger-operator chart release (Ledger images are gated by operator release).
-# Keep explicit release tags until the upstream chart defaults are versioned.
+# Run the RC.5 operator while keeping the implicit Ledger image on RC.4.
+# Cluster image tags are advanced individually after the operator and CRDs migrate.
 ledger-operator:
   image:
-    tag: "v3.0.0-rc.4"
+    tag: "v3.0.0-rc.5"
 
   ledgerImage:
     tag: "v3.0.0-rc.4"
