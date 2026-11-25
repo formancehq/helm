@@ -35,8 +35,8 @@ yq -s -e '
 
 # The Deployment does not get them: config.additionalEnv is its own list.
 yq -s -e '
-  [.[] | select(.kind == "Deployment") | .spec.template.spec.containers[].env[]?.name]
-  | index("NODE_EXTRA_CA_CERTS") == null
+  [.[] | select(.kind == "Deployment") | [.spec.template.spec.containers[].env[]?.name]]
+  | length == 1 and (.[0] | index("NODE_EXTRA_CA_CERTS") == null)
 ' "$test_dir/output.yaml" >/dev/null
 
 # Without the value, the Job ends with the postgres URI as before.
