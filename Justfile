@@ -4,7 +4,7 @@ set positional-arguments
 default:
   @just --list
 
-pre-commit: helm-all test-signing-key test-membership-admin test-topology-spread-constraints test-portal-migration-env test-stargate-volumes template-readme
+pre-commit: helm-all test-signing-key test-membership-admin test-topology-spread-constraints test-portal-migration-env test-ledger-ui-migration-env test-stargate-volumes template-readme
 pc: pre-commit
 
 # Render-only fixtures reference a synthetic Secret; deployed defaults stay empty.
@@ -22,6 +22,9 @@ test-topology-spread-constraints:
 
 test-portal-migration-env:
   bash tests/portal-migration-env.sh
+
+test-ledger-ui-migration-env:
+  bash tests/ledger-ui-migration-env.sh
 
 test-stargate-volumes:
   bash tests/stargate-volumes.sh

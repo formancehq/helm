@@ -1,7 +1,7 @@
 # Formance cloudprem Helm chart
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cloudprem)](https://artifacthub.io/packages/search?repo=cloudprem)
-![Version: 6.12.0](https://img.shields.io/badge/Version-6.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 6.13.0](https://img.shields.io/badge/Version-6.13.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Formance control-plane
 
@@ -1035,6 +1035,7 @@ Dex:
 | ledger-ui.config.cookie.existingSecret | string | `"ledger-ui-secrets"` | is the name of the secret |
 | ledger-ui.config.cookie.secretKeys | object | `{"encryptionKey":"cookie"}` | is the key contained within the secret |
 | ledger-ui.config.environment | string | `"production"` | Ledger UI environment |
+| ledger-ui.config.migration.additionalEnv | list | `[]` | Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA. `config.additionalEnv` is not inherited by the migration job |
 | ledger-ui.config.migration.annotations | object | `{}` | Ledger UI job migration annotations Argo CD translate `pre-install,pre-upgrade` to: argocd.argoproj.io/hook: PreSync |
 | ledger-ui.config.migration.serviceAccount.annotations | object | `{}` |  |
 | ledger-ui.config.migration.serviceAccount.create | bool | `true` |  |

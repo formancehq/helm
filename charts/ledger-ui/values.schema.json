@@ -94,6 +94,9 @@
                 "migration": {
                     "type": "object",
                     "properties": {
+                        "additionalEnv": {
+                            "type": "array"
+                        },
                         "annotations": {
                             "type": "object"
                         },
