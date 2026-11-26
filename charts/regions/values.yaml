@@ -191,7 +191,7 @@ versions:
       auth: v2.6.3
       gateway: v2.5.0
       ledger: v2.4.18
-      # mcp: v0.3.0 #deprecated: Do not enable this module.
+      mcp: v0.3.0 #deprecated: Do not enable this module.
       orchestration: v2.7.1
       payments: v3.4.9
       reconciliation: v2.5.1

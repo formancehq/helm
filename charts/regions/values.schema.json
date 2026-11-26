@@ -475,6 +475,9 @@
                                 "ledger": {
                                     "type": "string"
                                 },
+                                "mcp": {
+                                    "type": "string"
+                                },
                                 "orchestration": {
                                     "type": "string"
                                 },
