@@ -43,6 +43,9 @@ spec:
             {{- include "core.env.common" . | nindent 12 }}
             {{- include "core.monitoring" . | nindent 12 }}
             {{- include "core.postgres.job.uri" . | nindent 12 }}
+            {{- with .Values.config.migration.additionalEnv }}
+            {{- tpl (toYaml .) $ | nindent 12 }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

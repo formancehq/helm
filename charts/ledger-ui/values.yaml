@@ -337,6 +337,8 @@ config:
     ttlSecondsAfterFinished: ""
     volumes: []
     volumeMounts: []
+    # -- Additional environment variables of the migration job, e.g. NODE_EXTRA_CA_CERTS for the database CA. `config.additionalEnv` is not inherited by the migration job
+    additionalEnv: []
 
   # -- PostgreSQL connection URL override (if not set, will be generated from global.postgresql)
   # @section -- Ledger UI configuration
